@@ -18,6 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MaexchenMenu"
+            android:label="@string/title_activity_maexchen_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".KingscupMenu"
+            android:label="@string/title_activity_kingscup_menu"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
