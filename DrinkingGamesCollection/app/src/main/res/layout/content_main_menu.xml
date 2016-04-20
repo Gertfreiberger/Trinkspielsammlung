@@ -15,5 +15,31 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="@string/mainmenu_headline"
+        android:id="@+id/headline"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="14pt"
+        android:textColor="#090909" />
+
+    <Button
+        android:layout_width="@dimen/mainmenu_button_width"
+        android:layout_height="@dimen/mainmenu_button_height"
+        android:text="@string/mainmenu_button_maexchen"
+        android:id="@+id/button_maexchen"
+        android:layout_below="@+id/headline"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:background="#da4c4c" />
+
+    <Button
+        android:layout_width="@dimen/mainmenu_button_width"
+        android:layout_height="@dimen/mainmenu_button_height"
+        android:text="@string/mainmenu_button_kingscup"
+        android:id="@+id/button_kingscup"
+        android:layout_marginTop="42dp"
+        android:background="#da4c4c"
+        android:layout_below="@+id/button_maexchen"
+        android:layout_alignStart="@+id/button_maexchen" />
+
 </RelativeLayout>

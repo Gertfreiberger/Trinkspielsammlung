@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">DrinkingGamesCollection</string>
     <string name="action_settings">Settings</string>
+
+    <!-- MainMenu strings -->
+    <string name="mainmenu_button_maexchen">Mäxchen</string>
+    <string name="mainmenu_button_kingscup">Kings Cup</string>
+    <string name="mainmenu_headline">Trinkspielsammlung</string>
+    <string name="title_activity_maexchen_menu">MaexchenMenu</string>
+    <string name="title_activity_kingscup_menu">KingscupMenu</string>
+
+
 </resources>
