@@ -10,4 +10,11 @@
     <string name="title_activity_kingscup_menu">KingscupMenu</string>
 
 
+    <!-- Mäxchen strings -->
+    <string name="maexchen_button_next">Weitergeben</string>
+    <string name="maexchen_button_reveal">Aufdecken</string>
+    <string name="maexchen_button_throw_again">Erneut Würfeln</string>
+    <string name="maexchen_button_throw">Glauben</string>
+    <string name="maexchen_headline">Mäxchen</string>
+
 </resources>
