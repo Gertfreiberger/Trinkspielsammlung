@@ -2,8 +2,6 @@ package wtfisandroid.drinkinggamescollection;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,8 +12,8 @@ import android.widget.Button;
 public class MainMenu extends AppCompatActivity implements View.OnClickListener {
 
 
-    private Button button_mainmenu_maexchen;
-    private Button button_mainmenu_kingscup;
+    private Button button_mainmenu_maexchen_;
+    private Button button_mainmenu_kingscup_;
 
 
     @Override
@@ -25,11 +23,11 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        button_mainmenu_maexchen = (Button) findViewById(R.id.button_maexchen);
-        button_mainmenu_kingscup = (Button) findViewById(R.id.button_kingscup);
+        button_mainmenu_maexchen_ = (Button) findViewById(R.id.button_maexchen);
+        button_mainmenu_kingscup_ = (Button) findViewById(R.id.button_kingscup);
 
-        button_mainmenu_maexchen.setOnClickListener(this);
-        button_mainmenu_kingscup.setOnClickListener(this);
+        button_mainmenu_maexchen_.setOnClickListener(this);
+        button_mainmenu_kingscup_.setOnClickListener(this);
     }
 
     @Override
@@ -59,12 +57,12 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
 
         switch(clicked_button.getId()) {
             case R.id.button_maexchen:
-                Intent intent_maexchen_menu = new Intent(this, MaexchenMenu.class);
+                Intent intent_maexchen_menu = new Intent(this, Maexchen.class);
                 startActivity(intent_maexchen_menu);
                 break;
 
             case R.id.button_kingscup:
-                Intent intent_kingscup_menu = new Intent(this, KingscupMenu.class);
+                Intent intent_kingscup_menu = new Intent(this, Kingscup.class);
                 startActivity(intent_kingscup_menu);
                 break;
 
