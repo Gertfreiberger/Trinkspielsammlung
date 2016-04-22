@@ -16,5 +16,7 @@
     <string name="maexchen_button_throw_again">Erneut Würfeln</string>
     <string name="maexchen_button_throw">Glauben</string>
     <string name="maexchen_headline">Mäxchen</string>
+    <string name="maexchen_rule_headline">Regeln</string>
+    <string name="maexchen_rules">Würfeln sie eine</string>
 
 </resources>

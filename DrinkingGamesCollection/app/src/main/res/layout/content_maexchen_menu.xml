@@ -15,7 +15,7 @@
     <Button
         android:layout_width="@dimen/maexchen_button_width"
         android:layout_height="@dimen/maexchen_button_height"
-        android:text="@string/maexchen_button_throw_again"
+        android:text="@string/maexchen_button_reveal"
         android:id="@+id/maexchen_button_left"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
@@ -24,7 +24,7 @@
     <Button
         android:layout_width="@dimen/maexchen_button_width"
         android:layout_height="@dimen/maexchen_button_height"
-        android:text="@string/maexchen_button_throw_again"
+        android:text="@string/maexchen_button_next"
         android:id="@+id/maexchen_button_right"
         android:layout_alignTop="@+id/maexchen_button_left"
         android:layout_toEndOf="@+id/maexchen_button_left"
@@ -40,7 +40,7 @@
         android:layout_above="@+id/maexchen_button_left"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="45dp"
-        android:textColor="@color/abc_background_cache_hint_selector_material_dark" />
+        android:textColor="#090909" />
 
     <ImageView
         android:layout_width="@dimen/image_view_dice_size"
@@ -62,9 +62,9 @@
         android:textSize="30dip"
         android:text="@string/maexchen_headline"
         android:id="@+id/maexchen_textview_headline"
+        android:textColor="#090909"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/abc_background_cache_hint_selector_material_dark" />
+        android:layout_alignEnd="@+id/maexchen_textview_dice" />
 
     <ImageButton
         android:layout_width="wrap_content"

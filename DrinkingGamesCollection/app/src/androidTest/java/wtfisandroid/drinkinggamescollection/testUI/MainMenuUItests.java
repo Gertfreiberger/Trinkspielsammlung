@@ -34,12 +34,4 @@ public class MainMenuUItests extends ActivityInstrumentationTestCase2<MainMenu> 
         mySolo.clickOnButton(button_test.getText().toString());
         mySolo.goBack();
     }
-
-
-
-
-
-
-
-
 }

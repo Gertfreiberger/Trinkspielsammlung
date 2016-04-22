@@ -25,7 +25,8 @@
         <activity
             android:name=".Kingscup"
             android:label="@string/title_activity_kingscup_menu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MaexchenRules"></activity>
     </application>
 
 </manifest>
