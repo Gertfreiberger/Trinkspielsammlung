@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,26 +8,29 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MaexchenRules">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="wtfisandroid.drinkinggamescollection.MaexchenRules"
+    tools:showIn="@layout/activity_maexchen_rules">
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/maexchen_rule_headline"
-        android:id="@+id/maexchen_textView_rule_headline"
-        android:textSize="30dip"
+        android:id="@+id/maexchen_textview_headline"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textColor="#0c0c0c" />
+        android:textSize="30dip"
+        android:textColor="#070707" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/maexchen_rules"
-        android:id="@+id/maexchen_textView_rules"
-        android:layout_below="@+id/maexchen_textView_rule_headline"
+        android:id="@+id/maexchen_textview_rules"
+        android:layout_below="@+id/maexchen_textview_headline"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
-        android:textColor="#0a0909"
-        android:textSize="18dip" />
+        android:layout_marginTop="48dp"
+        android:textSize="20dip"
+        android:textColor="#070707" />
 </RelativeLayout>

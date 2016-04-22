@@ -31,8 +31,8 @@ public class MaexchenUItests extends ActivityInstrumentationTestCase2<Maexchen> 
 
     public void testMaexchenButtonHelp() {
 
-        ImageButton image_button_help = (ImageButton) myMaexchenSolo.getCurrentActivity().findViewById(R.id.maexchen_button_help);
-        myMaexchenSolo.clickOnImageButton(image_button_help.getId());
+        Button image_button_help = (Button) myMaexchenSolo.getCurrentActivity().findViewById(R.id.maexchen_button_help);
+        myMaexchenSolo.clickOnButton(image_button_help.getText().toString());
         myMaexchenSolo.goBack();
     }
 

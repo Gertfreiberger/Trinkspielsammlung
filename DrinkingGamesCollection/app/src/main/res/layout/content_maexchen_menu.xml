@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Maexchen"
-    tools:showIn="@layout/activity_maexchen_menu">
+    tools:showIn="@layout/activity_maexchen_menu"
+    android:visibility="visible">
 
     <Button
         android:layout_width="@dimen/maexchen_button_width"
@@ -66,11 +67,15 @@
         android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/maexchen_textview_dice" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:layout_width="40dip"
+        android:layout_height="40dip"
         android:id="@+id/maexchen_button_help"
         android:layout_alignBottom="@+id/maexchen_textview_headline"
-        android:layout_alignEnd="@+id/maexchen_button_right" />
+        android:layout_alignEnd="@+id/maexchen_button_right"
+        android:background="@mipmap/dice_1"
+        android:text="@string/maexchen_button_help"
+        android:textColor="#080808"
+        android:textSize="0dip" />
 
 </RelativeLayout>

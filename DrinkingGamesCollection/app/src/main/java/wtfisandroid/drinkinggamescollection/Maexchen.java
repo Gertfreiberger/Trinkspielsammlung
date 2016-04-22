@@ -20,7 +20,7 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener 
     private ImageView dice_right_;
     private Button button_left_;
     private Button button_right_;
-    private ImageButton button_help_;
+    private Button button_help_;
     private StatesMaexchen state_maexchen_;
     private TextView dice_result_;
     private Random number_generator_;
@@ -40,7 +40,7 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener 
 
         button_left_ = (Button) findViewById(R.id.maexchen_button_left);
         button_right_ = (Button) findViewById(R.id.maexchen_button_right);
-        button_help_ = (ImageButton) findViewById(R.id.maexchen_button_help);
+        button_help_ = (Button) findViewById(R.id.maexchen_button_help);
         dice_left_ = (ImageView) findViewById(R.id.imageView_dice_left);
         dice_right_ = (ImageView) findViewById(R.id.imageView_dice_right);
         dice_result_ = (TextView) findViewById(R.id.maexchen_textview_dice);
@@ -49,7 +49,6 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener 
         Bitmap right_dice = BitmapFactory.decodeResource(getResources(),R.mipmap.dice_2);
         dice_left_.setImageBitmap(left_dice);
         dice_right_.setImageBitmap(right_dice);
-        button_help_.setImageBitmap(left_dice);
         
         button_help_.setOnClickListener(this);
         button_left_.setOnClickListener(this);
@@ -61,7 +60,8 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener 
 
         switch (clicked_button.getId()) {
             case R.id.maexchen_button_help:
-                startActivity(new Intent(this, MaexchenRules.class));
+                Intent rule_page = new Intent(this, MaexchenRules.class);
+                startActivity(rule_page);
                 break;
 
             case R.id.maexchen_button_left:
