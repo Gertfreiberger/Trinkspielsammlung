@@ -35,7 +35,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test Test Test"
+        android:text="@string/maexchen_textView_result_init"
         android:id="@+id/maexchen_textview_dice"
         android:textSize="20dip"
         android:layout_above="@+id/maexchen_button_left"
