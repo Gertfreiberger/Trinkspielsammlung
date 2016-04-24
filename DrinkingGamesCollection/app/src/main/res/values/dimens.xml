@@ -9,6 +9,7 @@
 
     <!-- Mäxchen -->
     <dimen name="image_view_dice_size">80dip</dimen>
+    <dimen name="image_view_cup_size">250dip</dimen>
     <dimen name="maexchen_button_width">160dip</dimen>
     <dimen name="maexchen_button_height">70dip</dimen>
     <dimen name="maexchen_button_margin">30dp</dimen>
