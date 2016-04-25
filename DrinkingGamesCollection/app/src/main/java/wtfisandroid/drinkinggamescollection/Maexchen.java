@@ -18,6 +18,7 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener 
 
     private ImageView dice_left_;
     private ImageView dice_right_;
+    private ImageView cup_;
     private Button button_left_;
     private Button button_right_;
     private Button button_help_;
@@ -41,9 +42,13 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener 
         button_left_ = (Button) findViewById(R.id.maexchen_button_left);
         button_right_ = (Button) findViewById(R.id.maexchen_button_right);
         button_help_ = (Button) findViewById(R.id.maexchen_button_help);
+
         dice_left_ = (ImageView) findViewById(R.id.imageView_dice_left);
         dice_right_ = (ImageView) findViewById(R.id.imageView_dice_right);
+        cup_ = (ImageView) findViewById(R.id.maexchen_imageView_cup);
+
         dice_result_ = (TextView) findViewById(R.id.maexchen_textview_dice);
+
         number_generator_ = new Random();
         Bitmap left_dice = BitmapFactory.decodeResource(getResources(),R.mipmap.dice_1);
         Bitmap right_dice = BitmapFactory.decodeResource(getResources(),R.mipmap.dice_2);
@@ -84,11 +89,13 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener 
             case FIRST_THROW:
                 state_maexchen_ = StatesMaexchen.THROW_RESULT;
                 button_left_.setText(R.string.maexchen_button_throw_again);
+                cup_.setVisibility(View.INVISIBLE);
                 break;
 
             case THROW_RESULT:
                 state_maexchen_ = StatesMaexchen.SECOND_THROW;
                 button_left_.setVisibility(View.INVISIBLE);
+                cup_.setVisibility(View.VISIBLE);
                 break;
 
             case TRUST:
