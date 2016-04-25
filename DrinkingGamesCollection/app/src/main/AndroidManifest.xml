@@ -21,7 +21,9 @@
         <activity
             android:name=".Maexchen"
             android:label="@string/title_activity_maexchen_menu"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboard|keyboardHidden|orientation"/>
         <activity
             android:name=".Kingscup"
             android:label="@string/title_activity_kingscup_menu"

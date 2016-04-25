@@ -68,6 +68,7 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
         dice_image_left_ = (ImageView) findViewById(R.id.imageView_dice_left);
         dice_image_right_ = (ImageView) findViewById(R.id.imageView_dice_right);
         dice_result_ = (TextView) findViewById(R.id.maexchen_textview_dice);
+        dice_result_.setVisibility(View.INVISIBLE );
 
         dice_left_.wuerfeln(dice_image_left_);
         dice_right_.wuerfeln(dice_image_right_);
@@ -124,6 +125,7 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
                 state_maexchen_ = StatesMaexchen.THROW_RESULT;
                 button_left_.setText(R.string.maexchen_button_throw_again);
                 cup_.setVisibility(View.INVISIBLE);
+                dice_result_.setVisibility(View.VISIBLE);
                 break;
 
             case THROW_RESULT:
@@ -131,6 +133,7 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
                 state_maexchen_ = StatesMaexchen.SECOND_THROW;
                 button_left_.setVisibility(View.INVISIBLE);
                 cup_.setVisibility(View.VISIBLE);
+                dice_result_.setVisibility(View.INVISIBLE);
                 break;
 
             case TRUST:
@@ -138,6 +141,9 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
                 state_maexchen_ = StatesMaexchen.FIRST_THROW;
                 button_left_.setText(R.string.maexchen_button_reveal);
                 button_right_.setText(R.string.maexchen_button_next);
+                dice_result_.setVisibility(View.INVISIBLE);
+                cup_.setVisibility(View.VISIBLE);
+
                 break;
 
             default:
@@ -160,6 +166,8 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
                 state_maexchen_ = StatesMaexchen.TRUST;
                 button_left_.setText(R.string.maexchen_button_throw);
                 button_right_.setText(R.string.maexchen_button_reveal);
+                cup_.setVisibility(View.VISIBLE);
+                dice_result_.setVisibility(View.INVISIBLE);
                 break;
 
             case SECOND_THROW:
@@ -174,7 +182,9 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
                 onPause();
                 state_maexchen_ = StatesMaexchen.UNCOVER;
                 button_left_.setVisibility(View.INVISIBLE);
-                button_right_.setText(R.string.maexchen_button_next);
+                button_right_.setText(R.string.maexchen_button_new_turn);
+                cup_.setVisibility(View.INVISIBLE);
+                dice_result_.setVisibility(View.VISIBLE);
                 break;
 
             case UNCOVER:
@@ -182,7 +192,8 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
                 state_maexchen_ = StatesMaexchen.FIRST_THROW;
                 button_left_.setVisibility(View.VISIBLE);
                 button_left_.setText(R.string.maexchen_button_reveal);
-
+                cup_.setVisibility(View.VISIBLE);
+                dice_result_.setVisibility(View.INVISIBLE);
                 break;
 
             default:
