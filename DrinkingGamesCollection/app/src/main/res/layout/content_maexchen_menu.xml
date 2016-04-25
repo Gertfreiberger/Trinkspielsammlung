@@ -10,7 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Maexchen"
-    android:visibility="visible"
     tools:showIn="@layout/activity_maexchen_menu"
     android:background="@color/green">
 
@@ -40,7 +39,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test Test Test"
+        android:text="@string/maexchen_textView_result_init"
         android:id="@+id/maexchen_textview_dice"
         android:textSize="20dip"
         android:layout_below="@+id/maexchen_imageView_cup"
@@ -65,8 +64,6 @@
         android:layout_marginLeft = "@dimen/maexchen_button_margin"
         android:layout_below="@+id/maexchen_textview_dice"
         android:layout_alignStart="@+id/imageView_dice_right" />
-
-
 
     <ImageView
         android:layout_width="@dimen/image_view_dice_size"

@@ -20,5 +20,6 @@
     <string name="maexchen_rules">Würfeln sie eine</string>
     <string name="title_activity_maexchen_rules">MaexchenRules</string>
     <string name="maexchen_button_help">Hilfe</string>
+    <string name="maexchen_textView_result_init">  </string>
 
 </resources>

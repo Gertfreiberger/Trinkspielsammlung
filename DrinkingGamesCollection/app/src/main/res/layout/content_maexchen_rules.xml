@@ -20,7 +20,6 @@
         android:text="@string/maexchen_rule_headline"
         android:id="@+id/maexchen_textview_headline"
         android:layout_alignParentTop="true"
-        android:layout_align
         android:textSize="30dip"
         android:textColor="#070707"
         android:layout_gravity="center_horizontal" />
