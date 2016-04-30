@@ -1,6 +1,7 @@
 package wtfisandroid.drinkinggamescollection.testUI;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -52,11 +53,31 @@ public class MaexchenUItests extends ActivityInstrumentationTestCase2<Maexchen> 
         assert(view_result.getText().toString().equals(R.string.maexchen_textView_result_init) == true);
     }
 
-    public void testAcceleotmeterDisable() {
-        TextView view_result = (TextView) myMaexchenSolo.getCurrentActivity().findViewById(R.id.maexchen_textview_dice);
-        Button button_left = (Button) myMaexchenSolo.getCurrentActivity().findViewById(R.id.maexchen_button_left);
-        myMaexchenSolo.clickOnButton(button_left.getText().toString());
+    public void testButtonTextAndVisible() {
 
+        Button button_left = (Button) myMaexchenSolo.getCurrentActivity().findViewById(R.id.maexchen_button_left);
+        Button button_right = (Button) myMaexchenSolo.getCurrentActivity().findViewById(R.id.maexchen_button_right);
+        assert(button_left.getText().toString().equals(R.string.maexchen_button_reveal) == false);
+        assert(button_right.getText().toString().equals(R.string.maexchen_button_next) == false);
+
+        myMaexchenSolo.clickOnButton(button_left.getText().toString());
+        assert(button_left.getText().toString().equals(R.string.maexchen_button_throw_again) == false);
+        assert(button_right.getText().toString().equals(R.string.maexchen_button_next) == false);
+
+        myMaexchenSolo.sleep(300);
+        myMaexchenSolo.clickOnButton(button_left.getText().toString());
+        assert(button_right.getText().toString().equals(R.string.maexchen_button_next) == false);
+        assert(button_left.getVisibility() == View.VISIBLE);
+
+        myMaexchenSolo.sleep(300);
+        myMaexchenSolo.clickOnButton(button_right.getText().toString());
+        assert(button_left.getText().toString().equals(R.string.maexchen_button_throw) == false);
+        assert(button_right.getText().toString().equals(R.string.maexchen_button_reveal) == false);
+
+        myMaexchenSolo.sleep(300);
+        myMaexchenSolo.clickOnButton(button_right.getText().toString());
+        assert(button_right.getText().toString().equals(R.string.maexchen_button_new_turn) == false);
+        assert(button_left.getVisibility() == View.VISIBLE);
     }
 
 }

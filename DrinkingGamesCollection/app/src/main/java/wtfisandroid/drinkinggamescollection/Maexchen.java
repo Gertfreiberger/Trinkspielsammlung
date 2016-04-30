@@ -9,6 +9,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +34,7 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
     private TextView dice_result_;
     private Dice dice_left_;
     private Dice dice_right_;
+    private MediaPlayer sound_dices_;
     private SensorManager sensor_manager_;
     private Sensor sensor_accelerometer_;
     private long last_update_;
@@ -65,19 +67,18 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
 
         dice_left_ = new Dice(pictures);
         dice_right_ = new Dice(pictures);
+        sound_dices_ = MediaPlayer.create(this,R.raw.throwing_dice_3_seconds);
         dice_image_left_ = (ImageView) findViewById(R.id.imageView_dice_left);
         dice_image_right_ = (ImageView) findViewById(R.id.imageView_dice_right);
         dice_result_ = (TextView) findViewById(R.id.maexchen_textview_dice);
         dice_result_.setVisibility(View.INVISIBLE );
 
-        dice_left_.wuerfeln(dice_image_left_);
-        dice_right_.wuerfeln(dice_image_right_);
-        showThrowResult(dice_left_.getLastThrow() + 1, dice_right_.getLastThrow() + 1);
+        throwDices();
 
         last_update_ = 0;
         sensor_manager_ = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor_accelerometer_ = sensor_manager_.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensor_manager_.registerListener(this, sensor_accelerometer_, SensorManager.SENSOR_DELAY_NORMAL);
+        sensor_manager_.registerListener(this, sensor_accelerometer_, SensorManager.SENSOR_DELAY_GAME);
         
         button_help_.setOnClickListener(this);
         button_left_.setOnClickListener(this);
@@ -91,6 +92,12 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
         pictures.add(BitmapFactory.decodeResource(getResources(), R.mipmap.dice_4));
         pictures.add(BitmapFactory.decodeResource(getResources(), R.mipmap.dice_5));
         pictures.add(BitmapFactory.decodeResource(getResources(), R.mipmap.dice_6));
+    }
+
+    public void throwDices() {
+        dice_left_.wuerfeln(dice_image_left_);
+        dice_right_.wuerfeln(dice_image_right_);
+        showThrowResult(dice_left_.getLastThrow() + 1, dice_right_.getLastThrow() + 1);
     }
 
     // For the Buttons events
@@ -121,7 +128,7 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
 
         switch (state_maexchen_) {
             case FIRST_THROW:
-                onPause();
+                sound_dices_.pause();
                 state_maexchen_ = StatesMaexchen.THROW_RESULT;
                 button_left_.setText(R.string.maexchen_button_throw_again);
                 cup_.setVisibility(View.INVISIBLE);
@@ -192,6 +199,7 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
                 state_maexchen_ = StatesMaexchen.FIRST_THROW;
                 button_left_.setVisibility(View.VISIBLE);
                 button_left_.setText(R.string.maexchen_button_reveal);
+                button_left_.setText(R.string.maexchen_button_next);
                 cup_.setVisibility(View.VISIBLE);
                 dice_result_.setVisibility(View.INVISIBLE);
                 break;
@@ -220,11 +228,16 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
                 float speed = Math.abs(x_acceleration + y_acceleration + z_acceleration - last_x_ -last_y_ -last_z_);
 
                 if(speed > SHAKE_THRESHOLD_) {
-                    dice_left_.wuerfeln(dice_image_left_);
-                    dice_right_.wuerfeln(dice_image_right_);
-                    showThrowResult(dice_left_.getLastThrow() + 1, dice_right_.getLastThrow() + 1);
-                }
+                    throwDices();
 
+                    if(!sound_dices_.isLooping()) {
+                        sound_dices_.setLooping(true);
+                        sound_dices_.start();
+                    }
+                }
+                else {
+                    sound_dices_.setLooping(false);
+                }
                 last_x_ = x_acceleration;
                 last_y_ = y_acceleration;
                 last_z_ = z_acceleration;
@@ -243,7 +256,7 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
 
     public void onResume() {
         super.onResume();
-        sensor_manager_.registerListener(this, sensor_accelerometer_, SensorManager.SENSOR_DELAY_NORMAL);
+        sensor_manager_.registerListener(this, sensor_accelerometer_, SensorManager.SENSOR_DELAY_GAME);
     }
 
     public void showThrowResult(int left_throw,int right_throw) {

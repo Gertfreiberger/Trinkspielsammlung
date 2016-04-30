@@ -54,7 +54,8 @@
         android:text="@string/maexchen_button_reveal"
         android:id="@+id/maexchen_button_left"
         android:layout_below="@+id/maexchen_textview_dice"
-        android:layout_alignEnd="@+id/imageView_dice_left" />
+        android:layout_alignEnd="@+id/imageView_dice_left"
+        android:background="#b30c0c" />
 
     <Button
         android:layout_width="@dimen/maexchen_button_width"
@@ -63,7 +64,8 @@
         android:id="@+id/maexchen_button_right"
         android:layout_marginLeft = "@dimen/maexchen_button_margin"
         android:layout_below="@+id/maexchen_textview_dice"
-        android:layout_alignStart="@+id/imageView_dice_right" />
+        android:layout_alignStart="@+id/imageView_dice_right"
+        android:background="#b30c0c" />
 
     <ImageView
         android:layout_width="@dimen/image_view_dice_size"
@@ -73,6 +75,7 @@
         android:layout_marginLeft="45dp"
         android:layout_alignTop="@+id/maexchen_imageView_cup"
         android:layout_alignStart="@+id/maexchen_imageView_cup" />
+
     <ImageView
         android:layout_width="@dimen/image_view_dice_size"
         android:layout_height="@dimen/image_view_dice_size"
