@@ -199,7 +199,7 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
                 state_maexchen_ = StatesMaexchen.FIRST_THROW;
                 button_left_.setVisibility(View.VISIBLE);
                 button_left_.setText(R.string.maexchen_button_reveal);
-                button_left_.setText(R.string.maexchen_button_next);
+                button_right_.setText(R.string.maexchen_button_next);
                 cup_.setVisibility(View.VISIBLE);
                 dice_result_.setVisibility(View.INVISIBLE);
                 break;
