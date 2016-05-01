@@ -262,7 +262,7 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
     public void showThrowResult(int left_throw,int right_throw) {
 
         if(left_throw == right_throw) {
-            dice_result_.setText(Integer.toString(left_throw) + "ser pasch");
+            dice_result_.setText(Integer.toString(left_throw) + "er pasch");
         }
         else if((left_throw == 1 && right_throw == 2) || (left_throw == 2 && right_throw == 1)) {
             dice_result_.setText("Mäxchen");

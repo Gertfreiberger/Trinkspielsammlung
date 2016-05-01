@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:text="@string/maexchen_textView_result_init"
         android:id="@+id/maexchen_textview_dice"
-        android:textSize="20dip"
+        android:textSize="25dip"
         android:layout_below="@+id/maexchen_imageView_cup"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
@@ -55,7 +55,9 @@
         android:id="@+id/maexchen_button_left"
         android:layout_below="@+id/maexchen_textview_dice"
         android:layout_alignEnd="@+id/imageView_dice_left"
-        android:background="#b30c0c" />
+        android:background="#b30c0c"
+        android:textSize="@dimen/maexchen_button_text_size"
+        android:textColor="#fcf9f9" />
 
     <Button
         android:layout_width="@dimen/maexchen_button_width"
@@ -65,7 +67,9 @@
         android:layout_marginLeft = "@dimen/maexchen_button_margin"
         android:layout_below="@+id/maexchen_textview_dice"
         android:layout_alignStart="@+id/imageView_dice_right"
-        android:background="#b30c0c" />
+        android:background="#b30c0c"
+        android:textSize="@dimen/maexchen_button_text_size"
+        android:textColor="#fcf9f9" />
 
     <ImageView
         android:layout_width="@dimen/image_view_dice_size"
@@ -92,7 +96,8 @@
         android:layout_below="@id/maexchen_textview_headline"
         android:layout_centerHorizontal="true"
 
-        android:src="@mipmap/whole_cup" />
+        android:src="@mipmap/whole_cup"
+        android:clickable="false" />
 
 
 </RelativeLayout>

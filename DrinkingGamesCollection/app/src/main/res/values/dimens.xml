@@ -14,4 +14,5 @@
     <dimen name="maexchen_button_width">160dip</dimen>
     <dimen name="maexchen_button_height">70dip</dimen>
     <dimen name="maexchen_button_margin">30dp</dimen>
+    <dimen name="maexchen_button_text_size">18dip</dimen>
 </resources>
