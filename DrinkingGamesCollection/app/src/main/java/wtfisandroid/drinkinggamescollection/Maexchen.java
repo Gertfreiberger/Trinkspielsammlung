@@ -62,6 +62,7 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
         button_help_ = (Button) findViewById(R.id.maexchen_button_help);
         cup_ = (ImageView) findViewById(R.id.maexchen_imageView_cup);
 
+
         ArrayList<Bitmap> pictures = new ArrayList<Bitmap>();
         createDicePictures(pictures);
 
@@ -83,6 +84,7 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
         button_help_.setOnClickListener(this);
         button_left_.setOnClickListener(this);
         button_right_.setOnClickListener(this);
+        cup_.setOnClickListener(this);
     }
 
     public void createDicePictures(ArrayList<Bitmap> pictures) {
@@ -103,9 +105,8 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
     // For the Buttons events
 
     public void onClick(View v) {
-        Button clicked_button = (Button) v;
 
-        switch (clicked_button.getId()) {
+        switch (v.getId()) {
             case R.id.maexchen_button_help:
                 Intent rule_page = new Intent(this, MaexchenRules.class);
                 startActivity(rule_page);
@@ -119,33 +120,44 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
                 buttonRightClicked();
                 break;
 
+            case R.id.maexchen_imageView_cup:
+                if(state_maexchen_ == StatesMaexchen.FIRST_THROW || state_maexchen_ == StatesMaexchen.SECOND_THROW) {
+                    throwDices();
+                    if(!sound_dices_.isPlaying()) {
+                        sound_dices_.seekTo(0);
+                        sound_dices_.start();
+                    }
+                }
+                break;
+
             default:
 
         }
     }
 
+
     public void buttonLeftClicked() {
 
         switch (state_maexchen_) {
             case FIRST_THROW:
-                sound_dices_.pause();
                 state_maexchen_ = StatesMaexchen.THROW_RESULT;
+                onPause();
                 button_left_.setText(R.string.maexchen_button_throw_again);
                 cup_.setVisibility(View.INVISIBLE);
                 dice_result_.setVisibility(View.VISIBLE);
                 break;
 
             case THROW_RESULT:
-                onResume();
                 state_maexchen_ = StatesMaexchen.SECOND_THROW;
+                onResume();
                 button_left_.setVisibility(View.INVISIBLE);
                 cup_.setVisibility(View.VISIBLE);
                 dice_result_.setVisibility(View.INVISIBLE);
                 break;
 
             case TRUST:
-                onResume();
                 state_maexchen_ = StatesMaexchen.FIRST_THROW;
+                onResume();
                 button_left_.setText(R.string.maexchen_button_reveal);
                 button_right_.setText(R.string.maexchen_button_next);
                 dice_result_.setVisibility(View.INVISIBLE);
@@ -169,7 +181,6 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
                 break;
 
             case THROW_RESULT:
-                onPause();
                 state_maexchen_ = StatesMaexchen.TRUST;
                 button_left_.setText(R.string.maexchen_button_throw);
                 button_right_.setText(R.string.maexchen_button_reveal);
@@ -186,7 +197,6 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
                 break;
 
             case TRUST:
-                onPause();
                 state_maexchen_ = StatesMaexchen.UNCOVER;
                 button_left_.setVisibility(View.INVISIBLE);
                 button_right_.setText(R.string.maexchen_button_new_turn);
@@ -195,8 +205,8 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
                 break;
 
             case UNCOVER:
-                onResume();
                 state_maexchen_ = StatesMaexchen.FIRST_THROW;
+                onResume();
                 button_left_.setVisibility(View.VISIBLE);
                 button_left_.setText(R.string.maexchen_button_reveal);
                 button_right_.setText(R.string.maexchen_button_next);
@@ -256,7 +266,9 @@ public class Maexchen extends AppCompatActivity implements View.OnClickListener,
 
     public void onResume() {
         super.onResume();
-        sensor_manager_.registerListener(this, sensor_accelerometer_, SensorManager.SENSOR_DELAY_GAME);
+        if(state_maexchen_ == StatesMaexchen.FIRST_THROW || state_maexchen_ == StatesMaexchen.SECOND_THROW) {
+            sensor_manager_.registerListener(this, sensor_accelerometer_, SensorManager.SENSOR_DELAY_GAME);
+        }
     }
 
     public void showThrowResult(int left_throw,int right_throw) {

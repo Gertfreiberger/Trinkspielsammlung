@@ -13,7 +13,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="wtfisandroid.drinkinggamescollection.MaexchenRules"
     tools:showIn="@layout/activity_maexchen_rules"
-    android:background="@color/green">
+    android:background="@color/colorGreen">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,9 +27,9 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical"
             android:text="@string/maexchen_rule_headline"
-            android:id="@+id/maexchen_textview_headline"
+            android:id="@+id/maexchen_textview_headline_rules"
             android:layout_centerHorizontal="true"
-            android:textSize="30dip"
+            android:textSize="30sp"
             android:textColor="#070707"
             android:layout_weight="0.79"
             android:layout_gravity="center_horizontal" />
@@ -43,7 +43,7 @@
             android:layout_below="@+id/maexchen_textview_headline"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:textSize="20dip"
+            android:textSize="20sp"
             android:textColor="#070707" />
 
     </LinearLayout>
