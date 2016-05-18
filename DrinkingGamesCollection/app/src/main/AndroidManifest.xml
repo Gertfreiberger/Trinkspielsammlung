@@ -21,7 +21,9 @@
         <activity
             android:name=".Maexchen"
             android:label="@string/title_activity_maexchen_menu"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboard|keyboardHidden|orientation"/>
         <activity
             android:name=".Kingscup"
             android:label="@string/title_activity_kingscup_menu"
@@ -33,6 +35,11 @@
         <activity
             android:name=".Pyramid"
             android:label="@string/title_activity_pyramid"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".MaexchenRules"
+            android:label="@string/title_activity_maexchen_rules"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
