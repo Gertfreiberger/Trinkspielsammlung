@@ -25,6 +25,14 @@
         <activity
             android:name=".Kingscup"
             android:label="@string/title_activity_kingscup_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PolnischesTrinkspiel"
+            android:label="@string/title_activity_polnisches_trinkspiel"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Pyramid"
+            android:label="@string/title_activity_pyramid"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
