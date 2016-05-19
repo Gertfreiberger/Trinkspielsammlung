@@ -38,6 +38,8 @@
         <item>Allgmein</item>
         <item>Pyramide</item>
         <item>Mäxchen</item>
+        <item>Kingscup</item>
+        <item>Polnisches Trinkspiel</item>
     </string-array>
 
     <string-array name="pyramid_rounds">
