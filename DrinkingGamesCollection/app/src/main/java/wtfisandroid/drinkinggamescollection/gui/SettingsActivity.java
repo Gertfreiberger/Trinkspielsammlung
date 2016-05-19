@@ -29,14 +29,14 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
 	private SharedPreferences sharedPref;
 	private Utilities utilities;
+	private String currentLanguage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		utilities = new Utilities(getApplicationContext());
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		String currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
-		utilities.setLanguage(currentLanguage);
+		currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
 	}
 
 	/**
@@ -54,6 +54,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 	 */
 	@Override
 	public void onBuildHeaders(List<Header> target) {
+		utilities.setLanguage(currentLanguage);
 		loadHeadersFromResource(R.xml.options_header, target);
 		super.onBuildHeaders(target);
 	}

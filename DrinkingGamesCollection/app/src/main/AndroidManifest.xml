@@ -45,6 +45,16 @@
         </activity>
         <activity
             android:name=".gui.game.pyramid.PyramidActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".gui.game.pyramid.PyramidSecondRoundActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".gui.game.pyramid.PyramidFinalRound"
+            android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

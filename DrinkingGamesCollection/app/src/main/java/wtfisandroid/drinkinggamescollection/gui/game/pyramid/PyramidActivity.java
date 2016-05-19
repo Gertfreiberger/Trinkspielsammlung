@@ -88,12 +88,12 @@ public class PyramidActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pyramid);
         utilities = new Utilities(getApplicationContext());
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
         utilities.setLanguage(currentLanguage);
         resources = getResources();
+        setContentView(R.layout.content_pyramid_activity);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false)

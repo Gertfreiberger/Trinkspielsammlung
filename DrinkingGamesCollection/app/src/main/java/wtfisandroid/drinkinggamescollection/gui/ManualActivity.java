@@ -36,13 +36,12 @@ public class ManualActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_manual);
 		ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-
 		utilities = new Utilities(getApplicationContext());
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		String currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
 		utilities.setLanguage(currentLanguage);
+		setContentView(R.layout.activity_manual);
 		TabsPagerAdapter mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 		viewPager.setAdapter(mAdapter);
 		Random rand = new Random();
