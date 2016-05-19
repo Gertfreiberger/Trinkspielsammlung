@@ -5,6 +5,8 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="mainmenu_button_height">40dp</dimen>
     <dimen name="mainmenu_button_width">160dp</dimen>
+    <dimen name="help_button_size">30dp</dimen>
+    <dimen name="textsize_zero">0sp</dimen>
 
 
     <!-- Mäxchen -->
@@ -15,4 +17,13 @@
     <dimen name="maexchen_button_height">70dp</dimen>
     <dimen name="maexchen_button_margin">30dp</dimen>
     <dimen name="maexchen_button_textsize">18sp</dimen>
+
+    <!-- Polnisches Trinkspiel -->
+
+    <dimen name="polnisch_player_name_size">18sp</dimen>
+    <dimen name="polnisch_symbol_size">30sp</dimen>
+    <dimen name="polnisch_symbol_button_high">50dp</dimen>
+    <dimen name="polnisch_start_button_width">90dp</dimen>
+    <dimen name="polnisch_edit_field_width">140dp</dimen>
+    <dimen name="polnisch_margin_text_view">10dp</dimen>
 </resources>
