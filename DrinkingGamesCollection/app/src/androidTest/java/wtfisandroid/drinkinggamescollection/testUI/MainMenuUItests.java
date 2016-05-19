@@ -2,7 +2,9 @@ package wtfisandroid.drinkinggamescollection.testUI;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
+
 import com.robotium.solo.Solo;
+
 import wtfisandroid.drinkinggamescollection.MainMenu;
 import wtfisandroid.drinkinggamescollection.R;
 
