@@ -53,12 +53,4 @@ public class MainMenuUItests extends ActivityInstrumentationTestCase2<MainMenu> 
         button_test = (Button) mySolo.getCurrentActivity().findViewById(R.id.button_close);
         mySolo.clickOnButton(button_test.getText().toString());
     }
-
-
-
-
-
-
-
-
 }

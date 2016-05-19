@@ -3,6 +3,16 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="mainmenu_button_height">40dip</dimen>
-    <dimen name="mainmenu_button_width">160dip</dimen>
+    <dimen name="mainmenu_button_height">40dp</dimen>
+    <dimen name="mainmenu_button_width">160dp</dimen>
+
+
+    <!-- Mäxchen -->
+    <dimen name="image_view_dice_size">80dp</dimen>
+    <dimen name="image_view_cup_height">300dp</dimen>
+    <dimen name="image_view_cup_width">250dp</dimen>
+    <dimen name="maexchen_button_width">160dp</dimen>
+    <dimen name="maexchen_button_height">70dp</dimen>
+    <dimen name="maexchen_button_margin">30dp</dimen>
+    <dimen name="maexchen_button_textsize">18sp</dimen>
 </resources>

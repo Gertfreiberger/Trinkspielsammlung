@@ -10,6 +10,93 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Maexchen"
-    tools:showIn="@layout/activity_maexchen_menu">
+    tools:showIn="@layout/activity_maexchen_menu"
+    android:background="@color/colorGreen">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="@string/maexchen_headline"
+        android:id="@+id/maexchen_textview_headline"
+        android:textColor="#090909"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+    <Button
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:id="@+id/maexchen_button_help"
+        android:background="@mipmap/question_mark"
+        android:text="@string/maexchen_button_help"
+        android:textColor="#080808"
+        android:textSize="0sp"
+        android:layout_toEndOf="@+id/maexchen_imageView_cup"
+        style="?android:attr/borderlessButtonStyle"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/maexchen_textView_result_init"
+        android:id="@+id/maexchen_textview_dice"
+        android:textSize="25sp"
+        android:layout_below="@+id/maexchen_imageView_cup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#090909" />
+
+    <Button
+        android:layout_width="@dimen/maexchen_button_width"
+        android:layout_height="@dimen/maexchen_button_height"
+        android:text="@string/maexchen_button_reveal"
+        android:id="@+id/maexchen_button_left"
+        android:layout_below="@+id/maexchen_textview_dice"
+        android:layout_alignEnd="@+id/imageView_dice_left"
+        android:background="#b30c0c"
+        android:textSize="@dimen/maexchen_button_textsize"
+        android:textColor="#fcf9f9" />
+
+    <Button
+        android:layout_width="@dimen/maexchen_button_width"
+        android:layout_height="@dimen/maexchen_button_height"
+        android:text="@string/maexchen_button_next"
+        android:id="@+id/maexchen_button_right"
+        android:layout_marginLeft = "@dimen/maexchen_button_margin"
+        android:layout_below="@+id/maexchen_textview_dice"
+        android:layout_alignStart="@+id/imageView_dice_right"
+        android:background="#b30c0c"
+        android:textSize="@dimen/maexchen_button_textsize"
+        android:textColor="#fcf9f9" />
+
+    <ImageView
+        android:layout_width="@dimen/image_view_dice_size"
+        android:layout_height="@dimen/image_view_dice_size"
+        android:id="@+id/imageView_dice_left"
+        android:layout_marginTop="170dp"
+        android:layout_marginLeft="45dp"
+        android:layout_alignTop="@+id/maexchen_imageView_cup"
+        android:layout_alignStart="@+id/maexchen_imageView_cup" />
+
+    <ImageView
+        android:layout_width="@dimen/image_view_dice_size"
+        android:layout_height="@dimen/image_view_dice_size"
+        android:id="@+id/imageView_dice_right"
+        android:layout_alignTop="@+id/imageView_dice_left"
+        android:layout_alignEnd="@+id/maexchen_imageView_cup"
+        android:layout_marginRight="45dp"/>
+
+
+    <ImageView
+        android:layout_width="@dimen/image_view_cup_width"
+        android:layout_height="@dimen/image_view_cup_height"
+        android:id="@+id/maexchen_imageView_cup"
+        android:layout_below="@+id/maexchen_textview_headline"
+        android:layout_centerHorizontal="true"
+
+        android:src="@mipmap/whole_cup"
+        android:clickable="true" />
+
 
 </RelativeLayout>
