@@ -37,6 +37,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 		utilities = new Utilities(getApplicationContext());
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
+		utilities.setLanguage(currentLanguage);
 	}
 
 	/**
@@ -54,6 +55,9 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 	 */
 	@Override
 	public void onBuildHeaders(List<Header> target) {
+		utilities = new Utilities(getApplicationContext());
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
 		utilities.setLanguage(currentLanguage);
 		loadHeadersFromResource(R.xml.options_header, target);
 		super.onBuildHeaders(target);
@@ -110,9 +114,9 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 	 */
 	@Override
 	public void onBackPressed() {
-		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
+		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) )
 			utilities.playSound(1, AudioManager.FX_KEYPRESS_RETURN);
-		}
+
 		super.onBackPressed();
 	}
 
