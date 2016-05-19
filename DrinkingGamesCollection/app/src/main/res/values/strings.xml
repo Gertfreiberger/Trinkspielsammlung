@@ -47,5 +47,8 @@
     <string name="maexchen_button_help">Hilfe</string>
     <string name="maexchen_textView_result_init">  </string>
 
+    <!-- Polnisches Trinkspiel strings -->
+    <string name="polnisch_headline"></string>
+
 
 </resources>
