@@ -20,6 +20,7 @@ public class Utilities {
 	public final static String VIBRATE_PREFERENCE_KEY = "vibrate";
 	public final static String LANGUAGE_PREFERENCE_KEY = "language";
 	public final static String SHOW_NAMES_PREFERENCE_KEY = "show_names";
+	public final static String FINAL_PLAYER = "final_player";
 
 	public Utilities(Context context) {
 		this.context = context;

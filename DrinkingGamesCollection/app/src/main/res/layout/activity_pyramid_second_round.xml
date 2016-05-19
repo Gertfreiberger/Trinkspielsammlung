@@ -1,26 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".gui.game.pyramid.PyramidActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".gui.game.pyramid.PyramidSecondRoundActivity"
+    android:background="@drawable/ic_background_manual_3">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide01"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:clickable="false"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
 
-    </android.support.design.widget.AppBarLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide02"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:layout_alignBottom="@+id/ivPyramide01"
+            android:layout_toRightOf="@+id/ivPyramide01"
+            android:clickable="false"
+            android:layout_toEndOf="@+id/ivPyramide01"/>
 
-    <include layout="@layout/content_pyramid_activity" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide03"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:layout_alignBottom="@+id/ivPyramide02"
+            android:layout_toRightOf="@+id/ivPyramide02"
+            android:clickable="false"
+            android:layout_toEndOf="@+id/ivPyramide02"/>
 
-</android.support.design.widget.CoordinatorLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide04"
+            android:clickable="false"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:layout_alignBottom="@+id/ivPyramide03"
+            android:layout_toRightOf="@+id/ivPyramide03"
+            android:layout_toEndOf="@+id/ivPyramide03"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide05"
+            android:clickable="false"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:layout_alignBottom="@+id/ivPyramide04"
+            android:layout_toRightOf="@+id/ivPyramide04"
+            android:layout_toEndOf="@+id/ivPyramide04"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide06"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:layout_marginLeft="35dp"
+            android:layout_marginStart="35dp"
+            android:clickable="false"
+            android:layout_below="@+id/ivPyramide11"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide07"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:clickable="false"
+            android:layout_below="@+id/ivPyramide10"
+            android:layout_toRightOf="@+id/ivPyramide06"
+            android:layout_toEndOf="@+id/ivPyramide06"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide08"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:clickable="false"
+            android:layout_alignTop="@+id/ivPyramide07"
+            android:layout_toRightOf="@+id/ivPyramide07"
+            android:layout_toEndOf="@+id/ivPyramide07"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide09"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:layout_alignTop="@+id/ivPyramide08"
+            android:layout_toRightOf="@+id/ivPyramide08"
+            android:clickable="false"
+            android:layout_toEndOf="@+id/ivPyramide08"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide10"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:clickable="false"
+            android:layout_above="@+id/ivPyramide06"
+            android:layout_toLeftOf="@+id/ivPyramide03"
+            android:layout_toStartOf="@+id/ivPyramide03"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide11"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:layout_centerVertical="true"
+            android:clickable="false"
+            android:layout_toLeftOf="@+id/ivPyramide12"
+            android:layout_toStartOf="@+id/ivPyramide12"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide12"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:layout_above="@+id/ivPyramide08"
+            android:layout_toLeftOf="@+id/ivPyramide05"
+            android:clickable="false"
+            android:layout_toStartOf="@+id/ivPyramide05"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide13"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:layout_alignBottom="@+id/ivPyramide10"
+            android:layout_toLeftOf="@+id/ivPyramide08"
+            android:layout_toStartOf="@+id/ivPyramide08"
+            android:clickable="false"
+            android:layout_marginBottom="44dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide14"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:layout_alignTop="@+id/ivPyramide13"
+            android:layout_toRightOf="@+id/ivPyramide13"
+            android:clickable="false"
+            android:layout_toEndOf="@+id/ivPyramide13"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivPyramide15"
+            android:src="@drawable/ic_round_1_first_choice"
+            android:layout_above="@+id/ivPyramide13"
+            android:layout_toLeftOf="@+id/ivPyramide12"
+            android:layout_toStartOf="@+id/ivPyramide12"
+            android:clickable="false"/>
+    </RelativeLayout>
+</RelativeLayout>
