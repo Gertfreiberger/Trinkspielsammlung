@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">DrinkingGamesCollection</string>
-    <string name="action_settings">Settings</string>
 
     <!-- MainMenu strings -->
     <string name="mainmenu_button_maexchen">Mäxchen</string>
@@ -12,7 +10,62 @@
     <string name="title_activity_kingscup_menu">KingscupMenu</string>
     <string name="title_activity_polnisches_trinkspiel">PolnischesTrinkspiel</string>
     <string name="title_activity_pyramid">Pyramid</string>
+    <string name="app_name">Drinking Games Collection</string>
+    <string name="close_message">"Press once again to exit!"</string>
+    <string name="settings">Settings</string>
+    <string name="rateApp">Rate App</string>
+    <string name="back">Back</string>
+    <string name="title_activity_manual">ManualActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="general">General</string>
+    <string name="pyramid">Pyramid</string>
+    <string name="maexchen">Maexchen</string>
+    <string name="sound">Sound</string>
+    <string name="vibrate">Vibrate</string>
+    <string name="language">Language</string>
+    <string name="show_player_names">Show Playernames</string>
+    <string name="player_number">Player Number</string>
+    <string name="player_names">Player Names</string>
+    <string name="player">Player </string>
+    <string name="round">Round: </string>
+    <string name="pyramid_dialog_title">Round Overview</string>
+    <string name="start">Start</string>
+    <string name="manual">Manual</string>
+    <string name="first_round_finished">First Round Finished</string>
+    <string name="go_to_next_level">Go to the next Level</string>
+    <string name="new_game">New Game</string>
+    <string name="ok">OK</string>
+    <string name="distribute_drinks">Distripute Drinks</string>
+    <string name="close">Close</string>
+    <string name="distribute">Distribute</string>
+    <string name="drinks">Drink(s)</string>
+    <string name="second_round_finished">Second Round Finished</string>
+    <string name="go_to_Final_level">Go to Final Level</string>
+    <string name="final_player_message">The Final Player is:</string>
+    <string name="final_round">Final Round</string>
+    <string name="final_player_name">Final Player:</string>
+    <string name="i_never_ever">I never ever</string>
 
+    <string-array name="manualTabs">
+        <item>General</item>
+        <item>Pyramid</item>
+        <item>Maexchen</item>
+        <item>I\'ve never ever</item>
+        <item>Kingscup</item>
+        <item>Polnisches Trinkspiel</item>
+    </string-array>
+
+    <string-array name="availabeLanguages">
+        <item>English</item>
+        <item>Deutsch</item>
+    </string-array>
+
+    <string-array name="pyramid_rounds">
+        <item>Round 1: Black or Red</item>
+        <item>Round 2: Higher or Lower</item>
+        <item>Round 3: Within or Outside</item>
+        <item>Round 4: Possess color or not</item>
+    </string-array>
 
 
 </resources>

@@ -27,39 +27,84 @@
         android:layout_height="@dimen/mainmenu_button_height"
         android:text="@string/mainmenu_button_maexchen"
         android:id="@+id/button_maexchen"
+        android:layout_marginTop="37dp"
+        android:background="#da4c4c"
         android:layout_below="@+id/headline"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="42dp"
-        android:background="#da4c4c" />
+        android:layout_alignParentStart="true"
+        android:onClick="onClick"/>
 
     <Button
-    android:layout_width="@dimen/mainmenu_button_width"
-    android:layout_height="@dimen/mainmenu_button_height"
-    android:text="@string/mainmenu_button_kingscup"
-    android:id="@+id/button_kingscup"
-    android:layout_marginTop="42dp"
-    android:background="#da4c4c"
-    android:layout_below="@+id/button_maexchen"
-    android:layout_alignStart="@+id/button_maexchen" />
+        android:layout_width="@dimen/mainmenu_button_width"
+        android:layout_height="@dimen/mainmenu_button_height"
+        android:text="@string/mainmenu_button_kingscup"
+        android:id="@+id/button_kingscup"
+        android:background="#da4c4c"
+        android:layout_below="@+id/button_pyramid"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="46dp"
+        android:onClick="onClick"/>
 
     <Button
         android:layout_width="@dimen/mainmenu_button_width"
         android:layout_height="@dimen/mainmenu_button_height"
         android:text="@string/mainmenu_button_polnisches"
         android:id="@+id/button_polnisches_trinkspiel"
-        android:layout_marginTop="42dp"
         android:background="#da4c4c"
-        android:layout_below="@+id/button_kingscup"
-        android:layout_alignStart="@+id/button_maexchen" />
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/headline"
+        android:layout_alignStart="@+id/headline"
+        android:onClick="onClick"/>
 
     <Button
         android:layout_width="@dimen/mainmenu_button_width"
         android:layout_height="@dimen/mainmenu_button_height"
-        android:text="@string/mainmenu_button_pyramid"
+        android:text="@string/pyramid"
         android:id="@+id/button_pyramid"
-        android:layout_marginTop="42dp"
         android:background="#da4c4c"
-        android:layout_below="@+id/button_polnisches_trinkspiel"
-        android:layout_alignStart="@+id/button_maexchen" />
+        android:layout_alignTop="@+id/button_maexchen"
+        android:layout_alignParentEnd="true"
+        android:onClick="onClick"/>
+
+    <Button
+        android:layout_width="@dimen/mainmenu_button_width"
+        android:layout_height="@dimen/mainmenu_button_height"
+        android:text="@string/i_never_ever"
+        android:id="@+id/button_i_have_never_ever"
+        android:background="#da4c4c"
+        android:layout_alignTop="@+id/button_kingscup"
+        android:layout_alignParentStart="true"
+        android:onClick="onClick"/>
+
+    <Button
+        android:layout_width="@dimen/mainmenu_button_width"
+        android:layout_height="@dimen/mainmenu_button_height"
+        android:text="@string/settings"
+        android:id="@+id/button_settings"
+        android:background="#da4c4c"
+        android:layout_alignTop="@+id/button_manual"
+        android:layout_alignStart="@+id/button_kingscup"
+        android:onClick="onClick"/>
+
+    <Button
+        android:layout_width="@dimen/mainmenu_button_width"
+        android:layout_height="@dimen/mainmenu_button_height"
+        android:text="@string/manual"
+        android:id="@+id/button_manual"
+        android:background="#da4c4c"
+        android:layout_marginBottom="25dp"
+        android:layout_above="@+id/button_close"
+        android:layout_alignParentStart="true"
+        android:onClick="onClick"/>
+
+    <Button
+        android:layout_width="@dimen/mainmenu_button_width"
+        android:layout_height="@dimen/mainmenu_button_height"
+        android:text="@string/close"
+        android:id="@+id/button_close"
+        android:background="#da4c4c"
+        android:layout_marginBottom="46dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClick"/>
 
 </RelativeLayout>
