@@ -107,11 +107,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * Called when the activity has detected the user's press of the back
-	 * key.  The default implementation simply finishes the current activity,
-	 * but you can override this to do whatever you want.
-	 */
 	@Override
 	public void onBackPressed() {
 		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) )
@@ -178,6 +173,12 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 				}
 			} else if ( settings.equalsIgnoreCase("maexchen") ) {
 				addPreferencesFromResource(R.xml.options_maexchen);
+			} else if ( settings.equalsIgnoreCase("i_never_ever") ) {
+				addPreferencesFromResource(R.xml.options_i_never_ever);
+			} else if ( settings.equalsIgnoreCase("polinski_drinking_game") ) {
+				addPreferencesFromResource(R.xml.options_polinski_drinking_game);
+			} else if ( settings.equalsIgnoreCase("kingscup") ) {
+				addPreferencesFromResource(R.xml.options_kingscup);
 			}
 		}
 
