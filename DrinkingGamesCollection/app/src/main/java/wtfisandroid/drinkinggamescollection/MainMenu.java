@@ -2,9 +2,11 @@ package wtfisandroid.drinkinggamescollection;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.Locale;
 import java.util.Random;
 
 import wtfisandroid.drinkinggamescollection.gui.ManualActivity;
@@ -19,6 +22,7 @@ import wtfisandroid.drinkinggamescollection.gui.SettingsActivity;
 import wtfisandroid.drinkinggamescollection.gui.game.IHaveNeverActivity;
 import wtfisandroid.drinkinggamescollection.gui.game.pyramid.PyramidActivity;
 import wtfisandroid.drinkinggamescollection.logic.ShakeDetector;
+import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShakeListener {
 
@@ -28,10 +32,18 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 	private Sensor accelerometer;
 	private ShakeDetector shakeDetector;
 	private long back_pressed;
+	private Utilities utilities;
+	private SharedPreferences sharedPref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		utilities = new Utilities(this);
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		String currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
+		utilities.setLanguage(currentLanguage);
+
 		setContentView(R.layout.activity_main_menu);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
@@ -56,6 +68,9 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
+		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) )
+			utilities.playSound(1);
+
 		switch ( item.getItemId() ) {
 			case R.id.action_settings:
 				Intent intent = new Intent(this.getApplicationContext(), SettingsActivity.class);
@@ -71,16 +86,16 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 	@Override
 	public void onResume() {
 		super.onResume();
-		if ( sensorManager != null ) {
+		if ( sensorManager != null )
 			sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-		}
+
 	}
 
 	@Override
 	public void onPause() {
-		if ( sensorManager != null ) {
+		if ( sensorManager != null )
 			sensorManager.unregisterListener(shakeDetector);
-		}
+
 		super.onPause();
 	}
 
@@ -128,6 +143,9 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 	}
 
 	public void onClick(View v) {
+		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) )
+			utilities.playSound(1);
+
 		Intent activity = null;
 		switch ( v.getId() ) {
 

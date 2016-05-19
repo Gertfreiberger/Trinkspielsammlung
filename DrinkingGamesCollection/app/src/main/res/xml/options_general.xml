@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:key="sound"
+        android:defaultValue="true"
+        android:title="@string/sound"/>
+    <SwitchPreference
+        android:key="vibrate"
+        android:defaultValue="true"
+        android:title="@string/vibrate"/>
+    <ListPreference
+        android:key="language"
+        android:title="@string/language"
+        android:entries="@array/availabeLanguages"
+        android:entryValues="@array/availabeLanguages"
+        android:defaultValue="English"
+        android:dialogTitle="@string/language" />
+</PreferenceScreen>

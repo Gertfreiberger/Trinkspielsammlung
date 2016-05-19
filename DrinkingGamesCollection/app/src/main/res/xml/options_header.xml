@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <header
+        android:fragment="wtfisandroid.drinkinggamescollection.gui.SettingsActivity$SettingsFragment"
+        android:title="@string/general" >
+        <!-- key/value pairs can be included as arguments for the fragment. -->
+        <extra android:name="settings" android:value="general" />
+    </header>
+
+    <header
+        android:fragment="wtfisandroid.drinkinggamescollection.gui.SettingsActivity$SettingsFragment"
+        android:title="@string/pyramid" >
+        <!-- key/value pairs can be included as arguments for the fragment. -->
+        <extra android:name="settings" android:value="pyramide" />
+    </header>
+
+    <header
+        android:fragment="wtfisandroid.drinkinggamescollection.gui.SettingsActivity$SettingsFragment"
+        android:title="@string/maexchen" >
+        <!-- key/value pairs can be included as arguments for the fragment. -->
+        <extra android:name="settings" android:value="maexchen" />
+    </header>
+
+</preference-headers>
