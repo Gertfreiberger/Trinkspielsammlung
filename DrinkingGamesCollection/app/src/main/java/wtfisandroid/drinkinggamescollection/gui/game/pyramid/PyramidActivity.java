@@ -17,6 +17,7 @@ public class PyramidActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pyramid);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
     }
 
 }
