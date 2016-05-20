@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_background_manual_3"
+    android:rowCount="9"
+    android:columnCount="5"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:columnOrderPreserved="false"
+    android:nestedScrollingEnabled="false">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/PlyrCard1"
+        android:layout_row="8"
+        android:layout_column="0"
+        android:background="@drawable/gamecard_10_of_clubs"
+        android:visibility="visible"
+        android:adjustViewBounds="false"
+        android:layout_margin="5dp"
+        android:transitionName="r" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/PlyrCard2"
+        android:layout_row="8"
+        android:layout_column="1"
+        android:background="@drawable/gamecard_10_of_clubs"
+        android:layout_margin="5dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/PlyrCard3"
+        android:layout_row="8"
+        android:layout_column="2"
+        android:background="@drawable/gamecard_10_of_clubs"
+        android:layout_margin="5dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/PlyrCard4"
+        android:layout_row="8"
+        android:layout_column="3"
+        android:background="@drawable/gamecard_10_of_clubs"
+        android:layout_margin="5dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="90"
+        android:id="@+id/PlyrCard5"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:background="@drawable/gamecard_10_of_clubs"
+        android:layout_margin="5dp"/>
+</GridLayout>
