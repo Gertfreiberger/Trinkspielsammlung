@@ -174,7 +174,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 			} else if ( settings.equalsIgnoreCase("maexchen") ) {
 				addPreferencesFromResource(R.xml.options_maexchen);
 			} else if ( settings.equalsIgnoreCase("i_never_ever") ) {
-				addPreferencesFromResource(R.xml.options_i_never_ever);
+				addPreferencesFromResource(R.xml.options_i_have_never_ever);
 			} else if ( settings.equalsIgnoreCase("polinski_drinking_game") ) {
 				addPreferencesFromResource(R.xml.options_polinski_drinking_game);
 			} else if ( settings.equalsIgnoreCase("kingscup") ) {

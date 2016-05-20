@@ -17,7 +17,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <m_category android:name="android.intent.m_category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
@@ -40,7 +40,7 @@
             android:label="@string/title_activity_manual"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".gui.game.IHaveNeverActivity"
+            android:name=".gui.game.IHaveNeverEverActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity

@@ -5,11 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import wtfisandroid.drinkinggamescollection.R;
 
-public class IHaveNeverActivity extends AppCompatActivity {
+public class IHaveNeverEverActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_i_have_never);
+		setContentView(R.layout.activity_i_have_never_ever);
 	}
 }

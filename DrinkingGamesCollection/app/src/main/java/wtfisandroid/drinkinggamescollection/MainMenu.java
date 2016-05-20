@@ -19,7 +19,7 @@ import java.util.Random;
 
 import wtfisandroid.drinkinggamescollection.gui.ManualActivity;
 import wtfisandroid.drinkinggamescollection.gui.SettingsActivity;
-import wtfisandroid.drinkinggamescollection.gui.game.IHaveNeverActivity;
+import wtfisandroid.drinkinggamescollection.gui.game.IHaveNeverEverActivity;
 import wtfisandroid.drinkinggamescollection.gui.game.pyramid.PyramidActivity;
 import wtfisandroid.drinkinggamescollection.logic.ShakeDetector;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
@@ -120,7 +120,7 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 					activity = new Intent(this, PolnischesTrinkspiel.class);
 					break;
 				case 5:
-					activity = new Intent(this, IHaveNeverActivity.class);
+					activity = new Intent(this, IHaveNeverEverActivity.class);
 					break;
 				default:
 					break;
@@ -153,7 +153,7 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 				activity = new Intent(this, PyramidActivity.class);
 				break;
 			case R.id.button_i_have_never_ever:
-				activity = new Intent(this, IHaveNeverActivity.class);
+				activity = new Intent(this, IHaveNeverEverActivity.class);
 				break;
 			case R.id.button_maexchen:
 				activity = new Intent(this, Maexchen.class);

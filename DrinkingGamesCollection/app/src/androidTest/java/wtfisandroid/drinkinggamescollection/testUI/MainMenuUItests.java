@@ -14,7 +14,7 @@ public class MainMenuUItests extends ActivityInstrumentationTestCase2<MainMenu> 
     private Solo mySolo;
 
 
-    public MainMenuUItests() {
+     public MainMenuUItests() {
         super(MainMenu.class);
     }
 
