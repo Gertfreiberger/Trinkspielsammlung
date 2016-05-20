@@ -41,6 +41,7 @@ import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 public class PyramidSecondRoundActivity extends AppCompatActivity {
 
+
 	private static final String TAG = "pyramid_second_round";
 
 	private SharedPreferences sharedPref;
