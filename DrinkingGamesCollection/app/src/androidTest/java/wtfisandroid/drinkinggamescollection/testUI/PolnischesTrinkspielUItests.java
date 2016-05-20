@@ -37,13 +37,17 @@ public class PolnischesTrinkspielUItests extends ActivityInstrumentationTestCase
         mypolnischSolo.clickOnButton(button_minus.getText().toString());
         mypolnischSolo.clickOnButton(button_help.getText().toString());
 
-        String left_arrow = "Linker Pfeil ";
-        String right_arrow = "Rechter Pfeil ";
+        String left_arrow = "l_";
+        String right_arrow = "r_";
 
         for(int i = 1; i  < 11;i++) {
             mypolnischSolo.clickOnButton(left_arrow + i);
             mypolnischSolo.clickOnButton(right_arrow + i);
         }
+    }
+
+    public void testIconChange() {
+
     }
 
 
