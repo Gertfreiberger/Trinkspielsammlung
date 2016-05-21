@@ -97,6 +97,7 @@
             android:id="@+id/polnisch_text_field_player_3"
             android:layout_below="@+id/polnisch_text_field_player_2"
             android:layout_alignParentStart="true"
+            android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"/>
 
         <EditText
@@ -107,6 +108,7 @@
             android:id="@+id/polnisch_text_field_player_4"
             android:layout_below="@+id/polnisch_text_field_player_3"
             android:layout_alignParentStart="true"
+            android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"/>
 
         <EditText
@@ -117,6 +119,7 @@
             android:id="@+id/polnisch_text_field_player_5"
             android:layout_below="@+id/polnisch_text_field_player_4"
             android:layout_alignParentStart="true"
+            android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"/>
 
         <EditText
@@ -127,6 +130,7 @@
             android:id="@+id/polnisch_text_field_player_6"
             android:layout_below="@+id/polnisch_text_field_player_5"
             android:layout_alignParentStart="true"
+            android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"/>
 
         <EditText
@@ -137,6 +141,7 @@
             android:id="@+id/polnisch_text_field_player_7"
             android:layout_below="@+id/polnisch_text_field_player_6"
             android:layout_alignParentStart="true"
+            android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"/>
 
         <EditText
@@ -147,6 +152,7 @@
             android:id="@+id/polnisch_text_field_player_8"
             android:layout_below="@+id/polnisch_text_field_player_7"
             android:layout_alignParentStart="true"
+            android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"/>
 
         <EditText
@@ -157,6 +163,7 @@
             android:id="@+id/polnisch_text_field_player_9"
             android:layout_below="@+id/polnisch_text_field_player_8"
             android:layout_alignParentStart="true"
+            android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"/>
 
         <EditText
@@ -167,6 +174,7 @@
             android:id="@+id/polnisch_text_field_player_10"
             android:layout_below="@+id/polnisch_text_field_player_9"
             android:layout_alignParentStart="true"
+            android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"/>
 
         <Button
@@ -242,6 +250,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_text_field_player_3"
             android:layout_toStartOf="@+id/polnisch_image_player_3"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_left" />
 
         <Button
@@ -253,6 +262,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_3"
             android:layout_toStartOf="@+id/polnisch_button_help"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_right"
             android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
 
@@ -262,6 +272,7 @@
             android:id="@+id/polnisch_image_player_3"
             android:layout_alignTop="@+id/polnisch_button_right_arrow_3"
             android:layout_toStartOf="@+id/polnisch_button_right_arrow_3"
+            android:visibility="invisible"
             android:layout_marginLeft="@dimen/polnisch_margin_text_view"
             android:layout_marginRight="@dimen/polnisch_margin_text_view"/>
 
@@ -274,6 +285,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_text_field_player_4"
             android:layout_toStartOf="@+id/polnisch_image_player_4"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_left" />
 
         <Button
@@ -285,6 +297,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_4"
             android:layout_toStartOf="@+id/polnisch_button_help"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_right"
             android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
 
@@ -294,6 +307,7 @@
             android:id="@+id/polnisch_image_player_4"
             android:layout_alignTop="@+id/polnisch_button_right_arrow_4"
             android:layout_toStartOf="@+id/polnisch_button_right_arrow_4"
+            android:visibility="invisible"
             android:layout_marginLeft="@dimen/polnisch_margin_text_view"
             android:layout_marginRight="@dimen/polnisch_margin_text_view"/>
 
@@ -306,6 +320,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_text_field_player_5"
             android:layout_toStartOf="@+id/polnisch_image_player_5"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_left" />
 
         <Button
@@ -317,6 +332,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_5"
             android:layout_toStartOf="@+id/polnisch_button_help"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_right"
             android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
 
@@ -326,6 +342,7 @@
             android:id="@+id/polnisch_image_player_5"
             android:layout_alignTop="@+id/polnisch_button_right_arrow_5"
             android:layout_toStartOf="@+id/polnisch_button_right_arrow_5"
+            android:visibility="invisible"
             android:layout_marginLeft="@dimen/polnisch_margin_text_view"
             android:layout_marginRight="@dimen/polnisch_margin_text_view"/>
 
@@ -338,6 +355,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_text_field_player_6"
             android:layout_toStartOf="@+id/polnisch_image_player_6"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_left" />
 
         <Button
@@ -349,6 +367,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_6"
             android:layout_toStartOf="@+id/polnisch_button_help"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_right"
             android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
 
@@ -358,6 +377,7 @@
             android:id="@+id/polnisch_image_player_6"
             android:layout_alignTop="@+id/polnisch_button_right_arrow_6"
             android:layout_toStartOf="@+id/polnisch_button_right_arrow_6"
+            android:visibility="invisible"
             android:layout_marginLeft="@dimen/polnisch_margin_text_view"
             android:layout_marginRight="@dimen/polnisch_margin_text_view"/>
 
@@ -370,6 +390,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_text_field_player_7"
             android:layout_toStartOf="@+id/polnisch_image_player_7"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_left" />
 
         <Button
@@ -381,6 +402,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_7"
             android:layout_toStartOf="@+id/polnisch_button_help"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_right"
             android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
 
@@ -390,6 +412,7 @@
             android:id="@+id/polnisch_image_player_7"
             android:layout_alignTop="@+id/polnisch_button_right_arrow_7"
             android:layout_toStartOf="@+id/polnisch_button_right_arrow_7"
+            android:visibility="invisible"
             android:layout_marginLeft="@dimen/polnisch_margin_text_view"
             android:layout_marginRight="@dimen/polnisch_margin_text_view"/>
 
@@ -402,6 +425,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_text_field_player_8"
             android:layout_toStartOf="@+id/polnisch_image_player_8"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_left" />
 
         <Button
@@ -413,6 +437,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_8"
             android:layout_toStartOf="@+id/polnisch_button_help"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_right"
             android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
 
@@ -422,6 +447,7 @@
             android:id="@+id/polnisch_image_player_8"
             android:layout_alignTop="@+id/polnisch_button_right_arrow_8"
             android:layout_toStartOf="@+id/polnisch_button_right_arrow_8"
+            android:visibility="invisible"
             android:layout_marginLeft="@dimen/polnisch_margin_text_view"
             android:layout_marginRight="@dimen/polnisch_margin_text_view"/>
 
@@ -434,6 +460,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_text_field_player_9"
             android:layout_toStartOf="@+id/polnisch_image_player_9"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_left" />
 
         <Button
@@ -445,6 +472,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_9"
             android:layout_toStartOf="@+id/polnisch_button_help"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_right"
             android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
 
@@ -454,6 +482,7 @@
             android:id="@+id/polnisch_image_player_9"
             android:layout_alignTop="@+id/polnisch_button_right_arrow_9"
             android:layout_toStartOf="@+id/polnisch_button_right_arrow_9"
+            android:visibility="invisible"
             android:layout_marginLeft="@dimen/polnisch_margin_text_view"
             android:layout_marginRight="@dimen/polnisch_margin_text_view"/>
 
@@ -466,6 +495,7 @@
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_text_field_player_10"
             android:layout_toStartOf="@+id/polnisch_image_player_10"
+            android:visibility="invisible"
             android:background="@mipmap/arrow_left"/>
 
         <Button
@@ -478,6 +508,7 @@
             android:layout_alignTop="@+id/polnisch_button_left_arrow_10"
             android:layout_toStartOf="@+id/polnisch_button_help"
             android:background="@mipmap/arrow_right"
+            android:visibility="invisible"
             android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
 
         <ImageView
@@ -487,6 +518,7 @@
             android:layout_alignTop="@+id/polnisch_button_right_arrow_10"
             android:layout_toStartOf="@+id/polnisch_button_right_arrow_10"
             android:layout_marginLeft="@dimen/polnisch_margin_text_view"
+            android:visibility="invisible"
             android:layout_marginRight="@dimen/polnisch_margin_text_view"/>
 
     </RelativeLayout>
