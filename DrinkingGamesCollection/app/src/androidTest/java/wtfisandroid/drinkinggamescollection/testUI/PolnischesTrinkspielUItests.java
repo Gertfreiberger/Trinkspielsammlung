@@ -42,9 +42,15 @@ public class PolnischesTrinkspielUItests extends ActivityInstrumentationTestCase
         Button button_help = (Button) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_help);
 
         mypolnischSolo.clickOnButton(button_start.getText().toString());
+        mypolnischSolo.goBack();
         mypolnischSolo.clickOnButton(button_plus.getText().toString());
         mypolnischSolo.clickOnButton(button_minus.getText().toString());
         mypolnischSolo.clickOnButton(button_help.getText().toString());
+        mypolnischSolo.goBack();
+
+        for(int i = 0; i < 8; i++){
+            mypolnischSolo.clickOnButton(button_plus.getText().toString());
+        }
 
         String left_arrow = "l_";
         String right_arrow = "r_";
@@ -104,43 +110,15 @@ public class PolnischesTrinkspielUItests extends ActivityInstrumentationTestCase
         assert(!(((BitmapDrawable)icon_4.getDrawable()).getBitmap()).sameAs(BitmapFactory.decodeResource(mypolnischSolo.getCurrentActivity().getResources(),R.mipmap.apple)));
 
 
-        mypolnischSolo.clickOnView(plus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(plus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(plus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(plus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(plus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(plus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(plus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(plus);
-        mypolnischSolo.sleep(200);
+        for(int i = 0; i < 8; i++){
+            mypolnischSolo.clickOnView(plus);
 
-        mypolnischSolo.clickOnView(minus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(minus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(minus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(minus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(minus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(minus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(minus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(minus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(minus);
-        mypolnischSolo.sleep(200);
-        mypolnischSolo.clickOnView(minus);
-        mypolnischSolo.sleep(200);
+        }
+
+        for(int i = 0; i < 12; i++){
+            mypolnischSolo.clickOnView(minus);
+        }
+
 
         assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3).getVisibility() != View.INVISIBLE);
         assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_left_arrow_3).getVisibility() != View.INVISIBLE);

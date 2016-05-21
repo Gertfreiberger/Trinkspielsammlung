@@ -10,9 +10,10 @@
     <string name="mainmenu_headline">Trinkspielsammlung</string>
     <string name="title_activity_maexchen_menu">MaexchenMenu</string>
     <string name="title_activity_kingscup_menu">KingscupMenu</string>
-    <string name="title_activity_polnisches_trinkspiel">PolnischesTrinkspiel</string>
+    <string name="title_activity_polnisches_trinkspiel">PolnischGameMenu</string>
+    <string name="title_activity_polnisches_trinkspiel_rules">PolnischesGameRules</string>
+    <string name="title_activity_polnisch_game">PolnischGame</string>
     <string name="title_activity_pyramid">Pyramid</string>
-
 
 
     <!-- Mäxchen strings -->
@@ -74,8 +75,9 @@
     <string name="polnisch_textview_player">Spieler Anzahl</string>
     <string name="polnisch_textfield_player">Spieler </string>
     <string name="polnisch_button_start">Start</string>
-
-
+    <string name="polnisch_button_name_twice">OK</string>
+    <string name="polnisch_message_name_twiche">Ein Name für einen Spieler kommt öfter als einmal vor.
+            \nEs sind aber keine mehrfachen Namen erlaubt</string>
 
 
 </resources>

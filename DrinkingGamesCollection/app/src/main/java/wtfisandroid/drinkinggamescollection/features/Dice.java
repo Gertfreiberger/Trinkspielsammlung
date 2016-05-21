@@ -35,8 +35,4 @@ public class Dice {
         last_throw_ = throw_dice_.nextInt(dice_sides_);
         image.setImageBitmap(dice_pictures_.get(last_throw_));
     }
-
-
-
-
 }

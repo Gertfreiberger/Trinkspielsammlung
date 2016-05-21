@@ -1,6 +1,7 @@
 package wtfisandroid.drinkinggamescollection;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+
+import wtfisandroid.drinkinggamescollection.features.Player;
 
 public class PolnischesTrinkspiel extends AppCompatActivity implements View.OnClickListener {
 
@@ -162,6 +165,7 @@ public class PolnischesTrinkspiel extends AppCompatActivity implements View.OnCl
         switch (v.getId()) {
 
             case R.id.polnisch_button_help:
+                startActivity(new Intent(this, PolnischesTrinkspielRules.class));
                 break;
 
             case R.id.polnisch_button_minus:
@@ -182,23 +186,55 @@ public class PolnischesTrinkspiel extends AppCompatActivity implements View.OnCl
 
             case R.id.polnisch_button_start:
 
-                /*AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-                dlg.setMessage("pressed start");
-                dlg.setTitle(R.string.title_activity_polnisches_trinkspiel);
-                dlg.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                ArrayList<String> players = new ArrayList<String>();
+                ArrayList<Bitmap> icons = new ArrayList<Bitmap>();
+                boolean check = false;
 
+                for(int i = 0; i <= player_index_; i++) {
+
+                    for(int j = 0; j < players.size(); j++)
+                    {
+                        if(i != j && players.get(j).equals(text_fields_.get(i).getText().toString())) {
+                            nameTwice();
+                            check = true;
+                            break;
+                        }
                     }
-                });
-                dlg.setCancelable(true);
-                dlg.create().show();*/
 
+                    if(check) {
+                       break;
+                    }
+
+                    players.add(text_fields_.get(i).getText().toString());
+                    icons.add(all_icons_.get(used_icons_.get(i)));
+                }
+
+                if(!check) {
+                    Intent intent_start = new Intent(this, PolnischGame.class);
+                    intent_start.putStringArrayListExtra("players_name", players);
+                    intent_start.putParcelableArrayListExtra("icons", icons);
+                    startActivity(intent_start);
+                }
                 break;
 
             default:
         }
     }
+
+    public void nameTwice() {
+        AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+        dlg.setMessage(R.string.polnisch_message_name_twiche);
+        dlg.setTitle(R.string.title_activity_polnisches_trinkspiel);
+        dlg.setPositiveButton(R.string.polnisch_button_name_twice, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        dlg.setCancelable(true);
+        dlg.create().show();
+    }
+
 
     public void arrowClicked(View v) {
 
