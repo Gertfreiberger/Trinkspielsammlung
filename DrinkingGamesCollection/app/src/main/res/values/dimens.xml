@@ -32,13 +32,15 @@
     <dimen name="polnisch_field_padding">5dp</dimen>
     <dimen name="polnisch_field_number_text_size">12sp</dimen>
     <dimen name="polnisch_field_description_text_size">16sp</dimen>
-    <dimen name="polnisch_field_description_big_text_size">25sp</dimen>
-    <dimen name="polnisch_frame_width">2dp</dimen>
+    <dimen name="polnisch_field_description_big_text_size">50sp</dimen>
+    <dimen name="polnisch_frame_width">3dp</dimen>
     <dimen name="polnisch_frame_red_width">5dp</dimen>
-    <dimen name="polnisch_frame_padding">1dp</dimen>
-    <dimen name="polnisch_field_rectangle_width">160dp</dimen>
-    <dimen name="polnisch_field_rectangle_height">120dp</dimen>
+    <dimen name="polnisch_frame_padding">2dp</dimen>
+    <dimen name="polnisch_field_rectangle_width">180dp</dimen>
+    <dimen name="polnisch_field_rectangle_height">140dp</dimen>
     <dimen name="polnisch_field_icon_margin">20dp</dimen>
+    <dimen name="polnisch_field_text_padding">5dp</dimen>
+    <dimen name="polnisch_top_number_padding">4dp</dimen>
 
 
 
