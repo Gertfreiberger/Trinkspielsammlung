@@ -15,8 +15,6 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import wtfisandroid.drinkinggamescollection.features.Player;
-
 public class PolnischesTrinkspiel extends AppCompatActivity implements View.OnClickListener {
 
     private ArrayList<ImageView> view_image_;
@@ -192,14 +190,22 @@ public class PolnischesTrinkspiel extends AppCompatActivity implements View.OnCl
 
                 for(int i = 0; i <= player_index_; i++) {
 
-                    for(int j = 0; j < players.size(); j++)
-                    {
-                        if(i != j && players.get(j).equals(text_fields_.get(i).getText().toString())) {
-                            nameTwice();
-                            check = true;
-                            break;
-                        }
+                    text_fields_.get(i).getText().toString().trim();
+                    if(!text_fields_.get(i).getText().toString().isEmpty()){
+                        for(int j = 0; j < players.size(); j++)
+                        {
+                            if(i != j && players.get(j).equals(text_fields_.get(i).getText().toString())) {
+
+                                nameError(getResources().getString(R.string.polnisch_message_name_twice));
+                                check = true;
+                                break;
+                            }
+                        }   
+                    }else{
+                        check = true;
+                        nameError(getResources().getString(R.string.polnisch_message_name_empty));
                     }
+                    
 
                     if(check) {
                        break;
@@ -221,9 +227,9 @@ public class PolnischesTrinkspiel extends AppCompatActivity implements View.OnCl
         }
     }
 
-    public void nameTwice() {
+    public void nameError(String message) {
         AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-        dlg.setMessage(R.string.polnisch_message_name_twiche);
+        dlg.setMessage(message);
         dlg.setTitle(R.string.title_activity_polnisches_trinkspiel);
         dlg.setPositiveButton(R.string.polnisch_button_name_twice, new DialogInterface.OnClickListener() {
             @Override

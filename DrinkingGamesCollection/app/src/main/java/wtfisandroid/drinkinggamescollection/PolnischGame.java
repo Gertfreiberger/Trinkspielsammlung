@@ -32,8 +32,8 @@ public class PolnischGame extends AppCompatActivity {
         ArrayList<Bitmap> icons = this.getIntent().getParcelableArrayListExtra("icons");
         createPlayers(this.getIntent().getStringArrayListExtra("players_name"), icons);
         
-        ((TextView) findViewById(R.id.textView)).setText(players_.get(0).getName());
-        ((ImageView) findViewById(R.id.imageView)).setImageBitmap(players_.get(0).getIcon());
+       // ((TextView) findViewById(R.id.textView)).setText(players_.get(0).getName());
+        //((ImageView) findViewById(R.id.imageView)).setImageBitmap(players_.get(0).getIcon());
     }
 
     public void createPlayers(ArrayList<String> names, ArrayList<Bitmap> icons) {

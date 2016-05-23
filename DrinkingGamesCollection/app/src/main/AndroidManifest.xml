@@ -21,8 +21,8 @@
         <activity
             android:name=".Maexchen"
             android:configChanges="keyboard|keyboardHidden|orientation"
-            android:label="@string/title_activity_maexchen_menu"
             android:screenOrientation="portrait"
+            android:label="@string/title_activity_maexchen_menu"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Kingscup"
@@ -30,6 +30,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PolnischesTrinkspiel"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_polnisches_trinkspiel"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -42,10 +44,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PolnischesTrinkspielRules"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_polnisches_trinkspiel_rules"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PolnischGame"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_polnisch_game"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

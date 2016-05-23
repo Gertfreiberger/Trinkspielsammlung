@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,22 +10,181 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="wtfisandroid.drinkinggamescollection.PolnischGame"
-    tools:showIn="@layout/activity_polnisch_game">
+    tools:showIn="@layout/activity_polnisch_game"
+    android:orientation="vertical">
 
-    <TextView
+
+
+
+
+
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" "
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="146dp" />
+        android:paddingBottom="20dp">
 
-    <ImageView
+        <ImageView
+            android:layout_width="@dimen/polnisch_symbol_button_high"
+            android:layout_height="@dimen/polnisch_symbol_button_high"
+            android:id="@+id/polnisch_image_dice"
+            android:background="@mipmap/dice_1"
+            android:layout_below="@+id/polnisch_button_help_game"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="38dp" />
+
+        <Button
+            android:layout_width="@dimen/help_button_size"
+            android:layout_height="@dimen/help_button_size"
+            android:text="@string/maexchen_button_help"
+            android:textSize="@dimen/textsize_zero"
+            android:id="@+id/polnisch_button_help_game"
+            android:background="@mipmap/question_mark"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:layout_width="@dimen/polnisch_symbol_button_high"
+            android:layout_height="@dimen/polnisch_symbol_button_high"
+            android:id="@+id/polnisch_image_active_player_icon"
+            android:background="@mipmap/ic_launcher"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/polnisch_button_skip_player" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spieler"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/polnisch_player_name_size"
+            android:id="@+id/polnisch_text_field_active_player"
+            android:layout_alignBottom="@+id/polnisch_image_active_player_icon"
+            android:layout_toEndOf="@+id/polnisch_image_active_player_icon"
+            android:layout_marginStart="38dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/polnisch_skip_player"
+            android:id="@+id/polnisch_button_skip_player"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="140dp" />
-</RelativeLayout>
+        android:id="@+id/scrollView"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/horizontalScrollView"
+            android:layout_alignTop="@+id/scrollView"
+            android:layout_centerHorizontal="true"
+            android:fillViewport="false">
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="9"
+                android:rowCount="8">
+
+
+                <!-- Row 1-->
+                <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/polnisch_field_rectangle_width"
+                android:layout_height="@dimen/polnisch_field_rectangle_height"
+                android:background="@drawable/border_black_top_left"
+                android:id="@+id/polnisch_layout_field_24">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="24"
+                    android:textSize="@dimen/polnisch_field_number_text_size"
+                    android:textColor="@color/colorBlack"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/polnisch_text_view_number_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/polnisch_field_24"
+                    android:id="@+id/polnisch_text_view_field_text_24"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/polnisch_field_description_text_size"
+                    android:textAlignment="center"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/polnisch_field_padding">
+
+                    <ImageView
+                        android:layout_width="@dimen/polnisch_field_icon_size"
+                        android:layout_height="@dimen/polnisch_field_icon_size"
+                        android:id="@+id/polnisch_image_icon_1_field_1"
+                        android:background="@mipmap/boy"
+                        android:layout_marginRight="@dimen/polnisch_field_icon_margin"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/polnisch_field_icon_size"
+                        android:layout_height="@dimen/polnisch_field_icon_size"
+                        android:id="@+id/polnisch_image_icon_2_field_1"
+                        android:background="@mipmap/cocktail"
+                        android:layout_marginRight="@dimen/polnisch_field_icon_margin"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/polnisch_field_icon_size"
+                        android:layout_height="@dimen/polnisch_field_icon_size"
+                        android:id="@+id/polnisch_image_icon_3_field_1"
+                        android:background="@mipmap/flower" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+                <!-- Row 2-->
+
+
+
+                <!-- Row 3-->
+
+
+
+                <!-- Row 4-->
+
+
+
+                <!-- Row 5-->
+
+
+                <!-- Row 6-->
+
+
+                <!-- Row 7-->
+
+
+                <!-- Row 8-->
+
+
+
+
+
+            </GridLayout>
+        </HorizontalScrollView>
+
+    </ScrollView>
+
+</LinearLayout>

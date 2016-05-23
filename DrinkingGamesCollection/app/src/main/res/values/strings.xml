@@ -76,8 +76,90 @@
     <string name="polnisch_textfield_player">Spieler </string>
     <string name="polnisch_button_start">Start</string>
     <string name="polnisch_button_name_twice">OK</string>
-    <string name="polnisch_message_name_twiche">Ein Name für einen Spieler kommt öfter als einmal vor.
-            \nEs sind aber keine mehrfachen Namen erlaubt</string>
+    <string name="polnisch_message_name_twice">Ein Name für einen Spieler kommt öfter als einmal vor.
+            \nEs sind aber keine mehrfachen Namen erlaubt.</string>
+    <string name="polnisch_message_name_empty">Ein Name muss mindestens aus einem Zeichen bestehen.</string>
+
+    <string name="polnisch_field_1">START</string>
+    <string name="polnisch_field_2">Alle trinken</string>
+    <string name="polnisch_field_3">Du trinkst und deine beiden Nebensitzer</string>
+    <string name="polnisch_field_4">Gehe 2 Felder zurück</string>
+    <string name="polnisch_field_5">Alle Singen ein Lied, wer nicht mitsingt trinkt 2</string>
+    <string name="polnisch_field_6">Trinke und gehe aufs Feld 32</string>
+    <string name="polnisch_field_7">Endlich kannst du wieder trinken</string>
+    <string name="polnisch_field_8">Alle ausser dir trinken</string>
+    <string name="polnisch_field_9">9</string>
+    <string name="polnisch_field_10">Bestimme einen der trinken soll</string>
+    <string name="polnisch_field_11">Alle Typen trinken</string>
+    <string name="polnisch_field_12">Dein rechter Nebensitzer trinkt</string>
+    <string name="polnisch_field_13">Einer deiner Wahl trinkt 2 mal</string>
+    <string name="polnisch_field_14">Trink so viel wie du Würfelst und gehe auf START</string>
+    <string name="polnisch_field_15">Es trinken die Personen die am nächsten dem Start/Ziel sind.</string>
+    <string name="polnisch_field_16">Das Mädchen deiner Wahl trinkt.</string>
+    <string name="polnisch_field_17">Du trinkst und der Erste der lacht trinkt 2</string>
+    <string name="polnisch_field_18">Trink und setze eine Runde aus.</string>
+    <string name="polnisch_field_19">19</string>
+    <string name="polnisch_field_20">Alle Mädels trinken.</string>
+    <string name="polnisch_field_21">Trink und würfle nocheinmal.</string>
+    <string name="polnisch_field_22">Gehe zurück auf Start.</string>
+    <string name="polnisch_field_23">Trink so viel wie du gewürfelt hast.</string>
+    <string name="polnisch_field_24">Alle trinken die einen Bruder haben.</string>
+    <string name="polnisch_field_25">Trink 3 oder gehe 4 Felder zurück.</string>
+    <string name="polnisch_field_26">Endlich kannst DU trinken.</string>
+    <string name="polnisch_field_27">Es trinken die die ein gerades Alter haben.</string>
+    <string name="polnisch_field_28">Es trinken die die ein ungerades Alter haben.</string>
+    <string name="polnisch_field_29">29</string>
+    <string name="polnisch_field_30">Gehe auf Feld 10 und trinke 5.</string>
+    <string name="polnisch_field_31">Jeder der keine 10 Euro hat trinkt.</string>
+    <string name="polnisch_field_32">Würfle, bei gerader Zahl trinkst du, bei ungerader der Rest.</string>
+    <string name="polnisch_field_33">Trinke 3 und küsse eine Person des anderen Geschlechts.</string>
+    <string name="polnisch_field_34">Trinke und ziehe ein Kleidungsstück aus.</string>
+    <string name="polnisch_field_35">Trinke und bestimme eine Person die auf Feld 6 zurück geht.</string>
+    <string name="polnisch_field_36">Gehe auf das Feld 7</string>
+    <string name="polnisch_field_37">Es trinkt der, der am nächsten dem Start ist und du gehst dahin.</string>
+    <string name="polnisch_field_38">Alle die vor dir sind Trinken</string>
+    <string name="polnisch_field_39">39</string>
+    <string name="polnisch_field_40">Trinke und bestimme jemanden der ein Kleidungsstück auszieht.</string>
+    <string name="polnisch_field_41">Trinke so viel wie du gewürfelt hast.</string>
+    <string name="polnisch_field_42">Es trinkt der, der am wenigsten Münzen dabei hat.</string>
+    <string name="polnisch_field_43">Alle würfeln, jeder mit einer 1 trinkt.</string>
+    <string name="polnisch_field_44">Alle die eine Schwester haben trinken.</string>
+    <string name="polnisch_field_45">Trinke und dein linker Nebensitzer entscheidet wer noch trinkt.</string>
+    <string name="polnisch_field_46">Gehe 2 Felder vor und trinke.</string>
+    <string name="polnisch_field_47">Würfle, bei gerader Zahl trinken alle, bei ungerader nur du.</string>
+    <string name="polnisch_field_48">Küsse jemanden deiner Wahl und trinke 2</string>
+    <string name="polnisch_field_49">49</string>
+    <string name="polnisch_field_50">Gehe auf das Feld 29 und würfle nocheinmal.</string>
+    <string name="polnisch_field_51">Trinke und ziehe ein Kleidungsstück aus.</string>
+    <string name="polnisch_field_52">Bestimme 2 Personen die sich küssen und trinke 3.</string>
+    <string name="polnisch_field_53">Alle unter 21 trinken.</string>
+    <string name="polnisch_field_54">Deine beiden nebensitzer trinken.</string>
+    <string name="polnisch_field_55">Alle trinken.</string>
+    <string name="polnisch_field_56">Alle die eine 6 würfeln trinken.</string>
+    <string name="polnisch_field_57">Trinke und gehe auf das Feld 19 zurück.</string>
+    <string name="polnisch_field_58">Alle die eine 0 im Geburtsjahr haben trinken.</string>
+    <string name="polnisch_field_59">59</string>
+    <string name="polnisch_field_60">Alle würfeln, jeder mit einer 1 trinkt und geht zurück auf Start.</string>
+    <string name="polnisch_field_61">Alle singen ein Lied, wer nicht mitsingt trinkt 5.</string>
+    <string name="polnisch_field_62">Alle trinken die keine Brille oder Kontaktlinsen tragen.</string>
+    <string name="polnisch_field_63">Würfle 3 mal und gehe die Anzahl der Augen zurück.</string>
+    <string name="polnisch_field_64">Jeder der eine Jeans Hose trägt trinkt.</string>
+    <string name="polnisch_field_65">Alle trinken.</string>
+    <string name="polnisch_field_66">Alle gehen 1 Feld zurück, 2 Minuten Klopause</string>
+    <string name="polnisch_field_67">Gehe auf das Feld 33</string>
+    <string name="polnisch_field_68">Alle trinken 3</string>
+    <string name="polnisch_field_69">69</string>
+    <string name="polnisch_field_70">Würfle 5 mal und gehe die Anzahl der Augen zurück.</string>
+    <string name="polnisch_field_71">Trinke und gehe auf Start zurück.</string>
+    <string name="polnisch_field_72">ZIEL</string>
+
+    <string name="polnisch_skip_player">Spieler\nauslassen</string>
+
+
+
+
+
+
 
 
 </resources>
