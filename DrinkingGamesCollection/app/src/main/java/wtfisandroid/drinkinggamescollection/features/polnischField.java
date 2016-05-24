@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import wtfisandroid.drinkinggamescollection.R;
 
-public class polnischField {
+public class PolnischField {
 
     private ArrayList<Player> players_;
     private int field_number_;
@@ -22,7 +22,7 @@ public class polnischField {
     private Drawable border_;
 
 
-    public polnischField(int field_number, LinearLayout field, ImageView left, ImageView middle, ImageView right) {
+    public PolnischField(int field_number, LinearLayout field, ImageView left, ImageView middle, ImageView right) {
 
         players_ = new ArrayList<Player>();
         field_icons_from_player_ = new ArrayList<ImageView>();
@@ -45,28 +45,54 @@ public class polnischField {
 
     public void playerArrived(Player player) {
         players_.add(player);
+        player.setField(field_number_);
         field_icons_from_player_.get(icon_position_).setImageBitmap(player.getIcon());
         field_icons_from_player_.get(icon_position_).setVisibility(View.VISIBLE);
-        if(icon_position_ < 3) {
+
+        if(players_.size() > 3) {
+
+            for(int i = 0; i < players_.size(); i++) {
+
+                if(players_.get(i).getUsedIconField() == icon_position_){
+                    players_.get(i).setUsedIconField(100);
+                }
+            }
+        }
+
+        player.setUsedIconField(icon_position_);
+
+        if(icon_position_ < 2) {
             icon_position_++;
         }
         else {
             icon_position_ = 0;
         }
+
     }
 
     public void playerLeave(Player player) {
         players_.remove(players_.indexOf(player));
 
-        for (int i = 0; i <field_icons_from_player_.size(); i++) {
-
-            if(((BitmapDrawable)field_icons_from_player_.get(i).getDrawable()).getBitmap().sameAs(player.getIcon())) {
-                field_icons_from_player_.get(i).setVisibility(View.INVISIBLE);
-                icon_position_ = i;
+        if(player.getUsedIconField() != 100){
+            if(players_.size() < 3){
+                field_icons_from_player_.get(player.getUsedIconField()).setVisibility(View.INVISIBLE);
             }
+            else {
+
+                for(int i = 0; i < players_.size(); i++){
+
+                    if(players_.get(i).getUsedIconField() == 100){
+                        field_icons_from_player_.get(player.getUsedIconField()).setImageBitmap(players_.get(i).getIcon());
+                        players_.get(i).setUsedIconField(player.getUsedIconField());
+                    }
+                }
+            }
+            icon_position_ = player.getUsedIconField();
         }
     }
 
+    public int getFieldNumber() {
 
-
+        return field_number_;
+    }
 }

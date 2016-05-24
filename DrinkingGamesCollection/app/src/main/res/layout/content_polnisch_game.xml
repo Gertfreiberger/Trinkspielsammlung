@@ -28,6 +28,8 @@
             android:layout_width="@dimen/polnisch_symbol_button_high"
             android:layout_height="@dimen/polnisch_symbol_button_high"
             android:id="@+id/polnisch_image_dice"
+            android:clickable="true"
+            android:onClick="newRound"
             android:background="@mipmap/dice_1"
             android:layout_below="@+id/polnisch_button_help_game"
             android:layout_alignParentStart="true"
@@ -39,6 +41,7 @@
             android:text="@string/maexchen_button_help"
             android:textSize="@dimen/textsize_zero"
             android:id="@+id/polnisch_button_help_game"
+            android:onClick="openHelpPage"
             android:background="@mipmap/question_mark"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" />
@@ -47,7 +50,6 @@
             android:layout_width="@dimen/polnisch_symbol_button_high"
             android:layout_height="@dimen/polnisch_symbol_button_high"
             android:id="@+id/polnisch_image_active_player_icon"
-            android:background="@mipmap/ic_launcher"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/polnisch_button_skip_player" />
 
@@ -66,6 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/polnisch_skip_player"
+            android:onClick="skipPlayer"
             android:id="@+id/polnisch_button_skip_player"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
