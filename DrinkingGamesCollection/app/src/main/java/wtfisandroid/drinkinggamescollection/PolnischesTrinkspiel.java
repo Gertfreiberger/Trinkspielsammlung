@@ -185,12 +185,11 @@ public class PolnischesTrinkspiel extends AppCompatActivity implements View.OnCl
             case R.id.polnisch_button_start:
 
                 ArrayList<String> players = new ArrayList<String>();
-                ArrayList<Bitmap> icons = new ArrayList<Bitmap>();
                 boolean check = false;
 
                 for(int i = 0; i <= player_index_; i++) {
 
-                    text_fields_.get(i).getText().toString().trim();
+                    text_fields_.get(i).setText(text_fields_.get(i).getText().toString().trim());
                     if(!text_fields_.get(i).getText().toString().isEmpty()){
                         for(int j = 0; j < players.size(); j++)
                         {
@@ -212,13 +211,12 @@ public class PolnischesTrinkspiel extends AppCompatActivity implements View.OnCl
                     }
 
                     players.add(text_fields_.get(i).getText().toString());
-                    icons.add(all_icons_.get(used_icons_.get(i)));
                 }
 
                 if(!check) {
                     Intent intent_start = new Intent(this, PolnischGame.class);
                     intent_start.putStringArrayListExtra("players_name", players);
-                    intent_start.putParcelableArrayListExtra("icons", icons);
+                    intent_start.putIntegerArrayListExtra("icons", used_icons_);
                     startActivity(intent_start);
                 }
                 break;
@@ -240,7 +238,6 @@ public class PolnischesTrinkspiel extends AppCompatActivity implements View.OnCl
         dlg.setCancelable(true);
         dlg.create().show();
     }
-
 
     public void arrowClicked(View v) {
 

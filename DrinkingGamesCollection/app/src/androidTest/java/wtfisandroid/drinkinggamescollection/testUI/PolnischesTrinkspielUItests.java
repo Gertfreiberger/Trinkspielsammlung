@@ -41,8 +41,6 @@ public class PolnischesTrinkspielUItests extends ActivityInstrumentationTestCase
         Button button_minus= (Button) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_minus);
         Button button_help = (Button) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_help);
 
-        mypolnischSolo.clickOnButton(button_start.getText().toString());
-        mypolnischSolo.goBack();
         mypolnischSolo.clickOnButton(button_plus.getText().toString());
         mypolnischSolo.clickOnButton(button_minus.getText().toString());
         mypolnischSolo.clickOnButton(button_help.getText().toString());
@@ -59,6 +57,8 @@ public class PolnischesTrinkspielUItests extends ActivityInstrumentationTestCase
             mypolnischSolo.clickOnButton(left_arrow + i);
             mypolnischSolo.clickOnButton(right_arrow + i);
         }
+        mypolnischSolo.scrollUp();
+        mypolnischSolo.clickOnButton(button_start.getText().toString());
     }
 
     public void testIconChange() {
@@ -66,11 +66,14 @@ public class PolnischesTrinkspielUItests extends ActivityInstrumentationTestCase
         Bitmap icon_picture = ((BitmapDrawable)icon.getDrawable()).getBitmap();
 
         mypolnischSolo.clickOnButton("l_1");
-        assert(icon_picture.sameAs(((BitmapDrawable)icon.getDrawable()).getBitmap()));
+        mypolnischSolo.sleep(200);
+        assertEquals(false,icon_picture.sameAs(((BitmapDrawable)icon.getDrawable()).getBitmap()));
         mypolnischSolo.clickOnButton("r_1");
-        assert(!icon_picture.sameAs(((BitmapDrawable)icon.getDrawable()).getBitmap()));
+        mypolnischSolo.sleep(200);
+        assertEquals(true,icon_picture.sameAs(((BitmapDrawable)icon.getDrawable()).getBitmap()));
         mypolnischSolo.clickOnButton("r_1");
-        assert(icon_picture.sameAs(((BitmapDrawable)icon.getDrawable()).getBitmap()));
+        mypolnischSolo.sleep(200);
+        assertEquals(false,icon_picture.sameAs(((BitmapDrawable)icon.getDrawable()).getBitmap()));
     }
 
     public void testVisibilityandInitText() {
@@ -81,33 +84,32 @@ public class PolnischesTrinkspielUItests extends ActivityInstrumentationTestCase
         ImageView icon_1 = (ImageView) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_image_player_1);
 
 
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3).getVisibility() != View.INVISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_left_arrow_3).getVisibility() != View.INVISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_right_arrow_3).getVisibility() != View.INVISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3).getVisibility() != View.INVISIBLE);
-        assert(!(((BitmapDrawable)icon_1.getDrawable()).getBitmap()).sameAs(BitmapFactory.decodeResource(mypolnischSolo.getCurrentActivity().getResources(),R.mipmap.apple)));
+        assertEquals(View.INVISIBLE, mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3).getVisibility());
+        assertEquals(View.INVISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_left_arrow_3).getVisibility());
+        assertEquals(View.INVISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_right_arrow_3).getVisibility());
+        assertEquals(View.INVISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3).getVisibility());
+        assertEquals(true,(((BitmapDrawable)icon_1.getDrawable()).getBitmap()).sameAs(BitmapFactory.decodeResource(mypolnischSolo.getCurrentActivity().getResources(),R.mipmap.apple)));
 
         mypolnischSolo.clickOnView(plus);
         mypolnischSolo.sleep(200);
 
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3).getVisibility() != View.VISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_left_arrow_3).getVisibility() != View.VISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_right_arrow_3).getVisibility() != View.VISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3).getVisibility() != View.VISIBLE);
-        assert(((EditText)mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3)).getText().toString() != "Spieler3");
-        assert(!(((BitmapDrawable)icon_3.getDrawable()).getBitmap()).sameAs(BitmapFactory.decodeResource(mypolnischSolo.getCurrentActivity().getResources(),R.mipmap.boy)));
+        assertEquals(View.VISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3).getVisibility());
+        assertEquals(View.VISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_left_arrow_3).getVisibility());
+        assertEquals(View.VISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_right_arrow_3).getVisibility());
+        assertEquals(View.VISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3).getVisibility());
+        assertEquals("Spieler3",((EditText)mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3)).getText().toString());
+        assertEquals(true, (((BitmapDrawable)icon_3.getDrawable()).getBitmap()).sameAs(BitmapFactory.decodeResource(mypolnischSolo.getCurrentActivity().getResources(),R.mipmap.boy)));
 
-
-        mypolnischSolo.clickOnView(plus);
         mypolnischSolo.clickOnButton("l_1");
+        mypolnischSolo.clickOnView(plus);
         mypolnischSolo.sleep(200);
 
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_4).getVisibility() != View.VISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_left_arrow_4).getVisibility() != View.VISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_right_arrow_4).getVisibility() != View.VISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_4).getVisibility() != View.VISIBLE);
-        assert(((EditText)mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3)).getText().toString() != "Spieler4");
-        assert(!(((BitmapDrawable)icon_4.getDrawable()).getBitmap()).sameAs(BitmapFactory.decodeResource(mypolnischSolo.getCurrentActivity().getResources(),R.mipmap.apple)));
+        assertEquals(View.VISIBLE, mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_4).getVisibility());
+        assertEquals(View.VISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_left_arrow_4).getVisibility());
+        assertEquals(View.VISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_right_arrow_4).getVisibility());
+        assertEquals(View.VISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_4).getVisibility());
+        assertEquals("Spieler4",((EditText)mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_4)).getText().toString());
+        assertEquals(true,(((BitmapDrawable)icon_4.getDrawable()).getBitmap()).sameAs(BitmapFactory.decodeResource(mypolnischSolo.getCurrentActivity().getResources(),R.mipmap.apple)));
 
 
         for(int i = 0; i < 8; i++){
@@ -120,19 +122,70 @@ public class PolnischesTrinkspielUItests extends ActivityInstrumentationTestCase
         }
 
 
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3).getVisibility() != View.INVISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_left_arrow_3).getVisibility() != View.INVISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_right_arrow_3).getVisibility() != View.INVISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3).getVisibility() != View.INVISIBLE);
+        assertEquals(View.INVISIBLE, mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3).getVisibility());
+        assertEquals(View.INVISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_left_arrow_3).getVisibility());
+        assertEquals(View.INVISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_right_arrow_3).getVisibility());
+        assertEquals(View.INVISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_3).getVisibility());
 
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_2).getVisibility() != View.VISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_left_arrow_2).getVisibility() != View.VISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_right_arrow_2).getVisibility() != View.VISIBLE);
-        assert(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_2).getVisibility() != View.VISIBLE);
+        assertEquals(View.VISIBLE, mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_2).getVisibility());
+        assertEquals(View.VISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_left_arrow_2).getVisibility());
+        assertEquals(View.VISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_right_arrow_2).getVisibility());
+        assertEquals(View.VISIBLE,mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_2).getVisibility());
 
         mypolnischSolo.clickOnButton("r_1");
         mypolnischSolo.sleep(200);
-        assert(!(((BitmapDrawable)icon_1.getDrawable()).getBitmap()).sameAs(BitmapFactory.decodeResource(mypolnischSolo.getCurrentActivity().getResources(),R.mipmap.apple)));
+        assertEquals(true,(((BitmapDrawable)icon_1.getDrawable()).getBitmap()).sameAs(BitmapFactory.decodeResource(mypolnischSolo.getCurrentActivity().getResources(),R.mipmap.apple)));
+    }
+
+    public void testStartChecks() {
+        Button button_start = (Button) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_start);
+        Button button_plus = (Button) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_plus);
+
+        EditText text_field_1 = (EditText) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_1);
+        EditText text_field_6 = (EditText) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_6);
+        EditText text_field_9 = (EditText) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_player_9);
+
+        for(int i = 0; i < 8; i++) {
+            mypolnischSolo.clickOnButton(button_plus.getText().toString());
+        }
+
+        mypolnischSolo.clearEditText(text_field_6);
+        mypolnischSolo.enterText(text_field_6, "Moritz");
+        mypolnischSolo.clearEditText(text_field_1);
+        mypolnischSolo.enterText(text_field_1, "Moritz");
+        mypolnischSolo.scrollUp();
+        mypolnischSolo.sleep(200);
+
+        mypolnischSolo.clickOnButton(button_start.getText().toString());
+        mypolnischSolo.sleep(200);
+        assertEquals(true,mypolnischSolo.searchText(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_message_name_twice)));
+        mypolnischSolo.goBack();
+
+        mypolnischSolo.clearEditText(text_field_6);
+        mypolnischSolo.enterText(text_field_6, "Klaus");
+        mypolnischSolo.clearEditText(text_field_9);
+        mypolnischSolo.enterText(text_field_9, "   ");
+        mypolnischSolo.scrollUp();
+        mypolnischSolo.sleep(200);
+
+        mypolnischSolo.clickOnButton(button_start.getText().toString());
+        mypolnischSolo.sleep(200);
+        assertEquals(true,mypolnischSolo.searchText(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_message_name_empty)));
+        mypolnischSolo.goBack();
+
+        mypolnischSolo.clearEditText(text_field_9);
+        mypolnischSolo.enterText(text_field_9, "Penny");
+        mypolnischSolo.scrollUp();
+        mypolnischSolo.sleep(200);
+        mypolnischSolo.clickOnButton(button_start.getText().toString());
+        mypolnischSolo.sleep(200);
+        mypolnischSolo.getText("Moritz");
+
+
+
+
+
+
     }
 
 }
