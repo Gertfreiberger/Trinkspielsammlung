@@ -20,6 +20,9 @@ public class PolnischField {
     private ArrayList<ImageView> field_icons_from_player_;
     private int icon_position_;
     private Drawable border_;
+    private int row_;
+    private int collum_;
+    private static int divide_number_ = 9;
 
 
     public PolnischField(int field_number, LinearLayout field, ImageView left, ImageView middle, ImageView right) {
@@ -106,4 +109,19 @@ public class PolnischField {
     public LinearLayout getField() {
         return field_;
     }
+
+    public void setRowAndCollum(int cell_index) {
+        row_ = cell_index / divide_number_;
+        collum_ = cell_index % divide_number_;
+    }
+
+    public int getRow() {
+        return row_;
+    }
+
+    public int getCollum() {
+        return collum_;
+    }
+
+
 }

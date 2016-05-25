@@ -47,12 +47,12 @@ public class PolnischGame extends AppCompatActivity {
     private ScrollView scroll_vertical_;
     private HorizontalScrollView scroll_horizontal_;
     private GridLayout grid_;
-    private int rows_;
-    private int collums_;
+    private int field_width_;
+    private int field_height_;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_polnisch_game);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -82,14 +82,25 @@ public class PolnischGame extends AppCompatActivity {
         scroll_horizontal_ = (HorizontalScrollView) findViewById(R.id.polnisch_scroll_view_horizontal);
         grid_ = (GridLayout) findViewById(R.id.polnisch_grid);
 
-        rows_ = grid_.getRowCount();
-        collums_ = grid_.getColumnCount();
+        loadRowsAndCollums();
+
+        field_height_ = fields_.get(start_field_).getHeight();
+        field_width_ = fields_.get(start_field_).getWidth();
 
         scroll_vertical_.post(new Runnable() {
             @Override
             public void run() {
-                scroll_vertical_.smoothScrollTo(0, rows_*fields_.get(0).getHeight());
-                scroll_horizontal_.smoothScrollTo(0, 0);
+
+                new CountDownTimer(tick_time_,tick_time_) {
+
+                    public void onTick(long millisUntilFinished) {
+                    }
+
+                    public void onFinish() {
+                        scroll_vertical_.smoothScrollTo(0,7*field_height_);
+                        scroll_horizontal_.smoothScrollTo(0, 0);
+                    }
+                }.start();
             }
         });
 }
@@ -161,6 +172,13 @@ public class PolnischGame extends AppCompatActivity {
             fields_.get(start_field_-1).playerArrived(players_.get(i));
         }
 
+    }
+
+    public void loadRowsAndCollums() {
+
+        for(int i = 0; i < fields_.size(); i++) {
+            fields_.get(i).setRowAndCollum(grid_.indexOfChild(fields_.get(i).getField()));
+        }
     }
 
 
@@ -580,19 +598,27 @@ public class PolnischGame extends AppCompatActivity {
             dest_field_ = last_field_-1;
         }
 
-        fields_.get(begin_field_).changeBorderRed(border_red_);
-        fields_.get(begin_field_).playerLeave(players_.get(current_player_));
-        int time_to_wait = (number_of_fields_to_go+1) * tick_time_;
+        final int time_to_wait = (number_of_fields_to_go+2) * tick_time_;
 
         scrollingToField(begin_field_);
 
         new CountDownTimer(time_to_wait, tick_time_) {
 
             public void onTick(long millisUntilFinished) {
-                fields_.get(begin_field_).changeBorderBlack();
-                scrollingToField(begin_field_+1);
-                fields_.get(begin_field_+1).changeBorderRed(border_red_);
-                begin_field_++;
+
+                long sec = millisUntilFinished/1000 + 1;
+
+                if(sec == time_to_wait/1000) {
+                    scrollingToField(begin_field_);
+                    fields_.get(begin_field_).changeBorderRed(border_red_);
+                    fields_.get(begin_field_).playerLeave(players_.get(current_player_));
+                }
+                else {
+                    fields_.get(begin_field_).changeBorderBlack();
+                    scrollingToField(begin_field_+1);
+                    fields_.get(begin_field_+1).changeBorderRed(border_red_);
+                    begin_field_++;
+                }
             }
 
             public void onFinish() {
@@ -626,8 +652,43 @@ public class PolnischGame extends AppCompatActivity {
 
     }
 
-    public void scrollingToField(int field_index) {
+    public void scrollingToField(final int field_index) {
 
+        scroll_vertical_.post(new Runnable() {
+            @Override
+            public void run() {
+
+                int collum = fields_.get(field_index).getCollum();
+                int row = fields_.get(field_index).getRow();
+
+                int x_pos;
+                int y_pos;
+
+                if(collum == 0) {
+                    x_pos = collum;
+                }
+                else if(collum == 1){
+                    x_pos = (field_width_/2);
+                }
+                else {
+                    x_pos = (collum-1)*field_width_ + (field_width_/2);
+
+                }
+
+                if(row == 0){
+                    y_pos = row;
+                }
+                else if(row == 1){
+                    y_pos = (field_height_/2);
+                }
+                else {
+                    y_pos = (row-1)*field_height_ + (field_height_/2);
+                }
+
+                scroll_vertical_.smoothScrollTo(0,y_pos);
+                scroll_horizontal_.smoothScrollTo(x_pos, 0);
+            }
+        });
     }
 
 
