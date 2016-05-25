@@ -92,7 +92,18 @@ public class PolnischField {
     }
 
     public int getFieldNumber() {
-
         return field_number_;
+    }
+
+    public int getHeight() {
+        return field_.getLayoutParams().height;
+    }
+
+    public int getWidth() {
+        return field_.getLayoutParams().width;
+    }
+
+    public LinearLayout getField() {
+        return field_;
     }
 }

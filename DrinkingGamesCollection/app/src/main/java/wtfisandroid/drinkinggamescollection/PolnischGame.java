@@ -7,14 +7,19 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.GridLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -36,6 +41,14 @@ public class PolnischGame extends AppCompatActivity {
     private TextView current_player_name_;
     private ArrayList<PolnischField>  fields_;
     private Drawable border_red_;
+    private int dest_field_;
+    private int begin_field_;
+    private static int tick_time_ = 1000;
+    private ScrollView scroll_vertical_;
+    private HorizontalScrollView scroll_horizontal_;
+    private GridLayout grid_;
+    private int rows_;
+    private int collums_;
 
 
     @Override
@@ -64,7 +77,22 @@ public class PolnischGame extends AppCompatActivity {
         loadFields();
 
         border_red_ = getResources().getDrawable(R.drawable.border_red);
-    }
+
+        scroll_vertical_ = (ScrollView) findViewById(R.id.polnisch_scroll_view_vertical);
+        scroll_horizontal_ = (HorizontalScrollView) findViewById(R.id.polnisch_scroll_view_horizontal);
+        grid_ = (GridLayout) findViewById(R.id.polnisch_grid);
+
+        rows_ = grid_.getRowCount();
+        collums_ = grid_.getColumnCount();
+
+        scroll_vertical_.post(new Runnable() {
+            @Override
+            public void run() {
+                scroll_vertical_.smoothScrollTo(0, rows_*fields_.get(0).getHeight());
+                scroll_horizontal_.smoothScrollTo(0, 0);
+            }
+        });
+}
 
     public void loadDicePictures(ArrayList<Bitmap> pictures) {
         pictures.add(BitmapFactory.decodeResource(getResources(), R.mipmap.dice_1));
@@ -540,39 +568,45 @@ public class PolnischGame extends AppCompatActivity {
             round_blocked_ = true;
             throwDice();
             movePlayer(dice_.getLastThrow()+1);
-
-            setCurrentPlayer();
-            round_blocked_ = false;
         }
     }
 
     public void movePlayer(int number_of_fields_to_go) {
 
-        int start_field = players_.get(current_player_).getField()-1;
-        int dest_field = start_field + number_of_fields_to_go;
+        begin_field_ = players_.get(current_player_).getField()-1;
+        dest_field_ = begin_field_ + number_of_fields_to_go;
 
-        if(dest_field >= last_field_) {
-            dest_field = last_field_-1;
+        if(dest_field_ >= last_field_) {
+            dest_field_ = last_field_-1;
         }
 
-        fields_.get(start_field).changeBorderRed(border_red_);
-        fields_.get(start_field).playerLeave(players_.get(current_player_));
+        fields_.get(begin_field_).changeBorderRed(border_red_);
+        fields_.get(begin_field_).playerLeave(players_.get(current_player_));
+        int time_to_wait = (number_of_fields_to_go+1) * tick_time_;
 
-        for(int i = start_field; i < dest_field; i++) {
-            fields_.get(i).changeBorderBlack();
-            fields_.get(i+1).changeBorderRed(border_red_);
+        scrollingToField(begin_field_);
 
-            for(int j = 0; j < 100000; j++) {
-                int x = j + 1;
+        new CountDownTimer(time_to_wait, tick_time_) {
+
+            public void onTick(long millisUntilFinished) {
+                fields_.get(begin_field_).changeBorderBlack();
+                scrollingToField(begin_field_+1);
+                fields_.get(begin_field_+1).changeBorderRed(border_red_);
+                begin_field_++;
             }
-        }
-        fields_.get(dest_field).playerArrived(players_.get(current_player_));
-        fields_.get(dest_field).changeBorderBlack();
 
-        if(dest_field == (last_field_-1) ) {
-            winGame();
-        }
+            public void onFinish() {
+                fields_.get(dest_field_).playerArrived(players_.get(current_player_));
+                fields_.get(dest_field_).changeBorderBlack();
 
+                if(dest_field_ == (last_field_-1) ) {
+                    winGame();
+                }
+
+                setCurrentPlayer();
+                round_blocked_ = false;
+            }
+        }.start();
     }
 
     public void setCurrentPlayer() {
@@ -589,6 +623,10 @@ public class PolnischGame extends AppCompatActivity {
     }
 
     public void winGame() {
+
+    }
+
+    public void scrollingToField(int field_index) {
 
     }
 
