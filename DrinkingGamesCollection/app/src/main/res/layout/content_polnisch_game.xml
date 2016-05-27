@@ -51,7 +51,7 @@
             android:layout_height="@dimen/polnisch_symbol_button_high"
             android:id="@+id/polnisch_image_active_player_icon"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/polnisch_button_skip_player" />
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -70,8 +70,10 @@
             android:text="@string/polnisch_skip_player"
             android:onClick="skipPlayer"
             android:id="@+id/polnisch_button_skip_player"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignBottom="@+id/polnisch_image_dice"
+            android:layout_toStartOf="@+id/polnisch_button_help_game"
+            android:textColor="#fcf9f9"
+            android:background="#b30c0c"/>
     </RelativeLayout>
 
     <ScrollView

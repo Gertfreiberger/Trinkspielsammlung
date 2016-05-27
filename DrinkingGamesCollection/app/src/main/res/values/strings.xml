@@ -114,7 +114,7 @@
     <string name="polnisch_field_32">Würfle, bei gerader Zahl trinkst du, bei ungerader der Rest.</string>
     <string name="polnisch_field_33">Trinke 3 und küsse eine Person des anderen Geschlechts.</string>
     <string name="polnisch_field_34">Trinke und ziehe ein Kleidungsstück aus.</string>
-    <string name="polnisch_field_35">Trinke und bestimme eine Person die auf Feld 6 zurück geht.</string>
+    <string name="polnisch_field_35">Trinke und bestimme eine Person die auf Feld 7 zurück geht.</string>
     <string name="polnisch_field_36">Gehe auf das Feld 7</string>
     <string name="polnisch_field_37">Es trinkt der, der am nächsten dem Start ist und du gehst dahin.</string>
     <string name="polnisch_field_38">Alle die vor dir sind Trinken</string>
@@ -154,6 +154,25 @@
     <string name="polnisch_field_72">ZIEL</string>
 
     <string name="polnisch_skip_player">Spieler\nauslassen</string>
+    <string name="polnisch_rule_headline">Regeln</string>
+    <string name="polnisch_game_field_headline">Das Spielfeld</string>
+    <string name="polnisch_game_field">Das Spielfeld an sich erinnert an ein ganz normales Gesellschaftsspiel.
+        \nEs besteht aus 72 unterschiedlichen Spielfeldern.
+        \nZiel des Spieles ist es, den eigenen Spielstein (Icon) vom Start ins Ziel zu bewegen.
+        \nAuf den einzelnen Spielfeldern stehen verschiedene
+        Aufgaben die der aktuelle Spieler erledigen muss, wenn er auf diesem Feld landet.</string>
+    <string name="polnisch_game_rule_headline">Spielablauf und Regeln</string>
+    <string name="polnisch_game_rules">Die Regeln dieses Trinkspieles sind ganz einfach.
+        \nIst ein Spieler an der Reihe, würfelt er(klick auf das Würfel Icon).
+        \nDie Spielfigur setzt sich nun in Bewegung bis Sie das erwürfelte Feld erreicht.
+        \nAuf dem Spielfeld auf dem er landet, steht eine Aufgabe die er erfüllen muss.
+        \nBei Aufgaben die einem auf andere Felder schicken wird dies vom Spiel selbst erledigt.
+        \nNatürlich muss dann auch die Aufgabe des Feldes erledigt werden auf das man geschickt wurde.
+        \nMeistens geht es ums trinken. Die Aufgabe auf diesem Spielfeld können dabei nur den aktuell die en Spieler,
+        alle oder eine bestimme Personengruppe betreffen.
+        \n\nBenötigt werden für das Spiel alkoholische Getränke und Gläser (maximal 0.4cl).
+        \nDas Wichtigste ist, dass keine Aufgabe ausgelassen oder übersprungen werden kann.</string>
+
 
 
 

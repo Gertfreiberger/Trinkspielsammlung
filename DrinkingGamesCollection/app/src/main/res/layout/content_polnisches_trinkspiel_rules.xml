@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,4 +12,55 @@
     tools:context="wtfisandroid.drinkinggamescollection.PolnischesTrinkspielRules"
     tools:showIn="@layout/activity_polnisches_trinkspiel_rules">
 
-</RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/polnisch_rule_headline"
+            android:text="@string/polnisch_rule_headline"
+            android:layout_gravity="center"
+            android:textColor="@color/colorBlack"
+            android:layout_marginBottom="@dimen/polnisch_margin_rules_headline"
+            android:id="@+id/polnisch_rule_headline" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/polnisch_rule_game_field"
+            android:text="@string/polnisch_game_field_headline"
+            android:layout_marginBottom="@dimen/polnisch_margin_rules_text"
+            android:textColor="@color/colorBlack"
+            android:id="@+id/polnisch_game_field_headline" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/polnisch_rule_game_rules"
+            android:layout_marginBottom="@dimen/polnisch_margin_rules_headline"
+            android:text="@string/polnisch_game_field"
+            android:textColor="@color/colorBlack"
+            android:id="@+id/polnisch_game_field" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/polnisch_rule_game_field"
+            android:text="@string/polnisch_game_rule_headline"
+            android:layout_marginBottom="@dimen/polnisch_margin_rules_text"
+            android:textColor="@color/colorBlack"
+            android:id="@+id/polnisch_game_rule_headline" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/polnisch_rule_game_rules"
+            android:text="@string/polnisch_game_rules"
+            android:textColor="@color/colorBlack"
+            android:id="@+id/polnisch_game_rules" />
+    </LinearLayout>
+</ScrollView>

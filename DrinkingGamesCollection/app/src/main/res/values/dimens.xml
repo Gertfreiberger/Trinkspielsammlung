@@ -41,6 +41,11 @@
     <dimen name="polnisch_field_icon_margin">20dp</dimen>
     <dimen name="polnisch_field_text_padding">5dp</dimen>
     <dimen name="polnisch_top_number_padding">4dp</dimen>
+    <dimen name="polnisch_rule_headline">30sp</dimen>
+    <dimen name="polnisch_rule_game_field">24sp</dimen>
+    <dimen name="polnisch_rule_game_rules">16sp</dimen>
+    <dimen name="polnisch_margin_rules_text">20dp</dimen>
+    <dimen name="polnisch_margin_rules_headline">50dp</dimen>
 
 
 

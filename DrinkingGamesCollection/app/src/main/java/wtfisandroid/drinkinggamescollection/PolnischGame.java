@@ -49,6 +49,7 @@ public class PolnischGame extends AppCompatActivity {
     private GridLayout grid_;
     private int field_width_;
     private int field_height_;
+    private final int wait_send_to_field_ = 5 * tick_time_;
 
 
     @Override
@@ -180,7 +181,6 @@ public class PolnischGame extends AppCompatActivity {
             fields_.get(i).setRowAndCollum(grid_.indexOfChild(fields_.get(i).getField()));
         }
     }
-
 
     public ArrayList<ImageView> loadImageViewsOfGame() {
 
@@ -557,7 +557,6 @@ public class PolnischGame extends AppCompatActivity {
         return layouts;
     }
 
-
     public void throwDice() {
         dice_.wuerfeln((ImageView)findViewById(R.id.polnisch_image_dice));
         if(!sound_dices_.isPlaying()) {
@@ -565,7 +564,6 @@ public class PolnischGame extends AppCompatActivity {
             sound_dices_.start();
         }
     }
-
 
     public void openHelpPage(View v) {
 
@@ -585,20 +583,24 @@ public class PolnischGame extends AppCompatActivity {
         if(!round_blocked_) {
             round_blocked_ = true;
             throwDice();
-            movePlayer(dice_.getLastThrow()+1);
+            final int time_to_wait = (dice_.getLastThrow()+3) * tick_time_;
+            movePlayer(dice_.getLastThrow()+1, time_to_wait, true);
         }
     }
 
-    public void movePlayer(int number_of_fields_to_go) {
+    public void movePlayer(int number_of_fields_to_go, final int time_to_wait, final boolean front_or_back) {
 
         begin_field_ = players_.get(current_player_).getField()-1;
-        dest_field_ = begin_field_ + number_of_fields_to_go;
+        if(front_or_back){
+            dest_field_ = begin_field_ + number_of_fields_to_go;
+        }
+        else {
+            dest_field_ = begin_field_ - number_of_fields_to_go;
+        }
 
         if(dest_field_ >= last_field_) {
             dest_field_ = last_field_-1;
         }
-
-        final int time_to_wait = (number_of_fields_to_go+2) * tick_time_;
 
         scrollingToField(begin_field_);
 
@@ -613,12 +615,19 @@ public class PolnischGame extends AppCompatActivity {
                     fields_.get(begin_field_).changeBorderRed(border_red_);
                     fields_.get(begin_field_).playerLeave(players_.get(current_player_));
                 }
-                else {
+                else if(front_or_back) {
                     fields_.get(begin_field_).changeBorderBlack();
-                    scrollingToField(begin_field_+1);
-                    fields_.get(begin_field_+1).changeBorderRed(border_red_);
+                    scrollingToField(begin_field_ + 1);
+                    fields_.get(begin_field_ + 1).changeBorderRed(border_red_);
                     begin_field_++;
                 }
+                else {
+                    fields_.get(begin_field_).changeBorderBlack();
+                    scrollingToField(begin_field_ - 1);
+                    fields_.get(begin_field_ - 1).changeBorderRed(border_red_);
+                    begin_field_--;
+                }
+
             }
 
             public void onFinish() {
@@ -629,8 +638,10 @@ public class PolnischGame extends AppCompatActivity {
                     winGame();
                 }
 
-                setCurrentPlayer();
-                round_blocked_ = false;
+                if(actionField()){
+                    setCurrentPlayer();
+                    round_blocked_ = false;
+                }
             }
         }.start();
     }
@@ -691,7 +702,153 @@ public class PolnischGame extends AppCompatActivity {
         });
     }
 
+    public void sendPlayer(final int player){
+
+        new CountDownTimer(wait_send_to_field_, tick_time_) {
+
+            public void onTick(long millisUntilFinished) {
+
+                long sec = millisUntilFinished/1000;
+
+                if((sec+3) == wait_send_to_field_/1000) {
+                    scrollingToField(begin_field_);
+                    fields_.get(begin_field_).changeBorderRed(border_red_);
+                    fields_.get(begin_field_).playerLeave(players_.get(player));
+                }
+                else if((sec+4) == wait_send_to_field_/1000){
+                    fields_.get(begin_field_).changeBorderBlack();
+                    scrollingToField(dest_field_);
+                    fields_.get(dest_field_).changeBorderRed(border_red_);
+                }
+            }
+
+            public void onFinish() {
+                fields_.get(dest_field_).playerArrived(players_.get(player));
+                fields_.get(dest_field_).changeBorderBlack();
 
 
+                if(actionField()){
+                    setCurrentPlayer();
+                    round_blocked_ = false;
+                }
+            }
+        }.start();
 
+    }
+
+    public boolean actionField(){
+
+        switch(dest_field_){
+
+            case 3:
+                final int wait_3 = 4*tick_time_;
+                movePlayer(2, wait_3, false);
+                return false;
+
+            case 5:
+                dest_field_ = 32;
+                sendPlayer(current_player_);
+                return false;
+
+            case 13:
+                break;
+
+            case 14:
+                break;
+
+            case 17:
+                break;
+
+            case 20:
+                current_player_--;
+                break;
+
+            case 21:
+                dest_field_ = 0;
+                sendPlayer(current_player_);
+                return false;
+
+            case 24:
+                break;
+
+            case 29:
+                dest_field_ = 9;
+                sendPlayer(current_player_);
+                break;
+
+            case 31:
+                break;
+
+            case 34:
+                break;
+
+            case 35:
+                dest_field_ = 6;
+                sendPlayer(current_player_);
+                break;
+
+            case 36:
+                break;
+
+            case 37:
+                break;
+
+            case 40:
+                break;
+
+            case 42:
+                break;
+
+            case 45:
+                final int wait_45 = 4*tick_time_;
+                movePlayer(2, wait_45, true);
+                return false;
+
+            case 46:
+                break;
+
+            case 49:
+                dest_field_ = 28;
+                int same_player = current_player_;
+                current_player_--;
+                sendPlayer(same_player);
+                return false;
+
+            case 55:
+                break;
+
+            case 56:
+                dest_field_ = 18;
+                sendPlayer(current_player_);
+                break;
+
+            case 59:
+                break;
+
+            case 62:
+                break;
+
+            case 65:
+                break;
+
+            case 66:
+                dest_field_ = 32;
+                sendPlayer(current_player_);
+                break;
+
+            case 69:
+                break;
+
+            case 70:
+                dest_field_ = 0;
+                sendPlayer(current_player_);
+                break;
+
+            default:
+
+                return true;
+
+        }
+        return true;
+    }
 }

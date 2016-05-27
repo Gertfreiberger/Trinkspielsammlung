@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.robotium.solo.Solo;
 
@@ -59,6 +60,79 @@ public class PolnischesTrinkspielUItests extends ActivityInstrumentationTestCase
         }
         mypolnischSolo.scrollUp();
         mypolnischSolo.clickOnButton(button_start.getText().toString());
+    }
+
+    public void testButtonsGame(){
+        navigateToGame();
+
+        Button button_help = (Button) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_help_game);
+        Button button_skip_player = (Button) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_skip_player);
+        View image_dice = mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_image_dice);
+
+        mypolnischSolo.clickOnButton(button_help.getText().toString());
+        mypolnischSolo.goBack();
+
+        mypolnischSolo.clickOnButton(button_skip_player.getText().toString());
+        mypolnischSolo.clickOnView(image_dice);
+        mypolnischSolo.sleep(8000);
+    }
+
+    public void testHelpPages(){
+        Button button_help = (Button) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_help);
+
+        mypolnischSolo.clickOnButton(button_help.getText().toString());
+        mypolnischSolo.sleep(500);
+        String text = ((TextView)mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_rule_headline)).getText().toString();
+        assertEquals(true,text.equals(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_rule_headline)));
+        text = ((TextView)mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_game_field_headline)).getText().toString();
+        assertEquals(true,text.equals(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_game_field_headline)));
+        text = ((TextView)mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_game_field)).getText().toString();
+        assertEquals(true,text.equals(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_game_field)));
+        text = ((TextView)mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_game_rule_headline)).getText().toString();
+        assertEquals(true,text.equals(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_game_rule_headline)));
+        text = ((TextView)mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_game_rules)).getText().toString();
+        assertEquals(true,text.equals(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_game_rules)));
+
+
+        mypolnischSolo.scrollDown();
+        mypolnischSolo.goBack();
+
+        navigateToGame();
+
+        button_help = (Button) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_help_game);
+        mypolnischSolo.clickOnButton(button_help.getText().toString());
+        mypolnischSolo.sleep(500);
+
+        text = ((TextView)mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_rule_headline)).getText().toString();
+        assertEquals(true,text.equals(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_rule_headline)));
+        text = ((TextView)mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_game_field_headline)).getText().toString();
+        assertEquals(true,text.equals(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_game_field_headline)));
+        text = ((TextView)mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_game_field)).getText().toString();
+        assertEquals(true,text.equals(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_game_field)));
+        text = ((TextView)mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_game_rule_headline)).getText().toString();
+        assertEquals(true,text.equals(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_game_rule_headline)));
+        text = ((TextView)mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_game_rules)).getText().toString();
+        assertEquals(true,text.equals(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_game_rules)));
+    }
+
+    public void testSkipPlayer(){
+        navigateToGame();
+
+        TextView current_player = (TextView) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_text_field_active_player);
+        ImageView current_icon = (ImageView) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_image_active_player_icon);
+        Button skip_player = (Button) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_skip_player);
+
+        String name = current_player.getText().toString();
+        Bitmap icon = ((BitmapDrawable)current_icon.getDrawable()).getBitmap();
+
+        assertEquals(true, current_player.getText().toString().equals(name));
+        assertEquals(true,((BitmapDrawable)current_icon.getDrawable()).getBitmap().sameAs(icon));
+
+        mypolnischSolo.clickOnButton(skip_player.getText().toString());
+        mypolnischSolo.sleep(300);
+
+        assertEquals(false, current_player.getText().toString().equals(name));
+        assertEquals(false,((BitmapDrawable)current_icon.getDrawable()).getBitmap().sameAs(icon));
     }
 
     public void testIconChange() {
@@ -186,6 +260,13 @@ public class PolnischesTrinkspielUItests extends ActivityInstrumentationTestCase
 
 
 
+    }
+
+    public void navigateToGame() {
+        Button button_start = (Button) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_start);
+
+        mypolnischSolo.clickOnButton(button_start.getText().toString());
+        mypolnischSolo.sleep(5000);
     }
 
 }
