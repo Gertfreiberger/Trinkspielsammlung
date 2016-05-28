@@ -50,6 +50,12 @@ public class PolnischGame extends AppCompatActivity {
     private int field_width_;
     private int field_height_;
     private final int wait_send_to_field_ = 5 * tick_time_;
+    private int throwing_times_;
+    private boolean send_start_;
+    private boolean field_59_;
+    private boolean field_62_69_;
+    private int back_move_62_69_;
+    private ArrayList<Integer> pause_player_;
 
 
     @Override
@@ -60,6 +66,12 @@ public class PolnischGame extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         current_player_ = 0;
+        throwing_times_ = 0;
+        send_start_ = false;
+        field_59_ = false;
+        field_62_69_ = false;
+        back_move_62_69_ = 0;
+        pause_player_ = new ArrayList<Integer>();
         current_player_icon_ = (ImageView) findViewById(R.id.polnisch_image_active_player_icon);
         current_player_name_ = (TextView) findViewById(R.id.polnisch_text_field_active_player);
         players_ = new ArrayList<Player>();
@@ -100,6 +112,9 @@ public class PolnischGame extends AppCompatActivity {
                     public void onFinish() {
                         scroll_vertical_.smoothScrollTo(0,7*field_height_);
                         scroll_horizontal_.smoothScrollTo(0, 0);
+
+                        dest_field_ = 17;
+                        sendPlayer(current_player_);
                     }
                 }.start();
             }
@@ -573,7 +588,7 @@ public class PolnischGame extends AppCompatActivity {
 
     public void skipPlayer(View v) {
 
-        if(!round_blocked_) {
+        if(!round_blocked_ && !send_start_ && !field_59_ && !field_62_69_ && (throwing_times_ == 0)) {
             setCurrentPlayer();
         }
     }
@@ -583,8 +598,65 @@ public class PolnischGame extends AppCompatActivity {
         if(!round_blocked_) {
             round_blocked_ = true;
             throwDice();
-            final int time_to_wait = (dice_.getLastThrow()+3) * tick_time_;
-            movePlayer(dice_.getLastThrow()+1, time_to_wait, true);
+
+            if(throwing_times_ == 0){
+
+                int time_ticks = 0;
+                if(players_.get(current_player_).getField() + dice_.getLastThrow() >= last_field_){
+                    time_ticks = last_field_ - players_.get(current_player_).getField() + 2;
+                }
+                else {
+                    time_ticks = (dice_.getLastThrow()+3);
+                }
+                final int time_to_wait = time_ticks * tick_time_;
+                movePlayer(dice_.getLastThrow()+1, time_to_wait, true);
+            }
+            else {
+                throwing_times_--;
+
+                if(send_start_){
+
+                    if(field_59_){
+
+                        if((dice_.getLastThrow()+1) == 1){
+                            dest_field_ = 0;
+                            sendPlayer(current_player_);
+                        }
+                        else {
+                            setCurrentPlayer();
+                            round_blocked_ = false;
+                        }
+                    }
+                    else {
+                        dest_field_ = 0;
+                        sendPlayer(current_player_);
+                    }
+
+                    if(throwing_times_ == 0){
+                        send_start_ = false;
+                        field_59_ = false;
+                    }
+                }
+                else if(field_62_69_){
+
+                    back_move_62_69_ += (dice_.getLastThrow() + 1);
+
+                    if(throwing_times_ == 0){
+                        field_62_69_ = false;
+                        final int back_steps = (back_move_62_69_ + 2) * tick_time_;
+                        movePlayer(back_move_62_69_, back_steps, false);
+                        back_move_62_69_ = 0;
+                    }
+                    else {
+                        round_blocked_ = false;
+                    }
+                }
+                else {
+                    setCurrentPlayer();
+                    round_blocked_ = false;
+                }
+            }
+
         }
     }
 
@@ -657,6 +729,11 @@ public class PolnischGame extends AppCompatActivity {
 
         current_player_name_.setText(players_.get(current_player_).getName());
         current_player_icon_.setImageBitmap(players_.get(current_player_).getIcon());
+
+        if(pause_player_.contains(current_player_) && !send_start_ && !field_59_ && (throwing_times_ == 0)){
+            pause_player_.remove(current_player_);
+            setCurrentPlayer();
+        }
     }
 
     public void winGame() {
@@ -704,6 +781,8 @@ public class PolnischGame extends AppCompatActivity {
 
     public void sendPlayer(final int player){
 
+        begin_field_ = players_.get(player).getField() - 1;
+
         new CountDownTimer(wait_send_to_field_, tick_time_) {
 
             public void onTick(long millisUntilFinished) {
@@ -726,14 +805,12 @@ public class PolnischGame extends AppCompatActivity {
                 fields_.get(dest_field_).playerArrived(players_.get(player));
                 fields_.get(dest_field_).changeBorderBlack();
 
-
                 if(actionField()){
                     setCurrentPlayer();
                     round_blocked_ = false;
                 }
             }
         }.start();
-
     }
 
     public boolean actionField(){
@@ -751,12 +828,16 @@ public class PolnischGame extends AppCompatActivity {
                 return false;
 
             case 13:
+                throwing_times_ = 1;
+                current_player_--;
+                send_start_ = true;
                 break;
 
             case 14:
                 break;
 
             case 17:
+                pause_player_.add(current_player_);
                 break;
 
             case 20:
@@ -777,6 +858,8 @@ public class PolnischGame extends AppCompatActivity {
                 break;
 
             case 31:
+                throwing_times_ = 1;
+                current_player_--;
                 break;
 
             case 34:
@@ -794,9 +877,12 @@ public class PolnischGame extends AppCompatActivity {
                 break;
 
             case 40:
+                throwing_times_ = 1;
+                current_player_--;
                 break;
 
             case 42:
+                throwing_times_ = players_.size();
                 break;
 
             case 45:
@@ -805,6 +891,8 @@ public class PolnischGame extends AppCompatActivity {
                 return false;
 
             case 46:
+                throwing_times_ = 1;
+                current_player_--;
                 break;
 
             case 49:
@@ -815,6 +903,7 @@ public class PolnischGame extends AppCompatActivity {
                 return false;
 
             case 55:
+                throwing_times_ = players_.size();
                 break;
 
             case 56:
@@ -823,9 +912,15 @@ public class PolnischGame extends AppCompatActivity {
                 break;
 
             case 59:
+                throwing_times_ = players_.size();
+                send_start_ = true;
+                field_59_ = true;
                 break;
 
             case 62:
+                throwing_times_ = 3;
+                current_player_--;
+                field_62_69_ = true;
                 break;
 
             case 65:
@@ -837,6 +932,9 @@ public class PolnischGame extends AppCompatActivity {
                 break;
 
             case 69:
+                throwing_times_ = 5;
+                current_player_--;
+                field_62_69_ = true;
                 break;
 
             case 70:
