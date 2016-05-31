@@ -8,10 +8,12 @@ public class Player {
     private int field_;
     private Bitmap icon_;
     private int used_icon_field_;
+    private boolean pause_;
 
     public Player(String name) {
         name_ = name;
         used_icon_field_ = 100;
+        pause_ = false;
     }
 
     public void setField(int field) {
@@ -30,6 +32,10 @@ public class Player {
         icon_ = icon;
     }
 
+    public void setPause(boolean pause) {
+        pause_ = pause;
+    }
+
     public int getField() {
         return field_;
     }
@@ -40,6 +46,10 @@ public class Player {
 
     public Bitmap getIcon() {
         return icon_;
+    }
+
+    public boolean getPause() {
+        return pause_;
     }
 
     public int getUsedIconField() {

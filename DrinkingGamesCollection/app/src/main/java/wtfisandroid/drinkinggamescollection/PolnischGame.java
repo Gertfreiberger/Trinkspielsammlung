@@ -1,5 +1,6 @@
 package wtfisandroid.drinkinggamescollection;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -55,7 +57,6 @@ public class PolnischGame extends AppCompatActivity {
     private boolean field_59_;
     private boolean field_62_69_;
     private int back_move_62_69_;
-    private ArrayList<Integer> pause_player_;
 
 
     @Override
@@ -71,7 +72,6 @@ public class PolnischGame extends AppCompatActivity {
         field_59_ = false;
         field_62_69_ = false;
         back_move_62_69_ = 0;
-        pause_player_ = new ArrayList<Integer>();
         current_player_icon_ = (ImageView) findViewById(R.id.polnisch_image_active_player_icon);
         current_player_name_ = (TextView) findViewById(R.id.polnisch_text_field_active_player);
         players_ = new ArrayList<Player>();
@@ -112,9 +112,6 @@ public class PolnischGame extends AppCompatActivity {
                     public void onFinish() {
                         scroll_vertical_.smoothScrollTo(0,7*field_height_);
                         scroll_horizontal_.smoothScrollTo(0, 0);
-
-                        dest_field_ = 17;
-                        sendPlayer(current_player_);
                     }
                 }.start();
             }
@@ -591,6 +588,8 @@ public class PolnischGame extends AppCompatActivity {
         if(!round_blocked_ && !send_start_ && !field_59_ && !field_62_69_ && (throwing_times_ == 0)) {
             setCurrentPlayer();
         }
+
+        openPlayersToDrink();
     }
 
     public void newRound(View v) {
@@ -730,8 +729,8 @@ public class PolnischGame extends AppCompatActivity {
         current_player_name_.setText(players_.get(current_player_).getName());
         current_player_icon_.setImageBitmap(players_.get(current_player_).getIcon());
 
-        if(pause_player_.contains(current_player_) && !send_start_ && !field_59_ && (throwing_times_ == 0)){
-            pause_player_.remove(current_player_);
+        if(players_.get(current_player_).getPause() && !send_start_ && !field_59_ && (throwing_times_ == 0)){
+            players_.get(current_player_).setPause(false);
             setCurrentPlayer();
         }
     }
@@ -813,6 +812,28 @@ public class PolnischGame extends AppCompatActivity {
         }.start();
     }
 
+    public void openPlayersToDrink(){
+        Dialog players_to_drink = new Dialog(PolnischGame.this);
+        players_to_drink.setContentView(R.layout.dialog_polnisch_game);
+        players_to_drink.setTitle("Test Test");
+        players_to_drink.setCancelable(true);
+
+        TextView text = (TextView) players_to_drink.findViewById(R.id.polnisch_dialog_text_1);
+        ImageView image = (ImageView) players_to_drink.findViewById(R.id.polnisch_dialog_icon_1);
+        Button ok_button = (Button) players_to_drink.findViewById(R.id.polnisch_dialog_button_ok);
+
+        image.setImageBitmap(players_.get(1).getIcon());
+        text.setText(players_.get(1).getName());
+
+        ok_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        players_to_drink.show();
+    }
+
     public boolean actionField(){
 
         switch(dest_field_){
@@ -837,7 +858,7 @@ public class PolnischGame extends AppCompatActivity {
                 break;
 
             case 17:
-                pause_player_.add(current_player_);
+                players_.get(current_player_).setPause(true);
                 break;
 
             case 20:
@@ -855,7 +876,7 @@ public class PolnischGame extends AppCompatActivity {
             case 29:
                 dest_field_ = 9;
                 sendPlayer(current_player_);
-                break;
+                return false;
 
             case 31:
                 throwing_times_ = 1;
@@ -868,17 +889,12 @@ public class PolnischGame extends AppCompatActivity {
             case 35:
                 dest_field_ = 6;
                 sendPlayer(current_player_);
-                break;
+                return false;
 
             case 36:
                 break;
 
             case 37:
-                break;
-
-            case 40:
-                throwing_times_ = 1;
-                current_player_--;
                 break;
 
             case 42:
@@ -909,7 +925,7 @@ public class PolnischGame extends AppCompatActivity {
             case 56:
                 dest_field_ = 18;
                 sendPlayer(current_player_);
-                break;
+                return false;
 
             case 59:
                 throwing_times_ = players_.size();
@@ -929,7 +945,7 @@ public class PolnischGame extends AppCompatActivity {
             case 66:
                 dest_field_ = 32;
                 sendPlayer(current_player_);
-                break;
+                return false;
 
             case 69:
                 throwing_times_ = 5;
@@ -940,12 +956,9 @@ public class PolnischGame extends AppCompatActivity {
             case 70:
                 dest_field_ = 0;
                 sendPlayer(current_player_);
-                break;
+                return false;
 
             default:
-
-                return true;
-
         }
         return true;
     }
