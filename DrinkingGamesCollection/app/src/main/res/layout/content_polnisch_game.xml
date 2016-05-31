@@ -4047,7 +4047,7 @@
                 android:layout_height="@dimen/polnisch_field_rectangle_height"
                 android:background="@drawable/border_black_top_bottom"
                 android:id="@+id/polnisch_layout_field_8"
-                    android:paddingTop="@dimen/polnisch_top_number_padding">
+                android:paddingTop="@dimen/polnisch_top_number_padding">
 
 
                 <TextView

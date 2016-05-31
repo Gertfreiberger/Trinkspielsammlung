@@ -123,5 +123,7 @@ public class PolnischField {
         return collum_;
     }
 
+    public ArrayList<Player> getPlayers(){return players_;}
+
 
 }

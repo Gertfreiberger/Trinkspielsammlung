@@ -56,6 +56,8 @@ public class PolnischGame extends AppCompatActivity {
     private boolean send_start_;
     private boolean field_59_;
     private boolean field_62_69_;
+    private boolean field_34_;
+    private boolean field_36_;
     private int back_move_62_69_;
 
 
@@ -71,6 +73,8 @@ public class PolnischGame extends AppCompatActivity {
         send_start_ = false;
         field_59_ = false;
         field_62_69_ = false;
+        field_34_ = false;
+        field_36_ = false;
         back_move_62_69_ = 0;
         current_player_icon_ = (ImageView) findViewById(R.id.polnisch_image_active_player_icon);
         current_player_name_ = (TextView) findViewById(R.id.polnisch_text_field_active_player);
@@ -182,7 +186,7 @@ public class PolnischGame extends AppCompatActivity {
 
 
         for(int i = 0; i < players_.size(); i++) {
-            fields_.get(start_field_-1).playerArrived(players_.get(i));
+            fields_.get(start_field_ - 1).playerArrived(players_.get(i));
         }
 
     }
@@ -588,8 +592,6 @@ public class PolnischGame extends AppCompatActivity {
         if(!round_blocked_ && !send_start_ && !field_59_ && !field_62_69_ && (throwing_times_ == 0)) {
             setCurrentPlayer();
         }
-
-        openPlayersToDrink();
     }
 
     public void newRound(View v) {
@@ -812,26 +814,94 @@ public class PolnischGame extends AppCompatActivity {
         }.start();
     }
 
-    public void openPlayersToDrink(){
-        Dialog players_to_drink = new Dialog(PolnischGame.this);
+    public void openPlayersToDrink(ArrayList<Player> players_to_show){
+        final Dialog players_to_drink = new Dialog(PolnischGame.this);
         players_to_drink.setContentView(R.layout.dialog_polnisch_game);
-        players_to_drink.setTitle("Test Test");
-        players_to_drink.setCancelable(true);
-
-        TextView text = (TextView) players_to_drink.findViewById(R.id.polnisch_dialog_text_1);
-        ImageView image = (ImageView) players_to_drink.findViewById(R.id.polnisch_dialog_icon_1);
         Button ok_button = (Button) players_to_drink.findViewById(R.id.polnisch_dialog_button_ok);
 
-        image.setImageBitmap(players_.get(1).getIcon());
-        text.setText(players_.get(1).getName());
+        if(field_34_){
+            ok_button.setVisibility(View.INVISIBLE);
+            players_to_drink.setTitle(R.string.polnisch_dialog_choose_player);
+        }else {
+            players_to_drink.setTitle(R.string.polnisch_dialog_text_players_drink);
+        }
+
+        players_to_drink.setCanceledOnTouchOutside(false);
+
+        ArrayList<ImageView> player_icons = loadDialogImageViews(players_to_drink);
+        ArrayList<TextView> player_names = loadDialogTextViews(players_to_drink);
+
+        for(int i = 0; i < players_to_show.size(); i++){
+            player_icons.get(i).setImageBitmap(players_to_show.get(i).getIcon());
+            player_icons.get(i).setVisibility(View.VISIBLE);
+            player_names.get(i).setText(players_to_show.get(i).getName());
+            player_names.get(i).setVisibility(View.VISIBLE);
+
+            if(field_34_){
+                player_names.get(i).setClickable(true);
+                player_names.get(i).setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        String player_name = ((TextView) view).getText().toString();
+                        field_34_ = false;
+                        for(int i = 0; i < players_.size(); i++){
+                            if(players_.get(i).getName().equals(player_name)){
+                                players_to_drink.dismiss();
+                                dest_field_ = 6;
+                                sendPlayer(i);
+                            }
+                        }
+                    }
+                });
+            }
+        }
 
         ok_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                players_to_drink.dismiss();
+                if(field_36_){
+                    field_36_ = false;
+                    dest_field_ = 0;
+                    sendPlayer(current_player_);
+                }
             }
         });
         players_to_drink.show();
+    }
+
+    public ArrayList<ImageView> loadDialogImageViews(Dialog dialog){
+        ArrayList<ImageView> icons = new ArrayList<ImageView>();
+
+        icons.add((ImageView) dialog.findViewById(R.id.polnisch_dialog_icon_1));
+        icons.add((ImageView) dialog.findViewById(R.id.polnisch_dialog_icon_2));
+        icons.add((ImageView) dialog.findViewById(R.id.polnisch_dialog_icon_3));
+        icons.add((ImageView) dialog.findViewById(R.id.polnisch_dialog_icon_4));
+        icons.add((ImageView) dialog.findViewById(R.id.polnisch_dialog_icon_5));
+        icons.add((ImageView) dialog.findViewById(R.id.polnisch_dialog_icon_6));
+        icons.add((ImageView) dialog.findViewById(R.id.polnisch_dialog_icon_7));
+        icons.add((ImageView) dialog.findViewById(R.id.polnisch_dialog_icon_8));
+        icons.add((ImageView) dialog.findViewById(R.id.polnisch_dialog_icon_9));
+        icons.add((ImageView) dialog.findViewById(R.id.polnisch_dialog_icon_10));
+
+        return icons;
+    }
+
+    public ArrayList<TextView> loadDialogTextViews(Dialog dialog){
+        ArrayList<TextView> player_names = new ArrayList<TextView>();
+
+        player_names.add((TextView) dialog.findViewById(R.id.polnisch_dialog_text_1));
+        player_names.add((TextView) dialog.findViewById(R.id.polnisch_dialog_text_2));
+        player_names.add((TextView) dialog.findViewById(R.id.polnisch_dialog_text_3));
+        player_names.add((TextView) dialog.findViewById(R.id.polnisch_dialog_text_4));
+        player_names.add((TextView) dialog.findViewById(R.id.polnisch_dialog_text_5));
+        player_names.add((TextView) dialog.findViewById(R.id.polnisch_dialog_text_6));
+        player_names.add((TextView) dialog.findViewById(R.id.polnisch_dialog_text_7));
+        player_names.add((TextView) dialog.findViewById(R.id.polnisch_dialog_text_8));
+        player_names.add((TextView) dialog.findViewById(R.id.polnisch_dialog_text_9));
+        player_names.add((TextView) dialog.findViewById(R.id.polnisch_dialog_text_10));
+
+        return player_names;
     }
 
     public boolean actionField(){
@@ -855,6 +925,22 @@ public class PolnischGame extends AppCompatActivity {
                 break;
 
             case 14:
+                ArrayList<Player> players_list_14 = new ArrayList<>();
+
+                for(int i = start_field_-1; i < last_field_; i++ ){
+                    if(!fields_.get(i).getPlayers().isEmpty()){
+                        players_list_14.addAll(fields_.get(i).getPlayers());
+                       break;
+                    }
+                }
+
+                for(int i = last_field_-1; i >= start_field_ - 1 ; i-- ){
+                    if(!fields_.get(i).getPlayers().isEmpty()){
+                        players_list_14.addAll(fields_.get(i).getPlayers());
+                        break;
+                    }
+                }
+                openPlayersToDrink(players_list_14);
                 break;
 
             case 17:
@@ -884,7 +970,9 @@ public class PolnischGame extends AppCompatActivity {
                 break;
 
             case 34:
-                break;
+                field_34_ = true;
+                openPlayersToDrink(players_);
+                return false;
 
             case 35:
                 dest_field_ = 6;
@@ -892,9 +980,30 @@ public class PolnischGame extends AppCompatActivity {
                 return false;
 
             case 36:
-                break;
+                ArrayList<Player> players_list_36 = new ArrayList<>();
+
+                for(int i = start_field_-1; i < last_field_; i++ ){
+                    if(!fields_.get(i).getPlayers().isEmpty()){
+                        players_list_36.addAll(fields_.get(i).getPlayers());
+                        break;
+                    }
+                }
+                field_36_ = true;
+                openPlayersToDrink(players_list_36);
+                return false;
 
             case 37:
+                ArrayList<Player> players_list_37 = new ArrayList<>();
+                for(int i = 0; i < players_.size(); i++)
+                {
+                    if(players_.get(i).getField() > 38){
+                        players_list_37.add(players_.get(i));
+                    }
+                }
+
+                if(!players_list_37.isEmpty()){
+                    openPlayersToDrink(players_list_37);
+                }
                 break;
 
             case 42:

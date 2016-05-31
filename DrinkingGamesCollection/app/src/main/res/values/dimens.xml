@@ -7,6 +7,7 @@
     <dimen name="mainmenu_button_width">160dp</dimen>
     <dimen name="help_button_size">30dp</dimen>
     <dimen name="textsize_zero">0sp</dimen>
+    <dimen name="dimen_zero">0dp</dimen>
 
 
     <!-- Mäxchen -->
@@ -24,6 +25,7 @@
     <dimen name="polnisch_symbol_size">30sp</dimen>
     <dimen name="polnisch_symbol_button_high">60dp</dimen>
     <dimen name="polnisch_start_button_width">90dp</dimen>
+    <dimen name="polnisch_symbol_button_high_small">30dp</dimen>
     <dimen name="polnisch_edit_field_width">120dp</dimen>
     <dimen name="polnisch_margin_text_view">5dp</dimen>
     <dimen name="polnisch_top_margin_text_view">10dp</dimen>
@@ -46,6 +48,10 @@
     <dimen name="polnisch_rule_game_rules">16sp</dimen>
     <dimen name="polnisch_margin_rules_text">20dp</dimen>
     <dimen name="polnisch_margin_rules_headline">50dp</dimen>
+    <dimen name="polnisch_dialog_row_margin">5dp</dimen>
+    <dimen name="polnisch_dialog_icon_margin_right">50dp</dimen>
+
+
 
 
 

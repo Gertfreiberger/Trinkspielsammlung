@@ -114,7 +114,7 @@
     <string name="polnisch_field_32">Würfle, bei gerader Zahl trinkst du, bei ungerader der Rest.</string>
     <string name="polnisch_field_33">Trinke 3 und küsse eine Person des anderen Geschlechts.</string>
     <string name="polnisch_field_34">Trinke und ziehe ein Kleidungsstück aus.</string>
-    <string name="polnisch_field_35">Trinke und bestimme eine Person die auf Feld 7 zurück geht.</string>
+    <string name="polnisch_field_35">Trinke und bestimme eine Person die auf Feld 7 geht.</string>
     <string name="polnisch_field_36">Gehe auf das Feld 7</string>
     <string name="polnisch_field_37">Es trinkt der, der am nächsten dem Start ist und du gehst dahin.</string>
     <string name="polnisch_field_38">Alle die vor dir sind Trinken</string>
@@ -172,7 +172,11 @@
         alle oder eine bestimme Personengruppe betreffen.
         \n\nBenötigt werden für das Spiel alkoholische Getränke und Gläser (maximal 0.4cl).
         \nDas Wichtigste ist, dass keine Aufgabe ausgelassen oder übersprungen werden kann.</string>
-
+    <string name="polnisch_dialog_text_players_drink">Folgende Spieler trinken!</string>
+    <string name="polnisch_dialog_choose_player">Trinke!!! Und bestimme eine Person die auf Feld 7 geht.</string>
+    <string name="polnisch_dialog_choose_drink_or_back">Wähle! Trinken oder zurück gehen?</string>
+    <string name="polnisch_dialog_button_choose_drink">Ich trinke 3!</string>
+    <string name="polnisch_dialog_button_choose_back">Ich gehe 4 Felder zurück</string>
 
 
 
