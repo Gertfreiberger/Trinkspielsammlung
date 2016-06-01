@@ -124,7 +124,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:gravity="center"
                     android:text="@string/polnisch_field_24"
                     android:id="@+id/polnisch_text_view_field_text_24"

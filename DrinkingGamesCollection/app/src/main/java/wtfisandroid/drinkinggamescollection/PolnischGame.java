@@ -24,6 +24,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import wtfisandroid.drinkinggamescollection.features.Dice;
@@ -738,7 +740,24 @@ public class PolnischGame extends AppCompatActivity {
     }
 
     public void winGame() {
+        final Dialog winner = new Dialog(PolnischGame.this);
+        winner.setContentView(R.layout.dialog_winner);
+        winner.setCanceledOnTouchOutside(false);
 
+        TextView player_name = (TextView) winner.findViewById(R.id.polnisch_dialog_winner_player_name);
+        ImageView player_icon = (ImageView) winner.findViewById(R.id.polnisch_dialog_winner_player_icon);
+        Button button_end = (Button) winner.findViewById(R.id.polnisch_dialog_winner_button);
+
+        player_name.setText(players_.get(current_player_).getName());
+        player_icon.setImageBitmap(players_.get(current_player_).getIcon());
+
+        button_end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        winner.show();
     }
 
     public void scrollingToField(final int field_index) {
@@ -818,12 +837,12 @@ public class PolnischGame extends AppCompatActivity {
         final Dialog players_to_drink = new Dialog(PolnischGame.this);
         players_to_drink.setContentView(R.layout.dialog_polnisch_game);
         Button ok_button = (Button) players_to_drink.findViewById(R.id.polnisch_dialog_button_ok);
-
+        TextView field_description = (TextView) players_to_drink.findViewById(R.id.polnisch_dialog_description_text);
         if(field_34_){
             ok_button.setVisibility(View.INVISIBLE);
-            players_to_drink.setTitle(R.string.polnisch_dialog_choose_player);
+            field_description.setText(R.string.polnisch_dialog_choose_player);
         }else {
-            players_to_drink.setTitle(R.string.polnisch_dialog_text_players_drink);
+            field_description.setText(R.string.polnisch_dialog_text_players_drink);
         }
 
         players_to_drink.setCanceledOnTouchOutside(false);
@@ -831,11 +850,13 @@ public class PolnischGame extends AppCompatActivity {
         ArrayList<ImageView> player_icons = loadDialogImageViews(players_to_drink);
         ArrayList<TextView> player_names = loadDialogTextViews(players_to_drink);
 
+
         for(int i = 0; i < players_to_show.size(); i++){
             player_icons.get(i).setImageBitmap(players_to_show.get(i).getIcon());
             player_icons.get(i).setVisibility(View.VISIBLE);
             player_names.get(i).setText(players_to_show.get(i).getName());
             player_names.get(i).setVisibility(View.VISIBLE);
+
 
             if(field_34_){
                 player_names.get(i).setClickable(true);
@@ -904,6 +925,40 @@ public class PolnischGame extends AppCompatActivity {
         return player_names;
     }
 
+    public void openTwoButtonsDialog(){
+        final Dialog two_buttons = new Dialog(PolnischGame.this);
+        two_buttons.setContentView(R.layout.dialog_polnisch_2_buttons);
+        two_buttons.setCanceledOnTouchOutside(false);
+
+        TextView description_text = (TextView) two_buttons.findViewById(R.id.polnisch_dialog_2_buttons_description_text);
+        Button left_button = (Button) two_buttons.findViewById(R.id.polnisch_dialog_2_buttons_button_left);
+        Button right_button = (Button) two_buttons.findViewById(R.id.polnisch_dialog_2_buttons_button_right);
+
+        description_text.setText(R.string.polnisch_dialog_choose_drink_or_back);
+
+        left_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                two_buttons.dismiss();
+                setCurrentPlayer();
+                round_blocked_ = false;
+            }
+        });
+
+        right_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                two_buttons.dismiss();
+                final int wait_24 = 6 * tick_time_;
+                movePlayer(4, wait_24, false);
+            }
+        });
+
+        two_buttons.show();
+
+
+    }
+
     public boolean actionField(){
 
         switch(dest_field_){
@@ -957,7 +1012,8 @@ public class PolnischGame extends AppCompatActivity {
                 return false;
 
             case 24:
-                break;
+                openTwoButtonsDialog();
+                return false;
 
             case 29:
                 dest_field_ = 9;

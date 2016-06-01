@@ -3,7 +3,7 @@
 <item>
     <shape
         android:shape="rectangle">
-        <stroke android:width="@dimen/polnisch_frame_width" android:color="#000" />
+        <stroke android:width="@dimen/polnisch_frame_width" android:color="@color/colorBlack" />
         <solid android:color="#fff" />
 
     </shape>
@@ -12,7 +12,7 @@
 <item android:left="@dimen/polnisch_frame_padding" android:bottom="@dimen/polnisch_frame_padding">
     <shape
         android:shape="rectangle">
-        <stroke android:width="@dimen/polnisch_frame_width" android:color="#000" />
+        <stroke android:width="@dimen/polnisch_frame_width" android:color="@color/colorGrey" />
         <solid android:color="#fff" />
     </shape>
 </item>

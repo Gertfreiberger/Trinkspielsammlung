@@ -25,7 +25,7 @@
     <dimen name="polnisch_symbol_size">30sp</dimen>
     <dimen name="polnisch_symbol_button_high">60dp</dimen>
     <dimen name="polnisch_start_button_width">90dp</dimen>
-    <dimen name="polnisch_symbol_button_high_small">30dp</dimen>
+    <dimen name="polnisch_symbol_button_high_small">40dp</dimen>
     <dimen name="polnisch_edit_field_width">120dp</dimen>
     <dimen name="polnisch_margin_text_view">5dp</dimen>
     <dimen name="polnisch_top_margin_text_view">10dp</dimen>
@@ -34,8 +34,9 @@
     <dimen name="polnisch_field_padding">5dp</dimen>
     <dimen name="polnisch_field_number_text_size">12sp</dimen>
     <dimen name="polnisch_field_description_text_size">16sp</dimen>
+    <dimen name="polnisch_dialog_description_text_size">20sp</dimen>
     <dimen name="polnisch_field_description_big_text_size">50sp</dimen>
-    <dimen name="polnisch_frame_width">3dp</dimen>
+    <dimen name="polnisch_frame_width">2dp</dimen>
     <dimen name="polnisch_frame_red_width">5dp</dimen>
     <dimen name="polnisch_frame_padding">2dp</dimen>
     <dimen name="polnisch_field_rectangle_width">180dp</dimen>
@@ -50,7 +51,11 @@
     <dimen name="polnisch_margin_rules_headline">50dp</dimen>
     <dimen name="polnisch_dialog_row_margin">5dp</dimen>
     <dimen name="polnisch_dialog_icon_margin_right">50dp</dimen>
-
+    <dimen name="polnisch_dialog_button_height">60dp</dimen>
+    <dimen name="polnisch_dialog_winner_text_size">40sp</dimen>
+    <dimen name="polnisch_dialog_winner_icon_size">130dp</dimen>
+    <dimen name="polnisch_dialog_winner_margin">30dp</dimen>
+    <dimen name="polnisch_dialog_winner_crown_margin">-30dp</dimen>
 
 
 

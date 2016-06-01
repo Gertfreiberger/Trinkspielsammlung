@@ -164,19 +164,22 @@
     <string name="polnisch_game_rule_headline">Spielablauf und Regeln</string>
     <string name="polnisch_game_rules">Die Regeln dieses Trinkspieles sind ganz einfach.
         \nIst ein Spieler an der Reihe, würfelt er(klick auf das Würfel Icon).
-        \nDie Spielfigur setzt sich nun in Bewegung bis Sie das erwürfelte Feld erreicht.
-        \nAuf dem Spielfeld auf dem er landet, steht eine Aufgabe die er erfüllen muss.
+        \nDie Spielfigur setzt sich nun in Bewegung bis sie das erwürfelte Feld erreicht.
+        \nAuf dem Spielfeld auf dem sie landet, steht eine Aufgabe die erfüllt werden muss.
         \nBei Aufgaben die einem auf andere Felder schicken wird dies vom Spiel selbst erledigt.
         \nNatürlich muss dann auch die Aufgabe des Feldes erledigt werden auf das man geschickt wurde.
-        \nMeistens geht es ums trinken. Die Aufgabe auf diesem Spielfeld können dabei nur den aktuell die en Spieler,
-        alle oder eine bestimme Personengruppe betreffen.
+        \nMeistens geht es ums trinken. Die Aufgabe auf diesem Spielfeld können dabei nur den aktuellen Spieler,
+        alle Spieler oder eine bestimme Personengruppe betreffen.
         \n\nBenötigt werden für das Spiel alkoholische Getränke und Gläser (maximal 0.4cl).
         \nDas Wichtigste ist, dass keine Aufgabe ausgelassen oder übersprungen werden kann.</string>
     <string name="polnisch_dialog_text_players_drink">Folgende Spieler trinken!</string>
     <string name="polnisch_dialog_choose_player">Trinke!!! Und bestimme eine Person die auf Feld 7 geht.</string>
-    <string name="polnisch_dialog_choose_drink_or_back">Wähle! Trinken oder zurück gehen?</string>
+    <string name="polnisch_dialog_choose_drink_or_back">Wähle! Trinken 3 oder gehe 4 Felder zurück?</string>
     <string name="polnisch_dialog_button_choose_drink">Ich trinke 3!</string>
     <string name="polnisch_dialog_button_choose_back">Ich gehe 4 Felder zurück</string>
+    <string name="polnisch_dialog_winner_headline">Sieger!!!</string>
+
+
 
 
 

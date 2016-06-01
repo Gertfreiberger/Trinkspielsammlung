@@ -2,8 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:minWidth="300dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/polnisch_dialog_description_text_size"
+        android:textColor="@color/colorBlack"
+        android:text=""
+        android:id="@+id/polnisch_dialog_description_text"
+        android:gravity="center_horizontal"
+        android:layout_margin="@dimen/polnisch_margin_text_view" />
 
     <LinearLayout
         android:orientation="horizontal"
