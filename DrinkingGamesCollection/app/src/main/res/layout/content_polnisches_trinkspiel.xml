@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="wtfisandroid.drinkinggamescollection.PolnischesTrinkspiel"
-    tools:showIn="@layout/activity_polnisches_trinkspiel">
+    tools:showIn="@layout/activity_polnisches_trinkspiel"
+    android:background="@mipmap/wood">
 
 
     <RelativeLayout
@@ -19,14 +20,17 @@
 
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/polnisch_text_view_player_count_width"
+            android:layout_height="@dimen/polnisch_text_view_player_count_height"
             android:text="@string/polnisch_textview_player"
             android:textSize="@dimen/polnisch_player_name_size"
             android:id="@+id/polnisch_player_choice"
             android:textColor="@color/colorBlack"
             android:layout_below="@+id/polnisch_button_help"
-            android:layout_alignEnd="@+id/polnisch_button_plus" />
+            android:layout_alignEnd="@+id/polnisch_button_plus"
+            android:background="@mipmap/paper_floating_edges"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/polnisch_player_number_text_view_right_margin"/>
 
         <Button
             android:layout_width="@dimen/polnisch_symbol_button_high"
@@ -69,7 +73,8 @@
             android:id="@+id/polnisch_button_start"
             android:layout_below="@+id/polnisch_player_choice"
             android:layout_toEndOf="@+id/polnisch_button_plus"
-            android:layout_marginStart="54dp" />
+            android:layout_marginStart="54dp"
+            android:background="@mipmap/paper_floating_edges" />
 
         <EditText
             android:layout_width="@dimen/polnisch_edit_field_width"
@@ -80,7 +85,10 @@
             android:layout_below="@+id/polnisch_button_minus"
             android:layout_alignParentStart="true"
             android:layout_marginTop="37dp"
-            android:maxLength="10"/>
+            android:maxLength="9"
+            android:background="@mipmap/paper_floating_edges"
+            android:paddingLeft="@dimen/polnisch_player_name_padding"
+            android:paddingRight="@dimen/polnisch_player_name_padding"/>
 
         <EditText
             android:layout_width="@dimen/polnisch_edit_field_width"
@@ -91,7 +99,10 @@
             android:layout_below="@+id/polnisch_text_field_player_1"
             android:layout_alignEnd="@+id/polnisch_text_field_player_1"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"
-            android:maxLength="10"/>
+            android:maxLength="9"
+            android:background="@mipmap/paper_floating_edges"
+            android:paddingLeft="@dimen/polnisch_player_name_padding"
+            android:paddingRight="@dimen/polnisch_player_name_padding"/>
 
         <EditText
             android:layout_width="@dimen/polnisch_edit_field_width"
@@ -103,7 +114,10 @@
             android:layout_alignParentStart="true"
             android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"
-            android:maxLength="10"/>
+            android:maxLength="9"
+            android:background="@mipmap/paper_floating_edges"
+            android:paddingLeft="@dimen/polnisch_player_name_padding"
+            android:paddingRight="@dimen/polnisch_player_name_padding"/>
 
         <EditText
             android:layout_width="@dimen/polnisch_edit_field_width"
@@ -115,7 +129,10 @@
             android:layout_alignParentStart="true"
             android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"
-            android:maxLength="10"/>
+            android:maxLength="9"
+            android:background="@mipmap/paper_floating_edges"
+            android:paddingLeft="@dimen/polnisch_player_name_padding"
+            android:paddingRight="@dimen/polnisch_player_name_padding"/>
 
         <EditText
             android:layout_width="@dimen/polnisch_edit_field_width"
@@ -127,7 +144,10 @@
             android:layout_alignParentStart="true"
             android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"
-            android:maxLength="10"/>
+            android:maxLength="9"
+            android:background="@mipmap/paper_floating_edges"
+            android:paddingLeft="@dimen/polnisch_player_name_padding"
+            android:paddingRight="@dimen/polnisch_player_name_padding"/>
 
         <EditText
             android:layout_width="@dimen/polnisch_edit_field_width"
@@ -139,7 +159,10 @@
             android:layout_alignParentStart="true"
             android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"
-            android:maxLength="10"/>
+            android:maxLength="9"
+            android:background="@mipmap/paper_floating_edges"
+            android:paddingLeft="@dimen/polnisch_player_name_padding"
+            android:paddingRight="@dimen/polnisch_player_name_padding"/>
 
         <EditText
             android:layout_width="@dimen/polnisch_edit_field_width"
@@ -151,7 +174,10 @@
             android:layout_alignParentStart="true"
             android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"
-            android:maxLength="10"/>
+            android:maxLength="9"
+            android:background="@mipmap/paper_floating_edges"
+            android:paddingLeft="@dimen/polnisch_player_name_padding"
+            android:paddingRight="@dimen/polnisch_player_name_padding"/>
 
         <EditText
             android:layout_width="@dimen/polnisch_edit_field_width"
@@ -163,7 +189,10 @@
             android:layout_alignParentStart="true"
             android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"
-            android:maxLength="10"/>
+            android:maxLength="9"
+            android:background="@mipmap/paper_floating_edges"
+            android:paddingLeft="@dimen/polnisch_player_name_padding"
+            android:paddingRight="@dimen/polnisch_player_name_padding"/>
 
         <EditText
             android:layout_width="@dimen/polnisch_edit_field_width"
@@ -175,7 +204,10 @@
             android:layout_alignParentStart="true"
             android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"
-            android:maxLength="10"/>
+            android:maxLength="9"
+            android:background="@mipmap/paper_floating_edges"
+            android:paddingLeft="@dimen/polnisch_player_name_padding"
+            android:paddingRight="@dimen/polnisch_player_name_padding"/>
 
         <EditText
             android:layout_width="@dimen/polnisch_edit_field_width"
@@ -187,7 +219,10 @@
             android:layout_alignParentStart="true"
             android:visibility="invisible"
             android:layout_marginTop="@dimen/polnisch_top_margin_text_view"
-            android:maxLength="10"/>
+            android:maxLength="9"
+            android:background="@mipmap/paper_floating_edges"
+            android:paddingLeft="@dimen/polnisch_player_name_padding"
+            android:paddingRight="@dimen/polnisch_player_name_padding"/>
 
         <Button
             android:layout_width="@dimen/polnisch_symbol_button_high"
@@ -208,9 +243,8 @@
             android:id="@+id/polnisch_button_right_arrow_1"
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_1"
-            android:layout_toStartOf="@+id/polnisch_button_help"
-            android:background="@mipmap/arrow_right"
-            android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
+            android:layout_alignParentEnd="true"
+            android:background="@mipmap/arrow_right" />
 
         <ImageView
             android:layout_width="@dimen/polnisch_symbol_button_high"
@@ -240,9 +274,8 @@
             android:id="@+id/polnisch_button_right_arrow_2"
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_2"
-            android:layout_toStartOf="@+id/polnisch_button_help"
-            android:background="@mipmap/arrow_right"
-            android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
+            android:layout_alignParentEnd="true"
+            android:background="@mipmap/arrow_right"/>
 
         <ImageView
             android:layout_width="@dimen/polnisch_symbol_button_high"
@@ -273,10 +306,9 @@
             android:id="@+id/polnisch_button_right_arrow_3"
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_3"
-            android:layout_toStartOf="@+id/polnisch_button_help"
+            android:layout_alignParentEnd="true"
             android:visibility="invisible"
-            android:background="@mipmap/arrow_right"
-            android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
+            android:background="@mipmap/arrow_right"/>
 
         <ImageView
             android:layout_width="@dimen/polnisch_symbol_button_high"
@@ -308,10 +340,9 @@
             android:id="@+id/polnisch_button_right_arrow_4"
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_4"
-            android:layout_toStartOf="@+id/polnisch_button_help"
+            android:layout_alignParentEnd="true"
             android:visibility="invisible"
-            android:background="@mipmap/arrow_right"
-            android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
+            android:background="@mipmap/arrow_right"/>
 
         <ImageView
             android:layout_width="@dimen/polnisch_symbol_button_high"
@@ -343,10 +374,9 @@
             android:id="@+id/polnisch_button_right_arrow_5"
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_5"
-            android:layout_toStartOf="@+id/polnisch_button_help"
+            android:layout_alignParentEnd="true"
             android:visibility="invisible"
-            android:background="@mipmap/arrow_right"
-            android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
+            android:background="@mipmap/arrow_right"/>
 
         <ImageView
             android:layout_width="@dimen/polnisch_symbol_button_high"
@@ -378,10 +408,9 @@
             android:id="@+id/polnisch_button_right_arrow_6"
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_6"
-            android:layout_toStartOf="@+id/polnisch_button_help"
+            android:layout_alignParentEnd="true"
             android:visibility="invisible"
-            android:background="@mipmap/arrow_right"
-            android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
+            android:background="@mipmap/arrow_right"/>
 
         <ImageView
             android:layout_width="@dimen/polnisch_symbol_button_high"
@@ -413,10 +442,9 @@
             android:id="@+id/polnisch_button_right_arrow_7"
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_7"
-            android:layout_toStartOf="@+id/polnisch_button_help"
+            android:layout_alignParentEnd="true"
             android:visibility="invisible"
-            android:background="@mipmap/arrow_right"
-            android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
+            android:background="@mipmap/arrow_right"/>
 
         <ImageView
             android:layout_width="@dimen/polnisch_symbol_button_high"
@@ -448,10 +476,9 @@
             android:id="@+id/polnisch_button_right_arrow_8"
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_8"
-            android:layout_toStartOf="@+id/polnisch_button_help"
+            android:layout_alignParentEnd="true"
             android:visibility="invisible"
-            android:background="@mipmap/arrow_right"
-            android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
+            android:background="@mipmap/arrow_right"/>
 
         <ImageView
             android:layout_width="@dimen/polnisch_symbol_button_high"
@@ -483,10 +510,9 @@
             android:id="@+id/polnisch_button_right_arrow_9"
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_9"
-            android:layout_toStartOf="@+id/polnisch_button_help"
+            android:layout_alignParentEnd="true"
             android:visibility="invisible"
-            android:background="@mipmap/arrow_right"
-            android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
+            android:background="@mipmap/arrow_right"/>
 
         <ImageView
             android:layout_width="@dimen/polnisch_symbol_button_high"
@@ -518,10 +544,9 @@
             android:id="@+id/polnisch_button_right_arrow_10"
             android:onClick="arrowClicked"
             android:layout_alignTop="@+id/polnisch_button_left_arrow_10"
-            android:layout_toStartOf="@+id/polnisch_button_help"
+            android:layout_alignParentEnd="true"
             android:background="@mipmap/arrow_right"
-            android:visibility="invisible"
-            android:layout_marginRight="@dimen/polnisch_right_margin_arrows"/>
+            android:visibility="invisible"/>
 
         <ImageView
             android:layout_width="@dimen/polnisch_symbol_button_high"

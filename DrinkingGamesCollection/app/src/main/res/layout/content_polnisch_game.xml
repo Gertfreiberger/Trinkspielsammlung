@@ -11,7 +11,8 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="wtfisandroid.drinkinggamescollection.PolnischGame"
     tools:showIn="@layout/activity_polnisch_game"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@mipmap/wood">
 
 
 
@@ -54,15 +55,19 @@
             android:layout_alignParentStart="true" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/polnisch_text_view_player_count_width"
+            android:layout_height="@dimen/polnisch_text_view_player_count_height"
             android:text="Spieler"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/polnisch_player_name_size"
             android:id="@+id/polnisch_text_field_active_player"
             android:layout_alignBottom="@+id/polnisch_image_active_player_icon"
             android:layout_toEndOf="@+id/polnisch_image_active_player_icon"
-            android:layout_marginStart="38dp" />
+            android:layout_marginStart="10dp"
+            android:background="@mipmap/paper_floating_edges"
+            android:gravity="center"
+            android:paddingLeft="@dimen/polnisch_player_name_padding"
+            android:paddingRight="@dimen/polnisch_player_name_padding"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -3490,7 +3495,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="31"
+                        android:text="36"
                         android:textSize="@dimen/polnisch_field_number_text_size"
                         android:textColor="@color/colorBlack"
                         android:layout_gravity="center_horizontal"

@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="wtfisandroid.drinkinggamescollection.PolnischesTrinkspielRules"
-    tools:showIn="@layout/activity_polnisches_trinkspiel_rules">
+    tools:showIn="@layout/activity_polnisches_trinkspiel_rules"
+    android:background="@mipmap/paper">
 
 
     <LinearLayout
