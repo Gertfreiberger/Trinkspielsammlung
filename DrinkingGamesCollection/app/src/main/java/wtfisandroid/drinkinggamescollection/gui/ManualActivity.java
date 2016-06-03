@@ -85,7 +85,7 @@ public class ManualActivity extends AppCompatActivity {
 
 	public class TabsPagerAdapter extends FragmentPagerAdapter {
 
-		private int NUM_ITEMS = 5;
+		private int NUM_ITEMS = 3;
 
 		public TabsPagerAdapter(FragmentManager fragmentManager) {
 			super(fragmentManager);
@@ -111,13 +111,7 @@ public class ManualActivity extends AppCompatActivity {
 					fragment = new PyramideFragment();
 					break;
 				case 2:
-					fragment = new MaexchenFragment();
-					break;
-				case 3:
 					fragment = new IHaveNeverFragment();
-					break;
-				case 4:
-					fragment = new PolskiDrinkinGameFragment();
 					break;
 				default:
 					break;
@@ -166,29 +160,11 @@ public class ManualActivity extends AppCompatActivity {
 		}
 	}
 
-	public static class MaexchenFragment extends Fragment {
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.manual_maexchen, container, false);
-			return rootView;
-		}
-	}
-
 	public static class IHaveNeverFragment extends Fragment {
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.manual_i_have_never, container, false);
-			return rootView;
-		}
-	}
-
-	public static class PolskiDrinkinGameFragment extends Fragment {
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.manual_polski_drinkingame, container, false);
 			return rootView;
 		}
 	}

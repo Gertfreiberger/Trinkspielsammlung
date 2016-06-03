@@ -37,9 +37,7 @@
     <string-array name="manualTabs">
         <item>Allgmein</item>
         <item>Pyramide</item>
-        <item>Mäxchen</item>
-        <item>Kingscup</item>
-        <item>Polnisches Trinkspiel</item>
+        <item>Ich hab noch nie</item>
     </string-array>
 
     <string-array name="pyramid_rounds">
