@@ -117,9 +117,6 @@ public class ManualActivity extends AppCompatActivity {
 					fragment = new IHaveNeverFragment();
 					break;
 				case 4:
-					fragment = new KingscupFragment();
-					break;
-				case 5:
 					fragment = new PolskiDrinkinGameFragment();
 					break;
 				default:
@@ -192,15 +189,6 @@ public class ManualActivity extends AppCompatActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.manual_polski_drinkingame, container, false);
-			return rootView;
-		}
-	}
-
-	public static class KingscupFragment extends Fragment {
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.manual_kingscup, container, false);
 			return rootView;
 		}
 	}
