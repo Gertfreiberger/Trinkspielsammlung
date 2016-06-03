@@ -38,9 +38,6 @@ public class MainMenuUItests extends ActivityInstrumentationTestCase2<MainMenu> 
         button_test = (Button) mySolo.getCurrentActivity().findViewById(R.id.button_polnisches_trinkspiel);
         mySolo.clickOnButton(button_test.getText().toString());
         mySolo.goBack();
-        button_test = (Button) mySolo.getCurrentActivity().findViewById(R.id.button_pyramid);
-        mySolo.clickOnButton(button_test.getText().toString());
-        mySolo.goBack();
         button_test = (Button) mySolo.getCurrentActivity().findViewById(R.id.button_i_have_never_ever);
         mySolo.clickOnButton(button_test.getText().toString());
         mySolo.goBack();
@@ -50,7 +47,12 @@ public class MainMenuUItests extends ActivityInstrumentationTestCase2<MainMenu> 
         button_test = (Button) mySolo.getCurrentActivity().findViewById(R.id.button_manual);
         mySolo.clickOnButton(button_test.getText().toString());
         mySolo.goBack();
-        button_test = (Button) mySolo.getCurrentActivity().findViewById(R.id.button_close);
+        button_test = (Button) mySolo.getCurrentActivity().findViewById(R.id.button_pyramid);
+        mySolo.clickOnButton(button_test.getText().toString());
+    }
+
+    public void testButtonClose(){
+        Button button_test = (Button) mySolo.getCurrentActivity().findViewById(R.id.button_close);
         mySolo.clickOnButton(button_test.getText().toString());
     }
 }

@@ -22,12 +22,14 @@
         </activity>
         <activity
             android:name=".Maexchen"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_maexchen_menu"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Kingscup"
-            android:label="@string/title_activity_kingscup_menu"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:name=".MaexchenRules"
+            android:label="@string/title_activity_maexchen_rules"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PolnischesTrinkspiel"
             android:label="@string/title_activity_polnisches_trinkspiel"
@@ -60,3 +62,6 @@
     </application>
 
 </manifest>
+
+
+
