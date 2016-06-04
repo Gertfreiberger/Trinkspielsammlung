@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.StateListDrawable;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -79,8 +80,6 @@ public class PyramidActivity extends AppCompatActivity {
 		toolbar.setLogo(R.drawable.ic_logo);
 		toolbar.setTitleTextColor(Color.BLACK);
 		toolbar.setSubtitleTextColor(Color.BLUE);
-
-//		toolbar.setNavigationIcon(R.drawable.ic_logo);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setItems(R.array.pyramid_rounds, null)
@@ -229,27 +228,40 @@ public class PyramidActivity extends AppCompatActivity {
 		} else
 			playerNumber++;
 
+		StateListDrawable firstChoiceState = new StateListDrawable();
+		StateListDrawable secondChoiceState = new StateListDrawable();
 		switch ( roundNumber ) {
 			case 1:
-				firstChoice.setImageResource(R.drawable.ic_black_card);
-				secondChoice.setImageResource(R.drawable.ic_red_card);
+				firstChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_black_card_pressed, null));
+				firstChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_black_card, null));
+				secondChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_red_card_pressed, null));
+				secondChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_red_card, null));
 				break;
 			case 2:
-				firstChoice.setImageResource(R.drawable.ic_higher);
-				secondChoice.setImageResource(R.drawable.ic_lower);
+				firstChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_higher_pressed, null));
+				firstChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_higher, null));
+				secondChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_lower_pressed, null));
+				secondChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_lower, null));
 				break;
 			case 3:
-				firstChoice.setImageResource(R.drawable.ic_within);
-				secondChoice.setImageResource(R.drawable.ic_outside);
+				firstChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_within_pressed, null));
+				firstChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_within, null));
+				secondChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_outside_pressed, null));
+				secondChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_outside, null));
 				break;
 			case 4:
-				firstChoice.setImageResource(R.drawable.ic_in_possesion);
-				secondChoice.setImageResource(R.drawable.ic_not_in_possesion);
+				firstChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_in_possesion_pressed, null));
+				firstChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_in_possesion, null));
+				secondChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_not_in_possesion_pressed, null));
+				secondChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_not_in_possesion, null));
 				break;
 			default:
 				Log.d(TAG, "execute_round() called with: " + "RoundNumber: " + roundNumber);
 				break;
 		}
+
+		firstChoice.setImageDrawable(firstChoiceState);
+		secondChoice.setImageDrawable(secondChoiceState);
 
 		String player_name = playerNames.get(KEY_PLAYER + playerNumber);
 		if ( toolbar != null )
@@ -260,6 +272,7 @@ public class PyramidActivity extends AppCompatActivity {
 
 		playerHand = playerHands.get(KEY_PLAYER + playerNumber);
 		currentCard = gameDeck.get(currentCardNumber);
+		Log.d(TAG, "execute_round() called with: currentCard " + currentCard + "  currentCardNumber:  " + currentCardNumber);
 		currentCardNumber++;
 
 		for ( int i = 0; i < roundNumber - 1; i++ ) {
@@ -267,6 +280,9 @@ public class PyramidActivity extends AppCompatActivity {
 			utilities.fadeIn(view, 3000);
 			view.setImageResource(playerHand.getPlayerCards().get(i).getImageID());
 		}
+
+		firstChoice.setClickable(true);
+		secondChoice.setClickable(true);
 	}
 
 	public void onClickFirstChoice(View v) {
@@ -280,38 +296,38 @@ public class PyramidActivity extends AppCompatActivity {
 		Gamecard third_card;
 		switch ( roundNumber ) {
 			case 1:
-					String color = currentCard.getCardColor();
-					if ( !color.equalsIgnoreCase(Gamecard.SPADES) && !color.equalsIgnoreCase(Gamecard.CLUBS) )
-						drink();
+				String color = currentCard.getCardColor();
+				if ( !color.equalsIgnoreCase(Gamecard.SPADES) && !color.equalsIgnoreCase(Gamecard.CLUBS) )
+					drink();
 				break;
 			case 2:
 				first_card = playerHand.getPlayerCards().get(0);
 				Log.d(TAG, "case2() called with: " + "first_card = [" + playerHand.getPlayerCards().get(0) + "] currentcard: " + currentCard);
-				if (currentCard.getCardValue() <= first_card.getCardValue() )
+				if ( currentCard.getCardValue() <= first_card.getCardValue() )
 					drink();
 				break;
 			case 3:
-					int current_card_value = currentCard.getCardValue();
-					first_card = playerHand.getPlayerCards().get(0);
-					int first_card_value = first_card.getCardValue();
-					second_card = playerHand.getPlayerCards().get(1);
-					int second_card_value = second_card.getCardValue();
+				int current_card_value = currentCard.getCardValue();
+				first_card = playerHand.getPlayerCards().get(0);
+				int first_card_value = first_card.getCardValue();
+				second_card = playerHand.getPlayerCards().get(1);
+				int second_card_value = second_card.getCardValue();
 
-					if ( current_card_value < first_card_value && current_card_value > second_card_value || current_card_value > first_card_value && current_card_value < second_card_value )
-						drink();
+				if ( current_card_value < first_card_value && current_card_value > second_card_value || current_card_value > first_card_value && current_card_value < second_card_value )
+					drink();
 				break;
 			case 4:
 				String current_card_color = null;
 				String first_card_color = null;
 				String second_card_color = null;
 				String third_card_color = null;
-					current_card_color = currentCard.getCardColor();
-					first_card = playerHand.getPlayerCards().get(0);
-					first_card_color = first_card.getCardColor();
-					second_card = playerHand.getPlayerCards().get(1);
-					second_card_color = second_card.getCardColor();
-					third_card = playerHand.getPlayerCards().get(2);
-					third_card_color = third_card.getCardColor();
+				current_card_color = currentCard.getCardColor();
+				first_card = playerHand.getPlayerCards().get(0);
+				first_card_color = first_card.getCardColor();
+				second_card = playerHand.getPlayerCards().get(1);
+				second_card_color = second_card.getCardColor();
+				third_card = playerHand.getPlayerCards().get(2);
+				third_card_color = third_card.getCardColor();
 
 				if ( !current_card_color.equalsIgnoreCase(first_card_color) && !current_card_color.equalsIgnoreCase(second_card_color) && !current_card_color.equalsIgnoreCase(third_card_color) )
 					drink();
@@ -333,37 +349,37 @@ public class PyramidActivity extends AppCompatActivity {
 		Gamecard third_card;
 		switch ( roundNumber ) {
 			case 1:
-					String color = currentCard.getCardColor();
-				Log.d(TAG, "onClickSecondChoice case1() called with: "  + "] currentcard: " + currentCard);
-					if ( !color.equalsIgnoreCase(Gamecard.HEARTS) && !color.equalsIgnoreCase(Gamecard.DIAMONDS) )
-						drink();
+				String color = currentCard.getCardColor();
+				Log.d(TAG, "onClickSecondChoice case1() called with: " + "] currentcard: " + currentCard);
+				if ( !color.equalsIgnoreCase(Gamecard.HEARTS) && !color.equalsIgnoreCase(Gamecard.DIAMONDS) )
+					drink();
 				break;
 			case 2:
 				first_card = playerHand.getPlayerCards().get(0);
-				if ( currentCard.getCardValue() >= first_card.getCardValue())
+				if ( currentCard.getCardValue() >= first_card.getCardValue() )
 					drink();
 				break;
 			case 3:
-					int current_card_value = currentCard.getCardValue();
-					first_card = playerHand.getPlayerCards().get(0);
-					int first_card_value = first_card.getCardValue();
-					second_card = playerHand.getPlayerCards().get(1);
-					int second_card_value = second_card.getCardValue();
+				int current_card_value = currentCard.getCardValue();
+				first_card = playerHand.getPlayerCards().get(0);
+				int first_card_value = first_card.getCardValue();
+				second_card = playerHand.getPlayerCards().get(1);
+				int second_card_value = second_card.getCardValue();
 
-					if ( current_card_value > first_card_value && current_card_value < second_card_value || current_card_value < first_card_value && current_card_value > second_card_value )
-						drink();
+				if ( current_card_value > first_card_value && current_card_value < second_card_value || current_card_value < first_card_value && current_card_value > second_card_value )
+					drink();
 				break;
 			case 4:
-					String current_card_color = currentCard.getCardColor();
-					first_card = playerHand.getPlayerCards().get(0);
-					String first_card_color = first_card.getCardColor();
-					second_card = playerHand.getPlayerCards().get(1);
-					String second_card_color = second_card.getCardColor();
-					third_card = playerHand.getPlayerCards().get(2);
-					String third_card_color = third_card.getCardColor();
+				String current_card_color = currentCard.getCardColor();
+				first_card = playerHand.getPlayerCards().get(0);
+				String first_card_color = first_card.getCardColor();
+				second_card = playerHand.getPlayerCards().get(1);
+				String second_card_color = second_card.getCardColor();
+				third_card = playerHand.getPlayerCards().get(2);
+				String third_card_color = third_card.getCardColor();
 
-					if ( current_card_color.equalsIgnoreCase(first_card_color) || current_card_color.equalsIgnoreCase(second_card_color) || current_card_color.equalsIgnoreCase(third_card_color) )
-						drink();
+				if ( current_card_color.equalsIgnoreCase(first_card_color) || current_card_color.equalsIgnoreCase(second_card_color) || current_card_color.equalsIgnoreCase(third_card_color) )
+					drink();
 				break;
 			default:
 				break;
@@ -394,8 +410,6 @@ public class PyramidActivity extends AppCompatActivity {
 					@Override
 					public void run() {
 						execute_round();
-						firstChoice.setClickable(true);
-						secondChoice.setClickable(true);
 					}
 				}, 1000);
 			}
