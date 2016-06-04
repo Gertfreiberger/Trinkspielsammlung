@@ -20,19 +20,20 @@
     <string name="pyramid_dialog_title">Rundenübersicht</string>
     <string name="start">Start</string>
     <string name="manual">Anleitung</string>
-    <string name="first_round_finished">First Round Finished</string>
-    <string name="go_to_next_level">Go to the next Level</string>
+    <string name="first_round_finished">Erste Runde beended</string>
+    <string name="go_to_next_level">Weiter zum nächsten Level</string>
     <string name="new_game">New Game</string>
     <string name="ok">Ok</string>
     <string name="distribute_drinks">Distripute Drinks</string>
     <string name="close">Beenden</string>
     <string name="distribute">Distribute</string>
     <string name="drinks">Drink(s)</string>
-    <string name="second_round_finished">Second Round Finished</string>
+    <string name="second_round_finished">Zweite Runde beended</string>
     <string name="go_to_Final_level">Weiter zum Finale</string>
     <string name="final_round">Finale Runde</string>
-    <string name="final_player_name">Final Player:</string>
+    <string name="final_player_name">Finaler Player:</string>
     <string name="i_never_ever">Ich habe noch nie</string>
+    <string name="pyramid_drink_message">Trink!!!!!!!!!!!!!!!!</string>
 
     <string-array name="manualTabs">
         <item>Allgmein</item>

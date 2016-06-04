@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.media.AudioManager;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import java.util.Locale;
@@ -19,7 +20,8 @@ public class Utilities {
 	public final static String SOUND_PREFERENCE_KEY = "sound";
 	public final static String VIBRATE_PREFERENCE_KEY = "vibrate";
 	public final static String LANGUAGE_PREFERENCE_KEY = "language";
-	public final static String SHOW_NAMES_PREFERENCE_KEY = "show_names";
+	public final static String GAMEDECK_GAME_KEY = "gameDeck";
+	public final static String PLAYERHANDS_GAME_KEY = "playerHands";
 	public final static String FINAL_PLAYER = "final_player";
 
 	public Utilities(Context context) {
@@ -73,17 +75,40 @@ public class Utilities {
 	}
 
 	public void fadeOut(View view) {
-		if ( view != null ) {
-			view.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+		if ( view != null && view.getVisibility() != View.INVISIBLE ) {
+			Animation animationFadeOut = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
+			view.startAnimation(animationFadeOut);
 			view.setVisibility(View.INVISIBLE);
 		}
 	}
 
 	public void fadeIn(View view) {
-		if ( view != null ) {
-			view.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
+		if ( view != null && view.getVisibility() != View.VISIBLE ) {
+			Animation animationFadeIn = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
+			view.startAnimation(animationFadeIn);
 			view.setVisibility(View.VISIBLE);
 		}
 	}
 
+	public void fadeOut(View view, int duration) {
+		if ( view != null && view.getVisibility() != View.INVISIBLE ) {
+			Animation animationFadeOut = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
+			animationFadeOut.setDuration(duration);
+			view.startAnimation(animationFadeOut);
+			view.setVisibility(View.INVISIBLE);
+		}
+	}
+
+	public void fadeIn(View view, int duration) {
+		if ( view != null && view.getVisibility() != View.VISIBLE ) {
+			Animation animationFadeIn = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
+			animationFadeIn.setDuration(duration);
+			view.startAnimation(animationFadeIn);
+			view.setVisibility(View.VISIBLE);
+		}
+	}
+
+	public String getEmojiByUnicode(int unicode){
+		return new String(Character.toChars(unicode));
+	}
 }

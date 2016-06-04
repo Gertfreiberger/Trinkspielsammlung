@@ -5,21 +5,24 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Slide;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +30,7 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import wtfisandroid.drinkinggamescollection.R;
 import wtfisandroid.drinkinggamescollection.data.Gamecard;
@@ -35,481 +39,403 @@ import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 public class PyramidActivity extends AppCompatActivity {
 
-    private static final String TAG = "pyramidactivity";
+	private static final String TAG = "pyramidactivity";
+	private static final String KEY_PLAYER = "PlayerCard";
+	private static final String KEY_PLAYERCARD = "Player";
 
-    private SharedPreferences sharedPref;
-    private Utilities utilities;
-    private Gamecard gameCard = new Gamecard();
-    private HashMap<Integer, Gamecard> gameDeck;
-    private Resources resources;
-    private ImageView first_choice;
-    private Vibrator vib;
-    private TextView textview_round;
-    private TextView textview_player;
-    private String player1_name;
-    private String player2_name;
-    private String player3_name;
-    private String player4_name;
-    private TextView textview_player1_name;
-    private TextView textview_player2_name;
-    private TextView textview_player3_name;
-    private TextView textview_player4_name;
-    private int round_number = 1;
-    private int player_number = 0;
-    private int current_card_number = 0;
-    private HashMap<String, String> player_names = new HashMap<>();
-    private HashMap<String, ImageView> player_cards = new HashMap<>();
-    private String[] rounds;
-    private ImageView second_choice;
-    private Gamecard current_card;
-    private ImageView player1_card1;
-    private ImageView player1_card2;
-    private ImageView player1_card3;
-    private ImageView player1_card4;
-    private ImageView player2_card1;
-    private ImageView player2_card2;
-    private ImageView player2_card3;
-    private ImageView player2_card4;
-    private ImageView player3_card1;
-    private ImageView player3_card2;
-    private ImageView player3_card3;
-    private ImageView player3_card4;
-    private ImageView player4_card1;
-    private ImageView player4_card2;
-    private ImageView player4_card3;
-    private ImageView player4_card4;
-    private Playerhand player1_hand;
-    private Playerhand player2_hand;
-    private Playerhand player3_hand;
-    private Playerhand player4_hand;
-    private HashMap<String, Playerhand> player_hands = new HashMap<>();
-    private Playerhand current_player_hand;
+	private SharedPreferences sharedPref;
+	private Utilities utilities;
+	private Gamecard gameCard = new Gamecard();
+	private HashMap<Integer, Gamecard> gameDeck;
+	private Resources resources;
+	private ImageView firstChoice;
+	private Vibrator vib;
+	private int roundNumber = 1;
+	private int playerNumber = 0;
+	private int currentCardNumber = 0;
+	private HashMap<String, String> playerNames = new HashMap<>();
+	private HashMap<String, ImageView> playerCards = new HashMap<>();
+	private String[] rounds;
+	private ImageView secondChoice;
+	private Gamecard currentCard;
+	private HashMap<String, Playerhand> playerHands = new HashMap<>();
+	private Playerhand playerHand;
+	private Toolbar toolbar;
+	private Handler handler;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        utilities = new Utilities(getApplicationContext());
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
-        utilities.setLanguage(currentLanguage);
-        resources = getResources();
-        setContentView(R.layout.content_pyramid_activity);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		utilities = new Utilities(getApplicationContext());
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		String currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
+		utilities.setLanguage(currentLanguage);
+		resources = getResources();
+		setContentView(R.layout.activity_pyramid);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false)
-                .setItems(R.array.pyramid_rounds, null)
-                .setIcon(ResourcesCompat.getDrawable(resources, R.drawable.ic_logo, null))
-                .setTitle(R.string.pyramid_dialog_title)
-                .setPositiveButton(R.string.start, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        startTheGame();
-                    }
-                })
-                .setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        finish();
-                    }
-                });
+		toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		toolbar.setBackgroundResource(R.drawable.ic_background_gameroom);
+		toolbar.setLogo(R.drawable.ic_logo);
+		toolbar.setTitleTextColor(Color.BLACK);
+		toolbar.setSubtitleTextColor(Color.BLUE);
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
+//		toolbar.setNavigationIcon(R.drawable.ic_logo);
 
-        findViews();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setItems(R.array.pyramid_rounds, null)
+						.setIcon(ResourcesCompat.getDrawable(resources, R.drawable.ic_logo, null))
+						.setTitle(R.string.pyramid_dialog_title)
+						.setOnCancelListener(new DialogInterface.OnCancelListener() {
+							@Override
+							public void onCancel(DialogInterface dialog) {
+								onBackPressed();
+							}
+						})
+						.setPositiveButton(R.string.start, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								startTheGame();
+							}
+						})
+						.setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								finish();
+							}
+						});
 
-        player1_name = sharedPref.getString("player_name1", "Player1");
-        player2_name = sharedPref.getString("player_name2", "Player2");
-        player3_name = sharedPref.getString("player_name3", "Player3");
-        player4_name = sharedPref.getString("player_name4", "Player4");
+		AlertDialog dialog = builder.create();
+		dialog.show();
 
-        textview_player1_name.setText(player1_name);
-        textview_player2_name.setText(player2_name);
-        textview_player3_name.setText(player3_name);
-        textview_player4_name.setText(player4_name);
+		findViews();
 
-        player_names.put("Player1", player1_name);
-        player_names.put("Player2", player2_name);
-        player_names.put("Player3", player3_name);
-        player_names.put("Player4", player4_name);
+		String player1_name = sharedPref.getString("player_name1", "Player1");
+		String player2_name = sharedPref.getString("player_name2", "Player2");
+		String player3_name = sharedPref.getString("player_name3", "Player3");
+		String player4_name = sharedPref.getString("player_name4", "Player4");
 
-        player1_hand = new Playerhand(1, player1_name);
-        player2_hand = new Playerhand(2, player2_name);
-        player3_hand = new Playerhand(3, player3_name);
-        player4_hand = new Playerhand(4, player4_name);
+		playerNames.put(KEY_PLAYER + "1", player1_name);
+		playerNames.put(KEY_PLAYER + "2", player2_name);
+		playerNames.put(KEY_PLAYER + "3", player3_name);
+		playerNames.put(KEY_PLAYER + "4", player4_name);
 
-        player_hands.put("Player1", player1_hand);
-        player_hands.put("Player2", player2_hand);
-        player_hands.put("Player3", player3_hand);
-        player_hands.put("Player4", player4_hand);
+		playerHands.put(KEY_PLAYER + "1", new Playerhand(1, player1_name));
+		playerHands.put(KEY_PLAYER + "2", new Playerhand(2, player2_name));
+		playerHands.put(KEY_PLAYER + "3", new Playerhand(3, player3_name));
+		playerHands.put(KEY_PLAYER + "4", new Playerhand(4, player4_name));
 
-        rounds = resources.getStringArray(R.array.pyramid_rounds);
+		rounds = resources.getStringArray(R.array.pyramid_rounds);
+		handler = new Handler();
 
-        if ( !sharedPref.getBoolean(Utilities.SHOW_NAMES_PREFERENCE_KEY, true) ) {
+		// Hide the status bar.
+		if ( Build.VERSION.SDK_INT < 16 ) {
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		} else { // Jellybean and up
+			View decorView = getWindow().getDecorView();
+			int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+			decorView.setSystemUiVisibility(uiOptions);
+		}
 
-            utilities.fadeOut(textview_player1_name);
-            utilities.fadeOut(textview_player2_name);
-            utilities.fadeOut(textview_player3_name);
-            utilities.fadeOut(textview_player4_name);
-        }
+		gameCard.generatePyramidGameDeck();
+		gameDeck = Gamecard.getAllCards();
+		gameDeck = gameCard.shuffleDeck(gameDeck);
 
-        // Hide the status bar.
-        if ( Build.VERSION.SDK_INT < 16 ) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        } else { // Jellybean and up
-            View decorView = getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-            decorView.setSystemUiVisibility(uiOptions);
-            // Remember that you should never show the action bar if the
-            // status bar is hidden, so hide that too if necessary.
-            ActionBar actionBar = getSupportActionBar();
-            if ( actionBar != null ) {
-                actionBar.hide();
-            }
-        }
+//		if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
+//			Slide slide = new Slide();
+//			slide.setDuration(2000);
+//			getWindow().setExitTransition(slide);
+//		}
+	}
 
-        gameCard.generatePyramidGameDeck();
-        gameDeck = Gamecard.getAllCards();
-        gameDeck = gameCard.shuffleDeck(gameDeck);
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_pyramid, menu);
+		return true;
+	}
 
-        if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
-            Slide slide = new Slide();
-            slide.setDuration(2000);
-            getWindow().setExitTransition(slide);
-        }
-    }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
+			utilities.playSound(1);
+		}
+		switch ( item.getItemId() ) {
+			case R.id.new_game:
+				recreate();
+				break;
+			case R.id.back:
+				finish();
+				break;
+			case android.R.id.home:
+				Toast.makeText(getApplicationContext(), toolbar.getTitle() + "; " + toolbar.getSubtitle(), Toast.LENGTH_SHORT).show();
+				break;
+			default:
+				break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
-    /**
-     * Initialize the contents of the Activity's standard options menu.  You
-     * should place your menu items in to <var>menu</var>.
-     * <p/>
-     * <p>This is only called once, the first time the options menu is
-     * displayed.  To update the menu every time it is displayed, see
-     * {@link #onPrepareOptionsMenu}.
-     * <p/>
-     * <p>The default implementation populates the menu with standard system
-     * menu items.  These are placed in the {@link Menu#CATEGORY_SYSTEM} group so that
-     * they will be correctly ordered with application-defined menu items.
-     * Deriving classes should always call through to the base implementation.
-     * <p/>
-     * <p>You can safely hold on to <var>menu</var> (and any items created
-     * from it), making modifications to it as desired, until the next
-     * time onCreateOptionsMenu() is called.
-     * <p/>
-     * <p>When you add items to the menu, you can implement the Activity's
-     * {@link #onOptionsItemSelected} method to handle them there.
-     *
-     * @param menu The options menu in which you place your items.
-     * @return You must return true for the menu to be displayed;
-     * if you return false it will not be shown.
-     * @see #onPrepareOptionsMenu
-     * @see #onOptionsItemSelected
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_pyramid, menu);
-        return true;
-    }
+	@Override
+	public void onBackPressed() {
+		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
+			utilities.playSound(1, AudioManager.FX_KEYPRESS_RETURN);
+		}
+		super.onBackPressed();
+	}
 
-    /**
-     * This hook is called whenever an item in your options menu is selected.
-     * The default implementation simply returns false to have the normal
-     * processing happen (calling the item's Runnable or sending a message to
-     * its Handler as appropriate).  You can use this method for any items
-     * for which you would like to do processing without those other
-     * facilities.
-     * <p/>
-     * <p>Derived classes should call through to the base class for it to
-     * perform the default menu handling.</p>
-     *
-     * @param item The menu item that was selected.
-     * @return boolean Return false to allow normal menu processing to
-     * proceed, true to consume it here.
-     * @see #onCreateOptionsMenu
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
-            utilities.playSound(1);
-        }
-        switch ( item.getItemId() ) {
-            case R.id.new_game:
-                break;
-            case R.id.back:
-                finish();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+	private void findViews() {
 
-    /**
-     * Take care of popping the fragment back stack or finishing the activity
-     * as appropriate.
-     */
-    @Override
-    public void onBackPressed() {
-        if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
-            utilities.playSound(1, AudioManager.FX_KEYPRESS_RETURN);
-        }
-        super.onBackPressed();
-    }
+		firstChoice = (ImageView) findViewById(R.id.ivFirstChoice);
+		secondChoice = (ImageView) findViewById(R.id.ivSecondChoice);
 
-    private void findViews() {
-        textview_round = (TextView) findViewById(R.id.tvRound);
-        textview_player = (TextView) findViewById(R.id.tvPlayer);
+		ImageView playerCard1 = (ImageView) findViewById(R.id.ivPyramidFirstRoundPlayerCard1);
+		ImageView playerCard2 = (ImageView) findViewById(R.id.ivPyramidFirstRoundPlayerCard2);
+		ImageView playerCard3 = (ImageView) findViewById(R.id.ivPyramidFirstRoundPlayerCard3);
+		ImageView playerCard4 = (ImageView) findViewById(R.id.ivPyramidFirstRoundPlayerCard4);
 
-        textview_player1_name = (TextView) findViewById(R.id.tvPlayer1);
-        textview_player2_name = (TextView) findViewById(R.id.tvPlayer2);
-        textview_player3_name = (TextView) findViewById(R.id.tvPlayer3);
-        textview_player4_name = (TextView) findViewById(R.id.tvPlayer4);
+		playerCards.put(KEY_PLAYERCARD + "1", playerCard1);
+		playerCards.put(KEY_PLAYERCARD + "2", playerCard2);
+		playerCards.put(KEY_PLAYERCARD + "3", playerCard3);
+		playerCards.put(KEY_PLAYERCARD + "4", playerCard4);
 
-        first_choice = (ImageView) findViewById(R.id.ivFirstChoice);
-        second_choice = (ImageView) findViewById(R.id.ivSecondChoice);
+		for ( Map.Entry<String, ImageView> entry : playerCards.entrySet() ) {
+			ImageView value = entry.getValue();
+			utilities.fadeOut(value);
+		}
+	}
 
-        player1_card1 = (ImageView) findViewById(R.id.ivPlayer1FirstCard);
-        player1_card2 = (ImageView) findViewById(R.id.ivPlayer1SecondCard);
-        player1_card3 = (ImageView) findViewById(R.id.ivPlayer1ThirdCard);
-        player1_card4 = (ImageView) findViewById(R.id.ivPlayer1FourthCard);
-        player2_card1 = (ImageView) findViewById(R.id.ivPlayer2FirstCard);
-        player2_card2 = (ImageView) findViewById(R.id.ivPlayer2SecondCard);
-        player2_card3 = (ImageView) findViewById(R.id.ivPlayer2ThirdCard);
-        player2_card4 = (ImageView) findViewById(R.id.ivPlayer2FourthCard);
-        player3_card1 = (ImageView) findViewById(R.id.ivPlayer3FirstCard);
-        player3_card2 = (ImageView) findViewById(R.id.ivPlayer3SecondCard);
-        player3_card3 = (ImageView) findViewById(R.id.ivPlayer3ThirdCard);
-        player3_card4 = (ImageView) findViewById(R.id.ivPlayer3FourthCard);
-        player4_card1 = (ImageView) findViewById(R.id.ivPlayer4FirstCard);
-        player4_card2 = (ImageView) findViewById(R.id.ivPlayer4SecondCard);
-        player4_card3 = (ImageView) findViewById(R.id.ivPlayer4ThirdCard);
-        player4_card4 = (ImageView) findViewById(R.id.ivPlayer4FourthCard);
+	private void startTheGame() {
+		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) )
+			utilities.playSound(1);
 
-        player_cards.put("Player1Card1", player1_card1);
-        player_cards.put("Player1Card2", player1_card2);
-        player_cards.put("Player1Card3", player1_card3);
-        player_cards.put("Player1Card4", player1_card4);
-        player_cards.put("Player2Card1", player2_card1);
-        player_cards.put("Player2Card2", player2_card2);
-        player_cards.put("Player2Card3", player2_card3);
-        player_cards.put("Player2Card4", player2_card4);
-        player_cards.put("Player3Card1", player3_card1);
-        player_cards.put("Player3Card2", player3_card2);
-        player_cards.put("Player3Card3", player3_card3);
-        player_cards.put("Player3Card4", player3_card4);
-        player_cards.put("Player4Card1", player4_card1);
-        player_cards.put("Player4Card2", player4_card2);
-        player_cards.put("Player4Card3", player4_card3);
-        player_cards.put("Player4Card4", player4_card4);
+		if ( sharedPref.getBoolean(Utilities.VIBRATE_PREFERENCE_KEY, false) ) {
+			vib = (Vibrator) PyramidActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+			vib.vibrate(500);
+		}
 
-        utilities.fadeOut(first_choice);
-    }
+		utilities.fadeIn(firstChoice);
+		utilities.fadeIn(secondChoice);
 
-    private void startTheGame() {
-        if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) )
-            utilities.playSound(1);
+		execute_round();
+	}
 
-        if ( sharedPref.getBoolean(Utilities.VIBRATE_PREFERENCE_KEY, false) ) {
-            vib = (Vibrator) PyramidActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
-            vib.vibrate(500);
-        }
+	private void execute_round() {
+		if ( playerNumber >= 4 ) {
+			roundNumber++;
+			playerNumber = 1;
+			if ( roundNumber > 4 ) {
+				goToNextLevel();
+				return;
+			}
+		} else
+			playerNumber++;
 
-        utilities.fadeIn(first_choice);
-        utilities.fadeIn(second_choice);
-        utilities.fadeOut(player1_card1);
-        utilities.fadeOut(player1_card2);
-        utilities.fadeOut(player1_card3);
-        utilities.fadeOut(player1_card4);
-        utilities.fadeOut(player2_card1);
-        utilities.fadeOut(player2_card2);
-        utilities.fadeOut(player2_card3);
-        utilities.fadeOut(player2_card4);
-        utilities.fadeOut(player3_card1);
-        utilities.fadeOut(player3_card2);
-        utilities.fadeOut(player3_card3);
-        utilities.fadeOut(player3_card4);
-        utilities.fadeOut(player4_card1);
-        utilities.fadeOut(player4_card2);
-        utilities.fadeOut(player4_card3);
-        utilities.fadeOut(player4_card4);
+		switch ( roundNumber ) {
+			case 1:
+				firstChoice.setImageResource(R.drawable.ic_black_card);
+				secondChoice.setImageResource(R.drawable.ic_red_card);
+				break;
+			case 2:
+				firstChoice.setImageResource(R.drawable.ic_higher);
+				secondChoice.setImageResource(R.drawable.ic_lower);
+				break;
+			case 3:
+				firstChoice.setImageResource(R.drawable.ic_within);
+				secondChoice.setImageResource(R.drawable.ic_outside);
+				break;
+			case 4:
+				firstChoice.setImageResource(R.drawable.ic_in_possesion);
+				secondChoice.setImageResource(R.drawable.ic_not_in_possesion);
+				break;
+			default:
+				Log.d(TAG, "execute_round() called with: " + "RoundNumber: " + roundNumber);
+				break;
+		}
 
-        execute_round();
+		String player_name = playerNames.get(KEY_PLAYER + playerNumber);
+		if ( toolbar != null )
+			toolbar.setTitle(resources.getString(R.string.player) + ": " + player_name);
 
-    }
+		if ( toolbar != null )
+			toolbar.setSubtitle(rounds[roundNumber - 1]);
 
-    private void execute_round() {
-        if ( player_number >= 4 ) {
-            round_number++;
-            player_number = 1;
-            if ( round_number > 4 ) {
-                goToNextLevel();
-                return;
-            }
+		playerHand = playerHands.get(KEY_PLAYER + playerNumber);
+		currentCard = gameDeck.get(currentCardNumber);
+		currentCardNumber++;
 
-        } else
-            player_number++;
+		for ( int i = 0; i < roundNumber - 1; i++ ) {
+			ImageView view = playerCards.get(KEY_PLAYERCARD + (i + 1));
+			utilities.fadeIn(view, 3000);
+			view.setImageResource(playerHand.getPlayerCards().get(i).getImageID());
+		}
+	}
 
-        switch ( round_number ) {
-            case 1:
-                first_choice.setImageResource(R.drawable.ic_round_1_first_choice);
-                second_choice.setImageResource(R.drawable.ic_round_1_second_choice);
-                break;
-            case 2:
-                first_choice.setImageResource(R.drawable.ic_round_2_first_choice);
-                second_choice.setImageResource(R.drawable.ic_round_2_second_choice);
-                break;
-            case 3:
-                first_choice.setImageResource(R.drawable.ic_round_3_first_choice);
-                second_choice.setImageResource(R.drawable.ic_round_3_second_choice);
-                break;
-            case 4:
-                first_choice.setImageResource(R.drawable.ic_round_4_first_choice);
-                second_choice.setImageResource(R.drawable.ic_round_4_second_choice);
-                break;
-        }
+	public void onClickFirstChoice(View v) {
+		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
+			utilities.playSound(1);
+		}
+		firstChoice.setClickable(false);
+		secondChoice.setClickable(false);
+		Gamecard first_card;
+		Gamecard second_card;
+		Gamecard third_card;
+		switch ( roundNumber ) {
+			case 1:
+					String color = currentCard.getCardColor();
+					if ( !color.equalsIgnoreCase(Gamecard.SPADES) && !color.equalsIgnoreCase(Gamecard.CLUBS) )
+						drink();
+				break;
+			case 2:
+				first_card = playerHand.getPlayerCards().get(0);
+				Log.d(TAG, "case2() called with: " + "first_card = [" + playerHand.getPlayerCards().get(0) + "] currentcard: " + currentCard);
+				if (currentCard.getCardValue() <= first_card.getCardValue() )
+					drink();
+				break;
+			case 3:
+					int current_card_value = currentCard.getCardValue();
+					first_card = playerHand.getPlayerCards().get(0);
+					int first_card_value = first_card.getCardValue();
+					second_card = playerHand.getPlayerCards().get(1);
+					int second_card_value = second_card.getCardValue();
 
-        String player_name = player_names.get("Player" + player_number);
-        if ( textview_player != null ) {
-            textview_player.setText(resources.getString(R.string.player) + ": " + player_name);
-        }
-        if ( textview_round != null ) {
-            textview_round.setText(rounds[round_number - 1]);
-        }
-        Log.d(TAG, "execute_round() called with: " + gameDeck);
-        current_card = gameDeck.get(current_card_number);
-        Log.d(TAG, "" + current_card_number);
-        current_card_number++;
-        current_player_hand = player_hands.get("Player" + player_number);
-    }
+					if ( current_card_value < first_card_value && current_card_value > second_card_value || current_card_value > first_card_value && current_card_value < second_card_value )
+						drink();
+				break;
+			case 4:
+				String current_card_color = null;
+				String first_card_color = null;
+				String second_card_color = null;
+				String third_card_color = null;
+					current_card_color = currentCard.getCardColor();
+					first_card = playerHand.getPlayerCards().get(0);
+					first_card_color = first_card.getCardColor();
+					second_card = playerHand.getPlayerCards().get(1);
+					second_card_color = second_card.getCardColor();
+					third_card = playerHand.getPlayerCards().get(2);
+					third_card_color = third_card.getCardColor();
 
-    public void onClickFirstChoice(View v) {
-        if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
-            utilities.playSound(1);
-        }
-        Gamecard first_card;
-        Gamecard second_card;
-        Gamecard third_card;
-        switch ( round_number ) {
-            case 1:
-                String color = current_card.getCardColor();
-                if ( !color.equalsIgnoreCase(Gamecard.SPADES) && !color.equalsIgnoreCase(Gamecard.CLUBS) )
-                    drink();
-                break;
-            case 2:
-                first_card = current_player_hand.getPlayerCards().get(0);
-                if ( current_card.getCardValue() <= first_card.getCardValue() )
-                    drink();
-                break;
-            case 3:
-                int current_card_value = current_card.getCardValue();
-                first_card = current_player_hand.getPlayerCards().get(0);
-                int first_card_value = first_card.getCardValue();
-                second_card = current_player_hand.getPlayerCards().get(1);
-                int second_card_value = second_card.getCardValue();
+				if ( !current_card_color.equalsIgnoreCase(first_card_color) && !current_card_color.equalsIgnoreCase(second_card_color) && !current_card_color.equalsIgnoreCase(third_card_color) )
+					drink();
+				break;
+			default:
+				break;
+		}
+		setCard();
+	}
 
-                if ( current_card_value < first_card_value && current_card_value > second_card_value || current_card_value > first_card_value && current_card_value < second_card_value )
-                    drink();
-                break;
-            case 4:
-                String current_card_color = current_card.getCardColor();
-                first_card = current_player_hand.getPlayerCards().get(0);
-                String first_card_color = first_card.getCardColor();
-                second_card = current_player_hand.getPlayerCards().get(1);
-                String second_card_color = second_card.getCardColor();
-                third_card = current_player_hand.getPlayerCards().get(2);
-                String third_card_color = third_card.getCardColor();
+	public void onClickSecondChoice(View v) {
+		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
+			utilities.playSound(1);
+		}
+		firstChoice.setClickable(false);
+		secondChoice.setClickable(false);
+		Gamecard first_card;
+		Gamecard second_card;
+		Gamecard third_card;
+		switch ( roundNumber ) {
+			case 1:
+					String color = currentCard.getCardColor();
+				Log.d(TAG, "onClickSecondChoice case1() called with: "  + "] currentcard: " + currentCard);
+					if ( !color.equalsIgnoreCase(Gamecard.HEARTS) && !color.equalsIgnoreCase(Gamecard.DIAMONDS) )
+						drink();
+				break;
+			case 2:
+				first_card = playerHand.getPlayerCards().get(0);
+				if ( currentCard.getCardValue() >= first_card.getCardValue())
+					drink();
+				break;
+			case 3:
+					int current_card_value = currentCard.getCardValue();
+					first_card = playerHand.getPlayerCards().get(0);
+					int first_card_value = first_card.getCardValue();
+					second_card = playerHand.getPlayerCards().get(1);
+					int second_card_value = second_card.getCardValue();
 
-                if ( !current_card_color.equalsIgnoreCase(first_card_color) && !current_card_color.equalsIgnoreCase(second_card_color) && !current_card_color.equalsIgnoreCase(third_card_color) )
-                    drink();
-                break;
-            default:
-                break;
-        }
-        setCard();
-    }
+					if ( current_card_value > first_card_value && current_card_value < second_card_value || current_card_value < first_card_value && current_card_value > second_card_value )
+						drink();
+				break;
+			case 4:
+					String current_card_color = currentCard.getCardColor();
+					first_card = playerHand.getPlayerCards().get(0);
+					String first_card_color = first_card.getCardColor();
+					second_card = playerHand.getPlayerCards().get(1);
+					String second_card_color = second_card.getCardColor();
+					third_card = playerHand.getPlayerCards().get(2);
+					String third_card_color = third_card.getCardColor();
 
-    public void onClickSecondChoice(View v) {
-        if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
-            utilities.playSound(1);
-        }
-        Gamecard first_card;
-        Gamecard second_card;
-        Gamecard third_card;
-        switch ( round_number ) {
-            case 1:
-                String color = current_card.getCardColor();
-                if ( !color.equalsIgnoreCase(Gamecard.HEARTS) && !color.equalsIgnoreCase(Gamecard.DIAMONDS) )
-                    drink();
-                break;
-            case 2:
-                first_card = current_player_hand.getPlayerCards().get(0);
-                if ( current_card.getCardValue() >= first_card.getCardValue() )
-                    drink();
-                break;
-            case 3:
-                int current_card_value = current_card.getCardValue();
-                first_card = current_player_hand.getPlayerCards().get(0);
-                int first_card_value = first_card.getCardValue();
-                second_card = current_player_hand.getPlayerCards().get(1);
-                int second_card_value = second_card.getCardValue();
+					if ( current_card_color.equalsIgnoreCase(first_card_color) || current_card_color.equalsIgnoreCase(second_card_color) || current_card_color.equalsIgnoreCase(third_card_color) )
+						drink();
+				break;
+			default:
+				break;
+		}
 
-                if ( current_card_value > first_card_value && current_card_value < second_card_value || current_card_value < first_card_value && current_card_value > second_card_value )
-                    drink();
-                break;
-            case 4:
-                String current_card_color = current_card.getCardColor();
-                first_card = current_player_hand.getPlayerCards().get(0);
-                String first_card_color = first_card.getCardColor();
-                second_card = current_player_hand.getPlayerCards().get(1);
-                String second_card_color = second_card.getCardColor();
-                third_card = current_player_hand.getPlayerCards().get(2);
-                String third_card_color = third_card.getCardColor();
+		setCard();
+	}
 
-                if ( current_card_color.equalsIgnoreCase(first_card_color) || current_card_color.equalsIgnoreCase(second_card_color) || current_card_color.equalsIgnoreCase(third_card_color) )
-                    drink();
-                break;
-            default:
-                break;
-        }
+	private void setCard() {
+		ImageView card = playerCards.get(KEY_PLAYERCARD + roundNumber);
+		if ( card != null && currentCard != null ) {
+			utilities.fadeIn(card);
+			card.setImageResource(currentCard.getImageID());
+			playerHand.addCard(currentCard);
+		}
+		currentCard = null;
 
-        setCard();
-    }
+		handler.postDelayed(new Runnable() {
 
-    private void setCard() {
-        Log.d(TAG, "onClickSecondChoice() called with: " + "v = [" + "Player" + player_number + "Card" + round_number + "]");
-        ImageView card = player_cards.get("Player" + player_number + "Card" + round_number);
-        if ( card != null ) {
-            utilities.fadeIn(card);
-            card.setImageResource(current_card.getImageID());
-            current_player_hand.addCard(current_card);
-        }
-        execute_round();
-    }
+			@Override
+			public void run() {
+				for ( Map.Entry<String, ImageView> entry : playerCards.entrySet() ) {
+					ImageView value = entry.getValue();
+					utilities.fadeOut(value);
+				}
+				handler.postDelayed(new Runnable() {
 
-    private void drink() {
-        if ( sharedPref.getBoolean(Utilities.VIBRATE_PREFERENCE_KEY, false) ) {
-            vib = (Vibrator) PyramidActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
-            vib.vibrate(1000);
-        }
-        Toast.makeText(getApplicationContext(), "Drink!!!!!!!!!!!!!!!! ;)", Toast.LENGTH_SHORT).show();
-    }
+					@Override
+					public void run() {
+						execute_round();
+						firstChoice.setClickable(true);
+						secondChoice.setClickable(true);
+					}
+				}, 1000);
+			}
+		}, 2000);
 
-    private void goToNextLevel() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false)
-                .setIcon(ResourcesCompat.getDrawable(resources, R.drawable.ic_logo, null))
-                .setTitle(R.string.first_round_finished)
-                .setNeutralButton(R.string.go_to_next_level, new DialogInterface.OnClickListener() {
+	}
 
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent intent = new Intent(getApplicationContext(), PyramidSecondRoundActivity.class);
+	private void drink() {
+		if ( sharedPref.getBoolean(Utilities.VIBRATE_PREFERENCE_KEY, false) ) {
+			vib = (Vibrator) PyramidActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+			vib.vibrate(1000);
+		}
+		String toastText = utilities.getEmojiByUnicode(0x1F37A) + resources.getString(R.string.pyramid_drink_message) + utilities.getEmojiByUnicode(0x1F37B);
+		Toast drinkToast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT);
+		drinkToast.setGravity(Gravity.CENTER, 0, 0);
+		drinkToast.show();
+		ViewGroup group = (ViewGroup) drinkToast.getView();
+		TextView messageTextView = (TextView) group.getChildAt(0);
+		messageTextView.setTextSize(40);
+	}
 
-                        intent.putExtra("gameDeck", gameDeck);
-                        intent.putExtra("playerHands", player_hands);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
+	private void goToNextLevel() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setCancelable(false)
+						.setIcon(ResourcesCompat.getDrawable(resources, R.drawable.ic_logo, null))
+						.setTitle(R.string.first_round_finished)
+						.setNeutralButton(R.string.go_to_next_level, new DialogInterface.OnClickListener() {
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
+							public void onClick(DialogInterface dialog, int id) {
+								Intent intent = new Intent(getApplicationContext(), PyramidSecondRoundActivity.class);
+
+								intent.putExtra(Utilities.GAMEDECK_GAME_KEY, gameDeck);
+								intent.putExtra(Utilities.PLAYERHANDS_GAME_KEY, playerHands);
+								startActivity(intent);
+								finish();
+							}
+						});
+
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
 }
 
