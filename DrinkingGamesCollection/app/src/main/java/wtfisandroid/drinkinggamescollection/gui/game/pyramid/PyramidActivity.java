@@ -349,8 +349,8 @@ public class PyramidActivity extends AppCompatActivity {
 		Gamecard third_card;
 		switch ( roundNumber ) {
 			case 1:
-				String color = currentCard.getCardColor();
 				Log.d(TAG, "onClickSecondChoice case1() called with: " + "] currentcard: " + currentCard);
+				String color = currentCard.getCardColor();
 				if ( !color.equalsIgnoreCase(Gamecard.HEARTS) && !color.equalsIgnoreCase(Gamecard.DIAMONDS) )
 					drink();
 				break;
