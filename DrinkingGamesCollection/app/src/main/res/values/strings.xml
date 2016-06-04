@@ -5,7 +5,7 @@
     <string name="mainmenu_button_kingscup">Kings Cup</string>
     <string name="mainmenu_button_polnisches">Polnisches Trinkspiel</string>
     <string name="mainmenu_button_pyramid">Pyramid</string>
-    <string name="mainmenu_headline">Trinkspielsammlung</string>
+    <string name="mainmenu_headline">Drinking Games Collection</string>
     <string name="title_activity_maexchen_menu">MaexchenMenu</string>
     <string name="title_activity_kingscup_menu">KingscupMenu</string>
     <string name="title_activity_polnisches_trinkspiel">PolnischesTrinkspiel</string>
@@ -99,6 +99,7 @@
     <string name="title_activity_maexchen_rules">MaexchenRules</string>
     <string name="maexchen_button_help">Hilfe</string>
     <string name="maexchen_textView_result_init">  </string>
+    <string name="pyramid_drink_message">Drink!!!!!!!!!!!!!!!!</string>
 
 
 </resources>
