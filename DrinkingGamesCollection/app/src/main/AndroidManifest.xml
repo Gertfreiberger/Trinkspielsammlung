@@ -17,17 +17,19 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                <m_category android:name="android.intent.m_category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".Maexchen"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_maexchen_menu"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Kingscup"
-            android:label="@string/title_activity_kingscup_menu"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:name=".MaexchenRules"
+            android:label="@string/title_activity_maexchen_rules"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PolnischesTrinkspiel"
             android:label="@string/title_activity_polnisches_trinkspiel"
@@ -41,8 +43,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".gui.game.IHaveNeverEverActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".gui.game.pyramid.PyramidActivity"
             android:screenOrientation="sensorLandscape"
@@ -50,8 +51,7 @@
         <activity
             android:name=".gui.game.pyramid.PyramidSecondRoundActivity"
             android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".gui.game.pyramid.PyramidFinalRound"
             android:screenOrientation="sensorLandscape"
@@ -60,3 +60,6 @@
     </application>
 
 </manifest>
+
+
+

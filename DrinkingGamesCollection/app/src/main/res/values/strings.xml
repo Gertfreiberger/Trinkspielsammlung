@@ -49,10 +49,7 @@
     <string-array name="manualTabs">
         <item>General</item>
         <item>Pyramid</item>
-        <item>Maexchen</item>
-        <item>I\'ve never ever</item>
-        <item>Kingscup</item>
-        <item>Polnisches Trinkspiel</item>
+        <item>I have never ever</item>
     </string-array>
 
     <string-array name="availabeLanguages">
