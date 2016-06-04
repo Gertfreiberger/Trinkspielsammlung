@@ -272,7 +272,7 @@ public class PyramidActivity extends AppCompatActivity {
 
 		playerHand = playerHands.get(KEY_PLAYER + playerNumber);
 		currentCard = gameDeck.get(currentCardNumber);
-		Log.d(TAG, "execute_round() called with: currentCard " + currentCard + "  currentCardNumber:  " + currentCardNumber);
+		Log.d(TAG, "execute_round() called with: currentCard " + currentCard + "  currentCardNumber:  " + currentCardNumber + " gameDeck: " + gameDeck.size());
 		currentCardNumber++;
 
 		for ( int i = 0; i < roundNumber - 1; i++ ) {
@@ -395,7 +395,7 @@ public class PyramidActivity extends AppCompatActivity {
 			card.setImageResource(currentCard.getImageID());
 			playerHand.addCard(currentCard);
 		}
-		currentCard = null;
+//		currentCard = null;
 
 		handler.postDelayed(new Runnable() {
 
