@@ -254,12 +254,45 @@ public class PolnischesTrinkspielUItests extends ActivityInstrumentationTestCase
         mypolnischSolo.clickOnButton(button_start.getText().toString());
         mypolnischSolo.sleep(200);
         mypolnischSolo.getText("Moritz");
+    }
 
+    // Test will take a long time (40 minutes or more)
+    public void testGame(){
+        Button button_plus = (Button) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_plus);
 
+        mypolnischSolo.clickOnButton(button_plus.getText().toString());
+        mypolnischSolo.clickOnButton(button_plus.getText().toString());
 
+        navigateToGame();
 
+        Button skip_player = (Button) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_skip_player);
+        View dice = mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_image_dice);
 
+        while(true){
 
+            if(mypolnischSolo.searchText(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_dialog_winner_headline))){
+                mypolnischSolo.clickOnView(mypolnischSolo.getView(R.id.polnisch_dialog_winner_button));
+            }
+
+            if(mypolnischSolo.searchText(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_dialog_text_players_drink))){
+                mypolnischSolo.clickOnView(mypolnischSolo.getView(R.id.polnisch_dialog_button_ok));
+            }
+
+            if(mypolnischSolo.searchText(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_dialog_choose_player))){
+                mypolnischSolo.clickOnView(mypolnischSolo.getView(R.id.polnisch_dialog_text_1));
+            }
+
+            if(mypolnischSolo.searchText(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_dialog_choose_drink_or_back))){
+                mypolnischSolo.clickOnView(mypolnischSolo.getView(R.id.polnisch_dialog_2_buttons_button_left));
+            }
+
+            if(skip_player.getText().toString().equals(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_next)) && (skip_player.getVisibility() == View.VISIBLE)){
+                mypolnischSolo.clickOnButton(skip_player.getText().toString());
+            }
+
+            mypolnischSolo.clickOnView(dice);
+            mypolnischSolo.sleep(3000);
+        }
     }
 
     public void navigateToGame() {

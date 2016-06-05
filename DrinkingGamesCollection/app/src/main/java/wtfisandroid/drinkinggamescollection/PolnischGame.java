@@ -904,8 +904,10 @@ public class PolnischGame extends AppCompatActivity {
     public void openPlayersToDrink(ArrayList<Player> players_to_show){
         final Dialog players_to_drink = new Dialog(PolnischGame.this);
         players_to_drink.setContentView(R.layout.dialog_polnisch_game);
+
         Button ok_button = (Button) players_to_drink.findViewById(R.id.polnisch_dialog_button_ok);
         TextView field_description = (TextView) players_to_drink.findViewById(R.id.polnisch_dialog_description_text);
+
         if(field_34_){
             ok_button.setVisibility(View.INVISIBLE);
             field_description.setText(R.string.polnisch_dialog_choose_player);
