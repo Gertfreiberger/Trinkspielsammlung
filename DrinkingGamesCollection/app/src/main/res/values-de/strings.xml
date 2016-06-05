@@ -59,6 +59,7 @@
     <string name="pyramid_manual_first_fourth_round_header">4 Runde</string>
     <string name="pyramid_manual_second_round_header">Zweite Runde</string>
     <string name="pyramid_manual_final_round_header">Finale</string>
+    <string name="help">help</string>
 
     <string-array name="manualTabs">
         <item>Allgmein</item>

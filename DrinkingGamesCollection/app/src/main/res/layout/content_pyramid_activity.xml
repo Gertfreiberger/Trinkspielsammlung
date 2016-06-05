@@ -11,12 +11,6 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 tools:context=".gui.game.pyramid.PyramidActivity">
 
-
-    <include
-        layout="@layout/toolbar_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
     <ImageView
         android:id="@+id/ivSecondChoice"
         android:layout_width="wrap_content"
@@ -25,9 +19,9 @@
         android:src="@drawable/gamecard_10_of_clubs"
         android:onClick="onClickSecondChoice"
         android:scaleType="fitXY"
-        android:layout_marginStart="34dp"
-        android:layout_alignTop="@+id/ivFirstChoice"
-        android:layout_toEndOf="@+id/ivFirstChoice"/>
+        android:layout_marginStart="30dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/ivPyramidFirstRoundPlayerCard2"/>
 
     <ImageView
         android:id="@+id/ivFirstChoice"
@@ -37,8 +31,9 @@
         android:src="@drawable/gamecard_10_of_clubs"
         android:onClick="onClickFirstChoice"
         android:scaleType="fitXY"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_marginStart="194dp"
+        android:layout_alignTop="@+id/ivSecondChoice"
+        android:layout_alignParentStart="true"/>
 
     <ImageView
         android:id="@+id/ivPyramidFirstRoundPlayerCard3"
@@ -47,7 +42,7 @@
         android:src="@drawable/gamecard_10_of_clubs"
         android:contentDescription=""
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/ivPyramidFirstRoundPlayerCard4"/>
+        android:layout_alignStart="@+id/ivSecondChoice"/>
 
     <ImageView
         android:id="@+id/ivPyramidFirstRoundPlayerCard4"
@@ -55,8 +50,9 @@
         android:layout_height="wrap_content"
         android:src="@drawable/gamecard_10_of_clubs"
         android:contentDescription=""
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignTop="@+id/ivPyramidFirstRoundPlayerCard3"
+        android:layout_toEndOf="@+id/ivPyramidFirstRoundPlayerCard3"
+        android:layout_marginStart="40dp"/>
 
     <ImageView
         android:id="@+id/ivPyramidFirstRoundPlayerCard2"
@@ -64,8 +60,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/gamecard_10_of_clubs"
         android:contentDescription=""
-        android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/ivPyramidFirstRoundPlayerCard3"/>
+        android:layout_alignTop="@+id/ivPyramidFirstRoundPlayerCard3"
+        android:layout_toEndOf="@+id/ivFirstChoice"/>
 
     <ImageView
         android:id="@+id/ivPyramidFirstRoundPlayerCard1"
@@ -73,7 +69,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/gamecard_10_of_clubs"
         android:contentDescription=""
+        android:layout_marginEnd="45dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_toStartOf="@+id/ivPyramidFirstRoundPlayerCard2"/>
 
 </RelativeLayout>

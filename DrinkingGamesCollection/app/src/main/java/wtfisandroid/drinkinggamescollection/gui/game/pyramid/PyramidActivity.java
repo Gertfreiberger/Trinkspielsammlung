@@ -25,6 +25,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,7 +83,6 @@ public class PyramidActivity extends AppCompatActivity {
 		utilities.setLanguage(currentLanguage);
 		resources = getResources();
 		setContentView(R.layout.activity_pyramid);
-//		setContentView(R.layout.content_pyramid_activity);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setItems(R.array.pyramid_rounds, null)
@@ -141,6 +141,11 @@ public class PyramidActivity extends AppCompatActivity {
 		switch ( item.getItemId() ) {
 			case R.id.new_game:
 				recreate();
+				break;
+			case R.id.help:
+				setContentView(R.layout.manual);
+				WebView webView = (WebView) findViewById(R.id.wv_manual);
+				utilities.generatePyramidManual(webView);
 				break;
 			case R.id.back:
 				finish();

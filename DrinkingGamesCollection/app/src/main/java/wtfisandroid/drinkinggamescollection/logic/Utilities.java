@@ -1,13 +1,17 @@
 package wtfisandroid.drinkinggamescollection.logic;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.media.AudioManager;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,6 +21,8 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Locale;
+
+import wtfisandroid.drinkinggamescollection.R;
 
 public class Utilities {
 
@@ -137,5 +143,46 @@ public class Utilities {
 			ex.printStackTrace();
 		}
 		return writer.toString();
+	}
+
+	public void generatePyramidManual(WebView webView) {
+
+		webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+		webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+		if ( Build.VERSION.SDK_INT >= 19 ) {
+			// chromium, enable hardware acceleration
+			webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+		} else {
+			// older android version, disable hardware acceleration
+			webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+		}
+		AssetManager asset = context.getAssets();
+		Resources resources =  context.getResources();
+		try {
+
+			InputStream is = asset.open("www/manual_pyramid.html", AssetManager.ACCESS_BUFFER);
+			String html = streamToString(is);
+
+			html = html.replace("$GENERAL_INFORMATION_HEADER", resources.getString(R.string.pyramid_manual_general_info_header));
+			html = html.replace("$GENERAL_INFORMATION_TEXT", resources.getString(R.string.pyramid_manual_general_info));
+			html = html.replace("$FIRST_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_round_header));
+			html = html.replace("$FIRST_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_round));
+			html = html.replace("$FIRST_FIRST_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_first_round_header));
+			html = html.replace("$FIRST_FIRST_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_first_round));
+			html = html.replace("$FIRST_SECOND_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_second_round_header));
+			html = html.replace("$FIRST_SECOND_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_second_round));
+			html = html.replace("$FIRST_THIRD_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_third_round_header));
+			html = html.replace("$FIRST_THIRD_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_third_round));
+			html = html.replace("$FIRST_FOURTH_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_fourth_round_header));
+			html = html.replace("$FIRST_FOURTH_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_fourth_round));
+			html = html.replace("$SECOND_ROUND_HEADER", resources.getString(R.string.pyramid_manual_second_round_header));
+			html = html.replace("$SECOND_ROUND_TEXT", resources.getString(R.string.pyramid_manual_second_round));
+			html = html.replace("$FINAL_ROUND_HEADER", resources.getString(R.string.pyramid_manual_final_round_header));
+			html = html.replace("$FINAL_ROUND_TEXT", resources.getString(R.string.pyramid_manual_final_round));
+			webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+			is.close();
+		} catch ( IOException e ) {
+			e.printStackTrace();
+		}
 	}
 }
