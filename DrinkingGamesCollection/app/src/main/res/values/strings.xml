@@ -24,7 +24,7 @@
     <string name="vibrate">Vibrate</string>
     <string name="language">Language</string>
     <string name="show_player_names">Show Playernames</string>
-    <string name="player_number">Player Number</string>
+    <string name="player_count">Player Number</string>
     <string name="player_names">Player Names</string>
     <string name="player">Player </string>
     <string name="round">Round: </string>

@@ -12,31 +12,13 @@
     <header
         android:fragment="wtfisandroid.drinkinggamescollection.gui.SettingsActivity$SettingsFragment"
         android:title="@string/pyramid" >
-        <extra android:name="settings" android:value="pyramide" />
+        <extra android:name="settings" android:value="pyramid" />
     </header>
 
     <header
         android:fragment="wtfisandroid.drinkinggamescollection.gui.SettingsActivity$SettingsFragment"
         android:title="@string/maexchen" >
         <extra android:name="settings" android:value="maexchen" />
-    </header>
-
-    <header
-        android:fragment="wtfisandroid.drinkinggamescollection.gui.SettingsActivity$SettingsFragment"
-        android:title="@string/i_never_ever" >
-        <extra android:name="settings" android:value="i_never_ever" />
-    </header>
-
-    <header
-        android:fragment="wtfisandroid.drinkinggamescollection.gui.SettingsActivity$SettingsFragment"
-        android:title="@string/mainmenu_button_polnisches" >
-        <extra android:name="settings" android:value="polinski_drinking_game" />
-    </header>
-
-    <header
-        android:fragment="wtfisandroid.drinkinggamescollection.gui.SettingsActivity$SettingsFragment"
-        android:title="@string/mainmenu_button_kingscup" >
-        <extra android:name="settings" android:value="kingscup" />
     </header>
 
 </preference-headers>

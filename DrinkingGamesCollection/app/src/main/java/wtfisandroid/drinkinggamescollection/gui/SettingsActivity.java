@@ -155,7 +155,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 			settings = getArguments().getString("settings");
 			if ( settings.equalsIgnoreCase("general") ) {
 				addPreferencesFromResource(R.xml.options_general);
-			} else if ( settings.equalsIgnoreCase("pyramide") ) {
+			} else if ( settings.equalsIgnoreCase("pyramid") ) {
 				addPreferencesFromResource(R.xml.options_pyramide);
 				PreferenceScreen screen = getPreferenceScreen();
 				PreferenceCategory category = new PreferenceCategory(screen.getContext());
@@ -163,20 +163,16 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 				category.setTitle(m_resources.getString(R.string.player_names));
 				screen.addPreference(category);
 				m_preference = PreferenceManager.getDefaultSharedPreferences(screen.getContext());
-				int player_number = Integer.valueOf(m_preference.getString("pyramid_player_count", "2"));
+				int player_number = Integer.valueOf(m_preference.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2"));
 				for ( int i = 0; i < player_number; i++ ) {
 					EditTextPreference player_name = new EditTextPreference(screen.getContext());
-					player_name.setKey("player_name" + (i + 1));
+					player_name.setKey(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (i + 1));
 					player_name.setTitle(m_resources.getString(R.string.player) + " " + (i + 1));
-					player_name.setText("player_name" + (i + 1));
+					player_name.setText(m_resources.getString(R.string.player) + (i + 1));
 					category.addPreference(player_name);
 				}
 			} else if ( settings.equalsIgnoreCase("maexchen") ) {
 				addPreferencesFromResource(R.xml.options_maexchen);
-			} else if ( settings.equalsIgnoreCase("i_never_ever") ) {
-				addPreferencesFromResource(R.xml.options_i_have_never_ever);
-			} else if ( settings.equalsIgnoreCase("polinski_drinking_game") ) {
-				addPreferencesFromResource(R.xml.options_polinski_drinking_game);
 			}
 		}
 

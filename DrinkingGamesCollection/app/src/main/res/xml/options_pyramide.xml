@@ -6,6 +6,6 @@
         android:key="pyramid_player_count"
         android:defaultValue="2"
         android:inputType="number"
-        android:title="@string/player_number"
-        android:dialogTitle="@string/player_number"/>
+        android:title="@string/player_count"
+        android:dialogTitle="@string/player_count"/>
 </PreferenceScreen>

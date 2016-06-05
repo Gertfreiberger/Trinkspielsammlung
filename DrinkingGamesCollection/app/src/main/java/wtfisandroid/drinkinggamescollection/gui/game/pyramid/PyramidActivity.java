@@ -182,10 +182,10 @@ public class PyramidActivity extends AppCompatActivity {
 			utilities.fadeOut(value);
 		}
 
-		String player1_name = sharedPref.getString("player_name1", "Player1");
-		String player2_name = sharedPref.getString("player_name2", "Player2");
-		String player3_name = sharedPref.getString("player_name3", "Player3");
-		String player4_name = sharedPref.getString("player_name4", "Player4");
+		String player1_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "1", KEY_PLAYER + "1");
+		String player2_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "2", KEY_PLAYER + "2");
+		String player3_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "3", KEY_PLAYER + "3");
+		String player4_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "4", KEY_PLAYER + "4");
 		playerCount = Integer.valueOf(sharedPref.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "4"));
 
 		playerNames.put(KEY_PLAYER + "1", player1_name);

@@ -30,6 +30,7 @@ public class Utilities {
 	public final static String GAMEDECK_GAME_KEY = "gameDeck";
 	public final static String PLAYERHANDS_GAME_KEY = "playerHands";
 	public final static String FINAL_PLAYER = "final_player";
+	public static final String PYRAMID_PLAYER_NAME_PREFERENCE_KEY = "player_name";
 	public static final String PYRAMID_PLAYER_COUNT_PREFERENCE_KEY = "pyramid_player_count";
 
 	public Utilities(Context context) {
