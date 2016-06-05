@@ -75,7 +75,8 @@
         android:background="#da4c4c"
         android:layout_alignTop="@+id/button_kingscup"
         android:layout_alignParentStart="true"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:visibility="invisible"/>
 
     <Button
         android:layout_width="@dimen/mainmenu_button_width"

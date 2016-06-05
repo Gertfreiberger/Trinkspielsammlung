@@ -103,7 +103,7 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 	public void onShake(int count) {
 		if ( count % 2 == 0 ) {
 			Random rand = new Random();
-			int number = rand.nextInt(5) + 1;
+			int number = rand.nextInt(2) + 1; // for first release set to 2
 			Intent activity = null;
 
 			switch ( number ) {
@@ -113,10 +113,10 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 				case 2:
 					activity = new Intent(this, Maexchen.class);
 					break;
-				case 4:
+				case 3:
 					activity = new Intent(this, PolnischesTrinkspiel.class);
 					break;
-				case 5:
+				case 4:
 					activity = new Intent(this, IHaveNeverEverActivity.class);
 					break;
 				default:
