@@ -163,7 +163,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 				category.setTitle(m_resources.getString(R.string.player_names));
 				screen.addPreference(category);
 				m_preference = PreferenceManager.getDefaultSharedPreferences(screen.getContext());
-				int player_number = Integer.valueOf(m_preference.getString("player_number", "2"));
+				int player_number = Integer.valueOf(m_preference.getString("pyramid_player_count", "2"));
 				for ( int i = 0; i < player_number; i++ ) {
 					EditTextPreference player_name = new EditTextPreference(screen.getContext());
 					player_name.setKey("player_name" + (i + 1));
@@ -177,8 +177,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 				addPreferencesFromResource(R.xml.options_i_have_never_ever);
 			} else if ( settings.equalsIgnoreCase("polinski_drinking_game") ) {
 				addPreferencesFromResource(R.xml.options_polinski_drinking_game);
-			} else if ( settings.equalsIgnoreCase("kingscup") ) {
-				addPreferencesFromResource(R.xml.options_kingscup);
 			}
 		}
 

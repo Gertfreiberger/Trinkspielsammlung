@@ -17,6 +17,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -24,7 +25,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,7 +52,8 @@ public class PyramidActivity extends AppCompatActivity {
 	private ImageView firstChoice;
 	private Vibrator vib;
 	private int roundNumber = 1;
-	private int playerNumber = 0;
+	private int playerCount;
+	private int currentPlayerNumber = 0;
 	private int currentCardNumber = 0;
 	private HashMap<String, String> playerNames = new HashMap<>();
 	private HashMap<String, ImageView> playerCards = new HashMap<>();
@@ -67,19 +68,21 @@ public class PyramidActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// Hide the status bar.
+//		if ( Build.VERSION.SDK_INT < 16 ) {
+//			getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+//		} else { // Jellybean and up
+//			View decorView = getWindow().getDecorView();
+//			int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+//			decorView.setSystemUiVisibility(uiOptions);
+//		}
 		utilities = new Utilities(getApplicationContext());
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		String currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
 		utilities.setLanguage(currentLanguage);
 		resources = getResources();
 		setContentView(R.layout.activity_pyramid);
-
-		toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
-		toolbar.setBackgroundResource(R.drawable.ic_background_gameroom);
-		toolbar.setLogo(R.drawable.ic_logo);
-		toolbar.setTitleTextColor(Color.BLACK);
-		toolbar.setSubtitleTextColor(Color.BLUE);
+//		setContentView(R.layout.content_pyramid_activity);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setItems(R.array.pyramid_rounds, null)
@@ -103,46 +106,24 @@ public class PyramidActivity extends AppCompatActivity {
 						});
 
 		AlertDialog dialog = builder.create();
-		dialog.show();
+		dialog.setCanceledOnTouchOutside(false);
 
-		findViews();
+		toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		toolbar.setBackgroundResource(R.drawable.ic_background_gameroom);
+		toolbar.setLogo(R.drawable.ic_logo);
+		toolbar.setTitleTextColor(Color.BLACK);
+		toolbar.setSubtitleTextColor(Color.BLUE);
 
-		String player1_name = sharedPref.getString("player_name1", "Player1");
-		String player2_name = sharedPref.getString("player_name2", "Player2");
-		String player3_name = sharedPref.getString("player_name3", "Player3");
-		String player4_name = sharedPref.getString("player_name4", "Player4");
+		prepareGame();
 
-		playerNames.put(KEY_PLAYER + "1", player1_name);
-		playerNames.put(KEY_PLAYER + "2", player2_name);
-		playerNames.put(KEY_PLAYER + "3", player3_name);
-		playerNames.put(KEY_PLAYER + "4", player4_name);
-
-		playerHands.put(KEY_PLAYER + "1", new Playerhand(1, player1_name));
-		playerHands.put(KEY_PLAYER + "2", new Playerhand(2, player2_name));
-		playerHands.put(KEY_PLAYER + "3", new Playerhand(3, player3_name));
-		playerHands.put(KEY_PLAYER + "4", new Playerhand(4, player4_name));
-
-		rounds = resources.getStringArray(R.array.pyramid_rounds);
-		handler = new Handler();
-
-		// Hide the status bar.
-		if ( Build.VERSION.SDK_INT < 16 ) {
-			getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		} else { // Jellybean and up
-			View decorView = getWindow().getDecorView();
-			int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-			decorView.setSystemUiVisibility(uiOptions);
+		if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
+			Slide slide = new Slide();
+			slide.setDuration(2000);
+			getWindow().setExitTransition(slide);
 		}
 
-		gameCard.generatePyramidGameDeck();
-		gameDeck = Gamecard.getAllCards();
-		gameDeck = gameCard.shuffleDeck(gameDeck);
-
-//		if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
-//			Slide slide = new Slide();
-//			slide.setDuration(2000);
-//			getWindow().setExitTransition(slide);
-//		}
+		dialog.show();
 	}
 
 	@Override
@@ -181,7 +162,7 @@ public class PyramidActivity extends AppCompatActivity {
 		super.onBackPressed();
 	}
 
-	private void findViews() {
+	private void prepareGame() {
 
 		firstChoice = (ImageView) findViewById(R.id.ivFirstChoice);
 		secondChoice = (ImageView) findViewById(R.id.ivSecondChoice);
@@ -200,6 +181,30 @@ public class PyramidActivity extends AppCompatActivity {
 			ImageView value = entry.getValue();
 			utilities.fadeOut(value);
 		}
+
+		String player1_name = sharedPref.getString("player_name1", "Player1");
+		String player2_name = sharedPref.getString("player_name2", "Player2");
+		String player3_name = sharedPref.getString("player_name3", "Player3");
+		String player4_name = sharedPref.getString("player_name4", "Player4");
+		playerCount = Integer.valueOf(sharedPref.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "4"));
+
+		playerNames.put(KEY_PLAYER + "1", player1_name);
+		playerNames.put(KEY_PLAYER + "2", player2_name);
+		playerNames.put(KEY_PLAYER + "3", player3_name);
+		playerNames.put(KEY_PLAYER + "4", player4_name);
+
+		playerHands.put(KEY_PLAYER + "1", new Playerhand(1, player1_name));
+		playerHands.put(KEY_PLAYER + "2", new Playerhand(2, player2_name));
+		playerHands.put(KEY_PLAYER + "3", new Playerhand(3, player3_name));
+		playerHands.put(KEY_PLAYER + "4", new Playerhand(4, player4_name));
+
+		rounds = resources.getStringArray(R.array.pyramid_rounds);
+		handler = new Handler();
+
+		gameCard.generatePyramidGameDeck();
+		gameDeck = Gamecard.getAllCards();
+		gameDeck = gameCard.shuffleDeck(gameDeck);
+
 	}
 
 	private void startTheGame() {
@@ -218,15 +223,15 @@ public class PyramidActivity extends AppCompatActivity {
 	}
 
 	private void execute_round() {
-		if ( playerNumber >= 4 ) {
+		if ( currentPlayerNumber >= playerCount ) {
 			roundNumber++;
-			playerNumber = 1;
+			currentPlayerNumber = 1;
 			if ( roundNumber > 4 ) {
 				goToNextLevel();
 				return;
 			}
 		} else
-			playerNumber++;
+			currentPlayerNumber++;
 
 		StateListDrawable firstChoiceState = new StateListDrawable();
 		StateListDrawable secondChoiceState = new StateListDrawable();
@@ -263,16 +268,15 @@ public class PyramidActivity extends AppCompatActivity {
 		firstChoice.setImageDrawable(firstChoiceState);
 		secondChoice.setImageDrawable(secondChoiceState);
 
-		String player_name = playerNames.get(KEY_PLAYER + playerNumber);
+		String player_name = playerNames.get(KEY_PLAYER + currentPlayerNumber);
 		if ( toolbar != null )
 			toolbar.setTitle(resources.getString(R.string.player) + ": " + player_name);
 
 		if ( toolbar != null )
 			toolbar.setSubtitle(rounds[roundNumber - 1]);
 
-		playerHand = playerHands.get(KEY_PLAYER + playerNumber);
+		playerHand = playerHands.get(KEY_PLAYER + currentPlayerNumber);
 		currentCard = gameDeck.get(currentCardNumber);
-		Log.d(TAG, "execute_round() called with: currentCard " + currentCard + "  currentCardNumber:  " + currentCardNumber + " gameDeck: " + gameDeck.size());
 		currentCardNumber++;
 
 		for ( int i = 0; i < roundNumber - 1; i++ ) {
@@ -302,7 +306,6 @@ public class PyramidActivity extends AppCompatActivity {
 				break;
 			case 2:
 				first_card = playerHand.getPlayerCards().get(0);
-				Log.d(TAG, "case2() called with: " + "first_card = [" + playerHand.getPlayerCards().get(0) + "] currentcard: " + currentCard);
 				if ( currentCard.getCardValue() <= first_card.getCardValue() )
 					drink();
 				break;
@@ -349,7 +352,6 @@ public class PyramidActivity extends AppCompatActivity {
 		Gamecard third_card;
 		switch ( roundNumber ) {
 			case 1:
-				Log.d(TAG, "onClickSecondChoice case1() called with: " + "] currentcard: " + currentCard);
 				String color = currentCard.getCardColor();
 				if ( !color.equalsIgnoreCase(Gamecard.HEARTS) && !color.equalsIgnoreCase(Gamecard.DIAMONDS) )
 					drink();
@@ -449,6 +451,7 @@ public class PyramidActivity extends AppCompatActivity {
 						});
 
 		AlertDialog dialog = builder.create();
+		dialog.setCanceledOnTouchOutside(false);
 		dialog.show();
 	}
 }
