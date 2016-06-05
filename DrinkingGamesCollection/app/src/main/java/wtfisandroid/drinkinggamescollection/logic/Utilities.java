@@ -9,6 +9,13 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.Locale;
 
 public class Utilities {
@@ -43,7 +50,7 @@ public class Utilities {
 	 * Plays a Click-Effect with the given volume.
 	 *
 	 * @param volume Volume of the soundeffect
-	 * @param sound Id of the soundeffect
+	 * @param sound  Id of the soundeffect
 	 */
 	public void playSound(float volume, int sound) {
 		AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -55,7 +62,7 @@ public class Utilities {
 	 * @param lang The shortcut of the desired language
 	 */
 	public void setLanguage(String lang) {
-		switch ( lang ){
+		switch ( lang ) {
 			case "Deutsch":
 				lang = "de";
 				break;
@@ -109,7 +116,25 @@ public class Utilities {
 		}
 	}
 
-	public String getEmojiByUnicode(int unicode){
+	public String getEmojiByUnicode(int unicode) {
 		return new String(Character.toChars(unicode));
+	}
+
+	public static String streamToString(InputStream in) {
+		if ( in == null )
+			return "";
+
+		Writer writer = new StringWriter();
+		char[] buffer = new char[1024];
+		try {
+			Reader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+			int n;
+			while ( (n = reader.read(buffer)) != -1 ) {
+				writer.write(buffer, 0, n);
+			}
+		} catch ( IOException ex ){
+			ex.printStackTrace();
+		}
+		return writer.toString();
 	}
 }

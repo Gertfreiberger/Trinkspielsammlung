@@ -34,11 +34,35 @@
     <string name="final_player_name">Finaler Player:</string>
     <string name="i_never_ever">Ich habe noch nie</string>
     <string name="pyramid_drink_message">Trink!!!!!!!!!!!!!!!!</string>
+    <string name="pyramid_manual_general_info">Bevor angefangen wird, muss
+        sich jeder Spieler eine Flasche Bier, ein paar Shots oder ein beliebiges anderes alkoholisches Getränk bereitstellen. Während der gesamten Spielzeit ist sicherzustellen, dass alle Spieler ausreichend alkoholisch versorgt sind.</string>
+    <string name="pyramid_manual_first_round">Zu Spielbeginn wird die erste
+        Karte der untersten Pyramidenreihe aufgedeckt, so zum Beispiel der
+        Kartenreihe mit sechs Karten, wenn mit sechs Reihen gespielt wird.
+        Derjenige, dessen Farbe mit  der aufgedeckten Karte getroffen wird,
+        muss einen Schluck seines eingangs vorbereiteten Getränks zu sich
+        nehmen. Nun werden die Karten der untersten Reihe nacheinander aufgedeckt und  das Procedere wiederholt sich gleichermaßen. Wird eine Farbe getroffen, muss der entsprechende Spieler einen Schluck Alkohol trinken.</string>
+    <string name="pyramid_manual_second_round">third round text</string>
+    <string name="pyramid_manual_final_round">fourht round text</string>
+    <string name="pyramid_manual_first_first_round">Schwarz oder Rot</string>
+    <string name="pyramid_manual_first_second_round">Höher oder
+        Niederiger</string>
+    <string name="pyramid_manual_first_third_round">Drinnen oder
+        Draußen</string>
+    <string name="pyramid_manual_first_fourth_round">Schon in Besitz
+        oder Noch nicht in Besitz</string>
+    <string name="pyramid_manual_general_info_header">Spielablauf</string>
+    <string name="pyramid_manual_first_round_header">Erste Runde</string>
+    <string name="pyramid_manual_first_first_round_header">1 Runde</string>
+    <string name="pyramid_manual_first_second_round_header">2 Runde</string>
+    <string name="pyramid_manual_first_third_round_header">3 Runde</string>
+    <string name="pyramid_manual_first_fourth_round_header">4 Runde</string>
+    <string name="pyramid_manual_second_round_header">Zweite Runde</string>
+    <string name="pyramid_manual_final_round_header">Finale</string>
 
     <string-array name="manualTabs">
         <item>Allgmein</item>
         <item>Pyramide</item>
-        <item>Ich hab noch nie</item>
     </string-array>
 
     <string-array name="pyramid_rounds">
