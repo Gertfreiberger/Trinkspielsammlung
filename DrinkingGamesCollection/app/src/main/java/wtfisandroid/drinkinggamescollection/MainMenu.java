@@ -21,6 +21,7 @@ import wtfisandroid.drinkinggamescollection.gui.ManualActivity;
 import wtfisandroid.drinkinggamescollection.gui.SettingsActivity;
 import wtfisandroid.drinkinggamescollection.gui.game.IHaveNeverActivity;
 import wtfisandroid.drinkinggamescollection.gui.game.pyramid.PyramidActivity;
+import wtfisandroid.drinkinggamescollection.gui.game.pyramid.pyramid_2Round;
 import wtfisandroid.drinkinggamescollection.logic.ShakeDetector;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
@@ -150,7 +151,7 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 		switch ( v.getId() ) {
 
 			case R.id.button_pyramid:
-				activity = new Intent(this, PyramidActivity.class);
+				activity = new Intent(this, pyramid_2Round.class);
 				break;
 			case R.id.button_i_have_never_ever:
 				activity = new Intent(this, IHaveNeverActivity.class);
