@@ -27,6 +27,8 @@ import wtfisandroid.drinkinggamescollection.R;
 public class Utilities {
 
 	private static final String TAG = "utilities";
+	public static final String KEY_PLAYERCARD = "PlayerCard";
+	public static final String KEY_PLAYER = "Player";
 
 	private final Context context;
 

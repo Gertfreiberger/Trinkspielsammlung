@@ -60,6 +60,10 @@
     <string name="pyramid_manual_second_round_header">Zweite Runde</string>
     <string name="pyramid_manual_final_round_header">Finale</string>
     <string name="help">help</string>
+    <string name="clos_game_message">\"Möchtest du das Spiel wirklich beenden?\"</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="hello_second_pyramid_round">\"Willkommen in der zweiten Runde\"</string>
 
     <string-array name="manualTabs">
         <item>Allgmein</item>

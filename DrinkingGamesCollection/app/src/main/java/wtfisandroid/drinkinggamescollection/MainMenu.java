@@ -148,7 +148,7 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 		switch ( v.getId() ) {
 
 			case R.id.button_pyramid:
-				activity = new Intent(this, pyramid_2Round.class);
+				activity = new Intent(this, PyramidActivity.class);
 				break;
 			case R.id.button_i_have_never_ever:
 				activity = new Intent(this, IHaveNeverEverActivity.class);
