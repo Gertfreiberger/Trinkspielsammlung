@@ -19,7 +19,7 @@ import java.util.Random;
 
 import wtfisandroid.drinkinggamescollection.gui.ManualActivity;
 import wtfisandroid.drinkinggamescollection.gui.SettingsActivity;
-import wtfisandroid.drinkinggamescollection.gui.game.IHaveNeverActivity;
+import wtfisandroid.drinkinggamescollection.gui.game.IHaveNeverEverActivity;
 import wtfisandroid.drinkinggamescollection.gui.game.pyramid.PyramidActivity;
 import wtfisandroid.drinkinggamescollection.gui.game.pyramid.pyramid_2Round;
 import wtfisandroid.drinkinggamescollection.logic.ShakeDetector;
@@ -104,7 +104,7 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 	public void onShake(int count) {
 		if ( count % 2 == 0 ) {
 			Random rand = new Random();
-			int number = rand.nextInt(5) + 1;
+			int number = rand.nextInt(2) + 1; // for first release set to 2
 			Intent activity = null;
 
 			switch ( number ) {
@@ -115,13 +115,10 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 					activity = new Intent(this, Maexchen.class);
 					break;
 				case 3:
-					activity = new Intent(this, Kingscup.class);
-					break;
-				case 4:
 					activity = new Intent(this, PolnischesTrinkspiel.class);
 					break;
-				case 5:
-					activity = new Intent(this, IHaveNeverActivity.class);
+				case 4:
+					activity = new Intent(this, IHaveNeverEverActivity.class);
 					break;
 				default:
 					break;
@@ -154,14 +151,11 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 				activity = new Intent(this, pyramid_2Round.class);
 				break;
 			case R.id.button_i_have_never_ever:
-				activity = new Intent(this, IHaveNeverActivity.class);
-				break;
-			case R.id.button_maexchen:
-				activity = new Intent(this, Maexchen.class);
+				activity = new Intent(this, IHaveNeverEverActivity.class);
 				break;
 
-			case R.id.button_kingscup:
-				activity = new Intent(this, Kingscup.class);
+			case R.id.button_maexchen:
+				activity = new Intent(this, Maexchen.class);
 				break;
 
 			case R.id.button_polnisches_trinkspiel:

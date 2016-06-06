@@ -11,293 +11,66 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 tools:context=".gui.game.pyramid.PyramidActivity">
 
-    <RelativeLayout
-        android:id="@+id/rlPlayer1"
-        android:layout_width="fill_parent"
+    <ImageView
+        android:id="@+id/ivSecondChoice"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="false"
+        android:src="@drawable/gamecard_10_of_clubs"
+        android:onClick="onClickSecondChoice"
+        android:scaleType="fitXY"
+        android:layout_marginStart="30dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/ivPyramidFirstRoundPlayerCard2"/>
+
+    <ImageView
+        android:id="@+id/ivFirstChoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription=""
+        android:src="@drawable/gamecard_10_of_clubs"
+        android:onClick="onClickFirstChoice"
+        android:scaleType="fitXY"
+        android:layout_marginStart="194dp"
+        android:layout_alignTop="@+id/ivSecondChoice"
+        android:layout_alignParentStart="true"/>
+
+    <ImageView
+        android:id="@+id/ivPyramidFirstRoundPlayerCard3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/gamecard_10_of_clubs"
+        android:contentDescription=""
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/rlMiddle"
-        android:layout_toLeftOf="@+id/rlMiddle">
+        android:layout_alignStart="@+id/ivSecondChoice"/>
 
-        <ImageView
-            android:id="@+id/ivPlayer1FirstCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:contentDescription=""
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            />
-
-        <ImageView
-            android:id="@+id/ivPlayer1SecondCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:contentDescription=""
-            android:layout_above="@+id/tvPlayer1"
-            android:layout_toLeftOf="@+id/tvPlayer1"
-            android:layout_toStartOf="@+id/tvPlayer1"/>
-
-        <ImageView
-            android:id="@+id/ivPlayer1ThirdCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:contentDescription=""
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/ivPlayer1SecondCard"
-            android:layout_toEndOf="@+id/ivPlayer1SecondCard"/>
-
-        <ImageView
-            android:id="@+id/ivPlayer1FourthCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:contentDescription=""
-            android:layout_above="@+id/tvPlayer1"
-            android:layout_toRightOf="@+id/ivPlayer1ThirdCard"
-            android:layout_toEndOf="@+id/ivPlayer1ThirdCard"/>
-
-        <TextView
-            android:id="@+id/tvPlayer1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/player"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_below="@+id/ivPlayer1ThirdCard"
-            android:layout_centerHorizontal="true"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rlPlayer2"
+    <ImageView
+        android:id="@+id/ivPyramidFirstRoundPlayerCard4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/rlMiddle"
-        android:layout_toLeftOf="@+id/rlMiddle">
+        android:src="@drawable/gamecard_10_of_clubs"
+        android:contentDescription=""
+        android:layout_alignTop="@+id/ivPyramidFirstRoundPlayerCard3"
+        android:layout_toEndOf="@+id/ivPyramidFirstRoundPlayerCard3"
+        android:layout_marginStart="40dp"/>
 
-        <ImageView
-            android:id="@+id/ivPlayer2FirstCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/gamecard_10_of_clubs"
-            />
-
-        <ImageView
-            android:id="@+id/ivPlayer2SecondCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/ivPlayer2FirstCard"
-            android:layout_toEndOf="@+id/ivPlayer2FirstCard"/>
-
-        <ImageView
-            android:id="@+id/ivPlayer2FourthCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/ivPlayer2ThirdCard"
-            android:layout_toEndOf="@+id/ivPlayer2ThirdCard"/>
-
-        <ImageView
-            android:id="@+id/ivPlayer2ThirdCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvPlayer2"
-            android:layout_toEndOf="@+id/tvPlayer2"/>
-
-        <TextView
-            android:id="@+id/tvPlayer2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/ivPlayer2SecondCard"
-            android:layout_alignRight="@+id/ivPlayer2SecondCard"
-            android:layout_below="@+id/ivPlayer2FirstCard"
-            android:layout_marginEnd="38dp"
-            android:layout_marginRight="38dp"
-            android:text="@string/player"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rlPlayer3"
+    <ImageView
+        android:id="@+id/ivPyramidFirstRoundPlayerCard2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/rlMiddle"
-        android:layout_toRightOf="@+id/rlMiddle"
-        android:layout_toEndOf="@+id/rlMiddle">
+        android:src="@drawable/gamecard_10_of_clubs"
+        android:contentDescription=""
+        android:layout_alignTop="@+id/ivPyramidFirstRoundPlayerCard3"
+        android:layout_toEndOf="@+id/ivFirstChoice"/>
 
-        <ImageView
-            android:id="@+id/ivPlayer3FirstCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
-
-        <ImageView
-            android:id="@+id/ivPlayer3SecondCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/ivPlayer3FirstCard"
-            android:layout_toStartOf="@+id/ivPlayer3FirstCard"/>
-
-        <ImageView
-            android:id="@+id/ivPlayer3ThirdCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/ivPlayer3SecondCard"
-            android:layout_toStartOf="@+id/ivPlayer3SecondCard"/>
-
-        <ImageView
-            android:id="@+id/ivPlayer3FourthCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/ivPlayer3ThirdCard"
-            android:layout_toStartOf="@+id/ivPlayer3ThirdCard"/>
-
-        <TextView
-            android:id="@+id/tvPlayer3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/player"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_below="@+id/ivPlayer3SecondCard"
-            android:layout_alignLeft="@+id/ivPlayer3ThirdCard"
-            android:layout_alignStart="@+id/ivPlayer3ThirdCard"
-            android:layout_marginLeft="28dp"
-            android:layout_marginStart="28dp"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rlPlayer4"
+    <ImageView
+        android:id="@+id/ivPyramidFirstRoundPlayerCard1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/rlPlayer2"
-        android:rotation="0"
-        android:layout_toEndOf="@+id/rlMiddle"
-        android:layout_toRightOf="@+id/rlMiddle">
-
-        <ImageView
-            android:id="@+id/ivPlayer4FirstCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
-
-        <ImageView
-            android:id="@+id/ivPlayer4SecondCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/ivPlayer4FourthCard"
-            android:layout_toEndOf="@+id/ivPlayer4FourthCard"/>
-
-        <ImageView
-            android:id="@+id/ivPlayer4FourthCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/tvPlayer4"
-            android:layout_alignEnd="@+id/tvPlayer4"/>
-
-        <ImageView
-            android:id="@+id/ivPlayer4ThirdCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/ivPlayer4FourthCard"
-            android:layout_toStartOf="@+id/ivPlayer4FourthCard"/>
-
-        <TextView
-            android:id="@+id/tvPlayer4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/player"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_below="@+id/ivPlayer4SecondCard"
-            android:layout_centerHorizontal="true"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rlMiddle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/rlPlayer1"
-        android:layout_below="@+id/rlPlayer2"
-        android:layout_centerHorizontal="true">
-
-        <TextView
-            android:id="@+id/tvRound"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/round"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-        <TextView
-            android:id="@+id/tvPlayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvRound"
-            android:layout_centerHorizontal="true"
-            android:text="@string/player"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
-
-        <ImageView
-            android:id="@+id/ivFirstChoice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription=""
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:onClick="onClickFirstChoice"
-            android:layout_below="@+id/tvPlayer"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
-
-        <ImageView
-            android:id="@+id/ivSecondChoice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:src="@drawable/gamecard_10_of_clubs"
-            android:onClick="onClickSecondChoice"
-            android:layout_below="@+id/tvPlayer"
-            android:layout_toRightOf="@+id/ivFirstChoice"
-            android:layout_toEndOf="@+id/ivFirstChoice"/>
-
-    </RelativeLayout>
+        android:src="@drawable/gamecard_10_of_clubs"
+        android:contentDescription=""
+        android:layout_marginEnd="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/ivPyramidFirstRoundPlayerCard2"/>
 
 </RelativeLayout>

@@ -37,6 +37,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 		utilities = new Utilities(getApplicationContext());
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
+		utilities.setLanguage(currentLanguage);
 	}
 
 	/**
@@ -54,6 +55,9 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 	 */
 	@Override
 	public void onBuildHeaders(List<Header> target) {
+		utilities = new Utilities(getApplicationContext());
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
 		utilities.setLanguage(currentLanguage);
 		loadHeadersFromResource(R.xml.options_header, target);
 		super.onBuildHeaders(target);
@@ -103,16 +107,11 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * Called when the activity has detected the user's press of the back
-	 * key.  The default implementation simply finishes the current activity,
-	 * but you can override this to do whatever you want.
-	 */
 	@Override
 	public void onBackPressed() {
-		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
+		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) )
 			utilities.playSound(1, AudioManager.FX_KEYPRESS_RETURN);
-		}
+
 		super.onBackPressed();
 	}
 
@@ -156,7 +155,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 			settings = getArguments().getString("settings");
 			if ( settings.equalsIgnoreCase("general") ) {
 				addPreferencesFromResource(R.xml.options_general);
-			} else if ( settings.equalsIgnoreCase("pyramide") ) {
+			} else if ( settings.equalsIgnoreCase("pyramid") ) {
 				addPreferencesFromResource(R.xml.options_pyramide);
 				PreferenceScreen screen = getPreferenceScreen();
 				PreferenceCategory category = new PreferenceCategory(screen.getContext());
@@ -164,12 +163,12 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 				category.setTitle(m_resources.getString(R.string.player_names));
 				screen.addPreference(category);
 				m_preference = PreferenceManager.getDefaultSharedPreferences(screen.getContext());
-				int player_number = Integer.valueOf(m_preference.getString("player_number", "2"));
+				int player_number = Integer.valueOf(m_preference.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2"));
 				for ( int i = 0; i < player_number; i++ ) {
 					EditTextPreference player_name = new EditTextPreference(screen.getContext());
-					player_name.setKey("player_name" + (i + 1));
+					player_name.setKey(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (i + 1));
 					player_name.setTitle(m_resources.getString(R.string.player) + " " + (i + 1));
-					player_name.setText("player_name" + (i + 1));
+					player_name.setText(m_resources.getString(R.string.player) + (i + 1));
 					category.addPreference(player_name);
 				}
 			} else if ( settings.equalsIgnoreCase("maexchen") ) {

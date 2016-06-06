@@ -13,33 +13,57 @@
     <string name="vibrate">Vibrieren</string>
     <string name="language">Sprache</string>
     <string name="show_player_names">Spielernamen anzeigen</string>
-    <string name="player_number">Spieler Nummber</string>
+    <string name="player_count">Spieler Nummer</string>
     <string name="player_names">Spieler Namen</string>
     <string name="player">Spieler </string>
     <string name="round">Runde: </string>
     <string name="pyramid_dialog_title">Rundenübersicht</string>
     <string name="start">Start</string>
     <string name="manual">Anleitung</string>
-    <string name="first_round_finished">First Round Finished</string>
-    <string name="go_to_next_level">Go to the next Level</string>
+    <string name="first_round_finished">Erste Runde beended</string>
+    <string name="go_to_next_level">Weiter zum nächsten Level</string>
     <string name="new_game">New Game</string>
     <string name="ok">Ok</string>
     <string name="distribute_drinks">Distripute Drinks</string>
     <string name="close">Beenden</string>
     <string name="distribute">Distribute</string>
     <string name="drinks">Drink(s)</string>
-    <string name="second_round_finished">Second Round Finished</string>
+    <string name="second_round_finished">Zweite Runde beended</string>
     <string name="go_to_Final_level">Weiter zum Finale</string>
     <string name="final_round">Finale Runde</string>
-    <string name="final_player_name">Final Player:</string>
+    <string name="final_player_name">Finaler Player:</string>
     <string name="i_never_ever">Ich habe noch nie</string>
+    <string name="pyramid_drink_message">Trink!!!!!!!!!!!!!!!!</string>
+    <string name="pyramid_manual_general_info">Bevor angefangen wird, muss
+        sich jeder Spieler eine Flasche Bier, ein paar Shots oder ein beliebiges anderes alkoholisches Getränk bereitstellen. Während der gesamten Spielzeit ist sicherzustellen, dass alle Spieler ausreichend alkoholisch versorgt sind.</string>
+    <string name="pyramid_manual_first_round">Zu Spielbeginn wird die erste
+        Karte der untersten Pyramidenreihe aufgedeckt, so zum Beispiel der
+        Kartenreihe mit sechs Karten, wenn mit sechs Reihen gespielt wird.
+        Derjenige, dessen Farbe mit  der aufgedeckten Karte getroffen wird,
+        muss einen Schluck seines eingangs vorbereiteten Getränks zu sich
+        nehmen. Nun werden die Karten der untersten Reihe nacheinander aufgedeckt und  das Procedere wiederholt sich gleichermaßen. Wird eine Farbe getroffen, muss der entsprechende Spieler einen Schluck Alkohol trinken.</string>
+    <string name="pyramid_manual_second_round">third round text</string>
+    <string name="pyramid_manual_final_round">fourht round text</string>
+    <string name="pyramid_manual_first_first_round">Schwarz oder Rot</string>
+    <string name="pyramid_manual_first_second_round">Höher oder
+        Niederiger</string>
+    <string name="pyramid_manual_first_third_round">Drinnen oder
+        Draußen</string>
+    <string name="pyramid_manual_first_fourth_round">Schon in Besitz
+        oder Noch nicht in Besitz</string>
+    <string name="pyramid_manual_general_info_header">Spielablauf</string>
+    <string name="pyramid_manual_first_round_header">Erste Runde</string>
+    <string name="pyramid_manual_first_first_round_header">1 Runde</string>
+    <string name="pyramid_manual_first_second_round_header">2 Runde</string>
+    <string name="pyramid_manual_first_third_round_header">3 Runde</string>
+    <string name="pyramid_manual_first_fourth_round_header">4 Runde</string>
+    <string name="pyramid_manual_second_round_header">Zweite Runde</string>
+    <string name="pyramid_manual_final_round_header">Finale</string>
+    <string name="help">help</string>
 
     <string-array name="manualTabs">
         <item>Allgmein</item>
         <item>Pyramide</item>
-        <item>Mäxchen</item>
-        <item>Kingscup</item>
-        <item>Polnisches Trinkspiel</item>
     </string-array>
 
     <string-array name="pyramid_rounds">

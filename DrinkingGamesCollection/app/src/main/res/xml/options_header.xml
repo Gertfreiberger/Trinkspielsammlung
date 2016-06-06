@@ -12,14 +12,12 @@
     <header
         android:fragment="wtfisandroid.drinkinggamescollection.gui.SettingsActivity$SettingsFragment"
         android:title="@string/pyramid" >
-        <!-- key/value pairs can be included as arguments for the fragment. -->
-        <extra android:name="settings" android:value="pyramide" />
+        <extra android:name="settings" android:value="pyramid" />
     </header>
 
     <header
         android:fragment="wtfisandroid.drinkinggamescollection.gui.SettingsActivity$SettingsFragment"
         android:title="@string/maexchen" >
-        <!-- key/value pairs can be included as arguments for the fragment. -->
         <extra android:name="settings" android:value="maexchen" />
     </header>
 
