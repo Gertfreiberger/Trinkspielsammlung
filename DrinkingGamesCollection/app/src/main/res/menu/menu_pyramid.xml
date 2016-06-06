@@ -1,14 +1,23 @@
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <item
         android:id="@+id/back"
+        app:showAsAction="always"
         android:title="@string/back">
     </item>
 
     <item
         android:id="@+id/new_game"
+        app:showAsAction="always"
         android:title="@string/new_game">
+    </item>
+
+    <item
+        android:id="@+id/help"
+        app:showAsAction="always"
+        android:title="@string/help">
     </item>
 
 </menu>

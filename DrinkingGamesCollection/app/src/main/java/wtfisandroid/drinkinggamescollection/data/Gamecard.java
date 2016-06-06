@@ -205,9 +205,9 @@ public class Gamecard implements Parcelable {
 		new Gamecard(5, DIAMONDS, THREE, 3, R.drawable.gamecard_3_of_diamonds);
 		new Gamecard(6, HEARTS, THREE, 3, R.drawable.gamecard_3_of_hearts);
 		new Gamecard(7, SPADES, THREE, 3, R.drawable.gamecard_3_of_spades);
-		new Gamecard(4, CLUBS, FOUR, 4, R.drawable.gamecard_4_of_clubs);
-		new Gamecard(8, DIAMONDS, FOUR, 4, R.drawable.gamecard_4_of_diamonds);
-		new Gamecard(9, HEARTS, FOUR, 4, R.drawable.gamecard_4_of_hearts);
+		new Gamecard(8, CLUBS, FOUR, 4, R.drawable.gamecard_4_of_clubs);
+		new Gamecard(9, DIAMONDS, FOUR, 4, R.drawable.gamecard_4_of_diamonds);
+		new Gamecard(10, HEARTS, FOUR, 4, R.drawable.gamecard_4_of_hearts);
 		new Gamecard(11, SPADES, FOUR, 4, R.drawable.gamecard_4_of_spades);
 		new Gamecard(12, CLUBS, FIVE, 5, R.drawable.gamecard_5_of_clubs);
 		new Gamecard(13, DIAMONDS, FIVE, 5, R.drawable.gamecard_5_of_diamonds);
@@ -283,18 +283,5 @@ public class Gamecard implements Parcelable {
 		return shuffledDeck;
 	}
 
-	/**
-	 * @param imageID
-	 * @return Card witch contains the image
-	 */
-	public Gamecard getCardByImageID(int imageID) {
-		Gamecard tmp = null;
-		for ( @SuppressWarnings("rawtypes") Iterator card = allCards.keySet().iterator(); card.hasNext(); ) {
-			Gamecard Gamecard = (wtfisandroid.drinkinggamescollection.data.Gamecard) card.next();
-			if ( Gamecard.getImageID() == imageID ) {
-				tmp = Gamecard;
-			}
-		}
-		return tmp;
-	}
+
 }

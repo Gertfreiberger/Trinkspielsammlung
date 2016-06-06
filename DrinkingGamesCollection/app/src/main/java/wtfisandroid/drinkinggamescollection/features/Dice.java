@@ -22,7 +22,7 @@ public class Dice {
     public Dice(ArrayList<Bitmap> pictures) {
         last_throw_ = 0;
         throw_dice_ = new Random();
-        dice_sides_ = 5;
+        dice_sides_ = 6;
 
         dice_pictures_ = pictures;
     }

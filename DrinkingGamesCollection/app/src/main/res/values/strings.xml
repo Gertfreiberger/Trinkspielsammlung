@@ -5,7 +5,7 @@
     <string name="mainmenu_button_kingscup">Kings Cup</string>
     <string name="mainmenu_button_polnisches">Polnisches Trinkspiel</string>
     <string name="mainmenu_button_pyramid">Pyramid</string>
-    <string name="mainmenu_headline">Trinkspielsammlung</string>
+    <string name="mainmenu_headline">Drinking Games Collection</string>
     <string name="title_activity_maexchen_menu">MaexchenMenu</string>
     <string name="title_activity_kingscup_menu">KingscupMenu</string>
     <string name="title_activity_polnisches_trinkspiel">PolnischesTrinkspiel</string>
@@ -24,7 +24,7 @@
     <string name="vibrate">Vibrate</string>
     <string name="language">Language</string>
     <string name="show_player_names">Show Playernames</string>
-    <string name="player_number">Player Number</string>
+    <string name="player_count">Player Number</string>
     <string name="player_names">Player Names</string>
     <string name="player">Player </string>
     <string name="round">Round: </string>
@@ -49,10 +49,6 @@
     <string-array name="manualTabs">
         <item>General</item>
         <item>Pyramid</item>
-        <item>Maexchen</item>
-        <item>I\'ve never ever</item>
-        <item>Kingscup</item>
-        <item>Polnisches Trinkspiel</item>
     </string-array>
 
     <string-array name="availabeLanguages">
@@ -99,6 +95,28 @@
     <string name="title_activity_maexchen_rules">MaexchenRules</string>
     <string name="maexchen_button_help">Hilfe</string>
     <string name="maexchen_textView_result_init">  </string>
+    <string name="pyramid_drink_message">Drink!!!!!!!!!!!!!!!!</string>
+    <string name="pyramid_manual_general_info">Bevor angefangen wird, muss sich jeder Spieler eine Flasche Bier, ein paar Shots oder ein beliebiges anderes alkoholisches Getränk bereitstellen.Während der gesamten Spielzeit ist sicherzustellen, dass alle Spieler ausreichend alkoholisch versorgt sind.</string>
+    <string name="pyramid_manual_first_round">Zu Spielbeginn wird die erste Karte der untersten Pyramidenreihe aufgedeckt, so zum Beispiel der Kartenreihe mit sechs Karten, wenn mit sechs Reihen gespielt wird. Derjenige, dessen Farbe mit der aufgedeckten Karte getroffen wird, muss einen Schluck seines eingangs vorbereiteten Getränks zu sich nehmen. Nun werden die Karten der untersten Reihe nacheinander aufgedeckt und das Procedere wiederholt sich gleichermaßen. Wird eine Farbe getroffen, muss der entsprechende Spieler einen Schluck Alkohol trinken.</string>
+    <string name="pyramid_manual_second_round">second round text</string>
+    <string name="pyramid_manual_final_round">final round text</string>
+    <string name="pyramid_manual_first_first_round">Black or Red</string>
+    <string name="pyramid_manual_first_second_round">Higher or Lower</string>
+    <string name="pyramid_manual_first_third_round">Within or Without</string>
+    <string name="pyramid_manual_first_fourth_round">In Possession or Not In Possession</string>
+    <string name="pyramid_manual_general_info_header">Ka GAmePlay</string>
+    <string name="pyramid_manual_first_round_header">First Round</string>
+    <string name="pyramid_manual_first_first_round_header">1 Round</string>
+    <string name="pyramid_manual_first_second_round_header">2 Round</string>
+    <string name="pyramid_manual_first_third_round_header">3 Round</string>
+    <string name="pyramid_manual_first_fourth_round_header">4 Round</string>
+    <string name="pyramid_manual_second_round_header">Second Round</string>
+    <string name="pyramid_manual_final_round_header">Final Round</string>
+    <string name="help">Help</string>
+    <string name="clos_game_message">\"Möchtest du das Spiel wirklich beenden?\"</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="hello_second_pyramid_round">\"Willkommen in der zweiten Runde\"</string>
 
 
 </resources>

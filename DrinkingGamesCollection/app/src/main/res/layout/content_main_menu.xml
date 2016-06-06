@@ -42,7 +42,8 @@
         android:layout_below="@+id/button_pyramid"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="46dp"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="@dimen/mainmenu_button_width"
@@ -53,7 +54,8 @@
         android:layout_centerVertical="true"
         android:layout_alignEnd="@+id/headline"
         android:layout_alignStart="@+id/headline"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="@dimen/mainmenu_button_width"
@@ -73,7 +75,8 @@
         android:background="#da4c4c"
         android:layout_alignTop="@+id/button_kingscup"
         android:layout_alignParentStart="true"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:visibility="invisible"/>
 
     <Button
         android:layout_width="@dimen/mainmenu_button_width"

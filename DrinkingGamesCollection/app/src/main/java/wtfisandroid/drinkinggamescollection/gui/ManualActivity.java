@@ -1,7 +1,10 @@
 package wtfisandroid.drinkinggamescollection.gui;
 
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -15,7 +18,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -85,7 +92,7 @@ public class ManualActivity extends AppCompatActivity {
 
 	public class TabsPagerAdapter extends FragmentPagerAdapter {
 
-		private int NUM_ITEMS = 5;
+		private int NUM_ITEMS = 2;
 
 		public TabsPagerAdapter(FragmentManager fragmentManager) {
 			super(fragmentManager);
@@ -108,19 +115,7 @@ public class ManualActivity extends AppCompatActivity {
 					fragment = new GeneralFragment();
 					break;
 				case 1:
-					fragment = new PyramideFragment();
-					break;
-				case 2:
-					fragment = new MaexchenFragment();
-					break;
-				case 3:
-					fragment = new IHaveNeverFragment();
-					break;
-				case 4:
-					fragment = new KingscupFragment();
-					break;
-				case 5:
-					fragment = new PolskiDrinkinGameFragment();
+					fragment = new PyramidFragment();
 					break;
 				default:
 					break;
@@ -155,53 +150,82 @@ public class ManualActivity extends AppCompatActivity {
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.manual_general, container, false);
+			View rootView = inflater.inflate(R.layout.manual, container, false);
+			WebView webView = (WebView) rootView.findViewById(R.id.wv_manual);
+			AssetManager asset = getActivity().getAssets();
+			webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+			webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+			if ( Build.VERSION.SDK_INT >= 19 ) {
+				// chromium, enable hardware acceleration
+				webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+			} else {
+				// older android version, disable hardware acceleration
+				webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+			}
+			Resources resources = getActivity().getApplicationContext().getResources();
+			Utilities util = new Utilities(getContext());
+			try {
+
+				InputStream is = asset.open("www/manual_general.html", AssetManager.ACCESS_BUFFER);
+				String html = util.streamToString(is);
+
+				webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+				is.close();
+			} catch ( IOException e ) {
+				e.printStackTrace();
+			}
 			return rootView;
 		}
 	}
 
-	public static class PyramideFragment extends Fragment {
+	public static class PyramidFragment extends Fragment {
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.manual_pyramid, container, false);
+			View rootView = inflater.inflate(R.layout.manual, container, false);
+			WebView webView = (WebView) rootView.findViewById(R.id.wv_manual);
+			webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+			webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+			if ( Build.VERSION.SDK_INT >= 19 ) {
+				// chromium, enable hardware acceleration
+				webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+			} else {
+				// older android version, disable hardware acceleration
+				webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+			}
+			AssetManager asset = getActivity().getAssets();
+			Resources resources = getActivity().getApplicationContext().getResources();
+			Utilities util = new Utilities(getContext());
+			try {
+
+				InputStream is = asset.open("www/manual_pyramid.html", AssetManager.ACCESS_BUFFER);
+				String html = util.streamToString(is);
+
+				html = html.replace("$GENERAL_INFORMATION_HEADER", resources.getString(R.string.pyramid_manual_general_info_header));
+				html = html.replace("$GENERAL_INFORMATION_TEXT", resources.getString(R.string.pyramid_manual_general_info));
+				html = html.replace("$FIRST_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_round_header));
+				html = html.replace("$FIRST_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_round));
+				html = html.replace("$FIRST_FIRST_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_first_round_header));
+				html = html.replace("$FIRST_FIRST_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_first_round));
+				html = html.replace("$FIRST_SECOND_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_second_round_header));
+				html = html.replace("$FIRST_SECOND_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_second_round));
+				html = html.replace("$FIRST_THIRD_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_third_round_header));
+				html = html.replace("$FIRST_THIRD_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_third_round));
+				html = html.replace("$FIRST_FOURTH_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_fourth_round_header));
+				html = html.replace("$FIRST_FOURTH_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_fourth_round));
+				html = html.replace("$SECOND_ROUND_HEADER", resources.getString(R.string.pyramid_manual_second_round_header));
+				html = html.replace("$SECOND_ROUND_TEXT", resources.getString(R.string.pyramid_manual_second_round));
+				html = html.replace("$FINAL_ROUND_HEADER", resources.getString(R.string.pyramid_manual_final_round_header));
+				html = html.replace("$FINAL_ROUND_TEXT", resources.getString(R.string.pyramid_manual_final_round));
+				webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+				is.close();
+			} catch ( IOException e ) {
+				e.printStackTrace();
+			}
+
+
 			return rootView;
 		}
 	}
 
-	public static class MaexchenFragment extends Fragment {
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.manual_maexchen, container, false);
-			return rootView;
-		}
-	}
-
-	public static class IHaveNeverFragment extends Fragment {
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.manual_i_have_never, container, false);
-			return rootView;
-		}
-	}
-
-	public static class PolskiDrinkinGameFragment extends Fragment {
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.manual_polski_drinkingame, container, false);
-			return rootView;
-		}
-	}
-
-	public static class KingscupFragment extends Fragment {
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.manual_kingscup, container, false);
-			return rootView;
-		}
-	}
 }

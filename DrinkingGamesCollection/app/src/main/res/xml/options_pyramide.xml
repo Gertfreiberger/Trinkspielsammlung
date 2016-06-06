@@ -2,15 +2,10 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <CheckBoxPreference
-        android:key="show_names"
-        android:defaultValue="true"
-        android:title="@string/show_player_names"/>
-
     <EditTextPreference
-        android:key="player_number"
+        android:key="pyramid_player_count"
         android:defaultValue="2"
         android:inputType="number"
-        android:title="@string/player_number"
-        android:dialogTitle="@string/player_number"/>
+        android:title="@string/player_count"
+        android:dialogTitle="@string/player_count"/>
 </PreferenceScreen>
