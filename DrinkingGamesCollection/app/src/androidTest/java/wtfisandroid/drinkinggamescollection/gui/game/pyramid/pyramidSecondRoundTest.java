@@ -5,14 +5,14 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.robotium.solo.Solo;
 
 /**
- * Created by Superuser on 20.05.2016.
+ * Created by Superuser on 03.06.2016.
  */
-public class PyramidSecondRoundActivityTest extends ActivityInstrumentationTestCase2<PyramidSecondRoundActivity> {
+public class pyramidSecondRoundTest extends ActivityInstrumentationTestCase2<PyramidSecondRound> {
 
     private Solo solo;
 
-    public PyramidSecondRoundActivityTest() {
-        super(PyramidSecondRoundActivity.class);
+    public pyramidSecondRoundTest() {
+        super(PyramidSecondRound.class);
     }
 
     public void setUp() throws Exception {

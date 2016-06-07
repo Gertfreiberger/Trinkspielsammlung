@@ -6,18 +6,18 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Playerhand implements Parcelable{
+public class PlayerHand implements Parcelable{
 
 	private int playerID = -1;
 	private String playerName = null;
 	private List<Gamecard> playerCards = new ArrayList<>();
 
-	public Playerhand(int playerID, String playerName) {
+	public PlayerHand(int playerID, String playerName) {
 		this.playerName = playerName;
 		this.playerID = playerID;
 	}
 
-	protected Playerhand(Parcel in) {
+	protected PlayerHand(Parcel in) {
 		playerID = in.readInt();
 		playerName = in.readString();
 		playerCards = in.createTypedArrayList(Gamecard.CREATOR);
@@ -35,15 +35,15 @@ public class Playerhand implements Parcelable{
 		return 0;
 	}
 
-	public static final Creator<Playerhand> CREATOR = new Creator<Playerhand>() {
+	public static final Creator<PlayerHand> CREATOR = new Creator<PlayerHand>() {
 		@Override
-		public Playerhand createFromParcel(Parcel in) {
-			return new Playerhand(in);
+		public PlayerHand createFromParcel(Parcel in) {
+			return new PlayerHand(in);
 		}
 
 		@Override
-		public Playerhand[] newArray(int size) {
-			return new Playerhand[size];
+		public PlayerHand[] newArray(int size) {
+			return new PlayerHand[size];
 		}
 	};
 
@@ -66,7 +66,7 @@ public class Playerhand implements Parcelable{
 
 	@Override
 	public String toString() {
-		return "Playerhand{" +
+		return "PlayerHand{" +
 						"playerID=" + playerID +
 						", player_cards=" + playerCards +
 						'}';
