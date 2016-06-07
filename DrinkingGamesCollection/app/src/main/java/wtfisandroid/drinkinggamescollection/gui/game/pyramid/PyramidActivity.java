@@ -44,7 +44,7 @@ import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 public class PyramidActivity extends AppCompatActivity {
 
-	private static final String TAG = "pyramidactivity";
+	private static final String TAG = "Pyramid1Round";
 
 	private SharedPreferences sharedPref;
 	private Utilities utilities;
@@ -66,6 +66,7 @@ public class PyramidActivity extends AppCompatActivity {
 	private PlayerHand playerHand;
 	private Toolbar toolbar;
 	private Handler handler;
+	private boolean doNotShowAgain = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +78,35 @@ public class PyramidActivity extends AppCompatActivity {
 		resources = getResources();
 		setContentView(R.layout.activity_pyramid);
 
+		AlertDialog.Builder builder = new AlertDialog.Builder(PyramidActivity.this);
+		builder.setItems(R.array.pyramid_rounds, null)
+						.setIcon(ResourcesCompat.getDrawable(resources, R.drawable.ic_logo, null))
+						.setTitle(R.string.pyramid_dialog_title)
+						.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+							@Override
+							public void onCancel(DialogInterface dialog) {
+								onBackPressed();
+							}
+						})
+						.setPositiveButton(R.string.start, new DialogInterface.OnClickListener() {
+
+							public void onClick(DialogInterface dialog, int id) {
+								startTheGame();
+							}
+						})
+						.setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
+
+							public void onClick(DialogInterface dialog, int id) {
+								onBackPressed();
+							}
+						});
+
+		final AlertDialog dialog = builder.create();
+		dialog.setCanceledOnTouchOutside(false);
+
 		if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
-			Transition explode = new Explode();
+			final Transition explode = new Explode();
 			explode.addListener(new Transition.TransitionListener() {
 
 				@Override
@@ -87,34 +115,10 @@ public class PyramidActivity extends AppCompatActivity {
 
 				@Override
 				public void onTransitionEnd(Transition transition) {
-
-					AlertDialog.Builder builder = new AlertDialog.Builder(PyramidActivity.this);
-					builder.setItems(R.array.pyramid_rounds, null)
-									.setIcon(ResourcesCompat.getDrawable(resources, R.drawable.ic_logo, null))
-									.setTitle(R.string.pyramid_dialog_title)
-									.setOnCancelListener(new DialogInterface.OnCancelListener() {
-
-										@Override
-										public void onCancel(DialogInterface dialog) {
-											onBackPressed();
-										}
-									})
-									.setPositiveButton(R.string.start, new DialogInterface.OnClickListener() {
-
-										public void onClick(DialogInterface dialog, int id) {
-											startTheGame();
-										}
-									})
-									.setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
-
-										public void onClick(DialogInterface dialog, int id) {
-											onBackPressed();
-										}
-									});
-
-					AlertDialog dialog = builder.create();
-					dialog.setCanceledOnTouchOutside(false);
-					dialog.show();
+					if ( doNotShowAgain ) {
+						dialog.show();
+						doNotShowAgain = false;
+					}
 				}
 
 				@Override
@@ -131,7 +135,8 @@ public class PyramidActivity extends AppCompatActivity {
 			});
 			getWindow().setEnterTransition(explode);
 			getWindow().setReturnTransition(explode);
-		}
+		} else
+			dialog.show();
 
 		toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
@@ -141,8 +146,6 @@ public class PyramidActivity extends AppCompatActivity {
 		toolbar.setSubtitleTextColor(Color.BLUE);
 
 		prepareGame();
-
-
 	}
 
 	@Override

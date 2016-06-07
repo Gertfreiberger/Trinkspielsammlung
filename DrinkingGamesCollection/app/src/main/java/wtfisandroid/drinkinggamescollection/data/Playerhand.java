@@ -36,6 +36,7 @@ public class PlayerHand implements Parcelable{
 	}
 
 	public static final Creator<PlayerHand> CREATOR = new Creator<PlayerHand>() {
+
 		@Override
 		public PlayerHand createFromParcel(Parcel in) {
 			return new PlayerHand(in);

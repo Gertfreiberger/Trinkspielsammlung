@@ -102,14 +102,20 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 
 	@Override
 	public void onShake(int count) {
-		if ( count % 2 == 0 ) {
+		if ( count % 1 == 0 ) {
 			Random rand = new Random();
-			int number = rand.nextInt(2) + 1; // for first release set to 2
+			int number = rand.nextInt(2) + 1;
 			Intent activity = null;
 
 			switch ( number ) {
 				case 1:
-					activity = new Intent(this, PyramidActivity.class);
+					if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ) {
+						ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainMenu.this);
+						Intent intent = new Intent(MainMenu.this, PyramidActivity.class);
+						startActivity(intent, options.toBundle());
+					} else
+						activity = new Intent(this, PyramidActivity.class);
+
 					break;
 				case 2:
 					activity = new Intent(this, Maexchen.class);
