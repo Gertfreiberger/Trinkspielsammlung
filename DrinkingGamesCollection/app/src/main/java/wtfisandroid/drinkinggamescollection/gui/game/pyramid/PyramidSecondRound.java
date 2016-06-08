@@ -20,6 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -66,6 +67,9 @@ public class PyramidSecondRound extends AppCompatActivity {
 	private Gamecard currentCard;
 	private int currentCardIndex;
 
+	/* Animations */
+	private ScaleAnimation scaleUp;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,8 +92,14 @@ public class PyramidSecondRound extends AppCompatActivity {
 
 		Toast.makeText(getApplicationContext(), resources.getString(R.string.hello_second_pyramid_round), Toast.LENGTH_SHORT).show();
 
+		/* Initialize scale animation for card match */
+		scaleUp = new ScaleAnimation(1.0f, 1.5f, 1.0f, 1.5f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		scaleUp.setDuration(1000);
+		scaleUp.setFillAfter(true);
+
+		/* Initialize scale animation for flipping pyramid card */
 		anim_rotate = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		anim_rotate.setDuration(200);
+		anim_rotate.setDuration(300);
 		anim_rotate.setInterpolator(new LinearInterpolator());
 		anim_rotate.setAnimationListener(new Animation.AnimationListener() {
 
@@ -114,8 +124,15 @@ public class PyramidSecondRound extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				clearButtons();
-				utilities.fadeOut(playerCards.elementAt(currentCardIndex));
+				/* Remove all images of the player hand for new arrangement */
+				int index = 0;
+				for (; index < playerCards.size(); index++) {
+					playerCards.elementAt(index).setBackgroundResource(android.R.color.transparent);
+				}
+				playerCards.elementAt(currentCardIndex).setScaleX(1.0f);
+				playerCards.elementAt(currentCardIndex).setScaleY(1.0f);
 				currentPlayerHand.getPlayerCards().remove(currentCardIndex);
+				setPlayerCards(currentPlayerHand);
 				checkPlayerHand(currentCardValue, playerHands.get(Utilities.KEY_PLAYER + currentPlayer));
 			}
 		});
@@ -215,7 +232,8 @@ public class PyramidSecondRound extends AppCompatActivity {
 	public void setPlayerCards(PlayerHand playerHand) {
 		int id;
 		int index = 0;
-		tvPlayerName.setText(sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + currentPlayer, "DefaultPlayer"));
+		tvPlayerName.setText(sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + currentPlayer, "DefaultPlayer" +
+		playerHand.getPlayerID()));
 		for (; index < playerHand.getPlayerCards().size(); index++ ) {
 			id = playerHand.getPlayerCards().get(index).getImageID();
 			playerCards.elementAt(index).startAnimation(anim_slide);
@@ -263,7 +281,7 @@ public class PyramidSecondRound extends AppCompatActivity {
 	public void showPyramidCard() {
 		if ( pyramidIndex < 15 ) {
 			pyramidCards.elementAt(pyramidIndex).setClickable(true);
-//			pyramidCards.elementAt(pyramidIndex).setBackgroundResource(R.drawable.card_back_focus);
+			pyramidCards.elementAt(pyramidIndex).setBackgroundResource(R.drawable.card_back_focus);
 			pyramidCards.elementAt(pyramidIndex).setOnClickListener(new View.OnClickListener() {
 
 				@Override
@@ -314,6 +332,8 @@ public class PyramidSecondRound extends AppCompatActivity {
 					bDeal.setBackgroundColor(Color.RED);
 					bNext.setBackgroundColor(Color.RED);
 					currentCardIndex = index;
+					playerCards.elementAt(currentCardIndex).setScaleX(1.5f);
+					playerCards.elementAt(currentCardIndex).setScaleY(1.5f);
 					currentCard = playerHand.getPlayerCards().get(index);
 					currentPlayerHand = playerHands.get(Utilities.KEY_PLAYER + currentPlayer);
 					setPlayerCards(currentPlayerHand);
