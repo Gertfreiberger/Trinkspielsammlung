@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Trinkspiele Sammlung</string>
-    <string name="close_message">"Noch einmal drücken um die App zu beenden!"</string>
+    <string name="close_message">Noch einmal drücken um die App zu beenden!</string>
     <string name="settings">Einstellungen</string>
     <string name="rateApp">Rate App</string>
     <string name="back">Zurück</string>
     <string name="title_activity_manual">ManualActivity</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Einstellungen</string>
     <string name="general">Allgemein</string>
     <string name="pyramid">Pyramide</string>
     <string name="maexchen">Mäxchen</string>
@@ -22,11 +22,11 @@
     <string name="manual">Anleitung</string>
     <string name="first_round_finished">Erste Runde beended</string>
     <string name="go_to_next_level">Weiter zum nächsten Level</string>
-    <string name="new_game">New Game</string>
+    <string name="new_game">Neues Spiel</string>
     <string name="ok">Ok</string>
-    <string name="distribute_drinks">Distripute Drinks</string>
+    <string name="distribute_drinks">Getränke austeilen</string>
     <string name="close">Beenden</string>
-    <string name="distribute">Distribute</string>
+    <string name="distribute">Austeilen</string>
     <string name="drinks">Drink(s)</string>
     <string name="second_round_finished">Zweite Runde beended</string>
     <string name="go_to_Final_level">Weiter zum Finale</string>
@@ -59,11 +59,11 @@
     <string name="pyramid_manual_first_fourth_round_header">4 Runde</string>
     <string name="pyramid_manual_second_round_header">Zweite Runde</string>
     <string name="pyramid_manual_final_round_header">Finale</string>
-    <string name="help">help</string>
-    <string name="clos_game_message">\"Möchtest du das Spiel wirklich beenden?\"</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="hello_second_pyramid_round">\"Willkommen in der zweiten Runde\"</string>
+    <string name="help">Hilfe</string>
+    <string name="clos_game_message">Möchtest du das Spiel wirklich beenden?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="hello_second_pyramid_round">Willkommen in der zweiten Runde</string>
 
     <string-array name="manualTabs">
         <item>Allgmein</item>
@@ -76,5 +76,25 @@
         <item>Runde 3: Drinnen oder Draußen</item>
         <item>Runde 4: Farbe bereits im Besitz</item>
     </string-array>
+    <string name="final_player_message">Die Spieler im Finale sind: </string>
+    <string name="title_activity_kingscup_menu">Kingscup Menü</string>
+    <string name="title_activity_maexchen_menu">Mäxchen Menü</string>
+    <string name="title_activity_maexchen_rules">Mäxchen Rules</string>
+    <string name="title_activity_polnisches_trinkspiel">Polnisches Trinkspiel</string>
+    <string name="title_activity_pyramid">Pyramide</string>
+    <string name="maexchen_button_help">Hilfe</string>
+    <string name="maexchen_button_new_turn">Neue Runde</string>
+    <string name="maexchen_button_next">Weitergeben</string>
+    <string name="maexchen_button_reveal">Aufdecken</string>
+    <string name="maexchen_button_throw">Glauben</string>
+    <string name="maexchen_button_throw_again">Erneut\nWürfeln</string>
+    <string name="maexchen_headline">Mäxchen</string>
+    <string name="maexchen_rule_headline">Regeln</string>
+    <string name="maexchen_rules">Würfelwerte: \n\nDer höchste Wert ist das "Mäxchen", das ist eine Zwei und eine Eins (21).\n         \nAnschließend folgen in absteigender Reihenfolge alle Doppelwerte, also 66, 55, 44, 33, 22 und 11.         \nDiese werden "Pasch" genannt, also etwa "Einser-Pasch".\n         \nDanach folgen die übrigen Werte, wobei der höhere Wert immer voran gestellt wird.         \nIn absteigender Reihenfolge also: 65, 64, 63, 62, 61, 54, 53, 52, 51, 43, 42, 41, 32, 31.\n         \nDie Gesamtliste lautet also (jetzt in aufsteigender Reihenfolge):         \n31, 32, 41, 42, 43, 51, 52, 53, 54, 61, 62, 63, 64, 65, 11, 22, 33, 44, 55, 66, 21\n\n         \nRegeln:\n         \nDie Spieler sitzen im Kreis. Einer der Spieler beginnt, würfelt mit dem Mobilgerät, indem man es schüttelt oder auf den Becher klickt.         \nEr kann sich die beiden oben liegenden Würfelwerte anschauen (klick auf Aufdecken).         \nNun kann sich der Spieler entscheiden nennt er den jeweiligen Wert - oder einen beliebigen anderen und gibt das Mobilgerät weiter (klick auf Weitergeben).         \nOder man möchte nochmal würfeln (klick auf erneut würfeln), aber nun kann man seinen Wurf nicht mehr sehen und muss blind einen Wert nennen und das Mobilgerät weitergeben (klick auf weitergeben).         \nDer nächste Spieler hat nun die Möglichkeit, dem ersten Spieler dessen Wurf zu glauben oder auch nicht.         \nGlaubt er ihn nicht, wird der Würfelbecher entfernt(klick auf Aufdecken)- der Spieler, der im Unrecht war, muss einen trinken.         \nAlternativ kann der zweite Spieler den ersten Wurf auch glauben(klick auf glauben) und selber weiter würfeln(Spiel ist wieder am Anfang).         \nEr muss dabei aber mehr als sein Vormann würfeln. Schafft er das nicht, muss er lügen. Anschließend ist der dritte Spieler am Zug, der dem zweiten Spieler dessen Wurf wieder glauben kann oder nicht.         \nWird ein Wurf angezweifelt und der Becher geöffnet, beginnt der im Unrecht gelegene Spieler mit einer neuen Runde, kann also wieder frei einen Wert vorgeben.         \nHat ein Spieler ein Mäxchen angesagt, so kann der nachfolgende Spieler nicht mehr weiter überbieten.         \nIn diesem Fall kann man dem Spieler glauben, trinkt einen und beginnt eine neue Runde.         \nWenn man ihm nicht glaubt deckt man auf. Der Spieler der im Unrecht war trinkt nun 2 und beginnt eine neue Runde.</string>
+    <string name="mainmenu_button_kingscup">Kings Cup</string>
+    <string name="mainmenu_button_maexchen">Mäxchen</string>
+    <string name="mainmenu_button_polnisches">Polnisches Trinkspiel</string>
+    <string name="mainmenu_headline">Drinking Games Collection</string>
+    <string name="mainmenu_button_pyramid">Pyramid</string>
 
 </resources>
