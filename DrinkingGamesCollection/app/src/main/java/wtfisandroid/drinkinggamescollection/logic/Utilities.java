@@ -1,17 +1,24 @@
 package wtfisandroid.drinkinggamescollection.logic;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.media.AudioManager;
 import android.os.Build;
+import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,9 +47,15 @@ public class Utilities {
 	public final static String FINAL_PLAYER = "final_player";
 	public static final String PYRAMID_PLAYER_NAME_PREFERENCE_KEY = "player_name";
 	public static final String PYRAMID_PLAYER_COUNT_PREFERENCE_KEY = "pyramid_player_count";
+	private final SharedPreferences sharedPref;
+	private Resources resources;
+	private Vibrator vib;
 
 	public Utilities(Context context) {
 		this.context = context;
+		this.resources = context.getResources();
+		this.sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+		this.vib = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 	}
 
 	/**
@@ -186,5 +199,18 @@ public class Utilities {
 		} catch ( IOException e ) {
 			e.printStackTrace();
 		}
+	}
+
+	public void drink() {
+		if ( sharedPref.getBoolean(Utilities.VIBRATE_PREFERENCE_KEY, false) ) {
+			vib.vibrate(1000);
+		}
+		String toastText = getEmojiByUnicode(0x1F37A) + resources.getString(R.string.pyramid_drink_message) + getEmojiByUnicode(0x1F37B);
+		Toast drinkToast = Toast.makeText(context, toastText, Toast.LENGTH_SHORT);
+		drinkToast.setGravity(Gravity.CENTER, 0, 0);
+		drinkToast.show();
+		ViewGroup group = (ViewGroup) drinkToast.getView();
+		TextView messageTextView = (TextView) group.getChildAt(0);
+		messageTextView.setTextSize(30);
 	}
 }

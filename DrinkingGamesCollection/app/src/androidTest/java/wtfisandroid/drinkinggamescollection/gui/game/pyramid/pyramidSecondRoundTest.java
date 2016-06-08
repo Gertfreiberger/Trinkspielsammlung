@@ -7,12 +7,12 @@ import com.robotium.solo.Solo;
 /**
  * Created by Superuser on 03.06.2016.
  */
-public class pyramid_2RoundTest extends ActivityInstrumentationTestCase2<pyramid_2Round> {
+public class pyramidSecondRoundTest extends ActivityInstrumentationTestCase2<PyramidSecondRound> {
 
     private Solo solo;
 
-    public pyramid_2RoundTest() {
-        super(pyramid_2Round.class);
+    public pyramidSecondRoundTest() {
+        super(PyramidSecondRound.class);
     }
 
     public void setUp() throws Exception {

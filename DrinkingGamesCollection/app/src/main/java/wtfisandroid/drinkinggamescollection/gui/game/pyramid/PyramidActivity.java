@@ -1,5 +1,6 @@
 package wtfisandroid.drinkinggamescollection.gui.game.pyramid;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,17 +18,16 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
 import android.transition.Slide;
+import android.transition.Transition;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -41,7 +41,7 @@ import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 public class PyramidActivity extends AppCompatActivity {
 
-	private static final String TAG = "pyramidactivity";
+	private static final String TAG = "Pyramid1Round";
 
 	private SharedPreferences sharedPref;
 	private Utilities utilities;
@@ -63,18 +63,11 @@ public class PyramidActivity extends AppCompatActivity {
 	private PlayerHand playerHand;
 	private Toolbar toolbar;
 	private Handler handler;
+	private boolean doNotShowAgain = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// Hide the status bar.
-//		if ( Build.VERSION.SDK_INT < 16 ) {
-//			getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-//		} else { // Jellybean and up
-//			View decorView = getWindow().getDecorView();
-//			int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-//			decorView.setSystemUiVisibility(uiOptions);
-//		}
 		utilities = new Utilities(getApplicationContext());
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		String currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
@@ -82,29 +75,65 @@ public class PyramidActivity extends AppCompatActivity {
 		resources = getResources();
 		setContentView(R.layout.activity_pyramid);
 
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		AlertDialog.Builder builder = new AlertDialog.Builder(PyramidActivity.this);
 		builder.setItems(R.array.pyramid_rounds, null)
 						.setIcon(ResourcesCompat.getDrawable(resources, R.drawable.ic_logo, null))
 						.setTitle(R.string.pyramid_dialog_title)
 						.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
 							@Override
 							public void onCancel(DialogInterface dialog) {
 								onBackPressed();
 							}
 						})
 						.setPositiveButton(R.string.start, new DialogInterface.OnClickListener() {
+
 							public void onClick(DialogInterface dialog, int id) {
 								startTheGame();
 							}
 						})
 						.setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
+
 							public void onClick(DialogInterface dialog, int id) {
-								finish();
+								onBackPressed();
 							}
 						});
 
-		AlertDialog dialog = builder.create();
+		final AlertDialog dialog = builder.create();
 		dialog.setCanceledOnTouchOutside(false);
+
+		if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
+			final Transition explode = new Explode();
+			explode.addListener(new Transition.TransitionListener() {
+
+				@Override
+				public void onTransitionStart(Transition transition) {
+				}
+
+				@Override
+				public void onTransitionEnd(Transition transition) {
+					if ( doNotShowAgain ) {
+						dialog.show();
+						doNotShowAgain = false;
+					}
+				}
+
+				@Override
+				public void onTransitionCancel(Transition transition) {
+				}
+
+				@Override
+				public void onTransitionPause(Transition transition) {
+				}
+
+				@Override
+				public void onTransitionResume(Transition transition) {
+				}
+			});
+			getWindow().setEnterTransition(explode);
+			getWindow().setReturnTransition(explode);
+		} else
+			dialog.show();
 
 		toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
@@ -114,14 +143,6 @@ public class PyramidActivity extends AppCompatActivity {
 		toolbar.setSubtitleTextColor(Color.BLUE);
 
 		prepareGame();
-
-		if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
-			Slide slide = new Slide();
-			slide.setDuration(2000);
-			getWindow().setExitTransition(slide);
-		}
-
-		dialog.show();
 	}
 
 	@Override
@@ -141,7 +162,9 @@ public class PyramidActivity extends AppCompatActivity {
 				recreate();
 				break;
 			case R.id.help:
+				Log.d(TAG, "onBackPressed() called content: " + getWindow().getDecorView().findViewById(android.R.id.content).getId());
 				setContentView(R.layout.manual);
+				Log.d(TAG, "onBackPressed() called manual: " + getWindow().getDecorView().findViewById(android.R.id.content).getId());
 				WebView webView = (WebView) findViewById(R.id.wv_manual);
 				utilities.generatePyramidManual(webView);
 				break;
@@ -162,6 +185,11 @@ public class PyramidActivity extends AppCompatActivity {
 		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
 			utilities.playSound(1, AudioManager.FX_KEYPRESS_RETURN);
 		}
+		if ( android.R.id.content == R.layout.manual ) {
+			Log.d(TAG, "onBackPressed() called content: " + android.R.id.content);
+		}
+		Log.d(TAG, "onBackPressed() called content: " + android.R.id.content);
+		Log.d(TAG, "onBackPressed() called manual: " + R.layout.manual);
 		super.onBackPressed();
 	}
 
@@ -304,12 +332,12 @@ public class PyramidActivity extends AppCompatActivity {
 			case 1:
 				String color = currentCard.getCardColor();
 				if ( !color.equalsIgnoreCase(Gamecard.SPADES) && !color.equalsIgnoreCase(Gamecard.CLUBS) )
-					drink();
+					utilities.drink();
 				break;
 			case 2:
 				first_card = playerHand.getPlayerCards().get(0);
 				if ( currentCard.getCardValue() <= first_card.getCardValue() )
-					drink();
+					utilities.drink();
 				break;
 			case 3:
 				int current_card_value = currentCard.getCardValue();
@@ -319,7 +347,7 @@ public class PyramidActivity extends AppCompatActivity {
 				int second_card_value = second_card.getCardValue();
 
 				if ( current_card_value < first_card_value && current_card_value > second_card_value || current_card_value > first_card_value && current_card_value < second_card_value )
-					drink();
+					utilities.drink();
 				break;
 			case 4:
 				String current_card_color = null;
@@ -335,7 +363,7 @@ public class PyramidActivity extends AppCompatActivity {
 				third_card_color = third_card.getCardColor();
 
 				if ( !current_card_color.equalsIgnoreCase(first_card_color) && !current_card_color.equalsIgnoreCase(second_card_color) && !current_card_color.equalsIgnoreCase(third_card_color) )
-					drink();
+					utilities.drink();
 				break;
 			default:
 				break;
@@ -356,12 +384,12 @@ public class PyramidActivity extends AppCompatActivity {
 			case 1:
 				String color = currentCard.getCardColor();
 				if ( !color.equalsIgnoreCase(Gamecard.HEARTS) && !color.equalsIgnoreCase(Gamecard.DIAMONDS) )
-					drink();
+					utilities.drink();
 				break;
 			case 2:
 				first_card = playerHand.getPlayerCards().get(0);
 				if ( currentCard.getCardValue() >= first_card.getCardValue() )
-					drink();
+					utilities.drink();
 				break;
 			case 3:
 				int current_card_value = currentCard.getCardValue();
@@ -371,7 +399,7 @@ public class PyramidActivity extends AppCompatActivity {
 				int second_card_value = second_card.getCardValue();
 
 				if ( current_card_value > first_card_value && current_card_value < second_card_value || current_card_value < first_card_value && current_card_value > second_card_value )
-					drink();
+					utilities.drink();
 				break;
 			case 4:
 				String current_card_color = currentCard.getCardColor();
@@ -383,7 +411,7 @@ public class PyramidActivity extends AppCompatActivity {
 				String third_card_color = third_card.getCardColor();
 
 				if ( current_card_color.equalsIgnoreCase(first_card_color) || current_card_color.equalsIgnoreCase(second_card_color) || current_card_color.equalsIgnoreCase(third_card_color) )
-					drink();
+					utilities.drink();
 				break;
 			default:
 				break;
@@ -422,20 +450,6 @@ public class PyramidActivity extends AppCompatActivity {
 
 	}
 
-	private void drink() {
-		if ( sharedPref.getBoolean(Utilities.VIBRATE_PREFERENCE_KEY, false) ) {
-			vib = (Vibrator) PyramidActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
-			vib.vibrate(1000);
-		}
-		String toastText = utilities.getEmojiByUnicode(0x1F37A) + resources.getString(R.string.pyramid_drink_message) + utilities.getEmojiByUnicode(0x1F37B);
-		Toast drinkToast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT);
-		drinkToast.setGravity(Gravity.CENTER, 0, 0);
-		drinkToast.show();
-		ViewGroup group = (ViewGroup) drinkToast.getView();
-		TextView messageTextView = (TextView) group.getChildAt(0);
-		messageTextView.setTextSize(40);
-	}
-
 	private void goToNextLevel() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setCancelable(false)
@@ -444,11 +458,20 @@ public class PyramidActivity extends AppCompatActivity {
 						.setNeutralButton(R.string.go_to_next_level, new DialogInterface.OnClickListener() {
 
 							public void onClick(DialogInterface dialog, int id) {
-								Intent intent = new Intent(getApplicationContext(), pyramid_2Round.class);
+								Intent intent = new Intent(getApplicationContext(), PyramidSecondRound.class);
 
 								intent.putExtra(Utilities.GAMEDECK_GAME_KEY, gameDeck);
 								intent.putExtra(Utilities.PLAYERHANDS_GAME_KEY, playerHands);
-								startActivity(intent);
+
+								if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ) {
+									ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PyramidActivity.this);
+									Slide slide = new Slide();
+									slide.setDuration(1000);
+									getWindow().setExitTransition(slide);
+									startActivity(intent, options.toBundle());
+								} else
+									startActivity(intent);
+
 								finish();
 							}
 						});

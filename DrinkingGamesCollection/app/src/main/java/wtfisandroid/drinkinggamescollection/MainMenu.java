@@ -1,5 +1,6 @@
 package wtfisandroid.drinkinggamescollection;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,7 +22,6 @@ import wtfisandroid.drinkinggamescollection.gui.ManualActivity;
 import wtfisandroid.drinkinggamescollection.gui.SettingsActivity;
 import wtfisandroid.drinkinggamescollection.gui.game.IHaveNeverEverActivity;
 import wtfisandroid.drinkinggamescollection.gui.game.pyramid.PyramidActivity;
-import wtfisandroid.drinkinggamescollection.gui.game.pyramid.pyramid_2Round;
 import wtfisandroid.drinkinggamescollection.logic.ShakeDetector;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
@@ -102,14 +102,20 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 
 	@Override
 	public void onShake(int count) {
-		if ( count % 2 == 0 ) {
+		if ( count % 1 == 0 ) {
 			Random rand = new Random();
-			int number = rand.nextInt(2) + 1; // for first release set to 2
+			int number = rand.nextInt(2) + 1;
 			Intent activity = null;
 
 			switch ( number ) {
 				case 1:
-					activity = new Intent(this, PyramidActivity.class);
+					if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ) {
+						ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainMenu.this);
+						Intent intent = new Intent(MainMenu.this, PyramidActivity.class);
+						startActivity(intent, options.toBundle());
+					} else
+						activity = new Intent(this, PyramidActivity.class);
+
 					break;
 				case 2:
 					activity = new Intent(this, Maexchen.class);
@@ -148,7 +154,13 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 		switch ( v.getId() ) {
 
 			case R.id.button_pyramid:
-				activity = new Intent(this, PyramidActivity.class);
+				if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ) {
+					ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainMenu.this);
+					Intent intent = new Intent(MainMenu.this, PyramidActivity.class);
+					startActivity(intent, options.toBundle());
+				} else
+					activity = new Intent(this, PyramidActivity.class);
+
 				break;
 			case R.id.button_i_have_never_ever:
 				activity = new Intent(this, IHaveNeverEverActivity.class);

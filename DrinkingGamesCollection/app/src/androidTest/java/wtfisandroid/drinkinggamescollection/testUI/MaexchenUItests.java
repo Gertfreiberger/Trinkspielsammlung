@@ -76,7 +76,7 @@ public class MaexchenUItests extends ActivityInstrumentationTestCase2<Maexchen> 
                 check++;
             }
         }
-        assert(check == number_of_throwings);
+        assertEquals(true, check != number_of_throwings);
 
         myMaexchenSolo.clickOnButton(button_left.getText().toString());
         check = 0;
@@ -91,7 +91,7 @@ public class MaexchenUItests extends ActivityInstrumentationTestCase2<Maexchen> 
                 check++;
             }
         }
-        assert(!(check == number_of_throwings));
+        assertEquals(true, check == number_of_throwings);
     }
 
     public void testDices() {
@@ -104,106 +104,125 @@ public class MaexchenUItests extends ActivityInstrumentationTestCase2<Maexchen> 
         throwingDices(true, cup, result, view_result);
 
         myMaexchenSolo.clickOnButton(button_left.getText().toString());
+        result = view_result.getText().toString();
         throwingDices(false, cup, result, view_result);
 
         myMaexchenSolo.clickOnButton(button_left.getText().toString());
+        result = view_result.getText().toString();
         throwingDices(true, cup, result, view_result);
 
         myMaexchenSolo.clickOnButton(button_right.getText().toString());
+        result = view_result.getText().toString();
         throwingDices(false, cup, result, view_result);
 
         myMaexchenSolo.clickOnButton(button_right.getText().toString());
+        result = view_result.getText().toString();
         throwingDices(false, cup, result, view_result);
 
         myMaexchenSolo.clickOnButton(button_right.getText().toString());
+        result = view_result.getText().toString();
         throwingDices(true, cup, result, view_result);
 
         myMaexchenSolo.clickOnButton(button_right.getText().toString());
+        result = view_result.getText().toString();
         throwingDices(false, cup, result, view_result);
 
         myMaexchenSolo.clickOnButton(button_left.getText().toString());
+        result = view_result.getText().toString();
         throwingDices(true, cup, result, view_result);
 
         myMaexchenSolo.clickOnButton(button_left.getText().toString());
+        result = view_result.getText().toString();
         throwingDices(false, cup, result, view_result);
 
         myMaexchenSolo.clickOnButton(button_right.getText().toString());
+        result = view_result.getText().toString();
         throwingDices(false, cup, result, view_result);
     }
 
     public void testButtonTextAndVisible() {
 
+        int sleep_time = 500;
         Button button_left = (Button) myMaexchenSolo.getCurrentActivity().findViewById(R.id.maexchen_button_left);
         Button button_right = (Button) myMaexchenSolo.getCurrentActivity().findViewById(R.id.maexchen_button_right);
         ImageView cup = (ImageView) myMaexchenSolo.getCurrentActivity().findViewById(R.id.maexchen_imageView_cup);
         TextView result = (TextView) myMaexchenSolo.getCurrentActivity().findViewById(R.id.maexchen_textview_dice);
 
-        assert(button_left.getText().toString().equals(R.string.maexchen_button_reveal) == false);
-        assert(button_right.getText().toString().equals(R.string.maexchen_button_next) == false);
-        assert(cup.getVisibility() != View.VISIBLE);
-        assert(result.getVisibility() != View.INVISIBLE);
+        assertEquals(true, button_left.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_reveal)));
+        assertEquals(true, button_right.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_next)));
+        assertEquals(true, cup.getVisibility() == View.VISIBLE);
+        assertEquals(true, result.getVisibility() == View.INVISIBLE);
 
         myMaexchenSolo.clickOnButton(button_left.getText().toString());
-        assert(button_left.getText().toString().equals(R.string.maexchen_button_throw_again) == false);
-        assert(button_right.getText().toString().equals(R.string.maexchen_button_next) == false);
-        assert(cup.getVisibility() != View.INVISIBLE);
-        assert(result.getVisibility() != View.VISIBLE);
+        myMaexchenSolo.sleep(sleep_time);
+        assertEquals(true, button_left.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_throw_again)));
+        assertEquals(true, button_right.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_next)));
+        assertEquals(true, cup.getVisibility() == View.INVISIBLE);
+        assertEquals(true, result.getVisibility() == View.VISIBLE);
 
-        myMaexchenSolo.sleep(300);
+
         myMaexchenSolo.clickOnButton(button_left.getText().toString());
-        assert(button_right.getText().toString().equals(R.string.maexchen_button_next) == false);
-        assert(button_left.getVisibility() == View.VISIBLE);
-        assert(cup.getVisibility() != View.VISIBLE);
-        assert(result.getVisibility() != View.INVISIBLE);
+        myMaexchenSolo.sleep(sleep_time);
+        assertEquals(true, button_right.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_next)));
+        assertEquals(true, button_left.getVisibility() == View.INVISIBLE);
+        assertEquals(true, cup.getVisibility() == View.VISIBLE);
+        assertEquals(true, result.getVisibility() == View.INVISIBLE);
 
-        myMaexchenSolo.sleep(300);
+
         myMaexchenSolo.clickOnButton(button_right.getText().toString());
-        assert(button_left.getText().toString().equals(R.string.maexchen_button_throw) == false);
-        assert(button_right.getText().toString().equals(R.string.maexchen_button_reveal) == false);
-        assert(cup.getVisibility() != View.VISIBLE);
-        assert(result.getVisibility() != View.INVISIBLE);
+        myMaexchenSolo.sleep(sleep_time);
+        assertEquals(true, button_left.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_throw)));
+        assertEquals(true, button_right.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_reveal)));
+        assertEquals(true, cup.getVisibility() == View.VISIBLE);
+        assertEquals(true, result.getVisibility() == View.INVISIBLE);
 
-        myMaexchenSolo.sleep(300);
+
         myMaexchenSolo.clickOnButton(button_right.getText().toString());
-        assert(button_right.getText().toString().equals(R.string.maexchen_button_new_turn) == false);
-        assert(button_left.getVisibility() == View.VISIBLE);
-        assert(cup.getVisibility() != View.INVISIBLE);
-        assert(result.getVisibility() != View.VISIBLE);
+        myMaexchenSolo.sleep(sleep_time);
+        assertEquals(true, button_right.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_new_turn)));
+        assertEquals(true, button_left.getVisibility() == View.INVISIBLE);
+        assertEquals(true, cup.getVisibility() == View.INVISIBLE);
+        assertEquals(true, result.getVisibility() == View.VISIBLE);
 
-        myMaexchenSolo.sleep(300);
+
         myMaexchenSolo.clickOnButton(button_right.getText().toString());
-        assert(button_left.getText().toString().equals(R.string.maexchen_button_reveal) == false);
-        assert(button_right.getText().toString().equals(R.string.maexchen_button_next) == false);
-        assert(cup.getVisibility() != View.VISIBLE);
-        assert(result.getVisibility() != View.INVISIBLE);
+        myMaexchenSolo.sleep(sleep_time);
+        assertEquals(true, button_left.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_reveal)));
+        assertEquals(true, button_right.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_next)));
+        assertEquals(true, cup.getVisibility() == View.VISIBLE);
+        assertEquals(true, result.getVisibility() == View.INVISIBLE);
 
-        myMaexchenSolo.sleep(300);
+
         myMaexchenSolo.clickOnButton(button_right.getText().toString());
-        assert(button_left.getText().toString().equals(R.string.maexchen_button_throw) == false);
-        assert(button_right.getText().toString().equals(R.string.maexchen_button_reveal) == false);
-        assert(cup.getVisibility() != View.VISIBLE);
-        assert(result.getVisibility() != View.INVISIBLE);
+        myMaexchenSolo.sleep(sleep_time);
+        assertEquals(true, button_left.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_throw)));
+        assertEquals(true, button_right.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_reveal)));
+        assertEquals(true, cup.getVisibility() == View.VISIBLE);
+        assertEquals(true, result.getVisibility() == View.INVISIBLE);
 
-        myMaexchenSolo.sleep(300);
+
         myMaexchenSolo.clickOnButton(button_left.getText().toString());
-        assert(button_left.getText().toString().equals(R.string.maexchen_button_reveal) == false);
-        assert(button_right.getText().toString().equals(R.string.maexchen_button_next) == false);
-        assert(cup.getVisibility() != View.VISIBLE);
-        assert(result.getVisibility() != View.INVISIBLE);
+        myMaexchenSolo.sleep(sleep_time);
+        assertEquals(true, button_left.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_reveal)));
+        assertEquals(true, button_right.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_next)));
+        assertEquals(true, cup.getVisibility() == View.VISIBLE);
+        assertEquals(true, result.getVisibility() == View.INVISIBLE);
 
-        myMaexchenSolo.sleep(300);
+
         myMaexchenSolo.clickOnButton(button_left.getText().toString());
-        assert(button_left.getText().toString().equals(R.string.maexchen_button_throw_again) == false);
-        assert(button_right.getText().toString().equals(R.string.maexchen_button_next) == false);
-        assert(cup.getVisibility() != View.INVISIBLE);
-        assert(result.getVisibility() != View.VISIBLE);
+        myMaexchenSolo.sleep(sleep_time);
+        assertEquals(true, button_left.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_throw_again)));
+        assertEquals(true, button_right.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_next)));
+        assertEquals(true, cup.getVisibility() == View.INVISIBLE);
+        assertEquals(true, result.getVisibility() == View.VISIBLE);
 
-        myMaexchenSolo.sleep(300);
+
         myMaexchenSolo.clickOnButton(button_right.getText().toString());
-        assert(button_left.getText().toString().equals(R.string.maexchen_button_throw) == false);
-        assert(button_right.getText().toString().equals(R.string.maexchen_button_reveal) == false);
-        assert(cup.getVisibility() != View.VISIBLE);
-        assert(result.getVisibility() != View.INVISIBLE);
+        myMaexchenSolo.sleep(sleep_time);
+        assertEquals(true, button_left.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_throw)));
+        assertEquals(true, button_right.getText().toString().equals(myMaexchenSolo.getCurrentActivity().getResources().getString(R.string.maexchen_button_reveal)));
+        assertEquals(true, cup.getVisibility() == View.VISIBLE);
+        assertEquals(true, result.getVisibility() == View.INVISIBLE);
 
     }
 
@@ -225,16 +244,16 @@ public class MaexchenUItests extends ActivityInstrumentationTestCase2<Maexchen> 
                 same_result++;
             }
         }
-        assert((same_result == number_of_throws) == check);
-        result = view_result.getText().toString();
+        assertEquals(check, same_result != number_of_throws);
     }
 
     public void testSound() {
         AudioManager audio_manager = (AudioManager) myMaexchenSolo.getCurrentActivity().getSystemService(Context.AUDIO_SERVICE);
-        View cup = (View) myMaexchenSolo.getView(R.id.maexchen_imageView_cup);
+        View cup = myMaexchenSolo.getView(R.id.maexchen_imageView_cup);
         myMaexchenSolo.clickOnView(cup);
+        myMaexchenSolo.sleep(200);
         if(!audio_manager.isMusicActive()) {
-            assert(true);
+            assertEquals(true,false);
         }
     }
 
