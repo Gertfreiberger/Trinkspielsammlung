@@ -34,8 +34,6 @@ import wtfisandroid.drinkinggamescollection.R;
 public class Utilities {
 
 	private static final String TAG = "utilities";
-	public static final String KEY_PLAYERCARD = "PlayerCard";
-	public static final String KEY_PLAYER = "Player";
 
 	private final Context context;
 
@@ -45,6 +43,9 @@ public class Utilities {
 	public final static String GAMEDECK_GAME_KEY = "gameDeck";
 	public final static String PLAYERHANDS_GAME_KEY = "playerHands";
 	public final static String FINAL_PLAYER = "final_player";
+	public static final String KEY_PLAYERCARD = "PlayerCard";
+	public static final String KEY_PLAYER = "Player";
+	public static final String FIRST_RUN_PREFERENCE_KEY = "first_run";
 	public static final String PYRAMID_PLAYER_NAME_PREFERENCE_KEY = "player_name";
 	public static final String PYRAMID_PLAYER_COUNT_PREFERENCE_KEY = "pyramid_player_count";
 	private final SharedPreferences sharedPref;
