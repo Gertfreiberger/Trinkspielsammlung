@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Vector;
@@ -61,7 +62,7 @@ public class PyramidSecondRound extends AppCompatActivity {
 	private TextView tvPlayerName;
 	private int currentCardValue;
 	private PlayerHand currentPlayerHand;
-	private String finalPlayer;
+	private ArrayList<String> finalPlayer = new ArrayList<>();
 	private Gamecard currentCard;
 	private int currentCardIndex;
 
@@ -262,7 +263,7 @@ public class PyramidSecondRound extends AppCompatActivity {
 	public void showPyramidCard() {
 		if ( pyramidIndex < 15 ) {
 			pyramidCards.elementAt(pyramidIndex).setClickable(true);
-			//pyramidCards.elementAt(pyramidIndex).setBackgroundResource(R.drawable.card_back_focus);
+//			pyramidCards.elementAt(pyramidIndex).setBackgroundResource(R.drawable.card_back_focus);
 			pyramidCards.elementAt(pyramidIndex).setOnClickListener(new View.OnClickListener() {
 
 				@Override
@@ -286,14 +287,13 @@ public class PyramidSecondRound extends AppCompatActivity {
 							.setIcon(ResourcesCompat.getDrawable(resources, R.drawable.ic_logo, null))
 							.setTitle(R.string.second_round_finished)
 							.setMessage(resources.getString(R.string.final_player_message) + finalPlayer)
-							.setNeutralButton(R.string.back, new DialogInterface.OnClickListener() {
+							.setNeutralButton(R.string.go_to_Final_level, new DialogInterface.OnClickListener() {
 
 								public void onClick(DialogInterface dialog, int id) {
-									onBackPressed();
-									//Intent intent = new Intent(getApplicationContext(), PyramidFinalRound.class);
-									// intent.putExtra(Utilities.FINAL_PLAYER, finalPlayer);
-									// startActivity(intent);
-									// finish();
+									Intent intent = new Intent(getApplicationContext(), PyramidFinalRound.class);
+									intent.putStringArrayListExtra(Utilities.FINAL_PLAYER, finalPlayer);
+									startActivity(intent);
+									finish();
 								}
 							});
 
@@ -343,8 +343,8 @@ public class PyramidSecondRound extends AppCompatActivity {
 	private void findFinalPlayer() {
 		int maxCards = -1;
 		for ( int i = 1; i <= playerHands.size(); i++ ) {
-			if ( playerHands.get("Player" + i).getPlayerCards().size() > maxCards ) {
-				finalPlayer = playerHands.get("Player" + i).getPlayerName();
+			if ( playerHands.get("Player" + i).getPlayerCards().size() >= maxCards ) {
+				finalPlayer.add(playerHands.get("Player" + i).getPlayerName());
 				maxCards = playerHands.get("Player" + i).getPlayerCards().size();
 			}
 		}

@@ -22,15 +22,12 @@ import android.transition.Explode;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -335,12 +332,12 @@ public class PyramidActivity extends AppCompatActivity {
 			case 1:
 				String color = currentCard.getCardColor();
 				if ( !color.equalsIgnoreCase(Gamecard.SPADES) && !color.equalsIgnoreCase(Gamecard.CLUBS) )
-					drink();
+					utilities.drink();
 				break;
 			case 2:
 				first_card = playerHand.getPlayerCards().get(0);
 				if ( currentCard.getCardValue() <= first_card.getCardValue() )
-					drink();
+					utilities.drink();
 				break;
 			case 3:
 				int current_card_value = currentCard.getCardValue();
@@ -350,7 +347,7 @@ public class PyramidActivity extends AppCompatActivity {
 				int second_card_value = second_card.getCardValue();
 
 				if ( current_card_value < first_card_value && current_card_value > second_card_value || current_card_value > first_card_value && current_card_value < second_card_value )
-					drink();
+					utilities.drink();
 				break;
 			case 4:
 				String current_card_color = null;
@@ -366,7 +363,7 @@ public class PyramidActivity extends AppCompatActivity {
 				third_card_color = third_card.getCardColor();
 
 				if ( !current_card_color.equalsIgnoreCase(first_card_color) && !current_card_color.equalsIgnoreCase(second_card_color) && !current_card_color.equalsIgnoreCase(third_card_color) )
-					drink();
+					utilities.drink();
 				break;
 			default:
 				break;
@@ -387,12 +384,12 @@ public class PyramidActivity extends AppCompatActivity {
 			case 1:
 				String color = currentCard.getCardColor();
 				if ( !color.equalsIgnoreCase(Gamecard.HEARTS) && !color.equalsIgnoreCase(Gamecard.DIAMONDS) )
-					drink();
+					utilities.drink();
 				break;
 			case 2:
 				first_card = playerHand.getPlayerCards().get(0);
 				if ( currentCard.getCardValue() >= first_card.getCardValue() )
-					drink();
+					utilities.drink();
 				break;
 			case 3:
 				int current_card_value = currentCard.getCardValue();
@@ -402,7 +399,7 @@ public class PyramidActivity extends AppCompatActivity {
 				int second_card_value = second_card.getCardValue();
 
 				if ( current_card_value > first_card_value && current_card_value < second_card_value || current_card_value < first_card_value && current_card_value > second_card_value )
-					drink();
+					utilities.drink();
 				break;
 			case 4:
 				String current_card_color = currentCard.getCardColor();
@@ -414,7 +411,7 @@ public class PyramidActivity extends AppCompatActivity {
 				String third_card_color = third_card.getCardColor();
 
 				if ( current_card_color.equalsIgnoreCase(first_card_color) || current_card_color.equalsIgnoreCase(second_card_color) || current_card_color.equalsIgnoreCase(third_card_color) )
-					drink();
+					utilities.drink();
 				break;
 			default:
 				break;
@@ -451,20 +448,6 @@ public class PyramidActivity extends AppCompatActivity {
 			}
 		}, 2000);
 
-	}
-
-	private void drink() {
-		if ( sharedPref.getBoolean(Utilities.VIBRATE_PREFERENCE_KEY, false) ) {
-			vib = (Vibrator) PyramidActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
-			vib.vibrate(1000);
-		}
-		String toastText = utilities.getEmojiByUnicode(0x1F37A) + resources.getString(R.string.pyramid_drink_message) + utilities.getEmojiByUnicode(0x1F37B);
-		Toast drinkToast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT);
-		drinkToast.setGravity(Gravity.CENTER, 0, 0);
-		drinkToast.show();
-		ViewGroup group = (ViewGroup) drinkToast.getView();
-		TextView messageTextView = (TextView) group.getChildAt(0);
-		messageTextView.setTextSize(40);
 	}
 
 	private void goToNextLevel() {

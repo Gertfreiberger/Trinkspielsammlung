@@ -41,9 +41,9 @@
     <string name="drinks">Drink(s)</string>
     <string name="second_round_finished">Second Round Finished</string>
     <string name="go_to_Final_level">Go to Final Level</string>
-    <string name="final_player_message">The Final Player is:</string>
+    <string name="final_player_message">The Final Player are:</string>
     <string name="final_round">Final Round</string>
-    <string name="final_player_name">Final Player:</string>
+    <string name="final_player_name">Final Player: </string>
     <string name="i_never_ever">I never ever</string>
 
     <string-array name="manualTabs">
