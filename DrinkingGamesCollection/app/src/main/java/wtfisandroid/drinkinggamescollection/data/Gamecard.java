@@ -237,7 +237,7 @@ public class Gamecard implements Parcelable {
 		new Gamecard(37, DIAMONDS, JACK, 11, R.drawable.gamecard_jack_of_diamonds);
 		new Gamecard(38, HEARTS, JACK, 11, R.drawable.gamecard_jack_of_hearts);
 		new Gamecard(39, SPADES, JACK, 11, R.drawable.gamecard_jack_of_spades);
-		new Gamecard(40, CLUBS, QUEEN, 12, R.drawable.gamecard_jack_of_clubs);
+		new Gamecard(40, CLUBS, QUEEN, 12, R.drawable.gamecard_queen_of_clubs);
 		new Gamecard(41, DIAMONDS, QUEEN, 12, R.drawable.gamecard_queen_of_diamonds);
 		new Gamecard(42, HEARTS, QUEEN, 12, R.drawable.gamecard_queen_of_hearts);
 		new Gamecard(43, SPADES, QUEEN, 12, R.drawable.gamecard_queen_of_spades);
@@ -245,7 +245,7 @@ public class Gamecard implements Parcelable {
 		new Gamecard(45, DIAMONDS, KING, 13, R.drawable.gamecard_king_of_diamonds);
 		new Gamecard(46, HEARTS, KING, 13, R.drawable.gamecard_king_of_hearts);
 		new Gamecard(47, SPADES, KING, 13, R.drawable.gamecard_king_of_spades);
-		new Gamecard(48, CLUBS, ACE, 14, R.drawable.gamecard_jack_of_clubs);
+		new Gamecard(48, CLUBS, ACE, 14, R.drawable.gamecard_ace_of_clubs);
 		new Gamecard(49, DIAMONDS, ACE, 14, R.drawable.gamecard_ace_of_diamonds);
 		new Gamecard(50, HEARTS, ACE, 14, R.drawable.gamecard_ace_of_hearts);
 		new Gamecard(51, SPADES, ACE, 14, R.drawable.gamecard_ace_of_spades);
