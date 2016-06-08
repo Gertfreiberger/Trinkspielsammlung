@@ -10,7 +10,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".gui.game.pyramid.PyramidFinalRound"
-    android:background="@drawable/ic_background_manual">
+    android:background="@drawable/ic_background_manual"
+    android:clickable="false">
 
     <TextView
         android:layout_width="wrap_content"
@@ -82,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ibPyramidFinalHigherButton"
-        android:src="@drawable/gamecard_ace_of_hearts"
+        android:src="@drawable/ic_higher"
         android:background="@null"
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/ivPyramideFinalRoundCard2"
@@ -94,7 +95,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/ibPyramidFinalLowerButton"
         android:background="@null"
-        android:src="@drawable/gamecard_2_of_spades"
+        android:src="@drawable/ic_lower"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/textView4"
         android:layout_toEndOf="@+id/textView4"
