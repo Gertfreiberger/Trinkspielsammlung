@@ -1,6 +1,7 @@
 package wtfisandroid.drinkinggamescollection;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -124,6 +126,26 @@ public class PolnischGame extends AppCompatActivity {
             }
         });
 }
+
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+        dlg.setMessage(R.string.polnisch_dialog_alert_back_description);
+        dlg.setTitle(R.string.polnisch_dialog_alert_back_title);
+        dlg.setPositiveButton(R.string.polnisch_dialog_alert_back_nein, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+
+        dlg.setNegativeButton(R.string.polnisch_dialog_alert_back_yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        dlg.create().show();
+    }
 
     public void loadDicePictures(ArrayList<Bitmap> pictures) {
         pictures.add(BitmapFactory.decodeResource(getResources(), R.mipmap.dice_1));

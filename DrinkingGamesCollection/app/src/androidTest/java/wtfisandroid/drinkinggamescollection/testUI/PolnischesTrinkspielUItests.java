@@ -256,7 +256,7 @@ public class PolnischesTrinkspielUItests extends ActivityInstrumentationTestCase
         mypolnischSolo.getText("Moritz");
     }
 
-    // Test will take a long time (40 minutes or more)
+    // Test will take a long time (60 minutes or more)
     public void testGame(){
         Button button_plus = (Button) mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_plus);
 
@@ -292,6 +292,19 @@ public class PolnischesTrinkspielUItests extends ActivityInstrumentationTestCase
 
             mypolnischSolo.clickOnView(dice);
             mypolnischSolo.sleep(3000);
+        }
+    }
+
+    public void testExitGame(){
+        if(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_start) == null){
+            assertEquals(true, false);
+        }
+        navigateToGame();
+        mypolnischSolo.goBack();
+        mypolnischSolo.clickOnButton(mypolnischSolo.getCurrentActivity().getResources().getString(R.string.polnisch_dialog_alert_back_yes));
+        mypolnischSolo.sleep(2000);
+        if(mypolnischSolo.getCurrentActivity().findViewById(R.id.polnisch_button_start) == null){
+            assertEquals(true, false);
         }
     }
 

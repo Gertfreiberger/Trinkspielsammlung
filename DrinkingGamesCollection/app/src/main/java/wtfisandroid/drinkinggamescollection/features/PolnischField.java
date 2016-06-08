@@ -39,7 +39,7 @@ public class PolnischField {
     }
 
     public void changeBorderRed(Drawable red_border) {
-       field_.setBackground(red_border);
+        field_.setBackground(red_border);
     }
 
     public void changeBorderBlack() {

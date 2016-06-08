@@ -179,6 +179,10 @@
     <string name="polnisch_dialog_button_choose_back">Ich gehe 4 Felder zurück</string>
     <string name="polnisch_dialog_winner_headline">Sieger!!!</string>
     <string name="polnisch_next">Weiter</string>
+    <string name="polnisch_dialog_alert_back_title">Wirklich beenden?</string>
+    <string name="polnisch_dialog_alert_back_description">Sie sind dabei den aktuellen Spielstand zu verwerfen. Wollen Sie das Spiel wirklich beenden?</string>
+    <string name="polnisch_dialog_alert_back_yes">Ja</string>
+    <string name="polnisch_dialog_alert_back_nein">Nein</string>
 
 
 
