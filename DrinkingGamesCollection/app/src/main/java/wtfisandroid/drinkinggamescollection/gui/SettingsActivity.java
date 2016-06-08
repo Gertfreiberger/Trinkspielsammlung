@@ -14,7 +14,6 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,7 +31,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 	private SharedPreferences sharedPref;
 	private Utilities utilities;
 	private String currentLanguage;
-	private Resources resources;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +39,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
 		utilities.setLanguage(currentLanguage);
-		resources = getResources();
 	}
 
 	/**
@@ -77,21 +74,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 		} else if ( key.equalsIgnoreCase(Utilities.SOUND_PREFERENCE_KEY) ) {
 			if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
 				utilities.playSound(1);
-			} else if ( key.equalsIgnoreCase(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY) ) {
-				PreferenceScreen screen = getPreferenceScreen();
-				PreferenceCategory category = new PreferenceCategory(screen.getContext());
-
-				category.setTitle(resources.getString(R.string.player_names));
-				screen.addPreference(category);
-				sharedPref = PreferenceManager.getDefaultSharedPreferences(screen.getContext());
-				int player_number = Integer.valueOf(sharedPref.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2"));
-				for ( int i = 0; i < player_number; i++ ) {
-					EditTextPreference player_name = new EditTextPreference(screen.getContext());
-					player_name.setKey(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (i + 1));
-					player_name.setTitle(resources.getString(R.string.player) + " " + (i + 1));
-					player_name.setText(resources.getString(R.string.player) + (i + 1));
-					category.addPreference(player_name);
-				}
 			}
 		}
 	}
@@ -160,8 +142,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 			super.onCreate(savedInstanceState);
 			m_resources = getResources();
 
-			String settings = "";
-			settings = getArguments().getString("settings");
+			String settings = getArguments().getString("settings");
 			if ( settings.equalsIgnoreCase("general") ) {
 				addPreferencesFromResource(R.xml.options_general);
 			} else if ( settings.equalsIgnoreCase("pyramid") ) {
@@ -177,7 +158,9 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 					EditTextPreference player_name = new EditTextPreference(screen.getContext());
 					player_name.setKey(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (i + 1));
 					player_name.setTitle(m_resources.getString(R.string.player) + " " + (i + 1));
-					player_name.setText(m_resources.getString(R.string.player) + (i + 1));
+					String playerName = m_preference.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (i + 1), m_resources.getString(R.string.player) + " " + (i + 1));
+					player_name.setText(playerName);
+					player_name.setSummary(playerName);
 					category.addPreference(player_name);
 				}
 
@@ -186,19 +169,26 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 				playerCount.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 					@Override
 					public boolean onPreferenceChange(Preference preference, Object newVal) {
+						boolean updatePlayerCount = true;
 						int count = Integer.valueOf((String) newVal);
 						int player_number = Integer.valueOf(m_preference.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2"));
 						if ( count < 2 ) {
 							playerCount.setText("2");
+							updatePlayerCount = false;
 							count = 2;
 						} else if ( count > 9 ) {
 							playerCount.setText("9");
 							count = 9;
+							updatePlayerCount = false;
 						}
 						playerCount.getEditor().apply();
 						playerCount.getEditor().commit();
 
 						m_preference = PreferenceManager.getDefaultSharedPreferences(screen.getContext());
+						SharedPreferences.Editor editor = m_preference.edit();
+						editor.putString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, Integer.toString(count));
+						editor.commit();
+
 						int counter;
 
 						if ( count > player_number ) {
@@ -208,22 +198,23 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 								EditTextPreference player_name = new EditTextPreference(screen.getContext());
 								player_name.setKey(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (counter));
 								player_name.setTitle(m_resources.getString(R.string.player) + " " + (counter));
-								player_name.setText(m_resources.getString(R.string.player) + (counter));
+								String playerName = m_preference.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + counter, m_resources.getString(R.string.player) + " " + counter);
+								player_name.setText(playerName);
+								player_name.setSummary(playerName);
 								category.addPreference(player_name);
 							}
 						} else if ( count < player_number ) {
-							Log.d(TAG, "onPreferenceChange() called with: " + "count = [" + count + "], player_number = [" + player_number + "]" + "pc: " + playerCount.getText());
 							counter = player_number;
 
 							for (; counter > count; counter-- ) {
-								EditTextPreference playerName = (EditTextPreference) findPreference(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (counter));
-								if ( playerName != null ) {
-									category.removePreference(playerName);
+								EditTextPreference etPlayerName = (EditTextPreference) findPreference(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (counter));
+								if ( etPlayerName != null ) {
+									category.removePreference(etPlayerName);
 								}
 							}
 						}
 
-						return true;
+						return updatePlayerCount;
 					}
 
 				});
