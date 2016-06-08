@@ -1,13 +1,18 @@
 package wtfisandroid.drinkinggamescollection.gui.game.pyramid;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -19,6 +24,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import wtfisandroid.drinkinggamescollection.MainMenu;
 import wtfisandroid.drinkinggamescollection.R;
 import wtfisandroid.drinkinggamescollection.data.Gamecard;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
@@ -66,12 +72,12 @@ public class PyramidFinalRound extends AppCompatActivity {
 		firstChoice = (ImageView) findViewById(R.id.ibPyramidFinalHigherButton);
 		secondChoice = (ImageView) findViewById(R.id.ibPyramidFinalLowerButton);
 
+		resources = getResources();
 		gameCard.generatePyramidGameDeck();
 		gameDeck = Gamecard.getAllCards();
 
 		Intent intent = getIntent();
 		players = intent.getStringArrayListExtra(Utilities.FINAL_PLAYER);
-
 		prepareGame(false);
 	}
 
@@ -165,9 +171,10 @@ public class PyramidFinalRound extends AppCompatActivity {
 	}
 
 	private void prepareGame(boolean nextPlayer) {
+		if ( nextPlayer )
+			countPlayers++;
 		if ( countPlayers < players.size() ) {
-			if ( nextPlayer )
-				countPlayers++;
+
 			Log.d("anna", "player: " + players.get(countPlayers));
 			gameDeck = gameCard.shuffleDeck(gameDeck);
 
@@ -196,8 +203,41 @@ public class PyramidFinalRound extends AppCompatActivity {
 			cardViews.get(0).requestLayout();
 
 		} else {
-			//end Game
+			goToMainMenu();
 		}
+
+	}
+
+
+	private void goToMainMenu() {
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setCancelable(false)
+				.setIcon(ResourcesCompat.getDrawable(resources, R.drawable.ic_logo, null))
+				.setTitle("Final round finished")
+				.setNeutralButton("Go to Main", new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface dialog, int id) {
+						Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+
+
+
+						if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ) {
+							ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PyramidFinalRound.this);
+							Slide slide = new Slide();
+							slide.setDuration(1000);
+							getWindow().setExitTransition(slide);
+							startActivity(intent, options.toBundle());
+						} else
+							startActivity(intent);
+
+						finish();
+					}
+				});
+
+		AlertDialog dialog = builder.create();
+		dialog.setCanceledOnTouchOutside(false);
+		dialog.show();
 
 	}
 }
