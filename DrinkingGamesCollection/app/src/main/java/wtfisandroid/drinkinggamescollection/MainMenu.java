@@ -55,6 +55,16 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 			shakeDetector = new ShakeDetector();
 			shakeDetector.setOnShakeListener(this);
 		}
+
+		if (sharedPref.getBoolean(Utilities.FIRST_RUN_PREFERENCE_KEY, true) ) {
+			SharedPreferences.Editor editor = sharedPref.edit();
+			editor.putBoolean(Utilities.FIRST_RUN_PREFERENCE_KEY, false);
+			editor.putBoolean(Utilities.VIBRATE_PREFERENCE_KEY, true);
+			editor.putBoolean(Utilities.SOUND_PREFERENCE_KEY, true);
+			editor.putString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2");
+			editor.putString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
+			editor.commit();
+		}
 	}
 
 	@Override

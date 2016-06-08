@@ -64,6 +64,7 @@ public class PyramidActivity extends AppCompatActivity {
 	private Toolbar toolbar;
 	private Handler handler;
 	private boolean doNotShowAgain = true;
+	private long back_pressed;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -182,14 +183,19 @@ public class PyramidActivity extends AppCompatActivity {
 
 	@Override
 	public void onBackPressed() {
-		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
-			utilities.playSound(1, AudioManager.FX_KEYPRESS_RETURN);
+		if ( back_pressed + 2000 > System.currentTimeMillis() ) {
+			if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
+				utilities.playSound(1, AudioManager.FX_KEYPRESS_RETURN);
+			}
+			finish();
+			return;
+		} else {
+			Toast.makeText(getBaseContext(), getString(R.string.close_message), Toast.LENGTH_SHORT).show();
+			back_pressed = System.currentTimeMillis();
 		}
 		if ( android.R.id.content == R.layout.manual ) {
 			Log.d(TAG, "onBackPressed() called content: " + android.R.id.content);
 		}
-		Log.d(TAG, "onBackPressed() called content: " + android.R.id.content);
-		Log.d(TAG, "onBackPressed() called manual: " + R.layout.manual);
 		super.onBackPressed();
 	}
 

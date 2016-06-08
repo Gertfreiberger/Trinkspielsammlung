@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.EditTextPreference;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
@@ -63,16 +64,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 		super.onBuildHeaders(target);
 	}
 
-	/**
-	 * Called when a shared preference is changed, added, or removed. This
-	 * may be called even if a preference is set to its existing value.
-	 * <p/>
-	 * <p>This callback will be run on your main thread.
-	 *
-	 * @param sharedPreferences The {@link SharedPreferences} that received
-	 *                          the change.
-	 * @param key               The key of the preference that was changed, added, or
-	 */
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 		if ( key.equalsIgnoreCase(Utilities.VIBRATE_PREFERENCE_KEY) ) {
@@ -151,14 +142,13 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 			super.onCreate(savedInstanceState);
 			m_resources = getResources();
 
-			String settings = "";
-			settings = getArguments().getString("settings");
+			String settings = getArguments().getString("settings");
 			if ( settings.equalsIgnoreCase("general") ) {
 				addPreferencesFromResource(R.xml.options_general);
 			} else if ( settings.equalsIgnoreCase("pyramid") ) {
 				addPreferencesFromResource(R.xml.options_pyramide);
-				PreferenceScreen screen = getPreferenceScreen();
-				PreferenceCategory category = new PreferenceCategory(screen.getContext());
+				final PreferenceScreen screen = getPreferenceScreen();
+				final PreferenceCategory category = new PreferenceCategory(screen.getContext());
 
 				category.setTitle(m_resources.getString(R.string.player_names));
 				screen.addPreference(category);
@@ -168,9 +158,67 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 					EditTextPreference player_name = new EditTextPreference(screen.getContext());
 					player_name.setKey(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (i + 1));
 					player_name.setTitle(m_resources.getString(R.string.player) + " " + (i + 1));
-					player_name.setText(m_resources.getString(R.string.player) + (i + 1));
+					String playerName = m_preference.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (i + 1), m_resources.getString(R.string.player) + " " + (i + 1));
+					player_name.setText(playerName);
+					player_name.setSummary(playerName);
 					category.addPreference(player_name);
 				}
+
+				final EditTextPreference playerCount = (EditTextPreference) findPreference(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY);
+
+				playerCount.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+					@Override
+					public boolean onPreferenceChange(Preference preference, Object newVal) {
+						boolean updatePlayerCount = true;
+						int count = Integer.valueOf((String) newVal);
+						int player_number = Integer.valueOf(m_preference.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2"));
+						if ( count < 2 ) {
+							playerCount.setText("2");
+							updatePlayerCount = false;
+							count = 2;
+						} else if ( count > 9 ) {
+							playerCount.setText("9");
+							count = 9;
+							updatePlayerCount = false;
+						}
+						playerCount.getEditor().apply();
+						playerCount.getEditor().commit();
+
+						m_preference = PreferenceManager.getDefaultSharedPreferences(screen.getContext());
+						SharedPreferences.Editor editor = m_preference.edit();
+						editor.putString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, Integer.toString(count));
+						editor.commit();
+
+						int counter;
+
+						if ( count > player_number ) {
+							counter = player_number + 1;
+
+							for (; counter <= count; counter++ ) {
+								EditTextPreference player_name = new EditTextPreference(screen.getContext());
+								player_name.setKey(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (counter));
+								player_name.setTitle(m_resources.getString(R.string.player) + " " + (counter));
+								String playerName = m_preference.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + counter, m_resources.getString(R.string.player) + " " + counter);
+								player_name.setText(playerName);
+								player_name.setSummary(playerName);
+								category.addPreference(player_name);
+							}
+						} else if ( count < player_number ) {
+							counter = player_number;
+
+							for (; counter > count; counter-- ) {
+								EditTextPreference etPlayerName = (EditTextPreference) findPreference(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (counter));
+								if ( etPlayerName != null ) {
+									category.removePreference(etPlayerName);
+								}
+							}
+						}
+
+						return updatePlayerCount;
+					}
+
+				});
+
 			} else if ( settings.equalsIgnoreCase("maexchen") ) {
 				addPreferencesFromResource(R.xml.options_maexchen);
 			}
