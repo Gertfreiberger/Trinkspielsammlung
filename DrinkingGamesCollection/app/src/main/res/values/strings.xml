@@ -35,13 +35,13 @@
     <string name="go_to_next_level">Go to the next Level</string>
     <string name="new_game">New Game</string>
     <string name="ok">OK</string>
-    <string name="distribute_drinks">Distripute Drinks</string>
+    <string name="distribute_drinks">Distribute Drinks</string>
     <string name="close">Close</string>
     <string name="distribute">Distribute</string>
     <string name="drinks">Drink(s)</string>
     <string name="second_round_finished">Second Round Finished</string>
     <string name="go_to_Final_level">Go to Final Level</string>
-    <string name="final_player_message">The Final Player are:</string>
+    <string name="final_player_message">Final Player(s): </string>
     <string name="final_round">Final Round</string>
     <string name="final_player_name">Final Player: </string>
     <string name="i_never_ever">I never ever</string>
