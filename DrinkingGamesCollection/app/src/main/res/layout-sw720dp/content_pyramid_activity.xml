@@ -71,4 +71,5 @@
         android:layout_alignTop="@+id/ivPyramidFirstRoundPlayerCard3"
         android:layout_toEndOf="@+id/ivFirstChoice"/>
 
+
 </RelativeLayout>
