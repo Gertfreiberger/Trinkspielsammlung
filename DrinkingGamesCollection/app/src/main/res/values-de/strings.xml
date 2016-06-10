@@ -27,8 +27,9 @@
     <string name="distribute_drinks">Getränke austeilen</string>
     <string name="close">Beenden</string>
     <string name="distribute">Austeilen</string>
+    <string name="playerhand">Spielerkarten: </string>
     <string name="drinks">Drink(s)</string>
-    <string name="second_round_finished">Zweite Runde beended</string>
+    <string name="second_round_finished">Zweite Runde beendet</string>
     <string name="go_to_Final_level">Weiter zum Finale</string>
     <string name="final_round">Finale Runde</string>
     <string name="final_player_name">Finaler Player:</string>
@@ -36,28 +37,19 @@
     <string name="pyramid_drink_message">Trink!!!!!!!!!!!!!!!!</string>
     <string name="pyramid_manual_general_info">Bevor angefangen wird, muss
         sich jeder Spieler eine Flasche Bier, ein paar Shots oder ein beliebiges anderes alkoholisches Getränk bereitstellen. Während der gesamten Spielzeit ist sicherzustellen, dass alle Spieler ausreichend alkoholisch versorgt sind.</string>
-    <string name="pyramid_manual_first_round">Zu Spielbeginn wird die erste
-        Karte der untersten Pyramidenreihe aufgedeckt, so zum Beispiel der
-        Kartenreihe mit sechs Karten, wenn mit sechs Reihen gespielt wird.
-        Derjenige, dessen Farbe mit  der aufgedeckten Karte getroffen wird,
-        muss einen Schluck seines eingangs vorbereiteten Getränks zu sich
-        nehmen. Nun werden die Karten der untersten Reihe nacheinander aufgedeckt und  das Procedere wiederholt sich gleichermaßen. Wird eine Farbe getroffen, muss der entsprechende Spieler einen Schluck Alkohol trinken.</string>
-    <string name="pyramid_manual_second_round">third round text</string>
-    <string name="pyramid_manual_final_round">fourht round text</string>
-    <string name="pyramid_manual_first_first_round">Schwarz oder Rot</string>
-    <string name="pyramid_manual_first_second_round">Höher oder
-        Niederiger</string>
-    <string name="pyramid_manual_first_third_round">Drinnen oder
-        Draußen</string>
-    <string name="pyramid_manual_first_fourth_round">Schon in Besitz
-        oder Noch nicht in Besitz</string>
+    <string name="pyramid_manual_first_round">Das erste Level erstreckt sich über 4 Runden</string>
+    <string name="pyramid_manual_second_round">Zu Spielbeginn wird die erste Karte der untersten Pyramidenreihe aufgedeckt. Derjenige, dessen Wert mit der aufgedeckten Karte getroffen wird, kann eine gewisse Anzahl an Schlücken an seine Mitspieler verteilen. Natürlich muss er keine Schlücke verteilen, denn es könnte ja sein, dass der selbe Wert später noch einmal auftaucht und er dann eine größere Anzahl an Schlücken verteilen kann. Nun werden die Karten der untersten Reihe nacheinander aufgedeckt und das Procedere wiederholt sich gleichermaßen.</string>
+    <string name="pyramid_manual_final_round">Im Finale müssen alle Spieler, die es ins Finale geschafft haben nacheinander bei fünf augedeckten Karten sagen ob die der Wert der nächste Karten im Spieldeck höher oder tiefer ist. Wenn der Spieler bei allen fünf Karten nacheinander richtig getippt hat, hat er das Spiel gewonnen. Sollte er jedoch falsch getippt haben, muss er einen oder mehrere Schlücken drinken und wieder bei der ersten Karte tippen ob Höher oder Tiefer. Das geht solange bis alle Spieler, die im Finale sind, 5 mal hintereinander richtig getippt haben.</string>
+    <string name="pyramid_manual_first_first_round">In der ersten Runde muss man erraten ob die nächste Karte im Spieldeck Schwarz oder Rot ist.</string>
+    <string name="pyramid_manual_first_second_round">In der zweiten Runde muss man erraten ob der Wert der nächsten Karte im Spieldeck höher oder niedriger ist als die Karte von der 1 Runde</string>
+    <string name="pyramid_manual_first_third_round">In der dritten Runde muss man erraten ob der Wert der nächsten Karte im Spieldeck zwischen oder außerhalb der Karten von Runde 1 und 2 liegt</string>
+    <string name="pyramid_manual_first_fourth_round">In der vierten Runde muss man erraten ob man die Farbe der nächsten Karte im Spieldeck schon besitzt oder nicht.</string>
     <string name="pyramid_manual_general_info_header">Spielablauf</string>
-    <string name="pyramid_manual_first_round_header">Erste Runde</string>
+    <string name="pyramid_manual_first_round_header">Erstes Level</string>
     <string name="pyramid_manual_first_first_round_header">1 Runde</string>
     <string name="pyramid_manual_first_second_round_header">2 Runde</string>
-    <string name="pyramid_manual_first_third_round_header">3 Runde</string>
     <string name="pyramid_manual_first_fourth_round_header">4 Runde</string>
-    <string name="pyramid_manual_second_round_header">Zweite Runde</string>
+    <string name="pyramid_manual_second_round_header">Zweites Level</string>
     <string name="pyramid_manual_final_round_header">Finale</string>
     <string name="help">Hilfe</string>
     <string name="clos_game_message">Möchtest du das Spiel wirklich beenden?</string>
@@ -96,5 +88,6 @@
     <string name="mainmenu_button_polnisches">Polnisches Trinkspiel</string>
     <string name="mainmenu_headline">Drinking Games Collection</string>
     <string name="mainmenu_button_pyramid">Pyramid</string>
+    <string name="pyramid_manual_first_third_round_header">3 Runde</string>
 
 </resources>
