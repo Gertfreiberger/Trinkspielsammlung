@@ -17,7 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
@@ -38,18 +37,23 @@ import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 public class PyramidSecondRound extends AppCompatActivity {
 
-	private static final String TAG = "testing";
+	//private static final String TAG = "testing";
+
+	private int id;
+	private int index;
+
+	/* for accessing GUI attributes */
 	protected Button bDeal;
 	protected Button bNext;
-
 	protected ImageView view;
-	private int pyramidRow = 1;
+	protected TextView tvPlayerName;
+
+
+	private int drinkCount = 1;
 	private int currentPlayer = 1;
 
-	public int playerIndex = 0;
 	public int pyramidIndex = 0;
 
-	private Animation anim_slide;
 	private HashMap<Integer, Gamecard> gameDeck;
 
 	private Vector<ImageView> pyramidCards;
@@ -60,15 +64,16 @@ public class PyramidSecondRound extends AppCompatActivity {
 	private SharedPreferences sharedPref;
 	private Resources resources;
 	private int playerCount;
-	private TextView tvPlayerName;
+
 	private int currentCardValue;
 	private PlayerHand currentPlayerHand;
 	private ArrayList<String> finalPlayer = new ArrayList<>();
-	private Gamecard currentCard;
+	public Gamecard currentCard;
 	private int currentCardIndex;
 
 	/* Animations */
-	private ScaleAnimation scaleUp;
+	private ScaleAnimation animPlayerCards;
+	private ScaleAnimation animPyramidCards;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,10 +97,15 @@ public class PyramidSecondRound extends AppCompatActivity {
 
 		Toast.makeText(getApplicationContext(), resources.getString(R.string.hello_second_pyramid_round), Toast.LENGTH_SHORT).show();
 
-		/* Initialize scale animation for card match */
-		scaleUp = new ScaleAnimation(1.0f, 1.5f, 1.0f, 1.5f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		scaleUp.setDuration(1000);
-		scaleUp.setFillAfter(true);
+		/* Initialize scale animation for showing player hand */
+		animPlayerCards = new ScaleAnimation(1, 1.0f, 0, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		animPlayerCards.setDuration(500);
+		animPlayerCards.setFillAfter(true);
+
+		/* Initialize scale animation if card matches */
+		animPyramidCards = new ScaleAnimation(0, 1.0f, 0, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		animPyramidCards.setDuration(500);
+		animPyramidCards.setFillAfter(true);
 
 		/* Initialize scale animation for flipping pyramid card */
 		anim_rotate = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -124,15 +134,11 @@ public class PyramidSecondRound extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				clearButtons();
-				/* Remove all images of the player hand for new arrangement */
-				int index = 0;
-				for (; index < playerCards.size(); index++) {
-					playerCards.elementAt(index).setBackgroundResource(android.R.color.transparent);
-				}
-				playerCards.elementAt(currentCardIndex).setScaleX(1.0f);
 				playerCards.elementAt(currentCardIndex).setScaleY(1.0f);
+				playerCards.elementAt(currentCardIndex).setScaleX(1.0f);
 				currentPlayerHand.getPlayerCards().remove(currentCardIndex);
-				setPlayerCards(currentPlayerHand);
+				utilities.drink();
+				hidePlayerCards(currentPlayerHand);
 				checkPlayerHand(currentCardValue, playerHands.get(Utilities.KEY_PLAYER + currentPlayer));
 			}
 		});
@@ -141,6 +147,9 @@ public class PyramidSecondRound extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				clearButtons();
+				playerCards.elementAt(currentCardIndex).setScaleY(1.0f);
+				playerCards.elementAt(currentCardIndex).setScaleX(1.0f);
+				hidePlayerCards(currentPlayerHand);
 				checkPlayerHand(currentCardValue, playerHands.get(Utilities.KEY_PLAYER + currentPlayer));
 			}
 		});
@@ -149,7 +158,6 @@ public class PyramidSecondRound extends AppCompatActivity {
 		gameDeck = (HashMap<Integer, Gamecard>) getIntent().getSerializableExtra((Utilities.GAMEDECK_GAME_KEY));
 		playerHands = (HashMap<String, PlayerHand>) getIntent().getSerializableExtra(Utilities.PLAYERHANDS_GAME_KEY);
 
-		anim_slide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide);
 		pyramidCards = new Vector<>();
 		playerCards = new Vector<>();
 		getPlayerCards();
@@ -219,32 +227,17 @@ public class PyramidSecondRound extends AppCompatActivity {
 	}
 
 	public void setPyramidCards() {
-		int id;
-		int index = 0;
+		index = 0;
 		getPyramidViews();
 		for (; index < pyramidCards.size(); index++ ) {
-			ImageView view = pyramidCards.elementAt(index);
-			view.startAnimation(anim_slide);
+			view = pyramidCards.elementAt(index);
+			view.startAnimation(animPyramidCards);
 			view.setBackgroundResource(R.drawable.card_back);
 		}
 	}
 
-	public void setPlayerCards(PlayerHand playerHand) {
-		int id;
-		int index = 0;
-		tvPlayerName.setText(sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + currentPlayer, "DefaultPlayer" +
-		playerHand.getPlayerID()));
-		for (; index < playerHand.getPlayerCards().size(); index++ ) {
-			id = playerHand.getPlayerCards().get(index).getImageID();
-			playerCards.elementAt(index).startAnimation(anim_slide);
-			playerCards.elementAt(index).setBackgroundResource(id);
-		}
-	}
-
 	public void getPyramidViews() {
-
-		int id;
-		int index = 1;
+		index = 1;
 		String name;
 		try {
 			for (; index < 16; index++ ) {
@@ -260,9 +253,36 @@ public class PyramidSecondRound extends AppCompatActivity {
 		}
 	}
 
+	public void setPlayerCards(PlayerHand playerHand) {
+		index = 0;
+		clearCards();
+		/* set text from textView of player hand*/
+		tvPlayerName.setText("Spielerkarten: "
+				+ sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + currentPlayer,
+				"DefaultPlayer" + playerHand.getPlayerID()));
+		index = 0;
+		for (; index < playerHand.getPlayerCards().size(); index++ ) {
+			view = playerCards.elementAt(index);
+			id = playerHand.getPlayerCards().get(index).getImageID();
+			view.startAnimation(animPlayerCards);
+			view.setBackgroundResource(id);
+		}
+	}
+
+	public void hidePlayerCards(PlayerHand playerHand) {
+		index = 0;
+		clearCards();
+		/* set text from textView of player hand*/
+		tvPlayerName.setText("Spielerkarten: ");
+		for (; index < playerHand.getPlayerCards().size(); index++ ) {
+			view = playerCards.elementAt(index);
+			view.startAnimation(animPlayerCards);
+			view.setBackgroundResource(R.drawable.card_back);
+		}
+	}
+
 	public void getPlayerCards() {
-		int id;
-		int index = 1;
+		index = 1;
 		String name;
 		try {
 			for (; index < 5; index++ ) {
@@ -278,8 +298,18 @@ public class PyramidSecondRound extends AppCompatActivity {
 		}
 	}
 
+	public void clearCards() {
+		index = 0;
+		/* Remove all images of the player hand for new arrangement */
+		int index = 0;
+		for (; index < 4; index++) {
+			playerCards.elementAt(index).setBackgroundResource(android.R.color.transparent);
+		}
+	}
+
 	public void showPyramidCard() {
 		if ( pyramidIndex < 15 ) {
+			drinkCount = getDrinkCount();
 			pyramidCards.elementAt(pyramidIndex).setClickable(true);
 			pyramidCards.elementAt(pyramidIndex).setBackgroundResource(R.drawable.card_back_focus);
 			pyramidCards.elementAt(pyramidIndex).setOnClickListener(new View.OnClickListener() {
@@ -287,7 +317,7 @@ public class PyramidSecondRound extends AppCompatActivity {
 				@Override
 				public void onClick(View v) {
 					Gamecard card = gameDeck.get(pyramidIndex + (playerCount * 4));
-					int id = card.getImageID();
+					id = card.getImageID();
 					currentCardValue = gameDeck.get(pyramidIndex + (playerCount * 4)).getCardValue();
 					currentPlayerHand = playerHands.get(Utilities.KEY_PLAYER + 1);
 					v.setClickable(false);
@@ -321,19 +351,26 @@ public class PyramidSecondRound extends AppCompatActivity {
 	}
 
 	public void checkPlayerHand(int cardValue, PlayerHand playerHand) {
-		int index = 0;
+		index = 0;
 		boolean match = false;
 		if ( currentPlayer <= playerCount ) {
 			for (; index < playerHand.getPlayerCards().size(); index++ ) {
 				if ( cardValue == playerHand.getPlayerCards().get(index).getCardValue() ) {
 					match = true;
+
+					/* when matchin set buttons clickable and red */
 					bDeal.setClickable(true);
 					bNext.setClickable(true);
+					bDeal.setText("Verteile (" + drinkCount + " Schluck)");
 					bDeal.setBackgroundColor(Color.RED);
 					bNext.setBackgroundColor(Color.RED);
+
+					/* scale matching card */
+					view = playerCards.elementAt(index);
+					view.setScaleY(1.2f);
+					view.setScaleX(1.2f);
+
 					currentCardIndex = index;
-					playerCards.elementAt(currentCardIndex).setScaleX(1.5f);
-					playerCards.elementAt(currentCardIndex).setScaleY(1.5f);
 					currentCard = playerHand.getPlayerCards().get(index);
 					currentPlayerHand = playerHands.get(Utilities.KEY_PLAYER + currentPlayer);
 					setPlayerCards(currentPlayerHand);
@@ -353,20 +390,36 @@ public class PyramidSecondRound extends AppCompatActivity {
 		}
 	}
 
+	public int getDrinkCount() {
+		if (pyramidIndex < 5)
+			return 1;
+		else if (pyramidIndex < 9)
+			return 2;
+		else if (pyramidIndex < 12)
+			return 3;
+		else if (pyramidIndex < 14)
+			return 4;
+		else
+			return 5;
+	}
+
 	public void clearButtons() {
 		bDeal.setClickable(false);
 		bNext.setClickable(false);
 		bDeal.setBackgroundColor(Color.GRAY);
 		bNext.setBackgroundColor(Color.GRAY);
+		bDeal.setText("Austeilen");
 	}
 
 	private void findFinalPlayer() {
-		int maxCards = -1;
+		int playerNumber = 1;
+		int maxCards = 0;
 		for ( int i = 1; i <= playerHands.size(); i++ ) {
 			if ( playerHands.get("Player" + i).getPlayerCards().size() >= maxCards ) {
-				finalPlayer.add(playerHands.get("Player" + i).getPlayerName());
 				maxCards = playerHands.get("Player" + i).getPlayerCards().size();
+				playerNumber = i;
 			}
 		}
+		finalPlayer.add(playerHands.get("Player" + playerNumber).getPlayerName());
 	}
 }
