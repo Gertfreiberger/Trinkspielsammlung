@@ -64,9 +64,10 @@ public class PyramidActivity extends AppCompatActivity {
 	private PlayerHand playerHand;
 	private Toolbar toolbar;
 	private Handler handler;
-	private boolean doNotShowAgain = true;
+	private boolean doNotShowAgain = false;
 	private long back_pressed;
 	private View shuffleCard;
+	private AlertDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +78,6 @@ public class PyramidActivity extends AppCompatActivity {
 		utilities.setLanguage(currentLanguage);
 		resources = getResources();
 		setContentView(R.layout.activity_pyramid);
-
 		prepareGame();
 
 		toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -111,7 +111,7 @@ public class PyramidActivity extends AppCompatActivity {
 							}
 						});
 
-		final AlertDialog dialog = builder.create();
+		dialog = builder.create();
 		dialog.setCanceledOnTouchOutside(false);
 
 		if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
@@ -124,9 +124,9 @@ public class PyramidActivity extends AppCompatActivity {
 
 				@Override
 				public void onTransitionEnd(Transition transition) {
-					if ( doNotShowAgain ) {
+					if ( !doNotShowAgain ) {
 						dialog.show();
-						doNotShowAgain = false;
+						doNotShowAgain = true;
 					}
 				}
 
@@ -163,7 +163,13 @@ public class PyramidActivity extends AppCompatActivity {
 		}
 		switch ( item.getItemId() ) {
 			case R.id.new_game:
-				recreate();
+				if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ) {
+					ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PyramidActivity.this);
+					Intent intent = new Intent(PyramidActivity.this, PyramidActivity.class);
+					startActivity(intent, options.toBundle());
+				} else
+					startActivity(new Intent(getApplicationContext(), PyramidActivity.class));
+				finish();
 				break;
 			case R.id.help:
 				Log.d(TAG, "onBackPressed() called content: " + getWindow().getDecorView().findViewById(android.R.id.content).getId());
