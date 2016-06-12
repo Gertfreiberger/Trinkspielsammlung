@@ -65,7 +65,8 @@
         android:background="#da4c4c"
         android:layout_alignTop="@+id/button_maexchen"
         android:layout_alignParentEnd="true"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="@dimen/mainmenu_button_width"
@@ -86,7 +87,8 @@
         android:background="#da4c4c"
         android:layout_alignTop="@+id/button_manual"
         android:layout_alignStart="@+id/button_kingscup"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="@dimen/mainmenu_button_width"
@@ -97,7 +99,8 @@
         android:layout_marginBottom="25dp"
         android:layout_above="@+id/button_close"
         android:layout_alignParentStart="true"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="@dimen/mainmenu_button_width"
