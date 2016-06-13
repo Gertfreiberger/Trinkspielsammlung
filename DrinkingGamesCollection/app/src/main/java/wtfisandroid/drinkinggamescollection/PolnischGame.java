@@ -212,15 +212,15 @@ public class PolnischGame extends AppCompatActivity {
 
         for(int i = 0; i < players_.size(); i++) {
             fields_.get(start_field_ - 1).playerArrived(players_.get(i));
-            /*
+/*
             if(i < 3){
                 fields_.get(start_field_ - 1 + 63).playerArrived(players_.get(i));
             }
             else if(i == 3) {
-                fields_.get(start_field_ - 1 + 50).playerArrived(players_.get(i));
+                fields_.get(start_field_ - 1 + 6).playerArrived(players_.get(i));
             }
             else if(i == 4) {
-                fields_.get(start_field_ - 1 + 60).playerArrived(players_.get(i));
+                fields_.get(start_field_ - 1 + 7).playerArrived(players_.get(i));
             }
             else if(i == 5) {
                 fields_.get(start_field_ - 1 + 50).playerArrived(players_.get(i));
@@ -659,7 +659,6 @@ public class PolnischGame extends AppCompatActivity {
                 if(field_65_player_count_ == players_.size()){
                     field_65_ = false;
                     skip_player_.setText(getResources().getString(R.string.polnisch_skip_player));
-                    nextPlayer();
                 }
             }
         }

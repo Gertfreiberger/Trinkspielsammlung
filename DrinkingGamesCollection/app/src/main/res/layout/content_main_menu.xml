@@ -33,33 +33,13 @@
         android:background="#da4c4c" />
 
     <Button
-    android:layout_width="@dimen/mainmenu_button_width"
-    android:layout_height="@dimen/mainmenu_button_height"
-    android:text="@string/mainmenu_button_kingscup"
-    android:id="@+id/button_kingscup"
-    android:layout_marginTop="42dp"
-    android:background="#da4c4c"
-    android:layout_below="@+id/button_maexchen"
-    android:layout_alignStart="@+id/button_maexchen" />
-
-    <Button
         android:layout_width="@dimen/mainmenu_button_width"
         android:layout_height="@dimen/mainmenu_button_height"
         android:text="@string/mainmenu_button_polnisches"
         android:id="@+id/button_polnisches_trinkspiel"
         android:layout_marginTop="42dp"
         android:background="#da4c4c"
-        android:layout_below="@+id/button_kingscup"
-        android:layout_alignStart="@+id/button_maexchen" />
-
-    <Button
-        android:layout_width="@dimen/mainmenu_button_width"
-        android:layout_height="@dimen/mainmenu_button_height"
-        android:text="@string/mainmenu_button_pyramid"
-        android:id="@+id/button_pyramid"
-        android:layout_marginTop="42dp"
-        android:background="#da4c4c"
-        android:layout_below="@+id/button_polnisches_trinkspiel"
-        android:layout_alignStart="@+id/button_maexchen" />
+        android:layout_alignStart="@+id/button_maexchen"
+        android:layout_below="@+id/button_maexchen" />
 
 </RelativeLayout>

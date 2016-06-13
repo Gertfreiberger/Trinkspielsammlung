@@ -13,9 +13,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
 
 
     private Button button_mainmenu_maexchen_;
-    private Button button_mainmenu_kingscup_;
     private Button button_mainmenu_polnisches_trinkspiel;
-    private Button button_mainmenu_pyramid;
+
 
 
     @Override
@@ -26,14 +25,11 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
         setSupportActionBar(toolbar);
 
         button_mainmenu_maexchen_ = (Button) findViewById(R.id.button_maexchen);
-        button_mainmenu_kingscup_ = (Button) findViewById(R.id.button_kingscup);
         button_mainmenu_polnisches_trinkspiel = (Button) findViewById(R.id.button_polnisches_trinkspiel);
-        button_mainmenu_pyramid = (Button) findViewById(R.id.button_pyramid);
+
 
         button_mainmenu_maexchen_.setOnClickListener(this);
-        button_mainmenu_kingscup_.setOnClickListener(this);
         button_mainmenu_polnisches_trinkspiel.setOnClickListener(this);
-        button_mainmenu_pyramid.setOnClickListener(this);
     }
 
     @Override
@@ -67,20 +63,11 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener 
                 startActivity(intent_maexchen_menu);
                 break;
 
-            case R.id.button_kingscup:
-                Intent intent_kingscup_menu = new Intent(this, Kingscup.class);
-                startActivity(intent_kingscup_menu);
-                break;
-
             case R.id.button_polnisches_trinkspiel:
                 Intent intent_polnisches_menu = new Intent(this, PolnischesTrinkspiel.class);
                 startActivity(intent_polnisches_menu);
                 break;
 
-            case R.id.button_pyramid:
-                Intent intent_pyramid_menu = new Intent(this, Pyramid.class);
-                startActivity(intent_pyramid_menu);
-                break;
 
             default:
 
