@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.StateListDrawable;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,8 +64,10 @@ public class PyramidActivity extends AppCompatActivity {
 	private PlayerHand playerHand;
 	private Toolbar toolbar;
 	private Handler handler;
-	private boolean doNotShowAgain = true;
+	private boolean doNotShowAgain = false;
 	private long back_pressed;
+	private View shuffleCard;
+	private AlertDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,14 @@ public class PyramidActivity extends AppCompatActivity {
 		utilities.setLanguage(currentLanguage);
 		resources = getResources();
 		setContentView(R.layout.activity_pyramid);
+		prepareGame();
+
+		toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		toolbar.setBackgroundResource(R.drawable.ic_background_gameroom);
+		toolbar.setLogo(R.drawable.ic_logo);
+		toolbar.setTitleTextColor(Color.BLACK);
+		toolbar.setSubtitleTextColor(Color.BLUE);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(PyramidActivity.this);
 		builder.setItems(R.array.pyramid_rounds, null)
@@ -96,11 +107,11 @@ public class PyramidActivity extends AppCompatActivity {
 						.setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
 
 							public void onClick(DialogInterface dialog, int id) {
-								onBackPressed();
+								finish();
 							}
 						});
 
-		final AlertDialog dialog = builder.create();
+		dialog = builder.create();
 		dialog.setCanceledOnTouchOutside(false);
 
 		if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
@@ -113,9 +124,9 @@ public class PyramidActivity extends AppCompatActivity {
 
 				@Override
 				public void onTransitionEnd(Transition transition) {
-					if ( doNotShowAgain ) {
+					if ( !doNotShowAgain ) {
 						dialog.show();
-						doNotShowAgain = false;
+						doNotShowAgain = true;
 					}
 				}
 
@@ -136,14 +147,6 @@ public class PyramidActivity extends AppCompatActivity {
 		} else
 			dialog.show();
 
-		toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
-		toolbar.setBackgroundResource(R.drawable.ic_background_gameroom);
-		toolbar.setLogo(R.drawable.ic_logo);
-		toolbar.setTitleTextColor(Color.BLACK);
-		toolbar.setSubtitleTextColor(Color.BLUE);
-
-		prepareGame();
 	}
 
 	@Override
@@ -160,7 +163,13 @@ public class PyramidActivity extends AppCompatActivity {
 		}
 		switch ( item.getItemId() ) {
 			case R.id.new_game:
-				recreate();
+				if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ) {
+					ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PyramidActivity.this);
+					Intent intent = new Intent(PyramidActivity.this, PyramidActivity.class);
+					startActivity(intent, options.toBundle());
+				} else
+					startActivity(new Intent(getApplicationContext(), PyramidActivity.class));
+				finish();
 				break;
 			case R.id.help:
 				Log.d(TAG, "onBackPressed() called content: " + getWindow().getDecorView().findViewById(android.R.id.content).getId());
@@ -196,19 +205,29 @@ public class PyramidActivity extends AppCompatActivity {
 		if ( android.R.id.content == R.layout.manual ) {
 			Log.d(TAG, "onBackPressed() called content: " + android.R.id.content);
 		}
-		super.onBackPressed();
 	}
 
 	private void prepareGame() {
 
+		playerCount = Integer.valueOf(sharedPref.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2"));
+
 		firstChoice = (ImageView) findViewById(R.id.ivFirstChoice);
 		secondChoice = (ImageView) findViewById(R.id.ivSecondChoice);
+
+		firstChoice.setVisibility(View.INVISIBLE);
+		secondChoice.setVisibility(View.INVISIBLE);
+
+		shuffleCard = findViewById(R.id.gifShuffleCard);
+		shuffleCard.setVisibility(View.INVISIBLE);
 
 		ImageView playerCard1 = (ImageView) findViewById(R.id.ivPyramidFirstRoundPlayerCard1);
 		ImageView playerCard2 = (ImageView) findViewById(R.id.ivPyramidFirstRoundPlayerCard2);
 		ImageView playerCard3 = (ImageView) findViewById(R.id.ivPyramidFirstRoundPlayerCard3);
 		ImageView playerCard4 = (ImageView) findViewById(R.id.ivPyramidFirstRoundPlayerCard4);
 
+		for ( int i = 0; i < playerCount; i++ ) {
+
+		}
 		playerCards.put(Utilities.KEY_PLAYERCARD + "1", playerCard1);
 		playerCards.put(Utilities.KEY_PLAYERCARD + "2", playerCard2);
 		playerCards.put(Utilities.KEY_PLAYERCARD + "3", playerCard3);
@@ -216,31 +235,50 @@ public class PyramidActivity extends AppCompatActivity {
 
 		for ( Map.Entry<String, ImageView> entry : playerCards.entrySet() ) {
 			ImageView value = entry.getValue();
-			utilities.fadeOut(value);
+			value.setVisibility(View.INVISIBLE);
 		}
 
+		for ( int i = 0; i < playerCount; i++ ) {
+
+		}
 		String player1_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "1", Utilities.KEY_PLAYER + "1");
 		String player2_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "2", Utilities.KEY_PLAYER + "2");
 		String player3_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "3", Utilities.KEY_PLAYER + "3");
 		String player4_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "4", Utilities.KEY_PLAYER + "4");
-		playerCount = Integer.valueOf(sharedPref.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2"));
+		String player5_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "5", Utilities.KEY_PLAYER + "5");
+		String player6_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "6", Utilities.KEY_PLAYER + "6");
+		String player7_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "7", Utilities.KEY_PLAYER + "7");
+		String player8_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "8", Utilities.KEY_PLAYER + "8");
+		String player9_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "9", Utilities.KEY_PLAYER + "9");
 
+		for ( int i = 0; i < playerCount; i++ ) {
+
+		}
 		playerNames.put(Utilities.KEY_PLAYER + "1", player1_name);
 		playerNames.put(Utilities.KEY_PLAYER + "2", player2_name);
 		playerNames.put(Utilities.KEY_PLAYER + "3", player3_name);
 		playerNames.put(Utilities.KEY_PLAYER + "4", player4_name);
+		playerNames.put(Utilities.KEY_PLAYER + "5", player5_name);
+		playerNames.put(Utilities.KEY_PLAYER + "6", player6_name);
+		playerNames.put(Utilities.KEY_PLAYER + "7", player7_name);
+		playerNames.put(Utilities.KEY_PLAYER + "8", player8_name);
+		playerNames.put(Utilities.KEY_PLAYER + "9", player9_name);
 
+		for ( int i = 0; i < playerCount; i++ ) {
+
+		}
 		playerHands.put(Utilities.KEY_PLAYER + "1", new PlayerHand(1, player1_name));
 		playerHands.put(Utilities.KEY_PLAYER + "2", new PlayerHand(2, player2_name));
 		playerHands.put(Utilities.KEY_PLAYER + "3", new PlayerHand(3, player3_name));
 		playerHands.put(Utilities.KEY_PLAYER + "4", new PlayerHand(4, player4_name));
+		playerHands.put(Utilities.KEY_PLAYER + "5", new PlayerHand(5, player5_name));
+		playerHands.put(Utilities.KEY_PLAYER + "6", new PlayerHand(6, player6_name));
+		playerHands.put(Utilities.KEY_PLAYER + "7", new PlayerHand(7, player7_name));
+		playerHands.put(Utilities.KEY_PLAYER + "8", new PlayerHand(8, player8_name));
+		playerHands.put(Utilities.KEY_PLAYER + "9", new PlayerHand(9, player9_name));
 
 		rounds = resources.getStringArray(R.array.pyramid_rounds);
 		handler = new Handler();
-
-		gameCard.generatePyramidGameDeck();
-		gameDeck = Gamecard.getAllCards();
-		gameDeck = gameCard.shuffleDeck(gameDeck);
 
 	}
 
@@ -253,10 +291,25 @@ public class PyramidActivity extends AppCompatActivity {
 			vib.vibrate(500);
 		}
 
-		utilities.fadeIn(firstChoice);
-		utilities.fadeIn(secondChoice);
+		utilities.fadeIn(shuffleCard);
 
-		execute_round();
+		gameCard.generatePyramidGameDeck();
+		gameDeck = Gamecard.getAllCards();
+		gameDeck = gameCard.shuffleDeck(gameDeck);
+		final MediaPlayer shuffleCardSound = MediaPlayer.create(this, R.raw.card_shuffle_sound);
+		shuffleCardSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+			@Override
+			public void onCompletion(MediaPlayer mp) {
+				shuffleCard.setVisibility(View.INVISIBLE);
+				utilities.fadeIn(firstChoice);
+				utilities.fadeIn(secondChoice);
+
+				execute_round();
+			}
+
+		});
+		shuffleCardSound.start();
 	}
 
 	private void execute_round() {
