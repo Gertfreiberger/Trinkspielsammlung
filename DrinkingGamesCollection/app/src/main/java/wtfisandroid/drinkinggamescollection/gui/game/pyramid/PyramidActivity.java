@@ -283,8 +283,13 @@ public class PyramidActivity extends AppCompatActivity {
 	}
 
 	private void startTheGame() {
-		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) )
+		final AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+		final int currentVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) && am.getStreamVolume(AudioManager.STREAM_RING) > 0 )
 			utilities.playSound(1);
+		else {
+			am.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+		}
 
 		if ( sharedPref.getBoolean(Utilities.VIBRATE_PREFERENCE_KEY, false) ) {
 			vib = (Vibrator) PyramidActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
@@ -304,6 +309,7 @@ public class PyramidActivity extends AppCompatActivity {
 				shuffleCard.setVisibility(View.INVISIBLE);
 				utilities.fadeIn(firstChoice);
 				utilities.fadeIn(secondChoice);
+				am.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, 0);
 
 				execute_round();
 			}
