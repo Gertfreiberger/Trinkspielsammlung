@@ -32,6 +32,7 @@ public class MainMenuUItests extends ActivityInstrumentationTestCase2<MainMenu> 
         Button button_test = (Button) mySolo.getCurrentActivity().findViewById(R.id.button_maexchen);
         mySolo.clickOnButton(button_test.getText().toString());
         mySolo.goBack();
+        /*
         button_test = (Button) mySolo.getCurrentActivity().findViewById(R.id.button_settings);
         mySolo.clickOnButton(button_test.getText().toString());
         mySolo.goBack();
@@ -40,6 +41,7 @@ public class MainMenuUItests extends ActivityInstrumentationTestCase2<MainMenu> 
         mySolo.goBack();
         button_test = (Button) mySolo.getCurrentActivity().findViewById(R.id.button_pyramid);
         mySolo.clickOnButton(button_test.getText().toString());
+        */
     }
 
     public void testButtonClose(){
