@@ -180,10 +180,6 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 				activity = new Intent(this, Maexchen.class);
 				break;
 
-			case R.id.button_polnisches_trinkspiel:
-				activity = new Intent(this, PolnischesTrinkspiel.class);
-				break;
-
 			case R.id.button_manual:
 				activity = new Intent(this, ManualActivity.class);
 				break;

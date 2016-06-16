@@ -41,18 +41,7 @@
         android:onClick="onClick"
         android:layout_alignTop="@+id/button_i_have_never_ever"
         android:layout_alignParentEnd="true"
-        android:visibility="invisible" />
-
-    <Button
-        android:layout_width="@dimen/mainmenu_button_width"
-        android:layout_height="@dimen/mainmenu_button_height"
-        android:text="@string/mainmenu_button_polnisches"
-        android:id="@+id/button_polnisches_trinkspiel"
-        android:background="#da4c4c"
-        android:onClick="onClick"
-        android:layout_above="@+id/button_kingscup"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible" />
+        android:visibility="invisible"/>
 
     <Button
         android:layout_width="@dimen/mainmenu_button_width"
@@ -63,7 +52,7 @@
         android:layout_alignTop="@+id/button_maexchen"
         android:layout_alignParentEnd="true"
         android:onClick="onClick"
-        android:visibility="invisible" />
+        android:translationZ="25dp"/>
 
     <Button
         android:layout_width="@dimen/mainmenu_button_width"
@@ -73,8 +62,8 @@
         android:background="#da4c4c"
         android:onClick="onClick"
         android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:visibility="invisible"/>
+        android:layout_alignStart="@+id/button_close"
+        android:translationZ="25dp"/>
 
     <Button
         android:layout_width="@dimen/mainmenu_button_width"
@@ -85,7 +74,7 @@
         android:layout_alignTop="@+id/button_manual"
         android:layout_alignStart="@+id/button_kingscup"
         android:onClick="onClick"
-        android:visibility="invisible" />
+        android:translationZ="25dp"/>
 
     <Button
         android:layout_width="@dimen/mainmenu_button_width"
@@ -97,7 +86,7 @@
         android:layout_alignBaseline="@+id/button_close"
         android:layout_alignBottom="@+id/button_close"
         android:layout_alignParentStart="true"
-        android:visibility="invisible" />
+        android:translationZ="25dp"/>
 
     <Button
         android:layout_width="@dimen/mainmenu_button_width"
@@ -106,7 +95,9 @@
         android:id="@+id/button_close"
         android:background="#da4c4c"
         android:onClick="onClick"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_below="@+id/button_i_have_never_ever"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:translationZ="25dp"/>
 
 </RelativeLayout>
