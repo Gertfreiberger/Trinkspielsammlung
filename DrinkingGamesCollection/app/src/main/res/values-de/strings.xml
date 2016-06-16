@@ -89,5 +89,12 @@
     <string name="mainmenu_headline">Drinking Games Collection</string>
     <string name="mainmenu_button_pyramid">Pyramid</string>
     <string name="pyramid_manual_first_third_round_header">3 Runde</string>
+    <string name="prefs_categories">Categories</string>
+    <string name="work">Work</string>
+    <string name="school">School</string>
+    <string name="love">Love</string>
+    <string name="drinking">Drinking</string>
+    <string name="adult">Adult</string>
+    <string name="law">Law</string>
 
 </resources>

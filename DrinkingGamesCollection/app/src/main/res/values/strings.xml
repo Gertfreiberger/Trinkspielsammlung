@@ -118,6 +118,13 @@
     <string name="hello_second_pyramid_round">Welcome to the second Round</string>
     <string name="maexchen_button_help">Help</string>
     <string name="maexchen_button_new_turn">New Round</string>
+    <string name="prefs_categories">Categories</string>
+    <string name="work">Work</string>
+    <string name="school">School</string>
+    <string name="love">Love</string>
+    <string name="drinking">Drinking</string>
+    <string name="adult">Adult</string>
+    <string name="law">Law</string>
 
 
 </resources>
