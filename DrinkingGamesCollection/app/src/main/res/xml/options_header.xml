@@ -21,4 +21,10 @@
         <extra android:name="settings" android:value="maexchen" />
     </header>
 
+    <header
+        android:fragment="wtfisandroid.drinkinggamescollection.gui.SettingsActivity$SettingsFragment"
+        android:title="@string/i_never_ever" >
+        <extra android:name="settings" android:value="i_have_never_ever" />
+    </header>
+
 </preference-headers>
