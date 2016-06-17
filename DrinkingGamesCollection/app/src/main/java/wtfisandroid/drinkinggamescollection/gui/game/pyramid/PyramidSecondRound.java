@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Slide;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,6 +37,7 @@ import wtfisandroid.drinkinggamescollection.data.PlayerHand;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 public class PyramidSecondRound extends AppCompatActivity {
+	private static final String TAG = "TESTING";
 
 	//private static final String TAG = "testing";
 
@@ -92,8 +94,7 @@ public class PyramidSecondRound extends AppCompatActivity {
 			getWindow().setReturnTransition(slide);
 		}
 
-		playerCount = Integer.valueOf(sharedPref.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "4"));
-
+		playerCount = Integer.valueOf(sharedPref.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2"));
 
 		Toast.makeText(getApplicationContext(), resources.getString(R.string.hello_second_pyramid_round), Toast.LENGTH_SHORT).show();
 
@@ -163,6 +164,7 @@ public class PyramidSecondRound extends AppCompatActivity {
 		getPlayerCards();
 		setPyramidCards();
 		showPyramidCard();
+
 
 	}
 
@@ -259,7 +261,7 @@ public class PyramidSecondRound extends AppCompatActivity {
 		/* set text from textView of player hand*/
 		tvPlayerName.setText("Spielerkarten: "
 				+ sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + currentPlayer,
-				"DefaultPlayer" + playerHand.getPlayerID()));
+				playerHand.getPlayerName()));
 		index = 0;
 		for (; index < playerHand.getPlayerCards().size(); index++ ) {
 			view = playerCards.elementAt(index);
@@ -417,9 +419,9 @@ public class PyramidSecondRound extends AppCompatActivity {
 		for ( int i = 1; i <= playerHands.size(); i++ ) {
 			if ( playerHands.get("Player" + i).getPlayerCards().size() >= maxCards ) {
 				maxCards = playerHands.get("Player" + i).getPlayerCards().size();
+				finalPlayer.add(playerHands.get("Player" + playerNumber).getPlayerName());
 				playerNumber = i;
 			}
 		}
-		finalPlayer.add(playerHands.get("Player" + playerNumber).getPlayerName());
 	}
 }
