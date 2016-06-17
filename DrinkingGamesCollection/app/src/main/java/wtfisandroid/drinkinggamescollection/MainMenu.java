@@ -12,7 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.Locale;
@@ -27,7 +29,8 @@ import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShakeListener {
 
-
+	private Button button_mainmenu_maexchen_;
+	private Button button_mainmenu_polnisches_trinkspiel;
 	private static final String TAG = "main";
 	private SensorManager sensorManager;
 	private Sensor accelerometer;
@@ -48,6 +51,7 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 		setContentView(R.layout.activity_main_menu);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+
 
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		if ( sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null ) {
@@ -163,6 +167,16 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 		Intent activity = null;
 		switch ( v.getId() ) {
 
+			case R.id.button_maexchen:
+				Intent intent_maexchen_menu = new Intent(this, Maexchen.class);
+				startActivity(intent_maexchen_menu);
+				break;
+
+			case R.id.button_polnisches_trinkspiel:
+				Intent intent_polnisches_menu = new Intent(this, PolnischesTrinkspiel.class);
+				startActivity(intent_polnisches_menu);
+				break;
+
 			case R.id.button_pyramid:
 				if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ) {
 					ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainMenu.this);
@@ -174,10 +188,6 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 				break;
 			case R.id.button_i_have_never_ever:
 				activity = new Intent(this, IHaveNeverEverActivity.class);
-				break;
-
-			case R.id.button_maexchen:
-				activity = new Intent(this, Maexchen.class);
 				break;
 
 			case R.id.button_manual:
@@ -199,5 +209,4 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 		if ( activity != null )
 			startActivity(activity);
 	}
-
 }

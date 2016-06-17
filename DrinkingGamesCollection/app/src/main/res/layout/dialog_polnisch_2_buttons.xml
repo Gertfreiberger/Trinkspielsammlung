@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:minWidth="@dimen/dialog_min_width">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TEST"
+        android:textSize="@dimen/polnisch_dialog_description_text_size"
+        android:id="@+id/polnisch_dialog_2_buttons_description_text"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/polnisch_margin_text_view"
+        android:textColor="@color/colorBlack"
+        android:gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="130dp"
+        android:layout_height="@dimen/polnisch_dialog_button_height"
+        android:text="@string/polnisch_dialog_button_choose_back"
+        android:id="@+id/polnisch_dialog_2_buttons_button_right"
+        android:textColor="@color/colorBlack"
+        android:background="@color/colorGreen"
+        android:layout_margin="@dimen/polnisch_margin_text_view"/>
+
+    <Button
+        android:layout_width="130dp"
+        android:layout_height="@dimen/polnisch_dialog_button_height"
+        android:text="@string/polnisch_dialog_button_choose_drink"
+        android:id="@+id/polnisch_dialog_2_buttons_button_left"
+        android:textColor="@color/colorBlack"
+        android:background="@color/colorRed"
+        android:layout_margin="@dimen/polnisch_margin_text_view"/>
+</LinearLayout>
