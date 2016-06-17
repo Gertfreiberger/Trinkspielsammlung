@@ -49,6 +49,7 @@
 
     <string-array name="manualTabs">
         <item>General</item>
+        <item>I Have Never Ever</item>
         <item>Pyramid</item>
     </string-array>
 
