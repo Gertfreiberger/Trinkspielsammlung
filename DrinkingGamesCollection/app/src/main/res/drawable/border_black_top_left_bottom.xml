@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <shape
+            android:shape="rectangle">
+            <stroke android:width="@dimen/polnisch_frame_width" android:color="@color/colorBlack" />
+            <solid android:color="#fff" />
+
+        </shape>
+    </item>
+
+    <item android:top="@dimen/polnisch_frame_padding"
+        android:left="@dimen/polnisch_frame_padding"
+        android:bottom="@dimen/polnisch_frame_padding">
+        <shape
+            android:shape="rectangle">
+            <stroke android:width="@dimen/polnisch_frame_width" android:color="@color/colorGrey" />
+            <solid android:color="#fff" />
+        </shape>
+    </item>
+
+</layer-list>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="@dimen/dialog_min_width">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/polnisch_dialog_winner_headline"
+        android:id="@+id/polnisch_dialog_winner_headline"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/polnisch_dialog_winner_text_size"/>
+
+    <ImageView
+        android:layout_width="@dimen/polnisch_dialog_winner_icon_size"
+        android:layout_height="@dimen/polnisch_dialog_winner_icon_size"
+        android:id="@+id/polnisch_dialog_winner_crown"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/polnisch_dialog_winner_margin"
+        android:background="@mipmap/crown"
+        android:layout_marginBottom="@dimen/polnisch_dialog_winner_crown_margin"/>
+
+    <ImageView
+        android:layout_width="@dimen/polnisch_dialog_winner_icon_size"
+        android:layout_height="@dimen/polnisch_dialog_winner_icon_size"
+        android:id="@+id/polnisch_dialog_winner_player_icon"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/polnisch_dialog_winner_player_name"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="@dimen/polnisch_margin_text_view"
+        android:textSize="@dimen/polnisch_dialog_winner_text_size"
+        android:layout_marginBottom="@dimen/polnisch_dialog_winner_margin"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/polnisch_button_name_twice"
+        android:id="@+id/polnisch_dialog_winner_button"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>

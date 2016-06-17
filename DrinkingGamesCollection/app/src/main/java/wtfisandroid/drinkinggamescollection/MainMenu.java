@@ -30,7 +30,8 @@ import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShakeListener {
 
-
+	private Button button_mainmenu_maexchen_;
+	private Button button_mainmenu_polnisches_trinkspiel;
 	private static final String TAG = "main";
 	private SensorManager sensorManager;
 	private Sensor accelerometer;
@@ -181,6 +182,10 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 				break;
 			case R.id.button_i_have_never_ever:
 				activity = new Intent(this, IHaveNeverEverActivity.class);
+				break;
+
+			case R.id.button_polnisches_trinkspiel:
+				activity = new Intent(this, PolnischesTrinkspiel.class);
 				break;
 
 			case R.id.button_maexchen:
