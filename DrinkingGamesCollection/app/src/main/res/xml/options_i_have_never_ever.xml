@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/prefs_categories"
+        android:key="pref_key_i_have_never_ever_settings">
+
+
+        <CheckBoxPreference
+            android:key="pref_key_i_have_never_ever_category_work"
+            android:title="@string/work"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="pref_key_i_have_never_ever_category_school"
+            android:title="@string/school"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="pref_key_i_have_never_ever_category_love"
+            android:title="@string/love"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="pref_key_i_have_never_ever_category_drinking"
+            android:title="@string/drinking"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="pref_key_i_have_never_ever_category_adult"
+            android:title="@string/adult"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="pref_key_i_have_never_ever_category_law"
+            android:title="@string/law"
+            android:defaultValue="true"/>
+    </PreferenceCategory>
+</PreferenceScreen>

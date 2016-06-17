@@ -225,9 +225,6 @@ public class PyramidActivity extends AppCompatActivity {
 		ImageView playerCard3 = (ImageView) findViewById(R.id.ivPyramidFirstRoundPlayerCard3);
 		ImageView playerCard4 = (ImageView) findViewById(R.id.ivPyramidFirstRoundPlayerCard4);
 
-		for ( int i = 0; i < playerCount; i++ ) {
-
-		}
 		playerCards.put(Utilities.KEY_PLAYERCARD + "1", playerCard1);
 		playerCards.put(Utilities.KEY_PLAYERCARD + "2", playerCard2);
 		playerCards.put(Utilities.KEY_PLAYERCARD + "3", playerCard3);
@@ -241,6 +238,7 @@ public class PyramidActivity extends AppCompatActivity {
 		for ( int i = 0; i < playerCount; i++ ) {
 
 		}
+
 		String player1_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "1", Utilities.KEY_PLAYER + "1");
 		String player2_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "2", Utilities.KEY_PLAYER + "2");
 		String player3_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "3", Utilities.KEY_PLAYER + "3");
@@ -251,9 +249,6 @@ public class PyramidActivity extends AppCompatActivity {
 		String player8_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "8", Utilities.KEY_PLAYER + "8");
 		String player9_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "9", Utilities.KEY_PLAYER + "9");
 
-		for ( int i = 0; i < playerCount; i++ ) {
-
-		}
 		playerNames.put(Utilities.KEY_PLAYER + "1", player1_name);
 		playerNames.put(Utilities.KEY_PLAYER + "2", player2_name);
 		playerNames.put(Utilities.KEY_PLAYER + "3", player3_name);
@@ -264,9 +259,6 @@ public class PyramidActivity extends AppCompatActivity {
 		playerNames.put(Utilities.KEY_PLAYER + "8", player8_name);
 		playerNames.put(Utilities.KEY_PLAYER + "9", player9_name);
 
-		for ( int i = 0; i < playerCount; i++ ) {
-
-		}
 		playerHands.put(Utilities.KEY_PLAYER + "1", new PlayerHand(1, player1_name));
 		playerHands.put(Utilities.KEY_PLAYER + "2", new PlayerHand(2, player2_name));
 		playerHands.put(Utilities.KEY_PLAYER + "3", new PlayerHand(3, player3_name));

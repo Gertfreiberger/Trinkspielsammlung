@@ -92,7 +92,7 @@ public class ManualActivity extends AppCompatActivity {
 
 	public class TabsPagerAdapter extends FragmentPagerAdapter {
 
-		private int NUM_ITEMS = 2;
+		private int NUM_ITEMS = 3;
 
 		public TabsPagerAdapter(FragmentManager fragmentManager) {
 			super(fragmentManager);
@@ -115,6 +115,9 @@ public class ManualActivity extends AppCompatActivity {
 					fragment = new GeneralFragment();
 					break;
 				case 1:
+					fragment = new IHaveNeverEverFragment();
+					break;
+				case 2:
 					fragment = new PyramidFragment();
 					break;
 				default:
@@ -167,6 +170,38 @@ public class ManualActivity extends AppCompatActivity {
 			try {
 
 				InputStream is = asset.open("www/manual_general.html", AssetManager.ACCESS_BUFFER);
+				String html = util.streamToString(is);
+
+				webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+				is.close();
+			} catch ( IOException e ) {
+				e.printStackTrace();
+			}
+			return rootView;
+		}
+	}
+
+	public static class IHaveNeverEverFragment extends Fragment {
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.manual, container, false);
+			WebView webView = (WebView) rootView.findViewById(R.id.wv_manual);
+			AssetManager asset = getActivity().getAssets();
+			webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+			webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+			if ( Build.VERSION.SDK_INT >= 19 ) {
+				// chromium, enable hardware acceleration
+				webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+			} else {
+				// older android version, disable hardware acceleration
+				webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+			}
+			Resources resources = getActivity().getApplicationContext().getResources();
+			Utilities util = new Utilities(getContext());
+			try {
+
+				InputStream is = asset.open("www/manual_i_have_never_ever.html", AssetManager.ACCESS_BUFFER);
 				String html = util.streamToString(is);
 
 				webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
