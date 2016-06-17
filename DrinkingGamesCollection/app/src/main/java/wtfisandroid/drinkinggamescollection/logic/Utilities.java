@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -155,7 +156,7 @@ public class Utilities {
 			while ( (n = reader.read(buffer)) != -1 ) {
 				writer.write(buffer, 0, n);
 			}
-		} catch ( IOException ex ){
+		} catch ( IOException ex ) {
 			ex.printStackTrace();
 		}
 		return writer.toString();
@@ -173,7 +174,7 @@ public class Utilities {
 			webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 		}
 		AssetManager asset = context.getAssets();
-		Resources resources =  context.getResources();
+		Resources resources = context.getResources();
 		try {
 
 			InputStream is = asset.open("www/manual_pyramid.html", AssetManager.ACCESS_BUFFER);
@@ -213,5 +214,33 @@ public class Utilities {
 		ViewGroup group = (ViewGroup) drinkToast.getView();
 		TextView messageTextView = (TextView) group.getChildAt(0);
 		messageTextView.setTextSize(30);
+	}
+
+	public String getFileContents(InputStream inputStream) {
+
+		final StringBuilder stringBuilder = new StringBuilder();
+		try {
+			final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+			boolean done = false;
+
+			while ( !done ) {
+				final String line = reader.readLine();
+				done = (line == null);
+
+				if ( line != null ) {
+					stringBuilder.append(line);
+				}
+			}
+
+			reader.close();
+			inputStream.close();
+		} catch ( FileNotFoundException e ) {
+			e.printStackTrace();
+		} catch ( IOException e ) {
+			e.printStackTrace();
+		}
+
+		return stringBuilder.toString();
 	}
 }

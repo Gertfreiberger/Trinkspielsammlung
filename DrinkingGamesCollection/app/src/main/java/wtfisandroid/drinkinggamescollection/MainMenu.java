@@ -10,11 +10,14 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Locale;
 import java.util.Random;
 
@@ -22,6 +25,7 @@ import wtfisandroid.drinkinggamescollection.gui.ManualActivity;
 import wtfisandroid.drinkinggamescollection.gui.SettingsActivity;
 import wtfisandroid.drinkinggamescollection.gui.game.IHaveNeverEverActivity;
 import wtfisandroid.drinkinggamescollection.gui.game.pyramid.PyramidActivity;
+import wtfisandroid.drinkinggamescollection.logic.DatabaseHandler;
 import wtfisandroid.drinkinggamescollection.logic.ShakeDetector;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
@@ -56,7 +60,7 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 			shakeDetector.setOnShakeListener(this);
 		}
 
-		if (sharedPref.getBoolean(Utilities.FIRST_RUN_PREFERENCE_KEY, true) ) {
+		if ( sharedPref.getBoolean(Utilities.FIRST_RUN_PREFERENCE_KEY, true) ) {
 			SharedPreferences.Editor editor = sharedPref.edit();
 			editor.putBoolean(Utilities.FIRST_RUN_PREFERENCE_KEY, false);
 			editor.putBoolean(Utilities.VIBRATE_PREFERENCE_KEY, true);
@@ -64,6 +68,14 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 			editor.putString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2");
 			editor.putString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
 			editor.commit();
+			try {
+				DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+				InputStream insertsStream = getAssets().open("databases/i_have_never_ever.sql");
+				db.executeSQLScript(insertsStream);
+				db.close();
+			} catch ( IOException e ) {
+				e.printStackTrace();
+			}
 		}
 	}
 

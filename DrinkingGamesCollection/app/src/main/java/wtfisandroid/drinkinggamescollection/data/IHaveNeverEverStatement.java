@@ -52,8 +52,8 @@ public class IHaveNeverEverStatement {
 	public String toString() {
 		return "IHaveNeverEverStatement{" +
 						"id=" + id +
-						", m_statement='" + m_statement + '\'' +
-						", M_category='" + M_category + '\'' +
+						", statement='" + m_statement + '\'' +
+						", category='" + M_category + '\'' +
 						'}';
 	}
 }

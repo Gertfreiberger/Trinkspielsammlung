@@ -3,10 +3,13 @@ package wtfisandroid.drinkinggamescollection.logic;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,32 +34,43 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
+
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String sql = "CREATE TABLE " + TABLE_STATEMENTS + "("
-						+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_STATEMENT + " TEXT,"
-						+ KEY_CATEGORY + " TEXT" + ")";
-		db.execSQL(sql);
+
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATEMENTS);
-		onCreate(db);
+
 	}
 
-	public void addStatement(IHaveNeverEverStatement statement) {
+	public void executeSQLScript(InputStream sql) {
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		SQLiteDatabase db = this.getWritableDatabase();
+		byte buf[] = new byte[1024];
+		int len;
 
-		ContentValues values = new ContentValues();
-		values.put(KEY_STATEMENT, statement.getStatement());
-		values.put(KEY_CATEGORY, statement.getCategory());
-
-		Log.d(TAG, "addStatement() called with: " + "statement = [" + statement + "]");
-
-		db.insert(TABLE_STATEMENTS, null, values);
-		db.close();
+		try {
+			while ( (len = sql.read(buf)) != -1 ) {
+				outputStream.write(buf, 0, len);
+			}
+			outputStream.close();
+			sql.close();
+			String[] createScript = outputStream.toString().split(";");
+			for ( int i = 0; i < createScript.length; i++ ) {
+				String sqlStatement = createScript[i].trim();
+				if ( sqlStatement.length() > 0 ) {
+					db.execSQL(sqlStatement + ";");
+				}
+			}
+		} catch ( IOException e ) {
+			e.printStackTrace();
+		} catch ( SQLException e ) {
+			e.printStackTrace();
+		}
 	}
+
 
 	public List<IHaveNeverEverStatement> getAllStatements() {
 		List<IHaveNeverEverStatement> statements = new ArrayList<>();
@@ -77,6 +91,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		}
 
 		return statements;
+	}
+
+	public void addStatement(IHaveNeverEverStatement statement) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		values.put(KEY_STATEMENT, statement.getStatement());
+		values.put(KEY_CATEGORY, statement.getCategory());
+
+		db.insert(TABLE_STATEMENTS, null, values);
+		db.close();
 	}
 
 	public int updateStatement(IHaveNeverEverStatement statement) {

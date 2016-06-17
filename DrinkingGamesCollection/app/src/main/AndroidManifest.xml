@@ -3,6 +3,7 @@
           package="wtfisandroid.drinkinggamescollection">
 
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -23,13 +24,13 @@
         <activity
             android:name=".Maexchen"
             android:configChanges="keyboard|keyboardHidden|orientation"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_maexchen_menu"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".MaexchenRules"
             android:label="@string/title_activity_maexchen_rules"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".PolnischesTrinkspiel"
             android:label="@string/title_activity_polnisches_trinkspiel"
