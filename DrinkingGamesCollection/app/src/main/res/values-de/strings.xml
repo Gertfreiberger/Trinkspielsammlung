@@ -90,11 +90,13 @@
     <string name="mainmenu_button_pyramid">Pyramid</string>
     <string name="pyramid_manual_first_third_round_header">3 Runde</string>
     <string name="prefs_categories">Categories</string>
-    <string name="work">Work</string>
-    <string name="school">School</string>
-    <string name="love">Love</string>
+    <string name="work">Arbeit</string>
+    <string name="school">Schule</string>
+    <string name="love">Liebe</string>
     <string name="drinking">Drinking</string>
-    <string name="adult">Adult</string>
-    <string name="law">Law</string>
+    <string name="adult">Erwachsen</string>
+    <string name="law">Gesetzt</string>
+    <string name="next">Nächste</string>
+    <string name="quit">quit</string>
 
 </resources>

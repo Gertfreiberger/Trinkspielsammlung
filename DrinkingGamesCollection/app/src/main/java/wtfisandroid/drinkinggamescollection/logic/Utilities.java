@@ -49,6 +49,13 @@ public class Utilities {
 	public static final String FIRST_RUN_PREFERENCE_KEY = "first_run";
 	public static final String PYRAMID_PLAYER_NAME_PREFERENCE_KEY = "player_name";
 	public static final String PYRAMID_PLAYER_COUNT_PREFERENCE_KEY = "pyramid_player_count";
+	public static final String PREF_WORK = "pref_key_i_have_never_ever_category_work";
+	public static final String PREF_SCHOOL = "pref_key_i_have_never_ever_category_school";
+	public static final String PREF_LOVE = "pref_key_i_have_never_ever_category_love";
+	public static final String PREF_DRINKING = "pref_key_i_have_never_ever_category_drinking";
+	public static final String PREF_ADULT = "pref_key_i_have_never_ever_category_adult";
+	public static final String PREF_LAW = "pref_key_i_have_never_ever_category_law";
+
 	private final SharedPreferences sharedPref;
 	private Resources resources;
 	private Vibrator vib;

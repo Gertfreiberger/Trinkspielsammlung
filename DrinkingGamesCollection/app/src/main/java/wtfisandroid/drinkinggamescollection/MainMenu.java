@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,13 +60,8 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 		}
 
 		if ( sharedPref.getBoolean(Utilities.FIRST_RUN_PREFERENCE_KEY, true) ) {
-			SharedPreferences.Editor editor = sharedPref.edit();
-			editor.putBoolean(Utilities.FIRST_RUN_PREFERENCE_KEY, false);
-			editor.putBoolean(Utilities.VIBRATE_PREFERENCE_KEY, true);
-			editor.putBoolean(Utilities.SOUND_PREFERENCE_KEY, true);
-			editor.putString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2");
-			editor.putString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
-			editor.commit();
+			initSharedPref();
+
 			try {
 				DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 				InputStream insertsStream = getAssets().open("databases/i_have_never_ever.sql");
@@ -76,6 +70,7 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 			} catch ( IOException e ) {
 				e.printStackTrace();
 			}
+
 		}
 	}
 
@@ -212,4 +207,21 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 			startActivity(activity);
 	}
 
+	private void initSharedPref() {
+		SharedPreferences.Editor editor = sharedPref.edit();
+		editor.putBoolean(Utilities.FIRST_RUN_PREFERENCE_KEY, false);
+		editor.putBoolean(Utilities.VIBRATE_PREFERENCE_KEY, true);
+		editor.putBoolean(Utilities.SOUND_PREFERENCE_KEY, true);
+		editor.putString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2");
+		editor.putString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
+
+		editor.putBoolean(Utilities.PREF_WORK, true);
+		editor.putBoolean(Utilities.PREF_SCHOOL, true);
+		editor.putBoolean(Utilities.PREF_LOVE, true);
+		editor.putBoolean(Utilities.PREF_DRINKING, true);
+		editor.putBoolean(Utilities.PREF_ADULT, true);
+		editor.putBoolean(Utilities.PREF_LAW, true);
+
+		editor.commit();
+	}
 }

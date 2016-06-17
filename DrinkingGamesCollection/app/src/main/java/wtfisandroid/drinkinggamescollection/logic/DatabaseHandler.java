@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -21,13 +22,13 @@ import wtfisandroid.drinkinggamescollection.data.IHaveNeverEverStatement;
 public class DatabaseHandler extends SQLiteOpenHelper {
 
 	private static final int DATABASE_VERSION = 1;
-	private static final String DATABASE_NAME = "i_have_never_ever";
-	private static final String TABLE_STATEMENTS = "statements";
+	public static final String DATABASE_NAME = "i_have_never_ever";
+	public static final String TABLE_STATEMENTS = "statements";
 
 	// Contacts Table Columns names
-	private static final String KEY_ID = "id";
-	private static final String KEY_STATEMENT = "statement";
-	private static final String KEY_CATEGORY = "category";
+	public static final String KEY_STATEMENT_ID = "id";
+	public static final String KEY_STATEMENT = "statement";
+	public static final String KEY_CATEGORY = "category";
 	private static final String TAG = " DatabaseHandler";
 
 	public DatabaseHandler(Context context) {
@@ -60,6 +61,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			String[] createScript = outputStream.toString().split(";");
 			for ( int i = 0; i < createScript.length; i++ ) {
 				String sqlStatement = createScript[i].trim();
+				Log.d(TAG, "executeSQLScript() called with: " + "sql = [" + sqlStatement + "]");
 				if ( sqlStatement.length() > 0 ) {
 					db.execSQL(sqlStatement + ";");
 				}
@@ -72,10 +74,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 
-	public List<IHaveNeverEverStatement> getAllStatements() {
+	public List<IHaveNeverEverStatement> getAllStatements(String selectQuery) {
 		List<IHaveNeverEverStatement> statements = new ArrayList<>();
-
-		String selectQuery = "SELECT  * FROM " + TABLE_STATEMENTS;
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
@@ -112,23 +112,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_CATEGORY, statement.getCategory());
 
 		// updating row
-		return db.update(TABLE_STATEMENTS, values, KEY_ID + " = ?",
+		return db.update(TABLE_STATEMENTS, values, KEY_STATEMENT_ID + " = ?",
 						new String[]{ String.valueOf(statement.getId()) });
 	}
 
 	public void deleteStatement(IHaveNeverEverStatement statement) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(TABLE_STATEMENTS, KEY_ID + " = ?",
+		db.delete(TABLE_STATEMENTS, KEY_STATEMENT_ID + " = ?",
 						new String[]{ String.valueOf(statement.getId()) });
 		db.close();
 	}
 
-	public int getStatementsCount() {
-		String countQuery = "SELECT  * FROM " + TABLE_STATEMENTS;
+	public int getStatementsCount(String language) {
+		String countQuery = "SELECT  * FROM " + TABLE_STATEMENTS + " WHERE LANGUAGE = '" + language +"' " ;
+		Log.d(TAG, "getStatementsCount() called with: " + "language = [" + countQuery + "]");
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(countQuery, null);
+		int count = cursor.getCount();
 		cursor.close();
 
-		return cursor.getCount();
+		return count;
 	}
 }

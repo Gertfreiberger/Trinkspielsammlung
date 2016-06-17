@@ -125,6 +125,8 @@
     <string name="drinking">Drinking</string>
     <string name="adult">Adult</string>
     <string name="law">Law</string>
+    <string name="next">Next</string>
+    <string name="quit">quit</string>
 
 
 </resources>

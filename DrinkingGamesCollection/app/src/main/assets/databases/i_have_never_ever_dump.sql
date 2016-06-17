@@ -1,6 +1,38 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jun 17, 2016 at 02:29 PM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.20
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `i_have_never_ever`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
 CREATE TABLE `categories` (
   `catergorieName` varchar(50) NOT NULL
-);
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `categories`
+--
 
 INSERT INTO `categories` (`catergorieName`) VALUES
 ('Adult'),
@@ -11,20 +43,40 @@ INSERT INTO `categories` (`catergorieName`) VALUES
 ('School'),
 ('Work');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `languages`
+--
+
 CREATE TABLE `languages` (
   `languageName` varchar(100) NOT NULL
-);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `languages`
+--
 
 INSERT INTO `languages` (`languageName`) VALUES
 ('Deutsch'),
 ('English');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `statements`
+--
 
 CREATE TABLE `statements` (
   `statementID` int(11) NOT NULL,
   `statement` text NOT NULL,
   `category` varchar(50) NOT NULL DEFAULT 'Other',
   `language` varchar(50) NOT NULL DEFAULT 'English'
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `statements`
+--
 
 INSERT INTO `statements` (`statementID`, `statement`, `category`, `language`) VALUES
 (1, 'fantasized about my mom', 'Adult', 'English'),
@@ -76,10 +128,42 @@ INSERT INTO `statements` (`statementID`, `statement`, `category`, `language`) VA
 (47, 'cheated on a girlfriend/boyfriend', 'Other', 'English'),
 (48, 'watched more than 3 episodes of a series in one day', 'Other', 'English'),
 (49, 'etwas gestohlen', 'Law', 'Deutsch'),
-(50, 'been so drunk I couldn''t remember how I got home', 'Drinking', 'Deutsch'),
-(51, 'schwierige', 'Law', 'Deutsch'),
 (52, 'alleine zu einem Ball gegangen', 'School', 'Deutsch'),
 (53, 'einen Streich während der Arbeit gespielt', 'Work', 'Deutsch'),
 (54, 'bei einem Bewerbungsgesrpäch gelogen', 'Work', 'Deutsch'),
 (55, 'meine(n) Freundin/Freund betrogen', 'Other', 'Deutsch');
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`catergorieName`);
+
+--
+-- Indexes for table `languages`
+--
+ALTER TABLE `languages`
+  ADD PRIMARY KEY (`languageName`);
+
+--
+-- Indexes for table `statements`
+--
+ALTER TABLE `statements`
+  ADD PRIMARY KEY (`statementID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `statements`
+--
+ALTER TABLE `statements`
+  MODIFY `statementID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
