@@ -1,8 +1,6 @@
 package wtfisandroid.drinkinggamescollection.testUI;
 
-import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.preference.PreferenceManager;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
@@ -17,7 +15,6 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
 
 	private Solo solo;
 	private Resources resources;
-	private SharedPreferences sharedPref;
 
 	public SettingsActivityUITest() {
 		super(SettingsActivity.class);
@@ -27,7 +24,6 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
 		super.setUp();
 		solo = new Solo(getInstrumentation(), getActivity());
 		resources = solo.getCurrentActivity().getResources();
-		sharedPref = PreferenceManager.getDefaultSharedPreferences(solo.getCurrentActivity().getApplicationContext());
 	}
 
 	public void tearDown() throws Exception {
@@ -93,6 +89,11 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
 		solo.goBack();
 	}
 
+	public void testExportDatabase() {
+		solo.clickOnText(resources.getString((R.string.i_have_never_ever)));
+		solo.clickOnText(resources.getString((R.string.export)));
+		solo.sleep(2000);
+	}
 
 
 }

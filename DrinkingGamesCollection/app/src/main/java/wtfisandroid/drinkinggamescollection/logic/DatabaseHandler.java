@@ -2,18 +2,28 @@ package wtfisandroid.drinkinggamescollection.logic;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import wtfisandroid.drinkinggamescollection.R;
 import wtfisandroid.drinkinggamescollection.data.IHaveNeverEverStatement;
 
 /**
@@ -30,9 +40,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final String KEY_STATEMENT = "statement";
 	public static final String KEY_CATEGORY = "category";
 	private static final String TAG = " DatabaseHandler";
+	private final Context context;
+	private final Resources resource;
 
 	public DatabaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
+		resource = context.getResources();
 	}
 
 
@@ -124,7 +138,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	public int getStatementsCount(String language) {
-		String countQuery = "SELECT  * FROM " + TABLE_STATEMENTS + " WHERE LANGUAGE = '" + language +"' " ;
+		String countQuery = "SELECT  * FROM " + TABLE_STATEMENTS + " WHERE LANGUAGE = '" + language + "' ";
 		Log.d(TAG, "getStatementsCount() called with: " + "language = [" + countQuery + "]");
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(countQuery, null);
@@ -132,5 +146,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		cursor.close();
 
 		return count;
+	}
+
+	public File exportDB() {
+		File exportedFile = null;
+		File sd = Environment.getExternalStorageDirectory();
+		File data = Environment.getDataDirectory();
+		FileChannel source;
+		FileChannel destination;
+		String currentDBPath = "/data/" + context.getPackageName() + "/databases/" + getDatabaseName();
+		String directory = resource.getString(R.string.app_name).replace(" ", "_");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", java.util.Locale.getDefault());
+		String currentDateAndTime = format.format(new Date());
+		String backupDBPath = directory + File.separator + DATABASE_NAME + "_" + currentDateAndTime + ".sql";
+		File currentDB = new File(data, currentDBPath);
+		File backupDB = new File(sd, backupDBPath);
+		if ( !backupDB.exists() ) {
+			backupDB.getParentFile().mkdirs();
+		}
+		try {
+			source = new FileInputStream(currentDB).getChannel();
+			Log.d(TAG, "source() called with: " + source);
+			destination = new FileOutputStream(backupDB).getChannel();
+			destination.transferFrom(source, 0, source.size());
+			source.close();
+			destination.close();
+			exportedFile = backupDB;
+		} catch ( IOException e ) {
+			Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+			e.printStackTrace();
+		}
+		return exportedFile;
 	}
 }

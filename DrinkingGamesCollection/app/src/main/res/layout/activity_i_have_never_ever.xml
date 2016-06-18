@@ -81,7 +81,7 @@
                 android:shadowDx="12"
                 android:shadowDy="12"
                 android:shadowRadius="8"
-                android:text="@string/i_never_ever"
+                android:text="@string/i_have_never_ever"
                 android:textAppearance="?android:attr/textAppearanceLarge"/>
         </RelativeLayout>
     </LinearLayout>

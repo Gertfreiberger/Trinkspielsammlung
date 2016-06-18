@@ -2,33 +2,45 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="@string/prefs_categories"
-        android:key="pref_key_i_have_never_ever_settings">
-
+        android:key="pref_key_i_have_never_ever_settings_category"
+        android:title="@string/prefs_categories">
 
         <CheckBoxPreference
+            android:defaultValue="true"
             android:key="pref_key_i_have_never_ever_category_work"
-            android:title="@string/work"
-            android:defaultValue="true"/>
+            android:title="@string/work"/>
         <CheckBoxPreference
+            android:defaultValue="true"
             android:key="pref_key_i_have_never_ever_category_school"
-            android:title="@string/school"
-            android:defaultValue="true"/>
+            android:title="@string/school"/>
         <CheckBoxPreference
+            android:defaultValue="true"
             android:key="pref_key_i_have_never_ever_category_love"
-            android:title="@string/love"
-            android:defaultValue="true"/>
+            android:title="@string/love"/>
         <CheckBoxPreference
+            android:defaultValue="true"
             android:key="pref_key_i_have_never_ever_category_drinking"
-            android:title="@string/drinking"
-            android:defaultValue="true"/>
+            android:title="@string/drinking"/>
         <CheckBoxPreference
+            android:defaultValue="true"
             android:key="pref_key_i_have_never_ever_category_adult"
-            android:title="@string/adult"
-            android:defaultValue="true"/>
+            android:title="@string/adult"/>
         <CheckBoxPreference
+            android:defaultValue="true"
             android:key="pref_key_i_have_never_ever_category_law"
-            android:title="@string/law"
-            android:defaultValue="true"/>
+            android:title="@string/law"/>
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_key_i_have_never_ever_settings"
+        android:title="@string/prefs_import_export">
+        <Preference
+            android:key="import_sql"
+            android:title="@string/res_import"/>
+        <Preference
+            android:key="export_sql"
+            android:title="@string/export"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

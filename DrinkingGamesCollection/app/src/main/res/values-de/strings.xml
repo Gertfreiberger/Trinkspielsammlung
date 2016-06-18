@@ -33,7 +33,7 @@
     <string name="go_to_Final_level">Weiter zum Finale</string>
     <string name="final_round">Finale Runde</string>
     <string name="final_player_name">Finaler Player:</string>
-    <string name="i_never_ever">Ich habe noch nie</string>
+    <string name="i_have_never_ever">Ich habe noch nie</string>
     <string name="pyramid_drink_message">Trink!!!!!!!!!!!!!!!!</string>
     <string name="pyramid_manual_general_info">Bevor angefangen wird, muss
         sich jeder Spieler eine Flasche Bier, ein paar Shots oder ein beliebiges anderes alkoholisches Getränk bereitstellen. Während der gesamten Spielzeit ist sicherzustellen, dass alle Spieler ausreichend alkoholisch versorgt sind.</string>
@@ -99,5 +99,12 @@
     <string name="law">Gesetzt</string>
     <string name="next">Nächste</string>
     <string name="quit">quit</string>
+    <string name="prefs_import_export">Import/Export</string>
+    <string name="export">Export</string>
+    <string name="res_import">Import</string>
+
+    <string name="never_ever_header">Ich habe noch nie</string>
+    <string name="never_ever_text">Einer beginnt nun und liest vor was am Bildschirm steht und beginnt dabei mit "Ich hab noch nie...". z.B. "Ich hab noch nie Steine gegessen." Jeder, der aber von sich selbst behaupten kann, es doch schon einmal getan zu haben, muss trinken. Dazu entweder das eigene Glas exen, oder die Flasche im Kreis weitergeben. Dann ist der nächste in der Reihe dran und das Handy wird weitergegeben. Optional kann auch ein Spielführer bestimmt werden, welcher immer vorliest. In den Einstellungen können verschiedene Kategorien ausgewählt werden.</string>
+
 
 </resources>
