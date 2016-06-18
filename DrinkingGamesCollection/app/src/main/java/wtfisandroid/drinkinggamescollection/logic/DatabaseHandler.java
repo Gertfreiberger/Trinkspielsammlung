@@ -87,7 +87,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		}
 	}
 
-
 	public List<IHaveNeverEverStatement> getAllStatements(String selectQuery) {
 		List<IHaveNeverEverStatement> statements = new ArrayList<>();
 
