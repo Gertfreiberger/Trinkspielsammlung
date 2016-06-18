@@ -5,7 +5,7 @@ import android.widget.Button;
 
 import com.robotium.solo.Solo;
 
-import wtfisandroid.drinkinggamescollection.MainMenu;
+import wtfisandroid.drinkinggamescollection.activities.MainMenu;
 import wtfisandroid.drinkinggamescollection.R;
 
 

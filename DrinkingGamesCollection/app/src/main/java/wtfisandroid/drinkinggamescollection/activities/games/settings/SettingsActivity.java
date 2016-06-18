@@ -1,4 +1,4 @@
-package wtfisandroid.drinkinggamescollection.gui;
+package wtfisandroid.drinkinggamescollection.activities.games.settings;
 
 import android.content.Context;
 import android.content.Intent;
@@ -309,6 +309,33 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 					} else if (view != null)
 						Snackbar.make(view, R.string.db_exported_error, Snackbar.LENGTH_LONG).show();
 
+					return false;
+				}
+			});
+
+			Preference addStatements = findPreference("add_statements");
+			addStatements.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+
+					Intent intent = new Intent(getActivity(), ModifyDatabaseActivity.class);
+					intent.putExtra(Utilities.ACTION, Utilities.ADD_STATEMENTS);
+					startActivity(intent);
+
+					return false;
+				}
+			});
+
+			Preference deleteStatements = findPreference("delete_statements");
+			deleteStatements.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+
+					Intent intent = new Intent(getActivity(), ModifyDatabaseActivity.class);
+					intent.putExtra(Utilities.ACTION, Utilities.DELETE_STATEMENTS);
+					startActivity(intent);
 					return false;
 				}
 			});

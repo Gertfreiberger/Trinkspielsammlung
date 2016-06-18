@@ -40,6 +40,12 @@
         <Preference
             android:key="export_sql"
             android:title="@string/export"/>
+        <Preference
+            android:key="add_statements"
+            android:title="@string/add_statements"/>
+        <Preference
+            android:key="delete_statements"
+            android:title="@string/delete_statements"/>
 
     </PreferenceCategory>
 

@@ -3,20 +3,20 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
 
     <header
-        android:fragment="wtfisandroid.drinkinggamescollection.gui.SettingsActivity$SettingsFragment"
+        android:fragment="wtfisandroid.drinkinggamescollection.activities.games.settings.SettingsActivity$SettingsFragment"
         android:title="@string/general" >
         <!-- key/value pairs can be included as arguments for the fragment. -->
         <extra android:name="settings" android:value="general" />
     </header>
 
     <header
-        android:fragment="wtfisandroid.drinkinggamescollection.gui.SettingsActivity$SettingsFragment"
+        android:fragment="wtfisandroid.drinkinggamescollection.activities.games.settings.SettingsActivity$SettingsFragment"
         android:title="@string/pyramid" >
         <extra android:name="settings" android:value="pyramid" />
     </header>
 
     <header
-        android:fragment="wtfisandroid.drinkinggamescollection.gui.SettingsActivity$SettingsFragment"
+        android:fragment="wtfisandroid.drinkinggamescollection.activities.games.settings.SettingsActivity$SettingsFragment"
         android:title="@string/i_have_never_ever" >
         <extra android:name="settings" android:value="i_have_never_ever" />
     </header>

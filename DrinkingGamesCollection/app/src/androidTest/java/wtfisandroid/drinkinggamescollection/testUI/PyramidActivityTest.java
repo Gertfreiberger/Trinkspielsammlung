@@ -10,7 +10,7 @@ import com.robotium.solo.Solo;
 import java.util.Random;
 
 import wtfisandroid.drinkinggamescollection.R;
-import wtfisandroid.drinkinggamescollection.gui.game.pyramid.PyramidActivity;
+import wtfisandroid.drinkinggamescollection.activities.games.pyramid.PyramidActivity;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 public class PyramidActivityTest extends ActivityInstrumentationTestCase2<PyramidActivity> {

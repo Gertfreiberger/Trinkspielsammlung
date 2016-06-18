@@ -1,15 +1,11 @@
-package wtfisandroid.drinkinggamescollection.features;
+package wtfisandroid.drinkinggamescollection.data;
 
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import wtfisandroid.drinkinggamescollection.R;
 
 
 public class Dice {

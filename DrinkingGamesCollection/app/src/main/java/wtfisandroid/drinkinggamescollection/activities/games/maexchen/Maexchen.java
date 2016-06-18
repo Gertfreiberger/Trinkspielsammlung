@@ -1,8 +1,7 @@
-package wtfisandroid.drinkinggamescollection;
+package wtfisandroid.drinkinggamescollection.activities.games.maexchen;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
@@ -20,7 +19,9 @@ import android.widget.TextView;
 
 
 import java.util.ArrayList;
-import wtfisandroid.drinkinggamescollection.features.Dice;
+
+import wtfisandroid.drinkinggamescollection.R;
+import wtfisandroid.drinkinggamescollection.data.Dice;
 
 public class Maexchen extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
 

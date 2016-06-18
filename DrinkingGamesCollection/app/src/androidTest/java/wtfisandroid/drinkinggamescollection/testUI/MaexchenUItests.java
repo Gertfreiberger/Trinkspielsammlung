@@ -2,24 +2,17 @@ package wtfisandroid.drinkinggamescollection.testUI;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
-import android.media.Image;
-import android.provider.MediaStore;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.robotium.solo.Solo;
 
-import org.w3c.dom.Text;
-
-import wtfisandroid.drinkinggamescollection.Maexchen;
-import wtfisandroid.drinkinggamescollection.MainMenu;
+import wtfisandroid.drinkinggamescollection.activities.games.maexchen.Maexchen;
 import wtfisandroid.drinkinggamescollection.R;
 
 

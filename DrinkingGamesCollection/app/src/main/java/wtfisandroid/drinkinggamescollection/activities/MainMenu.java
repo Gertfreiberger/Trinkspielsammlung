@@ -1,4 +1,4 @@
-package wtfisandroid.drinkinggamescollection;
+package wtfisandroid.drinkinggamescollection.activities;
 
 import android.app.ActivityOptions;
 import android.content.Context;
@@ -21,10 +21,12 @@ import java.io.InputStream;
 import java.util.Locale;
 import java.util.Random;
 
-import wtfisandroid.drinkinggamescollection.gui.ManualActivity;
-import wtfisandroid.drinkinggamescollection.gui.SettingsActivity;
-import wtfisandroid.drinkinggamescollection.gui.game.IHaveNeverEverActivity;
-import wtfisandroid.drinkinggamescollection.gui.game.pyramid.PyramidActivity;
+import wtfisandroid.drinkinggamescollection.R;
+import wtfisandroid.drinkinggamescollection.activities.games.IHaveNeverEverActivity;
+import wtfisandroid.drinkinggamescollection.activities.games.maexchen.Maexchen;
+import wtfisandroid.drinkinggamescollection.activities.games.polnisches_game.PolnischesTrinkspiel;
+import wtfisandroid.drinkinggamescollection.activities.games.pyramid.PyramidActivity;
+import wtfisandroid.drinkinggamescollection.activities.games.settings.SettingsActivity;
 import wtfisandroid.drinkinggamescollection.logic.DatabaseHandler;
 import wtfisandroid.drinkinggamescollection.logic.ShakeDetector;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
