@@ -1,4 +1,4 @@
-package wtfisandroid.drinkinggamescollection.gui.game.pyramid;
+package wtfisandroid.drinkinggamescollection.testUI;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +15,7 @@ import java.util.Random;
 import wtfisandroid.drinkinggamescollection.R;
 import wtfisandroid.drinkinggamescollection.data.Gamecard;
 import wtfisandroid.drinkinggamescollection.data.PlayerHand;
+import wtfisandroid.drinkinggamescollection.gui.game.pyramid.PyramidSecondRound;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 /**
@@ -194,6 +195,32 @@ public class pyramidSecondRoundTest extends ActivityInstrumentationTestCase2<Pyr
                 solo.clickOnView(solo.getView(id));
                 while (solo.getView(R.id.bDeal).isClickable()) {
                     if (text.getText().toString().contains(playerHands.get(Utilities.KEY_PLAYER + 1).getPlayerName()))
+                        solo.clickOnView(solo.getView(R.id.bDeal));
+                    else
+                        solo.clickOnView(solo.getView(R.id.bNext));
+                }
+                solo.sleep(500);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /* If last player card matches distribute drinks to the other players otherwise do nothing */
+
+    public void testLastGetsAllDrunk() throws Exception {
+        int id;
+        String name;
+        TextView text = (TextView) solo.getView(R.id.PlayerHand);
+        for ( int i = 0; i < 15; i++ ) {
+            name = "ivPyramide" + i;
+            try {
+                id = R.id.class.getField(name).getInt(null);
+                solo.clickOnView(solo.getView(id));
+                while (solo.getView(R.id.bDeal).isClickable()) {
+                    if (text.getText().toString().contains(playerHands.get(Utilities.KEY_PLAYER + playerCount).getPlayerName()))
                         solo.clickOnView(solo.getView(R.id.bDeal));
                     else
                         solo.clickOnView(solo.getView(R.id.bNext));

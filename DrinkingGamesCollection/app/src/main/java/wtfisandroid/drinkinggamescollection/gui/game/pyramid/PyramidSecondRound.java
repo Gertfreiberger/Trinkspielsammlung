@@ -414,14 +414,14 @@ public class PyramidSecondRound extends AppCompatActivity {
 	}
 
 	private void findFinalPlayer() {
-		int playerNumber = 1;
 		int maxCards = 0;
-		for ( int i = 1; i <= playerHands.size(); i++ ) {
-			if ( playerHands.get("Player" + i).getPlayerCards().size() >= maxCards ) {
+		for ( int i = 1; i <= playerCount; i++ ) {
+			if ( playerHands.get("Player" + i).getPlayerCards().size() >= maxCards )
 				maxCards = playerHands.get("Player" + i).getPlayerCards().size();
-				finalPlayer.add(playerHands.get("Player" + playerNumber).getPlayerName());
-				playerNumber = i;
-			}
+		}
+		for (int i = 1; i <= playerCount; i++) {
+			if (playerHands.get("Player" + i).getPlayerCards().size() == maxCards)
+				finalPlayer.add(playerHands.get("Player" + i).getPlayerName());
 		}
 	}
 }
