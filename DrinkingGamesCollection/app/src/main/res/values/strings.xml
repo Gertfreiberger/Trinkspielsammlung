@@ -282,6 +282,11 @@
     <string name="install_file_explorer">Please install a File Manager.</string>
     <string name="add_statements">Add new Statements</string>
     <string name="delete_statements">Delete Statements</string>
+    <string name="new_statement">New Statement</string>
+    <string name="statement">Statement</string>
+    <string name="category">Category</string>
+    <string name="all">All</string>
+    <string name="empty_statement">The Statement must have at least one character</string>
 
 
 </resources>

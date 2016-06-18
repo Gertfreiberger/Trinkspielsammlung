@@ -31,15 +31,20 @@ import wtfisandroid.drinkinggamescollection.data.IHaveNeverEverStatement;
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
 
+	private static final String TAG = " DatabaseHandler";
+
 	private static final int DATABASE_VERSION = 1;
 	public static final String DATABASE_NAME = "i_have_never_ever";
 	public static final String TABLE_STATEMENTS = "statements";
 
-	// Contacts Table Columns names
 	public static final String KEY_STATEMENT_ID = "id";
 	public static final String KEY_STATEMENT = "statement";
 	public static final String KEY_CATEGORY = "category";
-	private static final String TAG = " DatabaseHandler";
+	public static final String QUERY_ALL_LANGUAGES = "SELECT * FROM LANGUAGES;";
+	public static final String QUERY_ALL_CATEGORIES = "SELECT * FROM CATEGORIES;";
+	public static final String KEY_LANGUAGE = "language";
+
+
 	private final Context context;
 	private final Resources resource;
 
@@ -73,16 +78,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			outputStream.close();
 			sql.close();
 			String[] createScript = outputStream.toString().split(";");
-			for ( int i = 0; i < createScript.length; i++ ) {
-				String sqlStatement = createScript[i].trim();
+			for ( String aCreateScript : createScript ) {
+				String sqlStatement = aCreateScript.trim();
 				Log.d(TAG, "executeSQLScript() called with: " + "sql = [" + sqlStatement + "]");
 				if ( sqlStatement.length() > 0 ) {
 					db.execSQL(sqlStatement + ";");
 				}
 			}
-		} catch ( IOException e ) {
-			e.printStackTrace();
-		} catch ( SQLException e ) {
+		} catch ( IOException | SQLException e ) {
 			e.printStackTrace();
 		}
 	}
@@ -97,8 +100,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			do {
 				IHaveNeverEverStatement contact = new IHaveNeverEverStatement();
 				contact.setId(Integer.parseInt(cursor.getString(0)));
-				contact.setM_statement(cursor.getString(1));
-				contact.setM_category(cursor.getString(2));
+				contact.setStatement(cursor.getString(1));
+				contact.setCategory(cursor.getString(2));
 				statements.add(contact);
 			} while ( cursor.moveToNext() );
 		}
@@ -110,8 +113,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
+		if (statement.getId() != -1 ) {
+			values.put(KEY_STATEMENT_ID, statement.getId());
+		} else {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+			String time = format.format(new Date().getTime());
+			Log.d(TAG, "addStatement() called with: " + "time = [" + time + "]");
+			values.put(KEY_STATEMENT_ID, time);
+		}
+
 		values.put(KEY_STATEMENT, statement.getStatement());
 		values.put(KEY_CATEGORY, statement.getCategory());
+		values.put(KEY_LANGUAGE, statement.getLanguage());
 
 		db.insert(TABLE_STATEMENTS, null, values);
 		db.close();
@@ -176,5 +189,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			e.printStackTrace();
 		}
 		return exportedFile;
+	}
+
+	public List<String> getAllCategories() {
+		List<String> cats = new ArrayList<>();
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(QUERY_ALL_CATEGORIES, null);
+
+		if ( cursor.moveToFirst() ) {
+			do {
+				cats.add(cursor.getString(0));
+			} while ( cursor.moveToNext() );
+		}
+
+		return cats;
+	}
+
+	public List<String> getAllLanguages() {
+		List<String> languages = new ArrayList<>();
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(QUERY_ALL_LANGUAGES, null);
+
+		if ( cursor.moveToFirst() ) {
+			do {
+				languages.add(cursor.getString(0));
+			} while ( cursor.moveToNext() );
+		}
+
+		return languages;
 	}
 }
