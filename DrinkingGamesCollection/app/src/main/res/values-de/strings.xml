@@ -103,4 +103,8 @@
     <string name="export">Export</string>
     <string name="res_import">Import</string>
 
+    <string name="never_ever_header">Ich habe noch nie</string>
+    <string name="never_ever_text">Einer beginnt nun und liest vor was am Bildschirm steht und beginnt dabei mit "Ich hab noch nie...". z.B. "Ich hab noch nie Steine gegessen." Jeder, der aber von sich selbst behaupten kann, es doch schon einmal getan zu haben, muss trinken. Dazu entweder das eigene Glas exen, oder die Flasche im Kreis weitergeben. Dann ist der nächste in der Reihe dran und das Handy wird weitergegeben. Optional kann auch ein Spielführer bestimmt werden, welcher immer vorliest. In den Einstellungen können verschiedene Kategorien ausgewählt werden.</string>
+
+
 </resources>

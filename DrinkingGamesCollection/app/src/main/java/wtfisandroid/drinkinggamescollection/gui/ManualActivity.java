@@ -204,6 +204,9 @@ public class ManualActivity extends AppCompatActivity {
 				InputStream is = asset.open("www/manual_i_have_never_ever.html", AssetManager.ACCESS_BUFFER);
 				String html = util.streamToString(is);
 
+				html = html.replace("$GAME_PLAY_HEADER", resources.getString(R.string.pyramid_manual_general_info_header));
+				html = html.replace("$GAME_PLAY__TEXT", resources.getString(R.string.never_ever_text));
+
 				webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
 				is.close();
 			} catch ( IOException e ) {
