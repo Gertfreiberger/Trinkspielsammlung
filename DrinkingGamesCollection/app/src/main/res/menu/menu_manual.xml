@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.ManualActivity">
 
-
     <item
         android:id="@+id/back"
         app:showAsAction="always"
         android:title="@string/back"
-        android:icon="@drawable/back">
+        android:icon="@drawable/ic_back">
     </item>
 
 </menu>

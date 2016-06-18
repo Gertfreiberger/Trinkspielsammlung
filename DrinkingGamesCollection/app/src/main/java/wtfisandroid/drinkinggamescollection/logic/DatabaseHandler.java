@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final String DATABASE_NAME = "i_have_never_ever";
 	public static final String TABLE_STATEMENTS = "statements";
 
-	public static final String KEY_STATEMENT_ID = "id";
+	public static final String KEY_STATEMENT_ID = "statementId";
 	public static final String KEY_STATEMENT = "statement";
 	public static final String KEY_CATEGORY = "category";
 	public static final String QUERY_ALL_LANGUAGES = "SELECT * FROM LANGUAGES;";
