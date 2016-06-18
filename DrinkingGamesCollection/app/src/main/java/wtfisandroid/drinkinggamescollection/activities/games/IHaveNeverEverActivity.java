@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +46,6 @@ public class IHaveNeverEverActivity extends AppCompatActivity implements ShakeDe
 	private View backgroundView;
 	private Random rand = new Random();
 	private int lastIndex = -1;
-	private Animation a;
 	private long back_pressed;
 	private Toolbar toolbar;
 
@@ -62,6 +63,10 @@ public class IHaveNeverEverActivity extends AppCompatActivity implements ShakeDe
 		toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		toolbar.setLogo(R.drawable.ic_logo);
+
+		if ( getSupportActionBar() != null ) {
+			getSupportActionBar().setDisplayShowTitleEnabled(false);
+		}
 
 		backgroundView = findViewById(R.id.iHaveNeverEverLinerLayout);
 		changeBackgroundColor();
@@ -98,7 +103,6 @@ public class IHaveNeverEverActivity extends AppCompatActivity implements ShakeDe
 		sql += whereClause + " ) AND LANGUAGE = '" + currentLanguage + "' ";
 		statementsList = db.getAllStatements(sql);
 		tvStatement = (TextView) findViewById(R.id.tvStatement);
-		a = AnimationUtils.loadAnimation(this, R.anim.translate);
 		nextStatement();
 	}
 
@@ -141,7 +145,6 @@ public class IHaveNeverEverActivity extends AppCompatActivity implements ShakeDe
 				utilities.playSound(1, AudioManager.FX_KEYPRESS_RETURN);
 			}
 			finish();
-			return;
 		} else {
 			Toast.makeText(getBaseContext(), getString(R.string.close_message), Toast.LENGTH_SHORT).show();
 			back_pressed = System.currentTimeMillis();
@@ -150,6 +153,13 @@ public class IHaveNeverEverActivity extends AppCompatActivity implements ShakeDe
 
 	@Override
 	public void onShake(int count) {
+		TranslateAnimation translation;
+		translation = new TranslateAnimation(0, 0,-150, 0);
+		translation.setStartOffset(-500);
+		translation.setDuration(2000);
+		translation.setFillAfter(true);
+		translation.setInterpolator(new BounceInterpolator());
+		tvStatement.startAnimation(translation);
 		nextStatement();
 	}
 
@@ -196,7 +206,8 @@ public class IHaveNeverEverActivity extends AppCompatActivity implements ShakeDe
 			utilities.playSound(1);
 
 		nextStatement();
-		tvStatement.startAnimation(a);
+		Animation transition = AnimationUtils.loadAnimation(this, R.anim.translate);
+		tvStatement.startAnimation(transition);
 	}
 
 	public void onClickQuit(View v) {
