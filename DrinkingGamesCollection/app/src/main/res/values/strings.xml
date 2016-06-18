@@ -96,10 +96,10 @@
     <string name="title_activity_maexchen_rules">MaexchenRules</string>
     <string name="maexchen_textView_result_init">  </string>
     <string name="pyramid_drink_message">Drink!!!!!!!!!!!!!!!!</string>
-    <string name="pyramid_manual_general_info">Bevor angefangen wird, muss sich jeder Spieler eine Flasche Bier, ein paar Shots oder ein beliebiges anderes alkoholisches Getränk bereitstellen.Während der gesamten Spielzeit ist sicherzustellen, dass alle Spieler ausreichend alkoholisch versorgt sind.</string>
+    <string name="pyramid_manual_general_info">Before we can start, everyone has to prepare some alcoholic drink for their self. During the whole game, it is necessary to have something alcoholic to drink.</string>
     <string name="pyramid_manual_first_round">The First Level goas about 4 Rounds</string>
-    <string name="pyramid_manual_second_round">Zu Spielbeginn wird die erste Karte der untersten Pyramidenreihe aufgedeckt. Derjenige, dessen Wert mit der aufgedeckten Karte getroffen wird, kann eine gewisse Anzahl an Schlücken an seine Mitspieler verteilen. Natürlich muss er keine Schlücke verteilen, denn es könnte ja sein, dass der selbe Wert später noch einmal auftaucht und er dann eine größere Anzahl an Schlücken verteilen kann. Nun werden die Karten der untersten Reihe nacheinander aufgedeckt und das Procedere wiederholt sich gleichermaßen. </string>
-    <string name="pyramid_manual_final_round">Im Finale müssen alle Spieler, die es ins Finale geschafft haben nacheinander bei fünf augedeckten Karten sagen ob die der Wert der nächste Karten im Spieldeck höher oder tiefer ist. Wenn der Spieler bei allen fünf Karten nacheinander richtig getippt hat, hat er das Spiel gewonnen. Sollte er jedoch falsch getippt haben, muss er einen oder mehrere Schlücken drinken und wieder bei der ersten Karte tippen ob Höher oder Tiefer. Das geht solange bis alle Spieler, die im Finale sind, 5 mal hintereinander richtig getippt haben.</string>
+    <string name="pyramid_manual_second_round">At first, the card at the left bottom will be uncovered.  Everyone who has the same valued card, is allowed to distribute a mouthful liquor to another player. Of course he does not have to distribute, he can also wait and hope that the same card comes up later in a higher row and therefor he can distribute more liquor to his friends. This will go one until the last card (top of pyramid) is uncovered. After this the final will take place. Much fun. </string>
+    <string name="pyramid_manual_final_round">At the Final, there are 5 cards. Now you have to guess if the upcoming card is higher or lower. If the player has guessed all 5 cards right he win the game but if some card was false he have to drink and start at the first card again.</string>
     <string name="pyramid_manual_first_first_round">You have to guess if the color of the next card im gamedeck is Black or Red</string>
     <string name="pyramid_manual_first_second_round">You have to guess if the Value of the next card im gamedeck is higher or lower than the Card from the 1 Round</string>
     <string name="pyramid_manual_first_third_round">You have to guess if the Value of the next card im gamedeck is within or without the Cards from the 1 and 2 Round</string>
@@ -129,5 +129,9 @@
     <string name="next">Next</string>
     <string name="quit">quit</string>
 
+    <!-- i have never ever strings -->
+
+    <string name="never_ever_header">I have never ever</string>
+    <string name="never_ever_text">The game is started with the players getting into a circle. Then, the first player reads a statement starting with "Never have I ever". Anyone who at some point in their lives have done the action that the first player says, must drink. Play then continues around the circle, and the next person reads a statement. You can choose some different categories.</string>
 
 </resources>
