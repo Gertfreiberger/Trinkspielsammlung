@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -122,7 +123,7 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 	public void onShake(int count) {
 		if ( count % 1 == 0 ) {
 			Random rand = new Random();
-			int number = rand.nextInt(2) + 1;
+			int number = rand.nextInt(4) + 1;
 			Intent activity = null;
 
 			switch ( number ) {
