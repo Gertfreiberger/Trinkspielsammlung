@@ -1,27 +1,27 @@
-
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".activities.MainMenu">
 
-    <item
-        android:id="@+id/back"
-        app:showAsAction="always"
-        android:title="@string/back"
-        android:icon="@drawable/back">
-    </item>
 
     <item
         android:id="@+id/new_game"
-        app:showAsAction="always"
-        android:title="@string/new_game">
+        android:title="@string/new_game"
+        app:showAsAction="always">
     </item>
 
     <item
         android:id="@+id/help"
-        app:showAsAction="always"
+        android:icon="@mipmap/question_mark"
         android:title="@string/help"
-        android:icon="@mipmap/question_mark">
+        app:showAsAction="always">
+    </item>
+
+    <item
+        android:id="@+id/back"
+        android:icon="@drawable/ic_back"
+        android:title="@string/back"
+        app:showAsAction="always">
     </item>
 
 </menu>

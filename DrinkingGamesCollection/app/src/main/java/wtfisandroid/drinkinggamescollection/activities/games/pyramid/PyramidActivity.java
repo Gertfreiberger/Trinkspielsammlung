@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ContentFrameLayout;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
 import android.transition.Slide;
@@ -50,7 +51,6 @@ public class PyramidActivity extends AppCompatActivity {
 	private HashMap<Integer, Gamecard> gameDeck;
 	private Resources resources;
 	private ImageView firstChoice;
-	private Vibrator vib;
 	private int roundNumber = 1;
 	private int playerCount;
 	private int currentPlayerNumber = 0;
@@ -68,6 +68,7 @@ public class PyramidActivity extends AppCompatActivity {
 	private long back_pressed;
 	private View shuffleCard;
 	private AlertDialog dialog;
+	private boolean backToPyramid = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class PyramidActivity extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 		toolbar.setBackgroundResource(R.drawable.ic_background_gameroom);
 		toolbar.setLogo(R.drawable.ic_logo);
+		toolbar.setSubtitle(resources.getString(R.string.first_level));
 		toolbar.setTitleTextColor(Color.BLACK);
 		toolbar.setSubtitleTextColor(Color.BLUE);
 
@@ -95,7 +97,7 @@ public class PyramidActivity extends AppCompatActivity {
 
 							@Override
 							public void onCancel(DialogInterface dialog) {
-								onBackPressed();
+								finish();
 							}
 						})
 						.setPositiveButton(R.string.start, new DialogInterface.OnClickListener() {
@@ -147,6 +149,7 @@ public class PyramidActivity extends AppCompatActivity {
 		} else
 			dialog.show();
 
+
 	}
 
 	@Override
@@ -172,9 +175,10 @@ public class PyramidActivity extends AppCompatActivity {
 				finish();
 				break;
 			case R.id.help:
-				Log.d(TAG, "onBackPressed() called content: " + getWindow().getDecorView().findViewById(android.R.id.content).getId());
-				setContentView(R.layout.manual);
-				Log.d(TAG, "onBackPressed() called manual: " + getWindow().getDecorView().findViewById(android.R.id.content).getId());
+//				getWindow().addContentView(R.layout.manual, ViewGroup.LayoutParams);
+				ContentFrameLayout rootLayout = (ContentFrameLayout)findViewById(android.R.id.content);
+				View.inflate(this, R.layout.manual, rootLayout);
+				backToPyramid = true;
 				WebView webView = (WebView) findViewById(R.id.wv_manual);
 				utilities.generatePyramidManual(webView);
 				break;
@@ -192,18 +196,20 @@ public class PyramidActivity extends AppCompatActivity {
 
 	@Override
 	public void onBackPressed() {
-		if ( back_pressed + 2000 > System.currentTimeMillis() ) {
-			if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
-				utilities.playSound(1, AudioManager.FX_KEYPRESS_RETURN);
-			}
+		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) )
+			utilities.playSound(1, AudioManager.FX_KEYPRESS_RETURN);
+
+		if ( backToPyramid) {
+			ContentFrameLayout rootLayout = (ContentFrameLayout)findViewById(android.R.id.content);
+			if ( rootLayout != null )
+				rootLayout.removeView(findViewById(R.id.wv_manual));
+
+			backToPyramid = false;
+		} else if ( back_pressed + 2000 > System.currentTimeMillis()) {
 			finish();
-			return;
 		} else {
 			Toast.makeText(getBaseContext(), getString(R.string.close_message), Toast.LENGTH_SHORT).show();
 			back_pressed = System.currentTimeMillis();
-		}
-		if ( android.R.id.content == R.layout.manual ) {
-			Log.d(TAG, "onBackPressed() called content: " + android.R.id.content);
 		}
 	}
 
@@ -218,7 +224,9 @@ public class PyramidActivity extends AppCompatActivity {
 		secondChoice.setVisibility(View.INVISIBLE);
 
 		shuffleCard = findViewById(R.id.gifShuffleCard);
-		shuffleCard.setVisibility(View.INVISIBLE);
+		if ( shuffleCard != null ) {
+			shuffleCard.setVisibility(View.INVISIBLE);
+		}
 
 		ImageView playerCard1 = (ImageView) findViewById(R.id.ivPyramidFirstRoundPlayerCard1);
 		ImageView playerCard2 = (ImageView) findViewById(R.id.ivPyramidFirstRoundPlayerCard2);
@@ -233,10 +241,6 @@ public class PyramidActivity extends AppCompatActivity {
 		for ( Map.Entry<String, ImageView> entry : playerCards.entrySet() ) {
 			ImageView value = entry.getValue();
 			value.setVisibility(View.INVISIBLE);
-		}
-
-		for ( int i = 0; i < playerCount; i++ ) {
-
 		}
 
 		String player1_name = sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + "1", Utilities.KEY_PLAYER + "1");
@@ -284,7 +288,7 @@ public class PyramidActivity extends AppCompatActivity {
 		}
 
 		if ( sharedPref.getBoolean(Utilities.VIBRATE_PREFERENCE_KEY, false) ) {
-			vib = (Vibrator) PyramidActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+			Vibrator vib = (Vibrator) PyramidActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
 			vib.vibrate(500);
 		}
 
@@ -331,9 +335,9 @@ public class PyramidActivity extends AppCompatActivity {
 				secondChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_red_card, null));
 				break;
 			case 2:
-				firstChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_higher, null));
+				firstChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_higher_pressed, null));
 				firstChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_higher, null));
-				secondChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_lower, null));
+				secondChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_lower_pressed, null));
 				secondChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_lower, null));
 				break;
 			case 3:
@@ -345,7 +349,7 @@ public class PyramidActivity extends AppCompatActivity {
 			case 4:
 				firstChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_in_possesion_pressed, null));
 				firstChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_in_possesion, null));
-				secondChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_not_in_possesion, null));
+				secondChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_not_in_possesion_pressed, null));
 				secondChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_not_in_possesion, null));
 				break;
 			default:
@@ -407,17 +411,13 @@ public class PyramidActivity extends AppCompatActivity {
 					utilities.drink();
 				break;
 			case 4:
-				String current_card_color = null;
-				String first_card_color = null;
-				String second_card_color = null;
-				String third_card_color = null;
-				current_card_color = currentCard.getCardColor();
+				String current_card_color = currentCard.getCardColor();
 				first_card = playerHand.getPlayerCards().get(0);
-				first_card_color = first_card.getCardColor();
+				String first_card_color = first_card.getCardColor();
 				second_card = playerHand.getPlayerCards().get(1);
-				second_card_color = second_card.getCardColor();
+				String second_card_color = second_card.getCardColor();
 				third_card = playerHand.getPlayerCards().get(2);
-				third_card_color = third_card.getCardColor();
+				String third_card_color = third_card.getCardColor();
 
 				if ( !current_card_color.equalsIgnoreCase(first_card_color) && !current_card_color.equalsIgnoreCase(second_card_color) && !current_card_color.equalsIgnoreCase(third_card_color) )
 					utilities.drink();

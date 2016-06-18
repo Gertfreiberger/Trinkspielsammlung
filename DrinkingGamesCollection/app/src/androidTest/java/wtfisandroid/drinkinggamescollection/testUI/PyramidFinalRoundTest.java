@@ -2,13 +2,14 @@ package wtfisandroid.drinkinggamescollection.testUI;
 
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
+
 import com.robotium.solo.Solo;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import wtfisandroid.drinkinggamescollection.R;
-import wtfisandroid.drinkinggamescollection.gui.game.pyramid.PyramidFinalRound;
+import wtfisandroid.drinkinggamescollection.activities.games.pyramid.PyramidFinalRound;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 /**
