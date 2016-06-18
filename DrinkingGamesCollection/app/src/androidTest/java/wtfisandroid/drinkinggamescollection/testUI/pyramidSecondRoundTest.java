@@ -1,4 +1,4 @@
-package wtfisandroid.drinkinggamescollection.gui.game.pyramid;
+package wtfisandroid.drinkinggamescollection.testUI;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +15,7 @@ import java.util.Random;
 import wtfisandroid.drinkinggamescollection.R;
 import wtfisandroid.drinkinggamescollection.data.Gamecard;
 import wtfisandroid.drinkinggamescollection.data.PlayerHand;
+import wtfisandroid.drinkinggamescollection.gui.game.pyramid.PyramidSecondRound;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 /**

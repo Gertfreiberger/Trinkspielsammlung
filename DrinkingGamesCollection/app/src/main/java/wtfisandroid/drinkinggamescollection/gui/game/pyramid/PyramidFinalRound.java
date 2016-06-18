@@ -210,7 +210,8 @@ public class PyramidFinalRound extends AppCompatActivity {
 
 
 	private void goToMainMenu() {
-
+		firstChoice.setClickable(false);
+		secondChoice.setClickable(false);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setCancelable(false)
 				.setIcon(ResourcesCompat.getDrawable(resources, R.drawable.ic_logo, null))
