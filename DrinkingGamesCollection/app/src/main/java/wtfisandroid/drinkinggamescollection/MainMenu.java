@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -30,7 +31,8 @@ import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShakeListener {
 
-
+	private Button button_mainmenu_maexchen_;
+	private Button button_mainmenu_polnisches_trinkspiel;
 	private static final String TAG = "main";
 	private SensorManager sensorManager;
 	private Sensor accelerometer;
@@ -121,7 +123,7 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 	public void onShake(int count) {
 		if ( count % 1 == 0 ) {
 			Random rand = new Random();
-			int number = rand.nextInt(2) + 1;
+			int number = rand.nextInt(4) + 1;
 			Intent activity = null;
 
 			switch ( number ) {
@@ -181,6 +183,10 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 				break;
 			case R.id.button_i_have_never_ever:
 				activity = new Intent(this, IHaveNeverEverActivity.class);
+				break;
+
+			case R.id.button_polnisches_trinkspiel:
+				activity = new Intent(this, PolnischesTrinkspiel.class);
 				break;
 
 			case R.id.button_maexchen:
