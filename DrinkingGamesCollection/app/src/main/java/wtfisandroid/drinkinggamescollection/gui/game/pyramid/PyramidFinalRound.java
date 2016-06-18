@@ -218,19 +218,13 @@ public class PyramidFinalRound extends AppCompatActivity {
 				.setNeutralButton("Go to Main", new DialogInterface.OnClickListener() {
 
 					public void onClick(DialogInterface dialog, int id) {
-						Intent intent = new Intent(getApplicationContext(), MainMenu.class);
-
-
 
 						if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ) {
 							ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PyramidFinalRound.this);
 							Slide slide = new Slide();
 							slide.setDuration(1000);
 							getWindow().setExitTransition(slide);
-							startActivity(intent, options.toBundle());
-						} else
-							startActivity(intent);
-
+						}
 						finish();
 					}
 				});

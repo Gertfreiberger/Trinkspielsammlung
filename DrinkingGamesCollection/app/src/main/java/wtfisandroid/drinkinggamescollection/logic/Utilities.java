@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -48,6 +49,13 @@ public class Utilities {
 	public static final String FIRST_RUN_PREFERENCE_KEY = "first_run";
 	public static final String PYRAMID_PLAYER_NAME_PREFERENCE_KEY = "player_name";
 	public static final String PYRAMID_PLAYER_COUNT_PREFERENCE_KEY = "pyramid_player_count";
+	public static final String PREF_WORK = "pref_key_i_have_never_ever_category_work";
+	public static final String PREF_SCHOOL = "pref_key_i_have_never_ever_category_school";
+	public static final String PREF_LOVE = "pref_key_i_have_never_ever_category_love";
+	public static final String PREF_DRINKING = "pref_key_i_have_never_ever_category_drinking";
+	public static final String PREF_ADULT = "pref_key_i_have_never_ever_category_adult";
+	public static final String PREF_LAW = "pref_key_i_have_never_ever_category_law";
+
 	private final SharedPreferences sharedPref;
 	private Resources resources;
 	private Vibrator vib;
@@ -155,7 +163,7 @@ public class Utilities {
 			while ( (n = reader.read(buffer)) != -1 ) {
 				writer.write(buffer, 0, n);
 			}
-		} catch ( IOException ex ){
+		} catch ( IOException ex ) {
 			ex.printStackTrace();
 		}
 		return writer.toString();
@@ -173,7 +181,7 @@ public class Utilities {
 			webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 		}
 		AssetManager asset = context.getAssets();
-		Resources resources =  context.getResources();
+		Resources resources = context.getResources();
 		try {
 
 			InputStream is = asset.open("www/manual_pyramid.html", AssetManager.ACCESS_BUFFER);
@@ -213,5 +221,33 @@ public class Utilities {
 		ViewGroup group = (ViewGroup) drinkToast.getView();
 		TextView messageTextView = (TextView) group.getChildAt(0);
 		messageTextView.setTextSize(30);
+	}
+
+	public String getFileContents(InputStream inputStream) {
+
+		final StringBuilder stringBuilder = new StringBuilder();
+		try {
+			final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+			boolean done = false;
+
+			while ( !done ) {
+				final String line = reader.readLine();
+				done = (line == null);
+
+				if ( line != null ) {
+					stringBuilder.append(line);
+				}
+			}
+
+			reader.close();
+			inputStream.close();
+		} catch ( FileNotFoundException e ) {
+			e.printStackTrace();
+		} catch ( IOException e ) {
+			e.printStackTrace();
+		}
+
+		return stringBuilder.toString();
 	}
 }

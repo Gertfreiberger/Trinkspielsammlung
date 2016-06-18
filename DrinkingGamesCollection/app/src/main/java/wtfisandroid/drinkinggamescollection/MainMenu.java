@@ -13,8 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Locale;
 import java.util.Random;
 
@@ -22,12 +25,14 @@ import wtfisandroid.drinkinggamescollection.gui.ManualActivity;
 import wtfisandroid.drinkinggamescollection.gui.SettingsActivity;
 import wtfisandroid.drinkinggamescollection.gui.game.IHaveNeverEverActivity;
 import wtfisandroid.drinkinggamescollection.gui.game.pyramid.PyramidActivity;
+import wtfisandroid.drinkinggamescollection.logic.DatabaseHandler;
 import wtfisandroid.drinkinggamescollection.logic.ShakeDetector;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShakeListener {
 
-
+	private Button button_mainmenu_maexchen_;
+	private Button button_mainmenu_polnisches_trinkspiel;
 	private static final String TAG = "main";
 	private SensorManager sensorManager;
 	private Sensor accelerometer;
@@ -56,14 +61,18 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 			shakeDetector.setOnShakeListener(this);
 		}
 
-		if (sharedPref.getBoolean(Utilities.FIRST_RUN_PREFERENCE_KEY, true) ) {
-			SharedPreferences.Editor editor = sharedPref.edit();
-			editor.putBoolean(Utilities.FIRST_RUN_PREFERENCE_KEY, false);
-			editor.putBoolean(Utilities.VIBRATE_PREFERENCE_KEY, true);
-			editor.putBoolean(Utilities.SOUND_PREFERENCE_KEY, true);
-			editor.putString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2");
-			editor.putString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
-			editor.commit();
+		if ( sharedPref.getBoolean(Utilities.FIRST_RUN_PREFERENCE_KEY, true) ) {
+			initSharedPref();
+
+			try {
+				DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+				InputStream insertsStream = getAssets().open("databases/i_have_never_ever.sql");
+				db.executeSQLScript(insertsStream);
+				db.close();
+			} catch ( IOException e ) {
+				e.printStackTrace();
+			}
+
 		}
 	}
 
@@ -114,7 +123,7 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 	public void onShake(int count) {
 		if ( count % 1 == 0 ) {
 			Random rand = new Random();
-			int number = rand.nextInt(2) + 1;
+			int number = rand.nextInt(4) + 1;
 			Intent activity = null;
 
 			switch ( number ) {
@@ -176,12 +185,12 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 				activity = new Intent(this, IHaveNeverEverActivity.class);
 				break;
 
-			case R.id.button_maexchen:
-				activity = new Intent(this, Maexchen.class);
-				break;
-
 			case R.id.button_polnisches_trinkspiel:
 				activity = new Intent(this, PolnischesTrinkspiel.class);
+				break;
+
+			case R.id.button_maexchen:
+				activity = new Intent(this, Maexchen.class);
 				break;
 
 			case R.id.button_manual:
@@ -204,4 +213,21 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 			startActivity(activity);
 	}
 
+	private void initSharedPref() {
+		SharedPreferences.Editor editor = sharedPref.edit();
+		editor.putBoolean(Utilities.FIRST_RUN_PREFERENCE_KEY, false);
+		editor.putBoolean(Utilities.VIBRATE_PREFERENCE_KEY, true);
+		editor.putBoolean(Utilities.SOUND_PREFERENCE_KEY, true);
+		editor.putString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2");
+		editor.putString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
+
+		editor.putBoolean(Utilities.PREF_WORK, true);
+		editor.putBoolean(Utilities.PREF_SCHOOL, true);
+		editor.putBoolean(Utilities.PREF_LOVE, true);
+		editor.putBoolean(Utilities.PREF_DRINKING, true);
+		editor.putBoolean(Utilities.PREF_ADULT, true);
+		editor.putBoolean(Utilities.PREF_LAW, true);
+
+		editor.commit();
+	}
 }
