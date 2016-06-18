@@ -12,7 +12,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:id="@+id/scroll_view"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="wtfisandroid.drinkinggamescollection.MaexchenRules"
+    tools:context=".activities.games.maexchen.MaexchenRules"
     tools:showIn="@layout/activity_maexchen_rules"
     android:background="@color/colorGreen">
 

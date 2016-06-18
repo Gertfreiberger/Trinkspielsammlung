@@ -1,16 +1,12 @@
-package wtfisandroid.drinkinggamescollection.features;
+package wtfisandroid.drinkinggamescollection.data;
 
 
-import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
-
-import wtfisandroid.drinkinggamescollection.R;
 
 public class PolnischField {
 

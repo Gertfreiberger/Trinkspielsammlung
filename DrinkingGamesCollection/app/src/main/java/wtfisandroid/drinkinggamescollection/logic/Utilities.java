@@ -35,6 +35,9 @@ import wtfisandroid.drinkinggamescollection.R;
 public class Utilities {
 
 	private static final String TAG = "utilities";
+	public static final String ACTION = "action";
+	public static final String ADD_STATEMENTS = "add_statements";
+	public static final String DELETE_STATEMENTS = "delete_statements";
 
 	private final Context context;
 

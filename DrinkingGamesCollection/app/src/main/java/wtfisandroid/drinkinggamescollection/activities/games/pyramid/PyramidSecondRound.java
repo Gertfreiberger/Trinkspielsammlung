@@ -1,4 +1,4 @@
-package wtfisandroid.drinkinggamescollection.gui.game.pyramid;
+package wtfisandroid.drinkinggamescollection.activities.games.pyramid;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,7 +12,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Slide;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;

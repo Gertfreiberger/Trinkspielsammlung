@@ -4,7 +4,7 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
 
-import wtfisandroid.drinkinggamescollection.gui.ManualActivity;
+import wtfisandroid.drinkinggamescollection.activities.ManualActivity;
 
 public class ManualActivityUITest extends ActivityInstrumentationTestCase2<ManualActivity> {
 

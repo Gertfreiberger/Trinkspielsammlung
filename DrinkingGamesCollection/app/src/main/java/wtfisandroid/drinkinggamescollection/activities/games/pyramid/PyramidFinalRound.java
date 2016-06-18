@@ -1,4 +1,4 @@
-package wtfisandroid.drinkinggamescollection.gui.game.pyramid;
+package wtfisandroid.drinkinggamescollection.activities.games.pyramid;
 
 import android.app.ActivityOptions;
 import android.content.Context;
@@ -24,7 +24,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import wtfisandroid.drinkinggamescollection.MainMenu;
 import wtfisandroid.drinkinggamescollection.R;
 import wtfisandroid.drinkinggamescollection.data.Gamecard;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;

@@ -1,4 +1,4 @@
-package wtfisandroid.drinkinggamescollection;
+package wtfisandroid.drinkinggamescollection.activities.games.polnisches_game;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -23,9 +23,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import wtfisandroid.drinkinggamescollection.features.Dice;
-import wtfisandroid.drinkinggamescollection.features.Player;
-import wtfisandroid.drinkinggamescollection.features.PolnischField;
+import wtfisandroid.drinkinggamescollection.R;
+import wtfisandroid.drinkinggamescollection.data.Dice;
+import wtfisandroid.drinkinggamescollection.data.Player;
+import wtfisandroid.drinkinggamescollection.data.PolnischField;
 
 public class PolnischGame extends AppCompatActivity {
 

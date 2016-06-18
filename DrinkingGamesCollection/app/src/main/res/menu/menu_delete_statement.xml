@@ -1,10 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      tools:context=".activities.MainMenu">
-    <item
-        android:id="@+id/action_settings"
-        android:title="@string/settings"/>
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      tools:context=".activities.games.settings.DeleteStatementActivity">
 
     <item
         android:id="@+id/back"
@@ -12,4 +9,5 @@
         android:title="@string/back"
         android:icon="@drawable/back">
     </item>
+
 </menu>

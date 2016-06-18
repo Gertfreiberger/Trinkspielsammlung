@@ -1,4 +1,4 @@
-package wtfisandroid.drinkinggamescollection.gui;
+package wtfisandroid.drinkinggamescollection.activities;
 
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;

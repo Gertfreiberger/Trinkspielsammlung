@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import wtfisandroid.drinkinggamescollection.R;
-import wtfisandroid.drinkinggamescollection.gui.SettingsActivity;
+import wtfisandroid.drinkinggamescollection.activities.games.settings.SettingsActivity;
 
 public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<SettingsActivity> {
 

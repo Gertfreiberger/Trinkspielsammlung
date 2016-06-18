@@ -1,11 +1,8 @@
 package wtfisandroid.drinkinggamescollection.testUI;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +12,7 @@ import android.widget.TextView;
 
 import com.robotium.solo.Solo;
 
-import wtfisandroid.drinkinggamescollection.Maexchen;
-import wtfisandroid.drinkinggamescollection.PolnischesTrinkspiel;
+import wtfisandroid.drinkinggamescollection.activities.games.polnisches_game.PolnischesTrinkspiel;
 import wtfisandroid.drinkinggamescollection.R;
 
 public class PolnischesTrinkspielUItests extends ActivityInstrumentationTestCase2<PolnischesTrinkspiel> {

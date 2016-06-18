@@ -1,4 +1,4 @@
-package wtfisandroid.drinkinggamescollection.gui.game;
+package wtfisandroid.drinkinggamescollection.activities.games;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,6 +9,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -45,6 +46,7 @@ public class IHaveNeverEverActivity extends AppCompatActivity implements ShakeDe
 	private int lastIndex = -1;
 	private Animation a;
 	private long back_pressed;
+	private Toolbar toolbar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,10 @@ public class IHaveNeverEverActivity extends AppCompatActivity implements ShakeDe
 		utilities.setLanguage(currentLanguage);
 
 		setContentView(R.layout.activity_i_have_never_ever);
+
+		toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		toolbar.setLogo(R.drawable.ic_logo);
 
 		backgroundView = findViewById(R.id.iHaveNeverEverLinerLayout);
 		changeBackgroundColor();
@@ -181,6 +187,7 @@ public class IHaveNeverEverActivity extends AppCompatActivity implements ShakeDe
 		int g = rand.nextInt(255);
 		int b = rand.nextInt(255);
 
+		toolbar.setBackgroundColor(Color.argb(a, r, g, b));
 		backgroundView.setBackgroundColor(Color.argb(a, r, g, b));
 	}
 
@@ -188,13 +195,11 @@ public class IHaveNeverEverActivity extends AppCompatActivity implements ShakeDe
 		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) )
 			utilities.playSound(1);
 
-//		utilities.fadeOut(tvStatement);
 		nextStatement();
-//		utilities.fadeIn(tvStatement);
 		tvStatement.startAnimation(a);
 	}
 
 	public void onClickQuit(View v) {
-		onBackPressed();
+		finish();
 	}
 }

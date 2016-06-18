@@ -1,4 +1,4 @@
-package wtfisandroid.drinkinggamescollection.gui;
+package wtfisandroid.drinkinggamescollection.activities.games.settings;
 
 import android.content.Context;
 import android.content.Intent;
@@ -148,7 +148,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 	public static class SettingsFragment extends PreferenceFragment {
 
 		private Resources resources;
-		private SharedPreferences m_preference;
+		private SharedPreferences sharePref;
 		private static File fileWithinMyDir;
 		DatabaseHandler db;
 
@@ -196,13 +196,13 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
 			category.setTitle(resources.getString(R.string.player_names));
 			screen.addPreference(category);
-			m_preference = PreferenceManager.getDefaultSharedPreferences(screen.getContext());
-			int player_number = Integer.valueOf(m_preference.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2"));
+			sharePref = PreferenceManager.getDefaultSharedPreferences(screen.getContext());
+			int player_number = Integer.valueOf(sharePref.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2"));
 			for ( int i = 0; i < player_number; i++ ) {
 				EditTextPreference player_name = new EditTextPreference(screen.getContext());
 				player_name.setKey(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (i + 1));
 				player_name.setTitle(resources.getString(R.string.player) + " " + (i + 1));
-				String playerName = m_preference.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (i + 1), resources.getString(R.string.player) + " " + (i + 1));
+				String playerName = sharePref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (i + 1), resources.getString(R.string.player) + " " + (i + 1));
 				player_name.setText(playerName);
 				player_name.setSummary(playerName);
 				category.addPreference(player_name);
@@ -215,7 +215,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 				public boolean onPreferenceChange(Preference preference, Object newVal) {
 					boolean updatePlayerCount = true;
 					int count = Integer.valueOf((String) newVal);
-					int player_number = Integer.valueOf(m_preference.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2"));
+					int player_number = Integer.valueOf(sharePref.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2"));
 					if ( count < 2 ) {
 						playerCount.setText("2");
 						updatePlayerCount = false;
@@ -228,8 +228,8 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 					playerCount.getEditor().apply();
 					playerCount.getEditor().commit();
 
-					m_preference = PreferenceManager.getDefaultSharedPreferences(screen.getContext());
-					SharedPreferences.Editor editor = m_preference.edit();
+					sharePref = PreferenceManager.getDefaultSharedPreferences(screen.getContext());
+					SharedPreferences.Editor editor = sharePref.edit();
 					editor.putString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, Integer.toString(count));
 					editor.apply();
 
@@ -242,7 +242,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 							EditTextPreference player_name = new EditTextPreference(screen.getContext());
 							player_name.setKey(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + (counter));
 							player_name.setTitle(resources.getString(R.string.player) + " " + (counter));
-							String playerName = m_preference.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + counter, resources.getString(R.string.player) + " " + counter);
+							String playerName = sharePref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + counter, resources.getString(R.string.player) + " " + counter);
 							player_name.setText(playerName);
 							player_name.setSummary(playerName);
 							category.addPreference(player_name);
@@ -309,6 +309,31 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 					} else if (view != null)
 						Snackbar.make(view, R.string.db_exported_error, Snackbar.LENGTH_LONG).show();
 
+					return false;
+				}
+			});
+
+			Preference addStatements = findPreference("add_statements");
+			addStatements.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+
+					Intent intent = new Intent(getActivity(), AddStatement.class);
+					startActivity(intent);
+
+					return false;
+				}
+			});
+
+			Preference deleteStatements = findPreference("delete_statements");
+			deleteStatements.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+
+					Intent intent = new Intent(getActivity(), DeleteStatementActivity.class);
+					startActivity(intent);
 					return false;
 				}
 			});

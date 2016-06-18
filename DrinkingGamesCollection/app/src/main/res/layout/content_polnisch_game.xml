@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="wtfisandroid.drinkinggamescollection.PolnischGame"
+    tools:context=".activities.games.polnisches_game.PolnischGame"
     tools:showIn="@layout/activity_polnisch_game"
     android:orientation="vertical"
     android:background="@mipmap/wood">

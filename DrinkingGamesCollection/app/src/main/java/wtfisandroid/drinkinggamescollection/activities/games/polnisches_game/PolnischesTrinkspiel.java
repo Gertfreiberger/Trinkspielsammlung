@@ -1,4 +1,4 @@
-package wtfisandroid.drinkinggamescollection;
+package wtfisandroid.drinkinggamescollection.activities.games.polnisches_game;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+
+import wtfisandroid.drinkinggamescollection.R;
 
 public class PolnischesTrinkspiel extends AppCompatActivity implements View.OnClickListener {
 

@@ -11,7 +11,7 @@ import java.util.Locale;
 
 import wtfisandroid.drinkinggamescollection.R;
 import wtfisandroid.drinkinggamescollection.data.IHaveNeverEverStatement;
-import wtfisandroid.drinkinggamescollection.gui.game.IHaveNeverEverActivity;
+import wtfisandroid.drinkinggamescollection.activities.games.IHaveNeverEverActivity;
 import wtfisandroid.drinkinggamescollection.logic.DatabaseHandler;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
 

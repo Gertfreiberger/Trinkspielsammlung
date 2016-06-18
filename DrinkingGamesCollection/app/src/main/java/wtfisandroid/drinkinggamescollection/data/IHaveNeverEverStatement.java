@@ -6,22 +6,43 @@ package wtfisandroid.drinkinggamescollection.data;
 public class IHaveNeverEverStatement {
 
 	private int id = -1;
-	private String m_statement = null;
-	private String M_category = null;
-
-	public IHaveNeverEverStatement(int id, String statement, String category) {
-		this.id = id;
-		this.m_statement = statement;
-		this.M_category = category;
-	}
+	private String mStatement = null;
+	private String mCategory = null;
+	private String mLanguage;
 
 	public IHaveNeverEverStatement() {
 
 	}
 
 	public IHaveNeverEverStatement(String statement, String category) {
-		this.m_statement = statement;
-		this.M_category = category;
+		this.id = -1;
+		this.mStatement = statement;
+		this.mCategory = category;
+	}
+
+	public IHaveNeverEverStatement(int id, String statement, String category) {
+		this.id = id;
+		this.mStatement = statement;
+		this.mCategory = category;
+	}
+
+	public IHaveNeverEverStatement(int id, String statement) {
+		this.id = id;
+		this.mStatement = statement;
+		this.mCategory = "Other";
+	}
+
+	public IHaveNeverEverStatement(String statement) {
+		this.id = -1;
+		this.mStatement = statement;
+		this.mCategory = "Other";
+	}
+
+	public IHaveNeverEverStatement(String statement, String category, String language) {
+		this.id = -1;
+		this.mStatement = statement;
+		this.mCategory = category;
+		this.mLanguage = language;
 	}
 
 	public int getId() {
@@ -33,27 +54,36 @@ public class IHaveNeverEverStatement {
 	}
 
 	public String getStatement() {
-		return m_statement;
+		return mStatement;
 	}
 
-	public void setM_statement(String m_statement) {
-		this.m_statement = m_statement;
+	public void setStatement(String mStatement) {
+		this.mStatement = mStatement;
 	}
 
 	public String getCategory() {
-		return M_category;
+		return mCategory;
 	}
 
-	public void setM_category(String m_category) {
-		this.M_category = m_category;
+	public void setCategory(String mCategory) {
+		this.mCategory = mCategory;
+	}
+
+	public String getLanguage() {
+		return mLanguage;
+	}
+
+	public void setLanguage(String mLanguage) {
+		this.mLanguage = mLanguage;
 	}
 
 	@Override
 	public String toString() {
 		return "IHaveNeverEverStatement{" +
-						"id=" + id +
-						", statement='" + m_statement + '\'' +
-						", category='" + M_category + '\'' +
+						"mLanguage='" + mLanguage + '\'' +
+						", id=" + id +
+						", mStatement='" + mStatement + '\'' +
+						", mCategory='" + mCategory + '\'' +
 						'}';
 	}
 }

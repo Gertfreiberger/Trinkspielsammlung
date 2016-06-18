@@ -1,4 +1,4 @@
-package wtfisandroid.drinkinggamescollection.gui.game.pyramid;
+package wtfisandroid.drinkinggamescollection.activities.games.pyramid;
 
 import android.app.ActivityOptions;
 import android.content.Context;

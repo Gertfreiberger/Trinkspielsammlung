@@ -1,4 +1,4 @@
-package wtfisandroid.drinkinggamescollection.features;
+package wtfisandroid.drinkinggamescollection.data;
 
 import android.graphics.Bitmap;
 
