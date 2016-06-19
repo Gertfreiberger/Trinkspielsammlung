@@ -17,7 +17,6 @@ public class PyramidActivityTest extends ActivityInstrumentationTestCase2<Pyrami
 
 	private Solo solo;
 	private Resources resources;
-	private SharedPreferences sharedPref;
 	private int playerCount;
 
 	public PyramidActivityTest() {
@@ -28,7 +27,7 @@ public class PyramidActivityTest extends ActivityInstrumentationTestCase2<Pyrami
 		super.setUp();
 		solo = new Solo(getInstrumentation(), getActivity());
 		resources = solo.getCurrentActivity().getResources();
-		sharedPref = PreferenceManager.getDefaultSharedPreferences(solo.getCurrentActivity().getApplicationContext());
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(solo.getCurrentActivity().getApplicationContext());
 		playerCount = Integer.valueOf(sharedPref.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "4"));
 	}
 

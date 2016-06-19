@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.robotium.solo.Solo;
@@ -13,9 +12,9 @@ import java.util.HashMap;
 import java.util.Random;
 
 import wtfisandroid.drinkinggamescollection.R;
+import wtfisandroid.drinkinggamescollection.activities.games.pyramid.PyramidSecondRound;
 import wtfisandroid.drinkinggamescollection.data.Gamecard;
 import wtfisandroid.drinkinggamescollection.data.PlayerHand;
-import wtfisandroid.drinkinggamescollection.gui.game.pyramid.PyramidSecondRound;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 /**

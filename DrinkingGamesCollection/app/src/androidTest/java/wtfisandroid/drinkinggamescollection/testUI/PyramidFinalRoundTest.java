@@ -12,9 +12,6 @@ import wtfisandroid.drinkinggamescollection.R;
 import wtfisandroid.drinkinggamescollection.activities.games.pyramid.PyramidFinalRound;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
-/**
- * Created by Superuser on 18.06.2016.
- */
 public class PyramidFinalRoundTest extends ActivityInstrumentationTestCase2<PyramidFinalRound> {
 
     private Solo solo;

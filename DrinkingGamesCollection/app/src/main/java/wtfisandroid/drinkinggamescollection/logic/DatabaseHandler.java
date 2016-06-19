@@ -26,9 +26,6 @@ import java.util.List;
 import wtfisandroid.drinkinggamescollection.R;
 import wtfisandroid.drinkinggamescollection.data.IHaveNeverEverStatement;
 
-/**
- * Created by Manfred on 20.05.2016.
- */
 public class DatabaseHandler extends SQLiteOpenHelper {
 
 	private static final String TAG = " DatabaseHandler";
@@ -65,7 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	}
 
-	public void executeSQLScript(InputStream sql) {
+	public void executeMultipleSQLScript(InputStream sql) {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		SQLiteDatabase db = this.getWritableDatabase();
 		byte buf[] = new byte[1024];
@@ -80,7 +77,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			String[] createScript = outputStream.toString().split(";");
 			for ( String aCreateScript : createScript ) {
 				String sqlStatement = aCreateScript.trim();
-				Log.d(TAG, "executeSQLScript() called with: " + "sql = [" + sqlStatement + "]");
+				Log.d(TAG, "executeMultipleSQLScript() called with: " + "sql = [" + sqlStatement + "]");
 				if ( sqlStatement.length() > 0 ) {
 					db.execSQL(sqlStatement + ";");
 				}
@@ -98,13 +95,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 		if ( cursor.moveToFirst() ) {
 			do {
-				IHaveNeverEverStatement contact = new IHaveNeverEverStatement();
-				contact.setId(Integer.parseInt(cursor.getString(0)));
-				contact.setStatement(cursor.getString(1));
-				contact.setCategory(cursor.getString(2));
-				statements.add(contact);
+				IHaveNeverEverStatement statement = new IHaveNeverEverStatement();
+				statement.setId(Integer.parseInt(cursor.getString(0)));
+				statement.setStatement(cursor.getString(1));
+				statement.setCategory(cursor.getString(2));
+				statement.setLanguage(cursor.getString(3));
+				statements.add(statement);
 			} while ( cursor.moveToNext() );
 		}
+		cursor.close();
 
 		return statements;
 	}
@@ -113,45 +112,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
-		if (statement.getId() != -1 ) {
+		if ( statement.getId() != -1 ) {
 			values.put(KEY_STATEMENT_ID, statement.getId());
 		} else {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-			String time = format.format(new Date().getTime());
-			Log.d(TAG, "addStatement() called with: " + "time = [" + time + "]");
-			values.put(KEY_STATEMENT_ID, time);
+			values.put(KEY_STATEMENT_ID, System.currentTimeMillis() / 1000);
 		}
 
 		values.put(KEY_STATEMENT, statement.getStatement());
 		values.put(KEY_CATEGORY, statement.getCategory());
 		values.put(KEY_LANGUAGE, statement.getLanguage());
 
-		db.insert(TABLE_STATEMENTS, null, values);
+		long k = db.insert(TABLE_STATEMENTS, null, values);
+		Log.d(TAG, "getAllStatements() long = " + k + " with: " + "getAllStatements = [" + getAllStatements("Select  * from statements") + "]");
 		db.close();
 	}
 
-	public int updateStatement(IHaveNeverEverStatement statement) {
+	public void deleteStatement(String statement) {
 		SQLiteDatabase db = this.getWritableDatabase();
-
-		ContentValues values = new ContentValues();
-		values.put(KEY_STATEMENT, statement.getStatement());
-		values.put(KEY_CATEGORY, statement.getCategory());
-
-		// updating row
-		return db.update(TABLE_STATEMENTS, values, KEY_STATEMENT_ID + " = ?",
-						new String[]{ String.valueOf(statement.getId()) });
-	}
-
-	public void deleteStatement(IHaveNeverEverStatement statement) {
-		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(TABLE_STATEMENTS, KEY_STATEMENT_ID + " = ?",
-						new String[]{ String.valueOf(statement.getId()) });
+		Log.d(TAG, "deleteStatement() " + getStatementsCount("Select  * from statements") +  "]");
+		db.delete(TABLE_STATEMENTS, KEY_STATEMENT + " = ?", new String[]{ statement });
+		Log.d(TAG, "deleteStatement2) " + getStatementsCount("Select  * from statements") +  "]");
 		db.close();
 	}
 
 	public int getStatementsCount(String language) {
 		String countQuery = "SELECT  * FROM " + TABLE_STATEMENTS + " WHERE LANGUAGE = '" + language + "' ";
-		Log.d(TAG, "getStatementsCount() called with: " + "language = [" + countQuery + "]");
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(countQuery, null);
 		int count = cursor.getCount();
@@ -173,9 +158,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		String backupDBPath = directory + File.separator + DATABASE_NAME + "_" + currentDateAndTime + ".sql";
 		File currentDB = new File(data, currentDBPath);
 		File backupDB = new File(sd, backupDBPath);
-		if ( !backupDB.exists() ) {
+		if ( !backupDB.exists() )
 			backupDB.getParentFile().mkdirs();
-		}
+
 		try {
 			source = new FileInputStream(currentDB).getChannel();
 			Log.d(TAG, "source() called with: " + source);
@@ -202,6 +187,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				cats.add(cursor.getString(0));
 			} while ( cursor.moveToNext() );
 		}
+		cursor.close();
 
 		return cats;
 	}
@@ -217,7 +203,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				languages.add(cursor.getString(0));
 			} while ( cursor.moveToNext() );
 		}
+		cursor.close();
 
 		return languages;
+	}
+
+	public boolean init() {
+		boolean successful = false;
+		try {//TODO Reset Database
+//			String dropTables = "select 'drop table ' || name || ';' from sqlite_master where type = 'table';";
+//			SQLiteDatabase db = this.getWritableDatabase();
+//			Log.d(TAG, "init1() called with: " + getStatementsCount("English"));
+////			db.rawQuery(dropTables, null);
+//			context.deleteDatabase(DATABASE_NAME);
+//			Log.d(TAG, "init2() called with: " + getStatementsCount("English"));
+			InputStream insertsStream = context.getAssets().open("databases/i_have_never_ever.sql");
+			executeMultipleSQLScript(insertsStream);
+//			Log.d(TAG, "init3() called with: " + getStatementsCount("English"));
+			successful = true;
+		} catch ( IOException e ) {
+			Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+			e.printStackTrace();
+		} catch (  SQLException sqlException) {
+			Toast.makeText(context, sqlException.getMessage(), Toast.LENGTH_SHORT).show();
+			sqlException.printStackTrace();
+		}
+		return successful;
 	}
 }

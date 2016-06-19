@@ -28,7 +28,7 @@ import wtfisandroid.drinkinggamescollection.R;
 import wtfisandroid.drinkinggamescollection.data.Gamecard;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
-public class PyramidFinalRound extends AppCompatActivity {
+public class PyramidFinalRound extends AppCompatActivity {//TODO Add Options menu ("new Game" And "BAck")
 
 	private static final String TAG = "PyramidFinalRound";
 	private SharedPreferences sharedPref;
@@ -94,7 +94,7 @@ public class PyramidFinalRound extends AppCompatActivity {
 		messageTextView.setTextSize(40);
 	}
 
-	public void onClickLower(View v) {
+	public void onClickLower(View v) {//TODO Add pressed state
 		Log.d("anna", " deck:" + deckIndex);
 		cardViews.get(deckIndex).getLayoutParams().height = height;
 		cardViews.get(deckIndex).getLayoutParams().width = width;
@@ -132,7 +132,7 @@ public class PyramidFinalRound extends AppCompatActivity {
 
 	}
 
-	public void onClickHigher(View v) {
+	public void onClickHigher(View v) { //TODO Add pressed state
 
 		cardViews.get(deckIndex).getLayoutParams().height = height;
 		cardViews.get(deckIndex).getLayoutParams().width = width;
@@ -208,7 +208,7 @@ public class PyramidFinalRound extends AppCompatActivity {
 	}
 
 
-	private void goToMainMenu() {
+	private void goToMainMenu() {//TODO New Game Button to dialog
 		firstChoice.setClickable(false);
 		secondChoice.setClickable(false);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);

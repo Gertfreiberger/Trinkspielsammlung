@@ -9,12 +9,12 @@ import wtfisandroid.drinkinggamescollection.activities.MainMenu;
 import wtfisandroid.drinkinggamescollection.R;
 
 
-public class MainMenuUItests extends ActivityInstrumentationTestCase2<MainMenu> {
+public class MainMenuUITests extends ActivityInstrumentationTestCase2<MainMenu> {
 
     private Solo mySolo;
 
 
-     public MainMenuUItests() {
+     public MainMenuUITests() {
         super(MainMenu.class);
     }
 

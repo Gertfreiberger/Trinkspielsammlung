@@ -288,6 +288,16 @@
     <string name="all">All</string>
     <string name="empty_statement">The Statement must have at least one character</string>
     <string name="first_level">First Level</string>
+    <string name="add_statement">Add Statement</string>
+    <string name="the_new_statement">The New Statement</string>
+    <string name="reset_statements">Reset Statements</string>
+    <string name="db_reset_error">Statements wasn\'t successfully reseted</string>
+    <string name="db_reset_success">Statements successfully reseted</string>
+    <string name="delete_statement">Delete Statement</string>
+    <string name="statement_added">The new Statment has been successfully added</string>
+    <string name="statement_deleted">Statement has been successfully deleted</string>
+    <string name="no_statements">No Statements</string>
+    <string name="prefs_modify_database">Modify Database</string>
 
 
 </resources>

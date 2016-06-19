@@ -10,19 +10,16 @@ import com.robotium.solo.Solo;
 import java.util.Locale;
 
 import wtfisandroid.drinkinggamescollection.R;
-import wtfisandroid.drinkinggamescollection.data.IHaveNeverEverStatement;
 import wtfisandroid.drinkinggamescollection.activities.games.IHaveNeverEverActivity;
 import wtfisandroid.drinkinggamescollection.logic.DatabaseHandler;
 import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
-
-public class IHaveNeverEverActivityUITest extends ActivityInstrumentationTestCase2 {
+public class IHaveNeverEverActivityUITest extends ActivityInstrumentationTestCase2<IHaveNeverEverActivity> {
 
 	private static final String TAG = "i_have_never_ever";
 	private Solo solo;
 	private DatabaseHandler db;
 	private Resources resources;
-	private SharedPreferences sharedPref;
 	private String currentLanguage;
 
 	public IHaveNeverEverActivityUITest() {
@@ -34,7 +31,7 @@ public class IHaveNeverEverActivityUITest extends ActivityInstrumentationTestCas
 		super.setUp();
 		solo = new Solo(getInstrumentation(), getActivity());
 		resources = solo.getCurrentActivity().getResources();
-		sharedPref = PreferenceManager.getDefaultSharedPreferences(solo.getCurrentActivity().getApplicationContext());
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(solo.getCurrentActivity().getApplicationContext());
 		currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
 		db = new DatabaseHandler(solo.getCurrentActivity());
 	}
@@ -94,11 +91,6 @@ public class IHaveNeverEverActivityUITest extends ActivityInstrumentationTestCas
 	public void testMenuItems() {
 		solo.clickOnMenuItem(resources.getString((R.string.new_game)));
 		solo.clickOnMenuItem(resources.getString((R.string.back)));
-	}
-
-	public void testAddingStatement() {
-		db.addStatement(new IHaveNeverEverStatement("Test", "school"));
-		db.addStatement(new IHaveNeverEverStatement(4, "I never ever", "work"));
 	}
 
 }

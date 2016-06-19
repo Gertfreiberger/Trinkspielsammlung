@@ -175,12 +175,12 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 			switch ( requestCode ) {
 				case FILE_SELECT_REQUEST:
 					if ( resultCode == RESULT_OK ) {
-						try {
+						try {//TODO import port chosen Database file
 							Uri uri = data.getData();
 							Log.d(TAG, "onActivityResult() called with: " + getActivity().getContentResolver().openInputStream(uri));
 							InputStream inStream = getActivity().getContentResolver().openInputStream(uri);
 							Log.d(TAG, "inStream" + inStream + "]");
-							db.executeSQLScript(inStream);
+							db.executeMultipleSQLScript(inStream);
 						} catch ( FileNotFoundException e ) {
 							e.printStackTrace();
 						}
@@ -319,7 +319,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
 
-					Intent intent = new Intent(getActivity(), AddStatement.class);
+					Intent intent = new Intent(getActivity(), AddStatementActivity.class);
 					startActivity(intent);
 
 					return false;
@@ -334,6 +334,24 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
 					Intent intent = new Intent(getActivity(), DeleteStatementActivity.class);
 					startActivity(intent);
+					return false;
+				}
+			});
+
+			Preference resetStatements = findPreference("reset_statements");
+			resetStatements.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+					db.init();
+					View view = getView();
+					if ( db.init() && view != null) {
+						Snackbar snackbar = Snackbar.make(view, R.string.db_reset_success, Snackbar.LENGTH_LONG);
+						snackbar.show();
+					} else if (view != null)
+						Snackbar.make(view, R.string.db_reset_error, Snackbar.LENGTH_LONG).show();
+
+
 					return false;
 				}
 			});

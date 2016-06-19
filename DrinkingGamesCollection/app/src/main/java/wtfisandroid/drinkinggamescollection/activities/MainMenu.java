@@ -16,8 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Locale;
 import java.util.Random;
 
@@ -66,15 +64,9 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 		if ( sharedPref.getBoolean(Utilities.FIRST_RUN_PREFERENCE_KEY, true) ) {
 			initSharedPref();
 
-			try {
-				DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-				InputStream insertsStream = getAssets().open("databases/i_have_never_ever.sql");
-				db.executeSQLScript(insertsStream);
-				db.close();
-			} catch ( IOException e ) {
-				e.printStackTrace();
-			}
-
+			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+			db.init();
+			db.close();
 		}
 	}
 
