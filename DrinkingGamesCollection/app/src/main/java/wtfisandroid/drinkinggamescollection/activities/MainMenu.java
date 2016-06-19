@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.Locale;
@@ -31,9 +30,6 @@ import wtfisandroid.drinkinggamescollection.logic.Utilities;
 
 public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShakeListener {
 
-	private Button button_mainmenu_maexchen_;
-	private Button button_mainmenu_polnisches_trinkspiel;
-	private static final String TAG = "main";
 	private SensorManager sensorManager;
 	private Sensor accelerometer;
 	private ShakeDetector shakeDetector;
@@ -53,6 +49,12 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 		setContentView(R.layout.activity_main_menu);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+		if ( toolbar != null )
+			toolbar.setLogo(R.drawable.ic_logo);
+
+		if ( getSupportActionBar() != null ) {
+			getSupportActionBar().setDisplayShowTitleEnabled(false);
+		}
 
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		if ( sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null ) {
@@ -115,7 +117,6 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 
 	@Override
 	public void onShake(int count) {
-		if ( count % 1 == 0 ) {
 			Random rand = new Random();
 			int number = rand.nextInt(4) + 1;
 			Intent activity = null;
@@ -145,7 +146,6 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 
 			if ( activity != null )
 				startActivity(activity);
-		}
 	}
 
 
@@ -222,6 +222,6 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 		editor.putBoolean(Utilities.PREF_ADULT, true);
 		editor.putBoolean(Utilities.PREF_LAW, true);
 
-		editor.commit();
+		editor.apply();
 	}
 }
