@@ -2,12 +2,10 @@
 
     <!-- MainMenu strings -->
     <string name="mainmenu_button_maexchen">Mäxchen</string>
-    <string name="mainmenu_button_kingscup">Kings Cup</string>
     <string name="mainmenu_button_polnisches">Polnisches Trinkspiel</string>
     <string name="mainmenu_button_pyramid">Pyramid</string>
     <string name="mainmenu_headline">Drinking Games Collection</string>
     <string name="title_activity_maexchen_menu">MaexchenMenu</string>
-    <string name="title_activity_kingscup_menu">KingscupMenu</string>
     <string name="title_activity_polnisches_trinkspiel">PolnischGameMenu</string>
     <string name="title_activity_polnisches_trinkspiel_rules">PolnischesGameRules</string>
     <string name="title_activity_polnisch_game">PolnischGame</string>
@@ -50,7 +48,6 @@
     <string name="i_have_never_ever">I Have Never Ever</string>
 
     <string-array name="manualTabs">
-        <item>General</item>
         <item>I Have Never Ever</item>
         <item>Pyramid</item>
     </string-array>
@@ -96,6 +93,10 @@
         \nWenn man ihm nicht glaubt deckt man auf. Der Spieler der im Unrecht war trinkt nun 2 und beginnt eine neue Runde.</string>
     <string name="title_activity_maexchen_rules">MaexchenRules</string>
     <string name="maexchen_textView_result_init">  </string>
+    <string name="maexchen_button_help">Help</string>
+    <string name="maexchen_button_new_turn">Neue Runde</string>
+
+    <!-- Pyramid -->
     <string name="pyramid_drink_message">Drink!!!!!!!!!!!!!!!!</string>
     <string name="pyramid_manual_general_info">Bevor angefangen wird, muss sich jeder Spieler eine Flasche Bier, ein paar Shots oder ein beliebiges anderes alkoholisches Getränk bereitstellen.Während der gesamten Spielzeit ist sicherzustellen, dass alle Spieler ausreichend alkoholisch versorgt sind.</string>
     <string name="pyramid_manual_first_round">The First Level goas about 4 Rounds</string>
@@ -118,8 +119,11 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="hello_second_pyramid_round">Welcome to the second Round</string>
-    <string name="maexchen_button_help">Help</string>
-    <string name="maexchen_button_new_turn">New Round</string>
+
+
+
+    <!-- i have never ever strings -->
+
     <string name="prefs_categories">Categories</string>
     <string name="work">Work</string>
     <string name="school">School</string>
@@ -129,9 +133,6 @@
     <string name="law">Law</string>
     <string name="next">Next</string>
     <string name="quit">quit</string>
-
-    <!-- i have never ever strings -->
-
     <string name="never_ever_header">I have never ever</string>
     <string name="never_ever_text">The game is started with the players getting into a circle. Then, the first player reads a statement starting with "Never have I ever". Anyone who at some point in their lives have done the action that the first player says, must drink. Play then continues around the circle, and the next person reads a statement. You can choose some different categories.</string>
     <!-- Polnisches Trinkspiel strings -->
