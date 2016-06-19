@@ -93,7 +93,7 @@
         \nWenn man ihm nicht glaubt deckt man auf. Der Spieler der im Unrecht war trinkt nun 2 und beginnt eine neue Runde.</string>
     <string name="title_activity_maexchen_rules">MaexchenRules</string>
     <string name="maexchen_textView_result_init">  </string>
-    <string name="maexchen_button_help">Help</string>
+    <string name="maexchen_button_help">Hilfe</string>
     <string name="maexchen_button_new_turn">Neue Runde</string>
 
     <!-- Pyramid -->
