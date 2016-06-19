@@ -298,6 +298,9 @@
     <string name="statement_deleted">Statement has been successfully deleted</string>
     <string name="no_statements">No Statements</string>
     <string name="prefs_modify_database">Modify Database</string>
+    <string name="reset_settings">Reset Settings</string>
+    <string name="settings_reset_error">Settings reset error</string>
+    <string name="settings_reset_success">Settings successfully reseted</string>
 
 
 </resources>

@@ -17,4 +17,7 @@
         android:entryValues="@array/availabeLanguages"
         android:defaultValue="English"
         android:dialogTitle="@string/language" />
+    <Preference
+        android:key="reset_settings"
+        android:title="@string/reset_settings"/>
 </PreferenceScreen>

@@ -16,6 +16,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.Menu;
@@ -25,8 +26,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
 
@@ -148,7 +147,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 	public static class SettingsFragment extends PreferenceFragment {
 
 		private Resources resources;
-		private SharedPreferences sharePref;
 		private static File fileWithinMyDir;
 		DatabaseHandler db;
 
@@ -158,11 +156,12 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 			resources = getResources();
 
 			String settings = getArguments().getString("settings");
-			if (settings != null && settings.equalsIgnoreCase("general") ) {
-				addPreferencesFromResource(R.xml.options_general);
-			} else if (settings != null &&  settings.equalsIgnoreCase("pyramid") ) {
+			if ( settings != null && settings.equalsIgnoreCase("general") ) {
+				Log.d(TAG, "showGeneralSettings()showGeneralSettings: " + "");
+				showGeneralSettings();
+			} else if ( settings != null && settings.equalsIgnoreCase("pyramid") ) {
 				showPyramidSettings();
-			} else if (settings != null &&  settings.equalsIgnoreCase("i_have_never_ever") ) {
+			} else if ( settings != null && settings.equalsIgnoreCase("i_have_never_ever") ) {
 				db = new DatabaseHandler(getActivity().getApplicationContext());
 				showIHaveNeverEverSettings();
 			}
@@ -175,28 +174,52 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 			switch ( requestCode ) {
 				case FILE_SELECT_REQUEST:
 					if ( resultCode == RESULT_OK ) {
-						try {//TODO import port chosen Database file
-							Uri uri = data.getData();
-							Log.d(TAG, "onActivityResult() called with: " + getActivity().getContentResolver().openInputStream(uri));
-							InputStream inStream = getActivity().getContentResolver().openInputStream(uri);
-							Log.d(TAG, "inStream" + inStream + "]");
-							db.executeMultipleSQLScript(inStream);
-						} catch ( FileNotFoundException e ) {
-							e.printStackTrace();
-						}
+						//TODO import  chosen Database file
+						db.importDatabase(data.getData());
 					}
 					break;
 			}
 		}
 
+		private void showGeneralSettings() {
+			addPreferencesFromResource(R.xml.options_general);
+			Preference resetSettings = findPreference("reset_settings");
+			resetSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+					PreferenceScreen screen = getPreferenceScreen();
+					SharedPreferences sharePref = PreferenceManager.getDefaultSharedPreferences(screen.getContext());
+					SharedPreferences.Editor editor = sharePref.edit();
+					editor.clear();
+					editor.putBoolean(Utilities.FIRST_RUN_PREFERENCE_KEY, false);
+
+					SwitchPreference sound = (SwitchPreference) findPreference("sound");
+					SwitchPreference vibrate = (SwitchPreference) findPreference("vibrate");
+					sound.setChecked(true);
+					vibrate.setChecked(true);
+					editor.commit();
+					View view = getView();
+					if ( view != null ) {
+						Snackbar snackbar = Snackbar.make(view, R.string.settings_reset_success, Snackbar.LENGTH_LONG);
+						snackbar.show();
+					} else if ( view != null )
+						Snackbar.make(view, R.string.settings_reset_error, Snackbar.LENGTH_LONG).show();
+
+
+					return false;
+				}
+			});
+		}
+
 		private void showPyramidSettings() {
 			addPreferencesFromResource(R.xml.options_pyramide);
 			final PreferenceScreen screen = getPreferenceScreen();
+			final SharedPreferences sharePref = PreferenceManager.getDefaultSharedPreferences(screen.getContext());
 			final PreferenceCategory category = new PreferenceCategory(screen.getContext());
 
 			category.setTitle(resources.getString(R.string.player_names));
 			screen.addPreference(category);
-			sharePref = PreferenceManager.getDefaultSharedPreferences(screen.getContext());
 			int player_number = Integer.valueOf(sharePref.getString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, "2"));
 			for ( int i = 0; i < player_number; i++ ) {
 				EditTextPreference player_name = new EditTextPreference(screen.getContext());
@@ -228,7 +251,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 					playerCount.getEditor().apply();
 					playerCount.getEditor().commit();
 
-					sharePref = PreferenceManager.getDefaultSharedPreferences(screen.getContext());
 					SharedPreferences.Editor editor = sharePref.edit();
 					editor.putString(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY, Integer.toString(count));
 					editor.apply();
@@ -302,11 +324,11 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 				public boolean onPreferenceClick(Preference preference) {
 					fileWithinMyDir = db.exportDB();
 					View view = getView();
-					if ( fileWithinMyDir != null && view != null) {
+					if ( fileWithinMyDir != null && view != null ) {
 						Snackbar snackbar = Snackbar.make(view, R.string.db_exported_success, Snackbar.LENGTH_LONG);
 						snackbar.setAction(R.string.share, new ShareListener());
 						snackbar.show();
-					} else if (view != null)
+					} else if ( view != null )
 						Snackbar.make(view, R.string.db_exported_error, Snackbar.LENGTH_LONG).show();
 
 					return false;
@@ -343,12 +365,11 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
-					db.init();
 					View view = getView();
-					if ( db.init() && view != null) {
+					if ( db.init() && view != null ) {
 						Snackbar snackbar = Snackbar.make(view, R.string.db_reset_success, Snackbar.LENGTH_LONG);
 						snackbar.show();
-					} else if (view != null)
+					} else if ( view != null )
 						Snackbar.make(view, R.string.db_reset_error, Snackbar.LENGTH_LONG).show();
 
 

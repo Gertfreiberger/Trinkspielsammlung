@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -77,7 +79,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			String[] createScript = outputStream.toString().split(";");
 			for ( String aCreateScript : createScript ) {
 				String sqlStatement = aCreateScript.trim();
-				Log.d(TAG, "executeMultipleSQLScript() called with: " + "sql = [" + sqlStatement + "]");
+				Log.d(TAG, "executeMultipleSQLScript()  " + "sql = [" + sqlStatement + "]");
 				if ( sqlStatement.length() > 0 ) {
 					db.execSQL(sqlStatement + ";");
 				}
@@ -129,9 +131,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	public void deleteStatement(String statement) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		Log.d(TAG, "deleteStatement() " + getStatementsCount("Select  * from statements") +  "]");
 		db.delete(TABLE_STATEMENTS, KEY_STATEMENT + " = ?", new String[]{ statement });
-		Log.d(TAG, "deleteStatement2) " + getStatementsCount("Select  * from statements") +  "]");
 		db.close();
 	}
 
@@ -163,7 +163,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 		try {
 			source = new FileInputStream(currentDB).getChannel();
-			Log.d(TAG, "source() called with: " + source);
 			destination = new FileOutputStream(backupDB).getChannel();
 			destination.transferFrom(source, 0, source.size());
 			source.close();
@@ -210,24 +209,76 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	public boolean init() {
 		boolean successful = false;
-		try {//TODO Reset Database
-//			String dropTables = "select 'drop table ' || name || ';' from sqlite_master where type = 'table';";
-//			SQLiteDatabase db = this.getWritableDatabase();
-//			Log.d(TAG, "init1() called with: " + getStatementsCount("English"));
-////			db.rawQuery(dropTables, null);
-//			context.deleteDatabase(DATABASE_NAME);
-//			Log.d(TAG, "init2() called with: " + getStatementsCount("English"));
+		try {
+			SQLiteDatabase db = this.getWritableDatabase();
+			Cursor c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
+			if ( c.moveToFirst() ) {
+				while ( !c.isAfterLast() ) {
+					db.execSQL("DROP TABLE IF EXISTS " + c.getString(0));
+					c.moveToNext();
+				}
+			}
+
 			InputStream insertsStream = context.getAssets().open("databases/i_have_never_ever.sql");
 			executeMultipleSQLScript(insertsStream);
-//			Log.d(TAG, "init3() called with: " + getStatementsCount("English"));
 			successful = true;
-		} catch ( IOException e ) {
+		} catch ( IOException | SQLException e ) {
 			Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
 			e.printStackTrace();
-		} catch (  SQLException sqlException) {
-			Toast.makeText(context, sqlException.getMessage(), Toast.LENGTH_SHORT).show();
-			sqlException.printStackTrace();
 		}
 		return successful;
+	}
+
+	public void importDatabase(Uri uri) {
+		try {
+			Log.d(TAG, "File Uri: " + uri.toString());
+			// Get the path
+			String path = getPath(context, uri);
+			Log.d(TAG, "File Path: " + path);
+			// Get the file instance
+			File backupDB = new File(path);
+
+			File currentDB = new File("/data/" + context.getPackageName() + "/databases/" + getDatabaseName());
+
+			FileChannel source = null;
+			FileChannel destination = null;
+			Log.d(TAG, "importDatabase() called with: " + "inStream = [" + backupDB + "]");
+			source = new FileInputStream(backupDB).getChannel();
+			destination = new FileOutputStream(currentDB).getChannel();
+			destination.transferFrom(source, 0, source.size());
+			source.close();
+			destination.close();
+			Toast toast1 = Toast.makeText(context, ("Restore ok"), Toast.LENGTH_SHORT);
+			toast1.show();
+		} catch ( IOException e ) {
+			Toast toast = Toast.makeText(context, ("Error1!"), Toast.LENGTH_LONG);
+			toast.show();
+			e.printStackTrace();
+		} catch ( URISyntaxException e ) {
+			Toast toast = Toast.makeText(context, ("Error2!"), Toast.LENGTH_LONG);
+			toast.show();
+			e.printStackTrace();
+		}
+	}
+
+	public static String getPath(Context context, Uri uri) throws URISyntaxException {
+		if ( "content".equalsIgnoreCase(uri.getScheme()) ) {
+			String[] projection = { "_data" };
+			Cursor cursor = null;
+
+			try {
+				cursor = context.getContentResolver().query(uri, projection, null, null, null);
+				int column_index = cursor.getColumnIndexOrThrow("_data");
+				if ( cursor.moveToFirst() ) {
+					return cursor.getString(column_index);
+				}
+			} catch ( Exception e ) {
+				// Eat it
+			}
+		} else if ( "file".equalsIgnoreCase(uri.getScheme()) ) {
+			return uri.getPath();
+		}
+
+		return null;
 	}
 }

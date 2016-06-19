@@ -165,13 +165,12 @@ public class ManualActivity extends AppCompatActivity {
 				// older android version, disable hardware acceleration
 				webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 			}
-			Resources resources = getActivity().getApplicationContext().getResources();
 			Utilities util = new Utilities(getContext());
 			try {
 
 				InputStream is = asset.open("www/manual_general.html", AssetManager.ACCESS_BUFFER);
 				String html = util.streamToString(is);
-
+//TODO write General manual
 				webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
 				is.close();
 			} catch ( IOException e ) {
