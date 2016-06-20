@@ -175,7 +175,6 @@ public class PyramidActivity extends AppCompatActivity {
 				finish();
 				break;
 			case R.id.help:
-//				getWindow().addContentView(R.layout.manual, ViewGroup.LayoutParams);
 				ContentFrameLayout rootLayout = (ContentFrameLayout)findViewById(android.R.id.content);
 				View.inflate(this, R.layout.manual, rootLayout);
 				backToPyramid = true;

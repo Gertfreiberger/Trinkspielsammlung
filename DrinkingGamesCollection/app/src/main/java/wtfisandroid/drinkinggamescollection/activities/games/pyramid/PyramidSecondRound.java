@@ -1,5 +1,6 @@
 package wtfisandroid.drinkinggamescollection.activities.games.pyramid;
 
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ContentFrameLayout;
 import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +22,7 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -75,6 +78,7 @@ public class PyramidSecondRound extends AppCompatActivity {
 	/* Animations */
 	private ScaleAnimation animPlayerCards;
 	private ScaleAnimation animPyramidCards;
+	private boolean backToPyramid = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -182,11 +186,25 @@ public class PyramidSecondRound extends AppCompatActivity {
 		}
 		switch ( item.getItemId() ) {
 			case R.id.new_game:
-				Intent intent = new Intent(getApplicationContext(), PyramidActivity.class);
-				startActivity(intent);
+				if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ) {
+					ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PyramidSecondRound.this);
+					Intent intent = new Intent(PyramidSecondRound.this, PyramidActivity.class);
+					startActivity(intent, options.toBundle());
+				} else
+					startActivity(new Intent(getApplicationContext(), PyramidActivity.class));
+				finish();
+				break;
+			case R.id.help:
+				ContentFrameLayout rootLayout = (ContentFrameLayout) findViewById(android.R.id.content);
+				View.inflate(this, R.layout.manual, rootLayout);
+				backToPyramid = true;
+				WebView webView = (WebView) findViewById(R.id.wv_manual);
+				utilities.generatePyramidManual(webView);
 				break;
 			case R.id.back:
-				onBackPressed();
+				finish();
+				break;
+			default:
 				break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -194,32 +212,39 @@ public class PyramidSecondRound extends AppCompatActivity {
 
 	@Override
 	public void onBackPressed() {
-		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
+		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) )
 			utilities.playSound(1, AudioManager.FX_KEYPRESS_RETURN);
+
+		if ( backToPyramid ) {
+			ContentFrameLayout rootLayout = (ContentFrameLayout) findViewById(android.R.id.content);
+			if ( rootLayout != null )
+				rootLayout.removeView(findViewById(R.id.wv_manual));
+
+			backToPyramid = false;
+		} else {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(resources.getString(R.string.clos_game_message));
+			builder.setCancelable(true);
+
+			builder.setPositiveButton(
+							resources.getString(R.string.yes),
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
+									finish();
+								}
+							});
+
+			builder.setNegativeButton(
+							resources.getString(R.string.no),
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
+									dialog.cancel();
+								}
+							});
+
+			AlertDialog alert = builder.create();
+			alert.show();
 		}
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(resources.getString(R.string.clos_game_message));
-		builder.setCancelable(true);
-
-		builder.setPositiveButton(
-						resources.getString(R.string.yes),
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								finish();
-							}
-						});
-
-		builder.setNegativeButton(
-						resources.getString(R.string.no),
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						});
-
-		AlertDialog alert = builder.create();
-		alert.show();
 	}
 
 	@Override
@@ -259,8 +284,8 @@ public class PyramidSecondRound extends AppCompatActivity {
 		clearCards();
 		/* set text from textView of player hand*/
 		tvPlayerName.setText("Spielerkarten: "
-				+ sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + currentPlayer,
-				playerHand.getPlayerName()));
+						+ sharedPref.getString(Utilities.PYRAMID_PLAYER_NAME_PREFERENCE_KEY + currentPlayer,
+						playerHand.getPlayerName()));
 		index = 0;
 		for (; index < playerHand.getPlayerCards().size(); index++ ) {
 			view = playerCards.elementAt(index);
@@ -303,7 +328,7 @@ public class PyramidSecondRound extends AppCompatActivity {
 		index = 0;
 		/* Remove all images of the player hand for new arrangement */
 		int index = 0;
-		for (; index < 4; index++) {
+		for (; index < 4; index++ ) {
 			playerCards.elementAt(index).setBackgroundResource(android.R.color.transparent);
 		}
 	}
@@ -392,13 +417,13 @@ public class PyramidSecondRound extends AppCompatActivity {
 	}
 
 	public int getDrinkCount() {
-		if (pyramidIndex < 5)
+		if ( pyramidIndex < 5 )
 			return 1;
-		else if (pyramidIndex < 9)
+		else if ( pyramidIndex < 9 )
 			return 2;
-		else if (pyramidIndex < 12)
+		else if ( pyramidIndex < 12 )
 			return 3;
-		else if (pyramidIndex < 14)
+		else if ( pyramidIndex < 14 )
 			return 4;
 		else
 			return 5;
@@ -418,8 +443,8 @@ public class PyramidSecondRound extends AppCompatActivity {
 			if ( playerHands.get("Player" + i).getPlayerCards().size() >= maxCards )
 				maxCards = playerHands.get("Player" + i).getPlayerCards().size();
 		}
-		for (int i = 1; i <= playerCount; i++) {
-			if (playerHands.get("Player" + i).getPlayerCards().size() == maxCards)
+		for ( int i = 1; i <= playerCount; i++ ) {
+			if ( playerHands.get("Player" + i).getPlayerCards().size() == maxCards )
 				finalPlayer.add(playerHands.get("Player" + i).getPlayerName());
 		}
 	}
