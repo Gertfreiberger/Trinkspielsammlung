@@ -40,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final String KEY_STATEMENT = "statement";
 	public static final String KEY_CATEGORY = "category";
 	public static final String QUERY_ALL_LANGUAGES = "SELECT * FROM LANGUAGES;";
-	public static final String QUERY_ALL_CATEGORIES = "SELECT * FROM CATEGORIES;";
+	public static final String QUERY_ALL_CATEGORIES = "SELECT * FROM `categories` ORDER BY `categories`.`catergorieName`  DESC";
 	public static final String KEY_LANGUAGE = "language";
 
 

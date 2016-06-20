@@ -42,19 +42,19 @@ public class IHaveNeverEverActivityUITest extends ActivityInstrumentationTestCas
 	}
 
 	public void testQuitButton() {
+		solo.clickOnText(resources.getString((R.string.quit)));
+	}
+
+	public void testBack() {
 		solo.goBack();
 		solo.sleep(2300);
 		solo.goBack();
 		solo.goBack();
 	}
 
-	public void testBack() {
-		solo.clickOnText(resources.getString((R.string.quit)));
-	}
-
 	public void testNextButton() {
 		int statementsCount = db.getStatementsCount(currentLanguage);
-		for ( int i = 0; i < statementsCount * 2; i++ ) {
+		for ( int i = 0; i < statementsCount; i++ ) {
 			solo.clickOnView(solo.getView(R.id.next));
 			solo.sleep(2300);
 		}
@@ -63,9 +63,9 @@ public class IHaveNeverEverActivityUITest extends ActivityInstrumentationTestCas
 
 	public void testNextButtonWithQuit() {
 		int statementsCount = db.getStatementsCount(currentLanguage);
-		for ( int i = 0; i < statementsCount * 2; i++ ) {
+		for ( int i = 0; i < statementsCount; i++ ) {
 			solo.clickOnView(solo.getView(R.id.next));
-			if (statementsCount == i) {
+			if ( statementsCount == (i + 1)) {
 				solo.clickOnText(resources.getString((R.string.quit)));
 				break;
 			}
@@ -76,9 +76,9 @@ public class IHaveNeverEverActivityUITest extends ActivityInstrumentationTestCas
 
 	public void testNextButtonWithBackPressed() {
 		int statementsCount = db.getStatementsCount(currentLanguage);
-		for ( int i = 0; i < statementsCount * 2; i++ ) {
+		for ( int i = 0; i < statementsCount; i++ ) {
 			solo.clickOnView(solo.getView(R.id.next));
-			if (statementsCount == i) {
+			if ( statementsCount == (i + 1) ) {
 				solo.goBack();
 				solo.goBack();
 				break;
@@ -86,11 +86,6 @@ public class IHaveNeverEverActivityUITest extends ActivityInstrumentationTestCas
 			solo.sleep(2300);
 		}
 		solo.clickOnText(resources.getString((R.string.next)));
-	}
-
-	public void testMenuItems() {
-		solo.clickOnMenuItem(resources.getString((R.string.new_game)));
-		solo.clickOnMenuItem(resources.getString((R.string.back)));
 	}
 
 }

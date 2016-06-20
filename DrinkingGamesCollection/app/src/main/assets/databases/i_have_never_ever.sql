@@ -1,6 +1,11 @@
+
 CREATE TABLE `categories` (
   `catergorieName` varchar(50) NOT NULL
 );
+
+--
+-- Dumping data for table `categories`
+--
 
 INSERT INTO `categories` (`catergorieName`) VALUES
 ('Adult'),
@@ -11,20 +16,40 @@ INSERT INTO `categories` (`catergorieName`) VALUES
 ('School'),
 ('Work');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `languages`
+--
+
 CREATE TABLE `languages` (
   `languageName` varchar(100) NOT NULL
 );
 
+--
+-- Dumping data for table `languages`
+--
+
 INSERT INTO `languages` (`languageName`) VALUES
 ('Deutsch'),
 ('English');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `statements`
+--
 
 CREATE TABLE `statements` (
   `statementID` int(11) NOT NULL,
   `statement` text NOT NULL,
   `category` varchar(50) NOT NULL DEFAULT 'Other',
   `language` varchar(50) NOT NULL DEFAULT 'English'
-) ;
+);
+
+--
+-- Dumping data for table `statements`
+--
 
 INSERT INTO `statements` (`statementID`, `statement`, `category`, `language`) VALUES
 (1, 'fantasized about my mom', 'Adult', 'English'),
@@ -76,10 +101,46 @@ INSERT INTO `statements` (`statementID`, `statement`, `category`, `language`) VA
 (47, 'cheated on a girlfriend/boyfriend', 'Other', 'English'),
 (48, 'watched more than 3 episodes of a series in one day', 'Other', 'English'),
 (49, 'etwas gestohlen', 'Law', 'Deutsch'),
-(50, 'been so drunk I couldn''t remember how I got home', 'Drinking', 'Deutsch'),
-(51, 'schwierige', 'Law', 'Deutsch'),
-(52, 'alleine zu einem Ball gegangen', 'School', 'Deutsch'),
 (53, 'einen Streich während der Arbeit gespielt', 'Work', 'Deutsch'),
 (54, 'bei einem Bewerbungsgesrpäch gelogen', 'Work', 'Deutsch'),
-(55, 'meine(n) Freundin/Freund betrogen', 'Other', 'Deutsch');
-
+(55, 'meine(n) Freundin/Freund betrogen', 'Other', 'Deutsch'),
+(56, 'einem Lehrer / einer Lehrerin auf den Arsch gestarrt', 'School', 'Deutsch'),
+(57, 'mit mir selbst geredet.', 'Other', 'Deutsch'),
+(58, 'meine Eltern beim Sex erwischt.', 'Adult', 'Deutsch'),
+(59, 'in der Öffentlichkeit in die Hosen gemacht.', 'Other', 'Deutsch'),
+(60, 'in einen Busch gepinkelt.', 'Other', 'Deutsch'),
+(61, 'in der Dusche gesungen.', 'Other', 'Deutsch'),
+(62, 'über Sex geträumt.', 'Adult', 'Deutsch'),
+(63, 'nackt im Freibad / See gebadet.', 'Other', 'Deutsch'),
+(64, 'meinen Namen gegoogelt.', 'Other', 'Deutsch'),
+(65, 'ein Tagebuch geführt.', 'Other', 'Deutsch'),
+(66, 'jemanden angekotzt.', 'Drinking', 'Deutsch'),
+(67, 'wegen einer Spinne gekreischt.', 'Other', 'Deutsch'),
+(68, 'Angst im Dunkeln gehabt.', 'Other', 'Deutsch'),
+(69, 'das ABC gerülpst.', 'Other', 'Deutsch'),
+(70, 'an einen elektrischen Zaun gefasst.', 'Other', 'Deutsch'),
+(71, 'einen Zungenkuss gehabt', 'Love', 'Deutsch'),
+(72, 'meinem Kuscheltier meine Sorgen erzählt', 'Other', 'Deutsch'),
+(73, 'länger wie 2/3 Tage lang nicht geduscht', 'Other', 'Deutsch'),
+(74, 'Gurkensaft getrunken', 'Other', 'Deutsch'),
+(75, 'Sex auf einer Party gehabt', 'Adult', 'Deutsch'),
+(76, 'Einen Fetish gehabt', 'Adult', 'Deutsch'),
+(77, 'Sex in der Umkleide gehabt', 'Adult', 'Deutsch'),
+(78, 'Einen Blog gehabt', 'Other', 'Deutsch'),
+(79, 'Special Brownies gehabt', 'Other', 'Deutsch'),
+(80, 'Mit jemanden geschlafen, den ich aus dem Internet kannte.', 'Adult', 'Deutsch'),
+(81, 'Für eine Raubkopie Geld bezahlen müssen', 'Law', 'Deutsch'),
+(82, 'Blöde Trinkspiele gespielt', 'Drinking', 'Deutsch'),
+(83, 'Jemanden von meinem eigenen Geschlecht geküsst', 'Law', 'Deutsch'),
+(84, 'Etwas teures geklaut', 'Law', 'Deutsch'),
+(85, 'Von der Polizei abgeholt werden müssen', 'Law', 'Deutsch'),
+(86, 'Jemanden auf Facebook blockiert', 'Other', 'Deutsch'),
+(87, 'Für Sex bezahlt', 'Adult', 'Deutsch'),
+(88, 'Mit einer Kommilitonin / einem Kommilitionen rumgemacht', 'School', 'Deutsch'),
+(89, 'Einen Alkohol getrunken, den ich jetzt nicht mehr trinken kann', 'Drinking', 'Deutsch'),
+(90, 'Mit jemanden geschlafen, dessen Namen ich morgens nicht mehr wusste', 'Adult', 'Deutsch'),
+(91, 'In Socken geduscht', 'Other', 'Deutsch'),
+(92, 'Mein Handy in einen Fluss fallen lassen', 'Other', 'Deutsch'),
+(93, 'Sex auf einem Bürgersteig gehabt', 'Adult', 'Deutsch'),
+(94, 'Liebeskummer gehabt', 'Love', 'Deutsch'),
+(95, 'Weed geraucht', 'Law', 'Deutsch');

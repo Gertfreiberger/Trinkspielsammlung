@@ -172,47 +172,6 @@ public class Utilities {
 		return writer.toString();
 	}
 
-	public void generatePyramidManual(WebView webView) {
-
-		webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-		webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-		if ( Build.VERSION.SDK_INT >= 19 ) {
-			// chromium, enable hardware acceleration
-			webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-		} else {
-			// older android version, disable hardware acceleration
-			webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-		}
-		AssetManager asset = context.getAssets();
-		Resources resources = context.getResources();
-		try {
-
-			InputStream is = asset.open("www/manual_pyramid.html", AssetManager.ACCESS_BUFFER);
-			String html = streamToString(is);
-
-			html = html.replace("$GENERAL_INFORMATION_HEADER", resources.getString(R.string.pyramid_manual_general_info_header));
-			html = html.replace("$GENERAL_INFORMATION_TEXT", resources.getString(R.string.pyramid_manual_general_info));
-			html = html.replace("$FIRST_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_round_header));
-			html = html.replace("$FIRST_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_round));
-			html = html.replace("$FIRST_FIRST_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_first_round_header));
-			html = html.replace("$FIRST_FIRST_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_first_round));
-			html = html.replace("$FIRST_SECOND_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_second_round_header));
-			html = html.replace("$FIRST_SECOND_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_second_round));
-			html = html.replace("$FIRST_THIRD_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_third_round_header));
-			html = html.replace("$FIRST_THIRD_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_third_round));
-			html = html.replace("$FIRST_FOURTH_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_fourth_round_header));
-			html = html.replace("$FIRST_FOURTH_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_fourth_round));
-			html = html.replace("$SECOND_ROUND_HEADER", resources.getString(R.string.pyramid_manual_second_round_header));
-			html = html.replace("$SECOND_ROUND_TEXT", resources.getString(R.string.pyramid_manual_second_round));
-			html = html.replace("$FINAL_ROUND_HEADER", resources.getString(R.string.pyramid_manual_final_round_header));
-			html = html.replace("$FINAL_ROUND_TEXT", resources.getString(R.string.pyramid_manual_final_round));
-			webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
-			is.close();
-		} catch ( IOException e ) {
-			e.printStackTrace();
-		}
-	}
-
 	public void drink() {
 		if ( sharedPref.getBoolean(Utilities.VIBRATE_PREFERENCE_KEY, false) ) {
 			vib.vibrate(1000);
@@ -252,5 +211,72 @@ public class Utilities {
 		}
 
 		return stringBuilder.toString();
+	}
+
+	public void generateIHaveNeverEverManual(WebView webView) {
+		webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+		webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+		if ( Build.VERSION.SDK_INT >= 19 ) {
+			// chromium, enable hardware acceleration
+			webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+		} else {
+			// older android version, disable hardware acceleration
+			webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+		}
+		AssetManager asset = context.getAssets();
+		Resources resources = context.getResources();
+		try {
+			Utilities util = new Utilities(context);
+			InputStream is = asset.open("www/manual_i_have_never_ever.html", AssetManager.ACCESS_BUFFER);
+			String html = util.streamToString(is);
+
+			html = html.replace("$GAME_PLAY_HEADER", resources.getString(R.string.pyramid_manual_general_info_header));
+			html = html.replace("$GAME_PLAY__TEXT", resources.getString(R.string.never_ever_text));
+			webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+			is.close();
+		} catch ( IOException e ) {
+			e.printStackTrace();
+		}
+	}
+
+
+	public void generatePyramidManual(WebView webView) {
+		webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+		webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+		if ( Build.VERSION.SDK_INT >= 19 ) {
+			// chromium, enable hardware acceleration
+			webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+		} else {
+			// older android version, disable hardware acceleration
+			webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+		}
+		AssetManager asset = context.getAssets();
+		Resources resources = context.getResources();
+		try {
+
+			InputStream is = asset.open("www/manual_pyramid.html", AssetManager.ACCESS_BUFFER);
+			String html = streamToString(is);
+
+			html = html.replace("$GENERAL_INFORMATION_HEADER", resources.getString(R.string.pyramid_manual_general_info_header));
+			html = html.replace("$GENERAL_INFORMATION_TEXT", resources.getString(R.string.pyramid_manual_general_info));
+			html = html.replace("$FIRST_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_round_header));
+			html = html.replace("$FIRST_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_round));
+			html = html.replace("$FIRST_FIRST_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_first_round_header));
+			html = html.replace("$FIRST_FIRST_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_first_round));
+			html = html.replace("$FIRST_SECOND_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_second_round_header));
+			html = html.replace("$FIRST_SECOND_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_second_round));
+			html = html.replace("$FIRST_THIRD_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_third_round_header));
+			html = html.replace("$FIRST_THIRD_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_third_round));
+			html = html.replace("$FIRST_FOURTH_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_fourth_round_header));
+			html = html.replace("$FIRST_FOURTH_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_fourth_round));
+			html = html.replace("$SECOND_ROUND_HEADER", resources.getString(R.string.pyramid_manual_second_round_header));
+			html = html.replace("$SECOND_ROUND_TEXT", resources.getString(R.string.pyramid_manual_second_round));
+			html = html.replace("$FINAL_ROUND_HEADER", resources.getString(R.string.pyramid_manual_final_round_header));
+			html = html.replace("$FINAL_ROUND_TEXT", resources.getString(R.string.pyramid_manual_final_round));
+			webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+			is.close();
+		} catch ( IOException e ) {
+			e.printStackTrace();
+		}
 	}
 }
