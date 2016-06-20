@@ -52,7 +52,7 @@ public class ManualActivity extends AppCompatActivity {
 		TabsPagerAdapter mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 		viewPager.setAdapter(mAdapter);
 		Random rand = new Random();
-		int animation = rand.nextInt(2) + 1;
+		int animation = rand.nextInt(1) + 1;
 		if ( animation == 1 )
 			viewPager.setPageTransformer(true, new DepthPageTransformer());
 		else
@@ -92,7 +92,7 @@ public class ManualActivity extends AppCompatActivity {
 
 	public class TabsPagerAdapter extends FragmentPagerAdapter {
 
-		private int NUM_ITEMS = 3;
+		private int NUM_ITEMS = 2;
 
 		public TabsPagerAdapter(FragmentManager fragmentManager) {
 			super(fragmentManager);
@@ -111,13 +111,13 @@ public class ManualActivity extends AppCompatActivity {
 		public Fragment getItem(int position) {
 			Fragment fragment = null;
 			switch ( position ) {
-				case 0:
+				/*case 0:
 					fragment = new GeneralFragment();
-					break;
-				case 1:
+					break;*/
+				case 0:
 					fragment = new IHaveNeverEverFragment();
 					break;
-				case 2:
+				case 1:
 					fragment = new PyramidFragment();
 					break;
 				default:

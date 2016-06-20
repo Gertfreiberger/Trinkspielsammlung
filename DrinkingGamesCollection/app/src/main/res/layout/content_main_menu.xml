@@ -74,7 +74,8 @@
                 android:id="@+id/button_i_have_never_ever"
                 android:background="#da4c4c"
                 android:onClick="onClick"
-                android:layout_margin="@dimen/mainmenu_button_margin"/>
+                android:layout_margin="@dimen/mainmenu_button_margin"
+                android:visibility="visible" />
 
         </TableRow>
 
