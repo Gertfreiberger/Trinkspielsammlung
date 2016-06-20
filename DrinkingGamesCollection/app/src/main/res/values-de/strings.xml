@@ -60,6 +60,8 @@
     <string-array name="manualTabs">
         <item>Ich Habe Noch Nie</item>
         <item>Pyramide</item>
+        <item>Mäxchen</item>
+        <item>Polnisches Trinkspiel</item>
     </string-array>
 
     <string-array name="pyramid_rounds">

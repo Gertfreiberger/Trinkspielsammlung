@@ -25,16 +25,24 @@ public class ManualActivityUITest extends ActivityInstrumentationTestCase2<Manua
 
 	public void testManual() {
 		solo.drag(300,0,100,100,1);
+		solo.scrollDown();
 		solo.sleep(5000);
 		solo.drag(0,300, 100, 100,1);
+		solo.scrollDown();
 		solo.drag(300,0,100,100,1);
+		solo.scrollDown();
 		solo.drag(300,0,100,100,1);
+		solo.scrollDown();
 		solo.drag(300,0,100,100,1);
+		solo.scrollDown();
 		solo.drag(0,300, 100, 100,1);
+		solo.scrollDown();
 		solo.drag(300,0,100,100,1);
+		solo.scrollDown();
 		solo.drag(0,300, 100, 100,1);
+		solo.scrollDown();
 		solo.drag(300,0,100,100,1);
+		solo.scrollDown();
+		solo.goBack();
 	}
-
-
 }

@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -154,7 +153,7 @@ public class Utilities {
 		return new String(Character.toChars(unicode));
 	}
 
-	public static String streamToString(InputStream in) {
+	public String streamToString(InputStream in) {
 		if ( in == null )
 			return "";
 
@@ -204,8 +203,6 @@ public class Utilities {
 
 			reader.close();
 			inputStream.close();
-		} catch ( FileNotFoundException e ) {
-			e.printStackTrace();
 		} catch ( IOException e ) {
 			e.printStackTrace();
 		}

@@ -50,6 +50,8 @@
     <string-array name="manualTabs">
         <item>I Have Never Ever</item>
         <item>Pyramid</item>
+        <item>Maexchen</item>
+        <item>Polish Drinking Game</item>
     </string-array>
 
     <string-array name="availabeLanguages">
