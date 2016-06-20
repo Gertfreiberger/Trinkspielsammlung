@@ -23,102 +23,109 @@
         android:textColor="#090909"
         android:gravity="center_horizontal" />
 
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
         android:layout_below="@+id/headline"
-        android:gravity="center_horizontal">
+        android:layout_centerHorizontal="true">
 
-        <TableRow
-            android:layout_width="wrap_content"
+        <TableLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal">
 
-            <Button
-                android:layout_width="@dimen/mainmenu_button_width"
-                android:layout_height="@dimen/mainmenu_button_height"
-                android:text="@string/mainmenu_button_maexchen"
-                android:id="@+id/button_maexchen"
-                android:background="#da4c4c"
-                android:onClick="onClick"
-                android:layout_margin="@dimen/mainmenu_button_margin"/>
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
 
-            <Button
-                android:layout_width="@dimen/mainmenu_button_width"
-                android:layout_height="match_parent"
-                android:text="@string/mainmenu_button_polnisches"
-                android:id="@+id/button_polnisches_trinkspiel"
-                android:background="#da4c4c"
-                android:onClick="onClick"
-                android:layout_margin="@dimen/mainmenu_button_margin"/>
-        </TableRow>
+                <Button
+                    android:layout_width="@dimen/mainmenu_button_width"
+                    android:layout_height="@dimen/mainmenu_button_height"
+                    android:text="@string/mainmenu_button_maexchen"
+                    android:id="@+id/button_maexchen"
+                    android:background="#da4c4c"
+                    android:onClick="onClick"
+                    android:layout_margin="@dimen/mainmenu_button_margin"/>
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
+                <Button
+                    android:layout_width="@dimen/mainmenu_button_width"
+                    android:layout_height="match_parent"
+                    android:text="@string/mainmenu_button_polnisches"
+                    android:id="@+id/button_polnisches_trinkspiel"
+                    android:background="#da4c4c"
+                    android:onClick="onClick"
+                    android:layout_margin="@dimen/mainmenu_button_margin"/>
+            </TableRow>
 
-            <Button
-                android:layout_width="@dimen/mainmenu_button_width"
-                android:layout_height="@dimen/mainmenu_button_height"
-                android:text="@string/pyramid"
-                android:id="@+id/button_pyramid"
-                android:background="#da4c4c"
-                android:onClick="onClick"
-                android:layout_margin="@dimen/mainmenu_button_margin"/>
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
 
-            <Button
-                android:layout_width="@dimen/mainmenu_button_width"
-                android:layout_height="match_parent"
-                android:text="@string/i_have_never_ever"
-                android:id="@+id/button_i_have_never_ever"
-                android:background="#da4c4c"
-                android:onClick="onClick"
-                android:layout_margin="@dimen/mainmenu_button_margin"
-                android:visibility="visible" />
+                <Button
+                    android:layout_width="@dimen/mainmenu_button_width"
+                    android:layout_height="@dimen/mainmenu_button_height"
+                    android:text="@string/pyramid"
+                    android:id="@+id/button_pyramid"
+                    android:background="#da4c4c"
+                    android:onClick="onClick"
+                    android:layout_margin="@dimen/mainmenu_button_margin"/>
 
-        </TableRow>
+                <Button
+                    android:layout_width="@dimen/mainmenu_button_width"
+                    android:layout_height="match_parent"
+                    android:text="@string/i_have_never_ever"
+                    android:id="@+id/button_i_have_never_ever"
+                    android:background="#da4c4c"
+                    android:onClick="onClick"
+                    android:layout_margin="@dimen/mainmenu_button_margin"
+                    android:visibility="visible" />
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="20dp">
+            </TableRow>
 
-            <Button
-                android:layout_width="@dimen/mainmenu_button_width"
-                android:layout_height="@dimen/mainmenu_button_height"
-                android:text="@string/settings"
-                android:id="@+id/button_settings"
-                android:background="#da4c4c"
-                android:onClick="onClick"
-                android:layout_margin="@dimen/mainmenu_button_margin"/>
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="20dp">
 
-            <Button
-                android:layout_width="@dimen/mainmenu_button_width"
-                android:layout_height="@dimen/mainmenu_button_height"
-                android:text="@string/manual"
-                android:id="@+id/button_manual"
-                android:background="#da4c4c"
-                android:onClick="onClick"
-                android:layout_margin="@dimen/mainmenu_button_margin" />
-        </TableRow>
+                <Button
+                    android:layout_width="@dimen/mainmenu_button_width"
+                    android:layout_height="@dimen/mainmenu_button_height"
+                    android:text="@string/settings"
+                    android:id="@+id/button_settings"
+                    android:background="#da4c4c"
+                    android:onClick="onClick"
+                    android:layout_margin="@dimen/mainmenu_button_margin"/>
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
+                <Button
+                    android:layout_width="@dimen/mainmenu_button_width"
+                    android:layout_height="@dimen/mainmenu_button_height"
+                    android:text="@string/manual"
+                    android:id="@+id/button_manual"
+                    android:background="#da4c4c"
+                    android:onClick="onClick"
+                    android:layout_margin="@dimen/mainmenu_button_margin" />
+            </TableRow>
 
-            <Button
-                android:layout_width="@dimen/mainmenu_button_width"
-                android:layout_height="@dimen/mainmenu_button_height"
-                android:text="@string/close"
-                android:id="@+id/button_close"
-                android:background="#da4c4c"
-                android:onClick="onClick"
-                android:layout_margin="@dimen/mainmenu_button_margin"/>
-        </TableRow>
-    </TableLayout>
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:layout_width="@dimen/mainmenu_button_width"
+                    android:layout_height="@dimen/mainmenu_button_height"
+                    android:text="@string/close"
+                    android:id="@+id/button_close"
+                    android:background="#da4c4c"
+                    android:onClick="onClick"
+                    android:layout_margin="@dimen/mainmenu_button_margin"/>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
 
 
 </RelativeLayout>

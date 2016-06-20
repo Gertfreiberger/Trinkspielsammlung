@@ -88,10 +88,6 @@ public class MainMenu extends AppCompatActivity implements ShakeDetector.OnShake
 			utilities.playSound(1);
 
 		switch ( item.getItemId() ) {
-			case R.id.action_settings:
-				Intent intent = new Intent(this.getApplicationContext(), SettingsActivity.class);
-				startActivity(intent);
-				break;
 			case R.id.back:
 				finish();
 				break;
