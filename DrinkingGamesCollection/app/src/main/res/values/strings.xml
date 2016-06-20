@@ -5,8 +5,8 @@
     <string name="mainmenu_button_polnisches">Polnisches Trinkspiel</string>
     <string name="mainmenu_button_pyramid">Pyramid</string>
     <string name="mainmenu_headline">Drinking Games Collection</string>
-    <string name="title_activity_maexchen_menu">MaexchenMenu</string>
-    <string name="title_activity_polnisches_trinkspiel">PolnischGameMenu</string>
+    <string name="title_activity_maexchen_menu">Maexchen</string>
+    <string name="title_activity_polnisches_trinkspiel">Polnisch Game</string>
     <string name="title_activity_polnisches_trinkspiel_rules">PolnischesGameRules</string>
     <string name="title_activity_polnisch_game">PolnischGame</string>
     <string name="title_activity_pyramid">Pyramid</string>
