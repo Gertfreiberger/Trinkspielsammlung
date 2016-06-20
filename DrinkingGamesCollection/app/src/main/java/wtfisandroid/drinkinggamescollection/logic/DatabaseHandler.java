@@ -125,14 +125,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_LANGUAGE, statement.getLanguage());
 
 		long k = db.insert(TABLE_STATEMENTS, null, values);
-		Log.d(TAG, "getAllStatements() long = " + k + " with: " + "getAllStatements = [" + getAllStatements("Select  * from statements") + "]");
 		db.close();
 	}
 
-	public void deleteStatement(String statement) {
-		SQLiteDatabase db = this.getWritableDatabase();
+	public void deleteStatement(String statement, SQLiteDatabase db) {
 		db.delete(TABLE_STATEMENTS, KEY_STATEMENT + " = ?", new String[]{ statement });
-		db.close();
 	}
 
 	public int getStatementsCount(String language) {

@@ -304,6 +304,7 @@
     <string name="reset_settings">Reset Settings</string>
     <string name="settings_reset_error">Settings reset error</string>
     <string name="settings_reset_success">Settings successfully reseted</string>
+    <string name="undo">Undo</string>
 
 
 </resources>

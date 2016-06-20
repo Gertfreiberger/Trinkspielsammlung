@@ -1,11 +1,16 @@
 package wtfisandroid.drinkinggamescollection.activities.games.settings;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,16 +37,23 @@ public class DeleteStatementActivity extends AppCompatActivity {
 	private Spinner spCategory;
 	private ArrayList<String> statementsText;
 	private ArrayAdapter<String> statementsAdapter;
+	private Resources resource;
+	private Utilities utilities;
+	private SharedPreferences sharedPref;
+	private SQLiteDatabase wdb;
+	private boolean deleteStatement = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Utilities utilities = new Utilities(this);
-		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+		resource = getResources();
+		utilities = new Utilities(this);
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		String currentLanguage = sharedPref.getString(Utilities.LANGUAGE_PREFERENCE_KEY, Locale.getDefault().getDisplayLanguage());
 		utilities.setLanguage(currentLanguage);
 
-		setContentView(R.layout.activity_i_have_never_ever);
+		setContentView(R.layout.activity_delete_statement);
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
@@ -51,13 +63,13 @@ public class DeleteStatementActivity extends AppCompatActivity {
 		if ( getSupportActionBar() != null ) {
 			getSupportActionBar().setDisplayShowTitleEnabled(false);
 		}
-		setContentView(R.layout.activity_delete_statement);
 
 		spStatements = (Spinner) findViewById(R.id.spStatement);
 		spLanguage = (Spinner) findViewById(R.id.spLanguage);
 		spCategory = (Spinner) findViewById(R.id.spCategory);
 
 		db = new DatabaseHandler(getApplicationContext());
+		wdb = db.getWritableDatabase();
 
 		statementsText = new ArrayList<>();
 
@@ -95,6 +107,35 @@ public class DeleteStatementActivity extends AppCompatActivity {
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_add_statement, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch ( item.getItemId() ) {
+			case R.id.back:
+				if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) )
+					utilities.playSound(1, AudioManager.FX_KEYPRESS_RETURN);
+				finish();
+				break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	/**
+	 * Take care of popping the fragment back stack or finishing the activity
+	 * as appropriate.
+	 */
+	@Override
+	public void onBackPressed() {
+		if ( !wdb.inTransaction() )
+				super.onBackPressed();
+
+	}
+
+	@Override
 	protected void onDestroy() {
 		db.close();
 		super.onDestroy();
@@ -115,12 +156,41 @@ public class DeleteStatementActivity extends AppCompatActivity {
 
 	public void onClickDeleteStatement(View v) {
 		String statement = String.valueOf(spStatements.getSelectedItem());
-		db.deleteStatement(statement);
+		wdb.beginTransaction();
+		deleteStatement = true;
+		db.deleteStatement(statement, wdb);
 		View view = findViewById(android.R.id.content);
 		if ( view != null ) {
 			Snackbar snackbar = Snackbar.make(view, R.string.statement_deleted, Snackbar.LENGTH_LONG);
+			snackbar.setAction(resource.getString(R.string.undo), new UndoListener());
+			snackbar.setCallback(new Snackbar.Callback() {
+
+				@Override
+				public void onDismissed(Snackbar snackbar, int event) {
+					if ( deleteStatement ) {
+						wdb.setTransactionSuccessful();
+						statementsAdapter.remove(spStatements.getSelectedItem().toString());
+					}
+					wdb.endTransaction();
+				}
+
+				@Override
+				public void onShown(Snackbar snackbar) {
+				}
+			});
 			snackbar.show();
+		} else {
+			wdb.setTransactionSuccessful();
+			wdb.endTransaction();
+			statementsAdapter.remove(spStatements.getSelectedItem().toString());
 		}
-		statementsAdapter.remove(spStatements.getSelectedItem().toString());
+	}
+
+	public class UndoListener implements View.OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			deleteStatement = false;
+		}
 	}
 }
