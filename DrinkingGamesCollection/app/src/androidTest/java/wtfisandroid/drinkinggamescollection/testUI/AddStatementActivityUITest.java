@@ -34,10 +34,6 @@ public class AddStatementActivityUITest extends ActivityInstrumentationTestCase2
 		super.tearDown();
 	}
 
-	public void testMenuItems() {
-		solo.clickOnMenuItem(resources.getString((R.string.back)));
-	}
-
 	public void testAddingStatement() {
 		Spinner category = (Spinner) solo.getCurrentActivity().findViewById(R.id.spCategory);
 		Spinner language = (Spinner) solo.getCurrentActivity().findViewById(R.id.spLanguage);
