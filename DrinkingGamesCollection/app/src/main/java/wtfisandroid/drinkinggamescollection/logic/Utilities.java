@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -154,7 +153,7 @@ public class Utilities {
 		return new String(Character.toChars(unicode));
 	}
 
-	public static String streamToString(InputStream in) {
+	public String streamToString(InputStream in) {
 		if ( in == null )
 			return "";
 
@@ -172,8 +171,73 @@ public class Utilities {
 		return writer.toString();
 	}
 
-	public void generatePyramidManual(WebView webView) {
+	public void drink() {
+		if ( sharedPref.getBoolean(Utilities.VIBRATE_PREFERENCE_KEY, false) ) {
+			vib.vibrate(1000);
+		}
+		String toastText = getEmojiByUnicode(0x1F37A) + resources.getString(R.string.pyramid_drink_message) + getEmojiByUnicode(0x1F37B);
+		Toast drinkToast = Toast.makeText(context, toastText, Toast.LENGTH_SHORT);
+		drinkToast.setGravity(Gravity.CENTER, 0, 0);
+		drinkToast.show();
+		ViewGroup group = (ViewGroup) drinkToast.getView();
+		TextView messageTextView = (TextView) group.getChildAt(0);
+		messageTextView.setTextSize(30);
+	}
 
+	public String getFileContents(InputStream inputStream) {
+
+		final StringBuilder stringBuilder = new StringBuilder();
+		try {
+			final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+			boolean done = false;
+
+			while ( !done ) {
+				final String line = reader.readLine();
+				done = (line == null);
+
+				if ( line != null ) {
+					stringBuilder.append(line);
+				}
+			}
+
+			reader.close();
+			inputStream.close();
+		} catch ( IOException e ) {
+			e.printStackTrace();
+		}
+
+		return stringBuilder.toString();
+	}
+
+	public void generateIHaveNeverEverManual(WebView webView) {
+		webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+		webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+		if ( Build.VERSION.SDK_INT >= 19 ) {
+			// chromium, enable hardware acceleration
+			webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+		} else {
+			// older android version, disable hardware acceleration
+			webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+		}
+		AssetManager asset = context.getAssets();
+		Resources resources = context.getResources();
+		try {
+			Utilities util = new Utilities(context);
+			InputStream is = asset.open("www/manual_i_have_never_ever.html", AssetManager.ACCESS_BUFFER);
+			String html = util.streamToString(is);
+
+			html = html.replace("$GAME_PLAY_HEADER", resources.getString(R.string.pyramid_manual_general_info_header));
+			html = html.replace("$GAME_PLAY__TEXT", resources.getString(R.string.never_ever_text));
+			webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+			is.close();
+		} catch ( IOException e ) {
+			e.printStackTrace();
+		}
+	}
+
+
+	public void generatePyramidManual(WebView webView) {
 		webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
 		webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 		if ( Build.VERSION.SDK_INT >= 19 ) {
@@ -211,46 +275,5 @@ public class Utilities {
 		} catch ( IOException e ) {
 			e.printStackTrace();
 		}
-	}
-
-	public void drink() {
-		if ( sharedPref.getBoolean(Utilities.VIBRATE_PREFERENCE_KEY, false) ) {
-			vib.vibrate(1000);
-		}
-		String toastText = getEmojiByUnicode(0x1F37A) + resources.getString(R.string.pyramid_drink_message) + getEmojiByUnicode(0x1F37B);
-		Toast drinkToast = Toast.makeText(context, toastText, Toast.LENGTH_SHORT);
-		drinkToast.setGravity(Gravity.CENTER, 0, 0);
-		drinkToast.show();
-		ViewGroup group = (ViewGroup) drinkToast.getView();
-		TextView messageTextView = (TextView) group.getChildAt(0);
-		messageTextView.setTextSize(30);
-	}
-
-	public String getFileContents(InputStream inputStream) {
-
-		final StringBuilder stringBuilder = new StringBuilder();
-		try {
-			final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-			boolean done = false;
-
-			while ( !done ) {
-				final String line = reader.readLine();
-				done = (line == null);
-
-				if ( line != null ) {
-					stringBuilder.append(line);
-				}
-			}
-
-			reader.close();
-			inputStream.close();
-		} catch ( FileNotFoundException e ) {
-			e.printStackTrace();
-		} catch ( IOException e ) {
-			e.printStackTrace();
-		}
-
-		return stringBuilder.toString();
 	}
 }

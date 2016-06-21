@@ -5,10 +5,10 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ContentFrameLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +18,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class IHaveNeverEverActivity extends AppCompatActivity implements ShakeDe
 	private int lastIndex = -1;
 	private long back_pressed;
 	private Toolbar toolbar;
+	private boolean backToPyramid;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +131,13 @@ public class IHaveNeverEverActivity extends AppCompatActivity implements ShakeDe
 			case R.id.new_game:
 				recreate();
 				break;
+			case R.id.help:
+				ContentFrameLayout rootLayout = (ContentFrameLayout)findViewById(android.R.id.content);
+				View.inflate(this, R.layout.manual, rootLayout);
+				backToPyramid = true;
+				WebView webView = (WebView) findViewById(R.id.wv_manual);
+				utilities.generateIHaveNeverEverManual(webView);
+				break;
 			case R.id.back:
 				finish();
 				break;
@@ -140,10 +149,13 @@ public class IHaveNeverEverActivity extends AppCompatActivity implements ShakeDe
 
 	@Override
 	public void onBackPressed() {
-		if ( back_pressed + 2000 > System.currentTimeMillis() ) {
-			if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
-				utilities.playSound(1, AudioManager.FX_KEYPRESS_RETURN);
-			}
+		if ( backToPyramid) {
+			ContentFrameLayout rootLayout = (ContentFrameLayout)findViewById(android.R.id.content);
+			if ( rootLayout != null )
+				rootLayout.removeView(findViewById(R.id.wv_manual));
+
+			backToPyramid = false;
+		} else if ( back_pressed + 2000 > System.currentTimeMillis()) {
 			finish();
 		} else {
 			Toast.makeText(getBaseContext(), getString(R.string.close_message), Toast.LENGTH_SHORT).show();

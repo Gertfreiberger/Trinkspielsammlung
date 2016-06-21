@@ -40,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final String KEY_STATEMENT = "statement";
 	public static final String KEY_CATEGORY = "category";
 	public static final String QUERY_ALL_LANGUAGES = "SELECT * FROM LANGUAGES;";
-	public static final String QUERY_ALL_CATEGORIES = "SELECT * FROM CATEGORIES;";
+	public static final String QUERY_ALL_CATEGORIES = "SELECT * FROM `categories` ORDER BY `categories`.`catergorieName`  DESC";
 	public static final String KEY_LANGUAGE = "language";
 
 
@@ -125,14 +125,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_LANGUAGE, statement.getLanguage());
 
 		long k = db.insert(TABLE_STATEMENTS, null, values);
-		Log.d(TAG, "getAllStatements() long = " + k + " with: " + "getAllStatements = [" + getAllStatements("Select  * from statements") + "]");
 		db.close();
 	}
 
-	public void deleteStatement(String statement) {
-		SQLiteDatabase db = this.getWritableDatabase();
+	public void deleteStatement(String statement, SQLiteDatabase db) {
 		db.delete(TABLE_STATEMENTS, KEY_STATEMENT + " = ?", new String[]{ statement });
-		db.close();
 	}
 
 	public int getStatementsCount(String language) {

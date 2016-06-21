@@ -18,7 +18,6 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -157,7 +156,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
 			String settings = getArguments().getString("settings");
 			if ( settings != null && settings.equalsIgnoreCase("general") ) {
-				Log.d(TAG, "showGeneralSettings()showGeneralSettings: " + "");
 				showGeneralSettings();
 			} else if ( settings != null && settings.equalsIgnoreCase("pyramid") ) {
 				showPyramidSettings();
@@ -229,6 +227,14 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 				player_name.setText(playerName);
 				player_name.setSummary(playerName);
 				category.addPreference(player_name);
+				player_name.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+					@Override
+					public boolean onPreferenceChange(Preference preference, Object newVal) {
+						preference.setSummary(newVal.toString());
+						return true;
+					}
+
+				});
 			}
 
 			final EditTextPreference playerCount = (EditTextPreference) findPreference(Utilities.PYRAMID_PLAYER_COUNT_PREFERENCE_KEY);

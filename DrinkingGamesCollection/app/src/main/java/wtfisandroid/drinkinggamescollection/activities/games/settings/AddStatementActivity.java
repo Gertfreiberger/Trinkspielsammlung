@@ -50,15 +50,13 @@ public class AddStatementActivity extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 		toolbar.setLogo(R.drawable.ic_logo);
 
+		if ( getSupportActionBar() != null ) {
+			getSupportActionBar().setDisplayShowTitleEnabled(false);
+		}
 
 		spCategory = (Spinner) findViewById(R.id.spCategory);
 		spLanguage = (Spinner) findViewById(R.id.spLanguage);
 		etStatement = (EditText) findViewById(R.id.etStatement);
-
-
-		if ( getSupportActionBar() != null ) {
-			getSupportActionBar().setDisplayShowTitleEnabled(false);
-		}
 
 		db = new DatabaseHandler(getApplicationContext());
 		List<String> cats = db.getAllCategories();

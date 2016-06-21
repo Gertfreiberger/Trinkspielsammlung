@@ -6,17 +6,22 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.drawable.StateListDrawable;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ContentFrameLayout;
 import android.transition.Slide;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,14 +38,13 @@ public class PyramidFinalRound extends AppCompatActivity {//TODO Add Options men
 	private static final String TAG = "PyramidFinalRound";
 	private SharedPreferences sharedPref;
 	private Utilities utilities;
-	private Vibrator vib;
 	private Resources resources;
 	private ImageView firstChoice;
 	private ImageView secondChoice;
 	private Gamecard gameCard = new Gamecard();
 	private Gamecard randomCard;
 	private HashMap<Integer, Gamecard> gameDeck;
-	private HashMap<Integer, ImageView> cardViews = new HashMap<Integer, ImageView>();
+	private HashMap<Integer, ImageView> cardViews = new HashMap<>();
 	private int index = 0;
 	private int deckIndex = 0;
 	private int height;
@@ -53,6 +57,8 @@ public class PyramidFinalRound extends AppCompatActivity {//TODO Add Options men
 	private TextView currentPlayer;
 	private ArrayList<String> players = new ArrayList<String>();
 	private int countPlayers = 0;
+	private boolean backToPyramid = false;
+	private long back_pressed;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +77,13 @@ public class PyramidFinalRound extends AppCompatActivity {//TODO Add Options men
 		firstChoice = (ImageView) findViewById(R.id.ibPyramidFinalHigherButton);
 		secondChoice = (ImageView) findViewById(R.id.ibPyramidFinalLowerButton);
 
+		StateListDrawable firstChoiceState = new StateListDrawable();
+		StateListDrawable secondChoiceState = new StateListDrawable();
+		firstChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_higher_pressed, null));
+		firstChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_higher, null));
+		secondChoiceState.addState(new int[]{ android.R.attr.state_pressed }, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_lower_pressed, null));
+		secondChoiceState.addState(new int[]{}, ResourcesCompat.getDrawable(getResources(), R.drawable.ic_lower, null));
+
 		resources = getResources();
 		gameCard.generatePyramidGameDeck();
 		gameDeck = Gamecard.getAllCards();
@@ -82,7 +95,7 @@ public class PyramidFinalRound extends AppCompatActivity {//TODO Add Options men
 
 	private void win() {
 		if ( sharedPref.getBoolean(Utilities.VIBRATE_PREFERENCE_KEY, false) ) {
-			vib = (Vibrator) PyramidFinalRound.this.getSystemService(Context.VIBRATOR_SERVICE);
+			Vibrator vib = (Vibrator) PyramidFinalRound.this.getSystemService(Context.VIBRATOR_SERVICE);
 			vib.vibrate(1000);
 		}
 		String toastText = utilities.getEmojiByUnicode(0x1F37A) + "WIN" + utilities.getEmojiByUnicode(0x1F37B);
@@ -92,6 +105,56 @@ public class PyramidFinalRound extends AppCompatActivity {//TODO Add Options men
 		ViewGroup group = (ViewGroup) drinkToast.getView();
 		TextView messageTextView = (TextView) group.getChildAt(0);
 		messageTextView.setTextSize(40);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) ) {
+			utilities.playSound(1);
+		}
+		switch ( item.getItemId() ) {
+			case R.id.new_game:
+				if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ) {
+					ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PyramidFinalRound.this);
+					Intent intent = new Intent(PyramidFinalRound.this, PyramidActivity.class);
+					startActivity(intent, options.toBundle());
+				} else
+					startActivity(new Intent(getApplicationContext(), PyramidActivity.class));
+				finish();
+				break;
+			case R.id.help:
+				ContentFrameLayout rootLayout = (ContentFrameLayout) findViewById(android.R.id.content);
+				View.inflate(this, R.layout.manual, rootLayout);
+				backToPyramid = true;
+				WebView webView = (WebView) findViewById(R.id.wv_manual);
+				utilities.generatePyramidManual(webView);
+				break;
+			case R.id.back:
+				finish();
+				break;
+			default:
+				break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onBackPressed() {
+		if ( sharedPref.getBoolean(Utilities.SOUND_PREFERENCE_KEY, false) )
+			utilities.playSound(1, AudioManager.FX_KEYPRESS_RETURN);
+
+		if ( backToPyramid ) {
+			ContentFrameLayout rootLayout = (ContentFrameLayout) findViewById(android.R.id.content);
+			if ( rootLayout != null )
+				rootLayout.removeView(findViewById(R.id.wv_manual));
+
+			backToPyramid = false;
+		} else if ( back_pressed + 2000 > System.currentTimeMillis() ) {
+			finish();
+		} else {
+			Toast.makeText(getBaseContext(), getString(R.string.close_message), Toast.LENGTH_SHORT).show();
+			back_pressed = System.currentTimeMillis();
+		}
 	}
 
 	public void onClickLower(View v) {//TODO Add pressed state
@@ -213,21 +276,21 @@ public class PyramidFinalRound extends AppCompatActivity {//TODO Add Options men
 		secondChoice.setClickable(false);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setCancelable(false)
-				.setIcon(ResourcesCompat.getDrawable(resources, R.drawable.ic_logo, null))
-				.setTitle("Final round finished")
-				.setNeutralButton("Go to Main", new DialogInterface.OnClickListener() {
+						.setIcon(ResourcesCompat.getDrawable(resources, R.drawable.ic_logo, null))
+						.setTitle("Final round finished")
+						.setNeutralButton("Go to Main", new DialogInterface.OnClickListener() {
 
-					public void onClick(DialogInterface dialog, int id) {
+							public void onClick(DialogInterface dialog, int id) {
 
-						if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ) {
-							ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PyramidFinalRound.this);
-							Slide slide = new Slide();
-							slide.setDuration(1000);
-							getWindow().setExitTransition(slide);
-						}
-						finish();
-					}
-				});
+								if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP ) {
+									ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PyramidFinalRound.this);
+									Slide slide = new Slide();
+									slide.setDuration(1000);
+									getWindow().setExitTransition(slide);
+								}
+								finish();
+							}
+						});
 
 		AlertDialog dialog = builder.create();
 		dialog.setCanceledOnTouchOutside(false);

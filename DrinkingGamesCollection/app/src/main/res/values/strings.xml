@@ -5,8 +5,8 @@
     <string name="mainmenu_button_polnisches">Polnisches Trinkspiel</string>
     <string name="mainmenu_button_pyramid">Pyramid</string>
     <string name="mainmenu_headline">Drinking Games Collection</string>
-    <string name="title_activity_maexchen_menu">MaexchenMenu</string>
-    <string name="title_activity_polnisches_trinkspiel">PolnischGameMenu</string>
+    <string name="title_activity_maexchen_menu">Maexchen</string>
+    <string name="title_activity_polnisches_trinkspiel">Polnisch Game</string>
     <string name="title_activity_polnisches_trinkspiel_rules">PolnischesGameRules</string>
     <string name="title_activity_polnisch_game">PolnischGame</string>
     <string name="title_activity_pyramid">Pyramid</string>
@@ -50,6 +50,8 @@
     <string-array name="manualTabs">
         <item>I Have Never Ever</item>
         <item>Pyramid</item>
+        <item>Maexchen</item>
+        <item>Polish Drinking Game</item>
     </string-array>
 
     <string-array name="availabeLanguages">
@@ -302,6 +304,7 @@
     <string name="reset_settings">Reset Settings</string>
     <string name="settings_reset_error">Settings reset error</string>
     <string name="settings_reset_success">Settings successfully reseted</string>
+    <string name="undo">Undo</string>
 
 
 </resources>

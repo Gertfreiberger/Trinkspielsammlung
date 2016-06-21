@@ -2,7 +2,6 @@ package wtfisandroid.drinkinggamescollection.activities;
 
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,13 +49,15 @@ public class ManualActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_manual);
 		ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 		TabsPagerAdapter mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-		viewPager.setAdapter(mAdapter);
-		Random rand = new Random();
-		int animation = rand.nextInt(1) + 1;
-		if ( animation == 1 )
-			viewPager.setPageTransformer(true, new DepthPageTransformer());
-		else
-			viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+		if ( viewPager != null ) {
+			viewPager.setAdapter(mAdapter);
+			Random rand = new Random();
+			int animation = rand.nextInt(1) + 1;
+			if ( animation == 1 )
+				viewPager.setPageTransformer(true, new DepthPageTransformer());
+			else
+				viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+		}
 
 		String[] tabs = getResources().getStringArray(R.array.manualTabs);
 		tab_titles = Arrays.asList(tabs);
@@ -92,7 +93,7 @@ public class ManualActivity extends AppCompatActivity {
 
 	public class TabsPagerAdapter extends FragmentPagerAdapter {
 
-		private int NUM_ITEMS = 2;
+		private int NUM_ITEMS = 4;
 
 		public TabsPagerAdapter(FragmentManager fragmentManager) {
 			super(fragmentManager);
@@ -111,14 +112,17 @@ public class ManualActivity extends AppCompatActivity {
 		public Fragment getItem(int position) {
 			Fragment fragment = null;
 			switch ( position ) {
-				/*case 0:
-					fragment = new GeneralFragment();
-					break;*/
 				case 0:
 					fragment = new IHaveNeverEverFragment();
 					break;
 				case 1:
 					fragment = new PyramidFragment();
+					break;
+				case 2:
+					fragment = new MaexchenFragment();
+					break;
+				case 3:
+					fragment = new PolishGameFragment();
 					break;
 				default:
 					break;
@@ -149,68 +153,14 @@ public class ManualActivity extends AppCompatActivity {
 		}
 	}
 
-	public static class GeneralFragment extends Fragment {
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.manual, container, false);
-			WebView webView = (WebView) rootView.findViewById(R.id.wv_manual);
-			AssetManager asset = getActivity().getAssets();
-			webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-			webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-			if ( Build.VERSION.SDK_INT >= 19 ) {
-				// chromium, enable hardware acceleration
-				webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-			} else {
-				// older android version, disable hardware acceleration
-				webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-			}
-			Utilities util = new Utilities(getContext());
-			try {
-
-				InputStream is = asset.open("www/manual_general.html", AssetManager.ACCESS_BUFFER);
-				String html = util.streamToString(is);
-//TODO write General manual
-				webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
-				is.close();
-			} catch ( IOException e ) {
-				e.printStackTrace();
-			}
-			return rootView;
-		}
-	}
-
 	public static class IHaveNeverEverFragment extends Fragment {
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.manual, container, false);
 			WebView webView = (WebView) rootView.findViewById(R.id.wv_manual);
-			AssetManager asset = getActivity().getAssets();
-			webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-			webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-			if ( Build.VERSION.SDK_INT >= 19 ) {
-				// chromium, enable hardware acceleration
-				webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-			} else {
-				// older android version, disable hardware acceleration
-				webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-			}
-			Resources resources = getActivity().getApplicationContext().getResources();
 			Utilities util = new Utilities(getContext());
-			try {
-
-				InputStream is = asset.open("www/manual_i_have_never_ever.html", AssetManager.ACCESS_BUFFER);
-				String html = util.streamToString(is);
-
-				html = html.replace("$GAME_PLAY_HEADER", resources.getString(R.string.pyramid_manual_general_info_header));
-				html = html.replace("$GAME_PLAY__TEXT", resources.getString(R.string.never_ever_text));
-
-				webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
-				is.close();
-			} catch ( IOException e ) {
-				e.printStackTrace();
-			}
+			util.generateIHaveNeverEverManual(webView);
 			return rootView;
 		}
 	}
@@ -221,8 +171,38 @@ public class ManualActivity extends AppCompatActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.manual, container, false);
 			WebView webView = (WebView) rootView.findViewById(R.id.wv_manual);
-			webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+			Utilities util = new Utilities(getContext());
+			util.generatePyramidManual(webView);
+			return rootView;
+		}
+	}
+
+	public static class MaexchenFragment extends Fragment {
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			return inflater.inflate(R.layout.content_maexchen_rules, container, false);
+		}
+	}
+
+	public static class PolishGameFragment extends Fragment {
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			return inflater.inflate(R.layout.content_polnisches_trinkspiel_rules, container, false);
+		}
+	}
+
+	public static class GeneralFragment extends Fragment {
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.manual, container, false);
+			WebView webView = (WebView) rootView.findViewById(R.id.wv_manual);
+			Utilities util = new Utilities(getContext());
+			AssetManager asset = getActivity().getAssets();
 			webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+			webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
 			if ( Build.VERSION.SDK_INT >= 19 ) {
 				// chromium, enable hardware acceleration
 				webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
@@ -230,39 +210,17 @@ public class ManualActivity extends AppCompatActivity {
 				// older android version, disable hardware acceleration
 				webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 			}
-			AssetManager asset = getActivity().getAssets();
-			Resources resources = getActivity().getApplicationContext().getResources();
-			Utilities util = new Utilities(getContext());
 			try {
 
-				InputStream is = asset.open("www/manual_pyramid.html", AssetManager.ACCESS_BUFFER);
+				InputStream is = asset.open("www/manual_general.html", AssetManager.ACCESS_BUFFER);
 				String html = util.streamToString(is);
-
-				html = html.replace("$GENERAL_INFORMATION_HEADER", resources.getString(R.string.pyramid_manual_general_info_header));
-				html = html.replace("$GENERAL_INFORMATION_TEXT", resources.getString(R.string.pyramid_manual_general_info));
-				html = html.replace("$FIRST_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_round_header));
-				html = html.replace("$FIRST_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_round));
-				html = html.replace("$FIRST_FIRST_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_first_round_header));
-				html = html.replace("$FIRST_FIRST_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_first_round));
-				html = html.replace("$FIRST_SECOND_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_second_round_header));
-				html = html.replace("$FIRST_SECOND_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_second_round));
-				html = html.replace("$FIRST_THIRD_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_third_round_header));
-				html = html.replace("$FIRST_THIRD_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_third_round));
-				html = html.replace("$FIRST_FOURTH_ROUND_HEADER", resources.getString(R.string.pyramid_manual_first_fourth_round_header));
-				html = html.replace("$FIRST_FOURTH_ROUND_TEXT", resources.getString(R.string.pyramid_manual_first_fourth_round));
-				html = html.replace("$SECOND_ROUND_HEADER", resources.getString(R.string.pyramid_manual_second_round_header));
-				html = html.replace("$SECOND_ROUND_TEXT", resources.getString(R.string.pyramid_manual_second_round));
-				html = html.replace("$FINAL_ROUND_HEADER", resources.getString(R.string.pyramid_manual_final_round_header));
-				html = html.replace("$FINAL_ROUND_TEXT", resources.getString(R.string.pyramid_manual_final_round));
+				//TODO write General manual
 				webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
 				is.close();
 			} catch ( IOException e ) {
 				e.printStackTrace();
 			}
-
-
 			return rootView;
 		}
 	}
-
 }
